@@ -12,6 +12,7 @@ const userSlice = createSlice({
     reducers:{
         getOtp : async(state,action)=>{
             try{
+                console.log(action.payload);
                 var result = await axios.post(REQUESTED_URL+'/getotp',action.payload);
                 console.log("Result 1 :" ,result);
             }catch(error){
@@ -23,7 +24,7 @@ const userSlice = createSlice({
                 var result  = await axios.post(REQUESTED_URL+'/register', action.payload);
                 console.log("Result 2 :" ,result);
             }catch(error){
-                console.log("Error kin register userSlice : ",error);
+                console.log("Error in register userSlice : ",error);
             }
         }
     }
