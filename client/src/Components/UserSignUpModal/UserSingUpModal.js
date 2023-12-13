@@ -1,14 +1,37 @@
-import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import leafwallpaper from "../../Images/leaves_Image.jpeg";
+import { useState } from "react";
+import {useDispatch} from "react-redux";
+import { getOtp } from "../../store/userSlice.js";
 
 import "./singUpmodal.css"
+
 function UserSingUpModal() {
+  const [userData,setUserData] = useState({});
+  const [otp, setOtp] = useState();
   const [lgShow, setLgShow] = useState(false);
-  function getOtp() {
-    console.log("Hello");
+  const dispatch = useDispatch();
+
+  const getData = (event)=>{
+    const {name,value} = event.target;
+    setUserData({
+      ...userData,
+      [name] : value
+    });
+  }
+
+  const handleGetOtp = ()=>{
+    dispatch(getOtp(userData));
     document.getElementById("otpvarifyform").style.display = "block";
   }
+
+  const handleSubmit = (event)=>{
+    event.preventDefault();
+    dispatch(register({otp}));
+  }
+
+
+
   return (
     <>
       <p onClick={() => setLgShow(true)}>
@@ -36,7 +59,7 @@ function UserSingUpModal() {
                     Email
                   </label>
                   <div className="has-validation">
-                    <input placeholder="Emter Enail Address" type="email" className="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required />
+                    <input placeholder="Emter Enail Address" name="email" onChange={getData} type="email" className="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required />
                     <div className="invalid-feedback">
                       Please choose a username.
                     </div>
@@ -46,7 +69,7 @@ function UserSingUpModal() {
                   <label for="validationCustom03" className="form-label midgreen">
                     password
                   </label>
-                  <input placeholder="Enter Password" type="password" className="form-control" id="validationCustom03" required />
+                  <input placeholder="Enter Password" name="password" onChange={getData} type="password" className="form-control" id="validationCustom03" required />
                   <div className="invalid-feedback">
                     Please provide a valid city.
                   </div>
@@ -54,7 +77,7 @@ function UserSingUpModal() {
 
                 <div className="col-12" id="otpbtncol">
                   <div className="d-grid gap-2">
-                    <button type="button" name="" id="OtpBtn" onClick={getOtp} className="btn btn-success">Get OTP</button>
+                    <button type="button" name="" id="OtpBtn" onClick={handleGetOtp} className="btn btn-success">Get OTP</button>
                   </div>
                 </div>
 
@@ -67,7 +90,7 @@ function UserSingUpModal() {
                   <label for="validationCustom03" className="form-label midgreen">
                     OTP
                   </label>
-                  <input placeholder="Enter OTP" type="number" className="form-control" id="validationCustom03" required />
+                  <input placeholder="Enter OTP" onChange={(event)=>{setOtp(event.target.value)}} type="number" className="form-control" id="validationCustom03" required />
                   <div className="invalid-feedback">
                     Please provide a valid city.
                   </div>
@@ -75,7 +98,7 @@ function UserSingUpModal() {
 
                 <div className="col-12 signupbtn-col">
                   <div className="d-grid gap-2">
-                    <button type="button" name="" id="Signupbtn" className="btn btn-success">Sign Up</button>
+                    <button type="button" name="" onClick={handleSubmit} id="Signupbtn" className="btn btn-success">Sign Up</button>
                   </div>
                 </div>
               </form>
