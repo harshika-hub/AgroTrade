@@ -3,6 +3,7 @@ import cors from 'cors';
 import connectDB from "./config/dbconfig.js";
 import dotenv from 'dotenv';
 import expresssession from 'express-session';
+import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRouter.js";
 import indexRouter from "./routes/indexRouter.js";
 
@@ -11,8 +12,9 @@ const app = express();
 const PORT = process.env.PORT;
 app.use(cors());
 app.use(express.json());
+app.use(expresssession({secret:"sessionsecret",saveUninitialized:true,resave:true,cookie:{secure:false}}))
 app.use(express.urlencoded({extended:true}));
-app.use(expresssession({secret:"mysecretkey",resave:true,saveUninitialized:true}))
+app.use(cookieParser());//problem
 
 
 app.use('/',indexRouter)

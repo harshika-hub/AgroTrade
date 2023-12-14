@@ -10,24 +10,15 @@ const userSlice = createSlice({
     name : 'userSlice',
     initialState,
     reducers:{
-        getOtp : async (state,action)=>{  
-            try{
-                console.log(action.payload);
-                // var result = await axios.post('http://localhost:3000/user/getotp',action.payload); 
-                var result = await axios.post(REQUESTED_URL+"/getotp",action.payload); 
-                console.log("recruiterSlice : ",result);
-            }catch(err){
-                console.log("error in recruiterSlice : ",err);
-            }
-        },
         register : async(state,action)=>{
             try{
-                var result  = await axios.post('http://localhost:3000/user/getotp', action.payload);
+                var result  = await axios.post(REQUESTED_URL+'/userRegistration', action.payload);
                 console.log("Result 2 :" ,result);
             }catch(error){
                 console.log("Error in register userSlice : ",error);
             }
         }
+
     }
 });
 

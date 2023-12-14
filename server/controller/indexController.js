@@ -1,7 +1,10 @@
-// import { request } from 'http';
-// import users from '../models/userModel.js';
+import users from '../models/userModel.js';
 import { request,response } from 'express';
 import { sendMail } from '../middleware/nodeMailer.js';
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+
+dotenv.config();
 
 export const indexGetOtpController = (request,response)=>{
     console.log(request.body);
@@ -20,8 +23,53 @@ export const indexGetOtpController = (request,response)=>{
         request.session.password = request.body.password;
         request.session.otp = otp;
         request.session.save();
+        console.log(request.session);
         console.log("Email Sended Successfully. Otp : ",otp);
     }catch(error){
         console.error("Error while sending Email : ",error);
+    }
+}
+
+export const indexUserRegistrationController = async(request,response)=>{
+    console.log(request.body);
+    console.log(request.session);
+    if(request.session.otp==request.body.otp){
+        try{
+            const existingUser = await users.findOne({email:request.session.email});
+            if(existingUser){
+                console.log("User Allready Exist.");
+                response.json({status:"exist"});
+            }
+            else{
+                let payload = {};
+                const MAX_AGE = 6 * 24 * 60 * 60 * 1000;
+                const SECRET_KEY = process.env.JWT_SECRET_KEY;
+                payload.data = {
+                    email : request.session.email,
+                    role : process.env.USER_ROLE
+                }
+
+                const EXPIRY_TIME = {
+                    expiresIn : '6d'
+                }
+                var token = jwt.sign(payload,SECRET_KEY,EXPIRY_TIME);
+                response.cookie('jwt',token,{httpOnly:true,maxAge:MAX_AGE});
+                console.log("JWT cookie saved successfully.");
+
+                var newUser = await users.create({
+                    email : request.session.email,
+                    passsword : request.session.password
+                });
+
+                console.log(newUser);
+                console.log("User Registered Successfully");
+                response.json({status:"success"});
+            }
+        }catch(error){
+
+        }
+    }else{
+        console.log("Invalid Otp.");
+        response.json({status:"invalid"});
     }
 }
