@@ -131,7 +131,7 @@ function validatePassword(e) {
     compnypasswordField.classList.add('is-valid');
     compnypasswordField.classList.remove('is-invalid');
     checkFields=true;
-
+    passwrod=true;
     }
   else{
     compnypasswordField.classList.remove('is-valid');
@@ -273,21 +273,21 @@ const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
 function handleSubmit(e){
   e.preventDefault();
-  // console.log(
-  //   "state "+state+"\n"+
-  //   "city "+city+"\n"+
-  //   "image "+image+"\n"+
-  //   "address "+address+"\n"+
-  //   "description "+description+"\n"+
-  //   "orgtype "+orgtype+"\n"+
-  //   "orgname "+orgname+"\n"+
-  //   "regname "+regname+"\n"+
-  //   "ownername "+ownername+"\n"+
-  //   "dealername "+dealername+"\n"+
-  //   "oremai "+oremail+"\n"+
-  //   "dealer_email "+dealer_email+"\n"+
-  //   "passwrod "+passwrod+"\n"+
-  //   "dealer_email "+dealer_email); 
+  console.log(
+    "state "+state+"\n"+
+    "city "+city+"\n"+
+    "image "+image+"\n"+
+    "address "+address+"\n"+
+    "description "+description+"\n"+
+    "orgtype "+orgtype+"\n"+
+    "orgname "+orgname+"\n"+
+    "regname "+regname+"\n"+
+    "ownername "+ownername+"\n"+
+    "dealername "+dealername+"\n"+
+    "oremai "+oremail+"\n"+
+    "dealer_email "+dealer_email+"\n"+
+    "passwrod "+passwrod+"\n"+
+    "dealer_email "+dealer_email); 
   // ---------------hatana mat-----------
 
   if (checkFields && state && city && image && address && description && orgtype && orgname && regname && ownername && dealername && oremail && dealer_email && passwrod) {

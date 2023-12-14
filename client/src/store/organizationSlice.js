@@ -14,14 +14,16 @@ const organisationSlice = createSlice({
             console.log("inside orgRegister",action.payload);
             try {
                  var response = await axios.post(REQUESTED_URL+'/organisationregister',action.payload);
-                //  var response = await axios.post('http://localhost:3000/organisationregister',action.payload);
                  console.log(response);
             } catch (err) {
+                console.log("This is the error");
                 console.log("err", err);
             }
         }
     }
 });
+
+
 
 
 export const {orgRegister} = organisationSlice.actions;
