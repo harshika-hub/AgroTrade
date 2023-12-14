@@ -1,10 +1,10 @@
 // import { request } from 'http';
 // import users from '../models/userModel.js';
-import { request,response } from 'express';
+// import organisations from "../models/organisationModel";
+// import express from 'express';
 import { sendMail } from '../middleware/nodeMailer.js';
 
 export const indexGetOtpController = (request,response)=>{
-    // console.log(response.body);
     var min = 1000; 
     var max = 9999; 
     var otp = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -22,4 +22,11 @@ export const indexGetOtpController = (request,response)=>{
     }catch(error){
         console.error("Error while sending Email : ",error);
     }
+}
+
+export const organisationsSignUpController = async(request,response)=>{
+    console.log("request.body",request.body);
+    var image = request.files['org_image'][0];
+    console.log("image",image);
+
 }

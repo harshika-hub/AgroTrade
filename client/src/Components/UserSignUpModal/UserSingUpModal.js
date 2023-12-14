@@ -2,7 +2,7 @@ import Modal from "react-bootstrap/Modal";
 import leafwallpaper from "../../Images/leaves_Image.jpeg";
 import { useState } from "react";
 import {useDispatch} from "react-redux";
-import { getOtp } from "../../store/userSlice.js";
+import { getOtp,register } from "../../store/userSlice.js";
 
 import "./singUpmodal.css"
 
@@ -27,7 +27,7 @@ function UserSingUpModal() {
 
   const handleSubmit = (event)=>{
     event.preventDefault();
-    dispatch(register({otp}));
+    // dispatch(register({otp}));
   }
 
 
@@ -98,7 +98,6 @@ function UserSingUpModal() {
 
                 <div className="col-12 signupbtn-col">
                   <div className="d-grid gap-2">
-                    <button type="button" name="" onClick={handleSubmit} id="Signupbtn" className="btn btn-success">Sign Up</button>
                   </div>
                 </div>
               </form>
