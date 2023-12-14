@@ -1,5 +1,6 @@
 import './header.css'
 import UserSingUpModal from '../UserSignUpModal/UserSingUpModal';
+import OrgSingUpModal from "../OrgSignupModal/OrgSignupModal";
 
 function Nablinks() {
   return (<>
@@ -40,7 +41,7 @@ function Nablinks() {
             </a>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <li><a className="dropdown-item" href="#"><UserSingUpModal /></a></li>
-              <li><a className="dropdown-item" href="#"><i class="bi bi-people-fill"></i>&nbsp;Orgnisation</a></li>
+              <li><a className="dropdown-item" href="#"><i class="bi bi-people-fill"></i>&nbsp;<OrgSingUpModal /></a></li>
             </ul>
           </div>
         </div>

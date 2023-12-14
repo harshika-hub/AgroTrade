@@ -1,5 +1,5 @@
 import users from '../models/userModel.js';
-import { request,response } from 'express';
+import organizations from "../models/organizationModel.js";
 import { sendMail } from '../middleware/nodeMailer.js';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
@@ -7,7 +7,6 @@ import jwt from 'jsonwebtoken';
 dotenv.config();
 
 export const indexGetOtpController = (request,response)=>{
-    console.log(request.body);
     var min = 1000; 
     var max = 9999; 
     var otp = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -72,4 +71,11 @@ export const indexUserRegistrationController = async(request,response)=>{
         console.log("Invalid Otp.");
         response.json({status:"invalid"});
     }
+}
+
+export const organisationsSignUpController = async(request,response)=>{
+    console.log("request.body",request.body);
+    var image = request.files['org_image'][0];
+    console.log("image",image);
+
 }
