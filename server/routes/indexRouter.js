@@ -6,7 +6,7 @@ var indexRouter = express.Router();
 
 indexRouter.post('/getotp',indexGetOtpController);
 indexRouter.post('/userRegistration',indexUserRegistrationController);
-indexRouter.post('/organisationRegister',upload.single('org_image'));
+indexRouter.post('/organisationregister',upload.single('org_image'),organisationsSignUpController);
 
 
 var indexRouter = express.Router();

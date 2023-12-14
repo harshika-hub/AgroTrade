@@ -12,7 +12,7 @@ const userSlice = createSlice({
     reducers:{
         register : async(state,action)=>{
             try{
-                var result  = await axios.post(REQUESTED_URL+'/userRegistration', action.payload);
+                var result  = await axios.post(REQUESTED_URL+"/userRegistration", action.payload);
                 console.log("Result 2 :" ,result);
             }catch(error){
                 console.log("Error in register userSlice : ",error);

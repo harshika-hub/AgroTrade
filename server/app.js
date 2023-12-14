@@ -3,7 +3,6 @@ import cors from 'cors';
 import expresssession from 'express-session';
 import connectDB from "./config/dbconfig.js";
 import dotenv from 'dotenv';
-import expresssession from 'express-session';
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRouter.js";
 import indexRouter from "./routes/indexRouter.js";
@@ -17,11 +16,11 @@ app.use(expresssession({secret:"sessionsecret",saveUninitialized:true,resave:tru
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 
+app.use("/uploads",express.static("uploads"))
 
 app.use('/',indexRouter)
 app.use('/user',userRouter)
 
-app.use("/uploads",express.static("uploads"))
 
 app.listen(PORT, () => {
     console.log(`Server is running on port http://localhost:${PORT}`);

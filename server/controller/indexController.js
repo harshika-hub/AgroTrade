@@ -1,5 +1,5 @@
 import users from '../models/userModel.js';
-import organizations from "../models/organizationModel.js";
+// import organizations from "../models/organizationModel.js";
 import { sendMail } from '../middleware/nodeMailer.js';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
