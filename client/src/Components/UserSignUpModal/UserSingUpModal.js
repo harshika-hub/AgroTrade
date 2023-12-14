@@ -3,6 +3,8 @@ import leafwallpaper from "../../Images/leaves_Image.jpeg";
 import { useState } from "react";
 import {useDispatch} from "react-redux";
 import { getOtp } from "../../store/userSlice.js";
+import axios from 'axios';
+import { REQUESTED_URL } from "../../urls.js";
 
 import "./singUpmodal.css"
 
@@ -20,9 +22,18 @@ function UserSingUpModal() {
     });
   }
 
-  const handleGetOtp = ()=>{
+  const handleGetOtp = async()=>{
     dispatch(getOtp(userData));
     document.getElementById("otpvarifyform").style.display = "block";
+    // var result  = await axios.post('http://localhost:3000/user/getotp', userData);
+  //   fetch('http://localhost:3001/getotp', {
+  //     method: 'POST',
+  //     body: JSON.stringify(data),
+  //     headers: {
+  //         'Content-type': 'application/json; charset=UTF-8',
+  //     }
+  // })
+    // console.log(result);
   }
 
   const handleSubmit = (event)=>{
