@@ -12,27 +12,15 @@ const commonSlice = createSlice({
     reducers :{
         getOtp : async (state,action)=>{  
             try{
-                console.log(action.payload);
+                console.log("Pauload inside commonSlice getOtp : ",action.payload);
                 var result = await axios.post(REQUESTED_URL+"/getotp",action.payload); 
-                // var result = await axios.post("localhost:3000/getotp",action.payload); 
-                console.log("Result 1 : ",result);
+                console.log("commonSlice getOtp Result : ",result);
             }catch(error){
-                console.log("error in getOtp userSlice : ",error);
+                console.log("error in getOtp commonSlice : ",error);
             }
         },
     }
 });
 
-export const getOtp = async (user)=>{  
-    try{
-        console.log(user);
-        var result = await axios.post(REQUESTED_URL+"/getotp",user); 
-        // var result = await axios.post("localhost:3000/getotp",action.payload); 
-        console.log("Result 1 : ",result);
-    }catch(error){
-        console.log("error in getOtp userSlice : ",error);
-    }
-}
-
-// export const {getOtp} = commonSlice.actions;
+export const {getOtp} = commonSlice.actions;
 export default commonSlice.reducer;

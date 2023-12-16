@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getOtp } from "../../store/commonSlice.js";
 import { userRegister } from "../../store/userSlice.js";
-import axios from 'axios';
-import { REQUESTED_URL } from "../../urls.js";
+// import axios from 'axios';
+// import { REQUESTED_URL } from "../../urls.js";
 import "./singUpmodal.css"
 
 var userObj = {};
@@ -31,8 +31,8 @@ function UserSingUpModal() {
 
   const handleGetOtp = async () => {
     if (email && password) {
-      // dispatch(getOtp(userData));
-      getOtp(userData);
+      dispatch(getOtp(userData));
+      // getOtp(userData);
       document.getElementById("otpvarifyform").style.display = "block";
     }
   }
