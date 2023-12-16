@@ -5,19 +5,17 @@ const initialState = {
     org_Data: {}
 }
 
-const organisationSlice = createSlice({
+const organizationSlice = createSlice({
     name: 'orgSlice',
     initialState,
     reducers: {
-        
         orgRegister : async (state,action) => {
-            console.log("inside orgRegister",action.payload);
+            console.log("inside orgRegister in orgSlice : ",action.payload);
             try {
-                 var response = await axios.post(REQUESTED_URL+'/organisationregister',action.payload);
-                 console.log(response);
-            } catch (err) {
-                console.log("This is the error");
-                console.log("err", err);
+                 var result = await axios.post(REQUESTED_URL+'/organizationregistration',action.payload);
+                 console.log("Result : ",result);
+            } catch (error) {
+                console.log("Error in orgRegister in orgSlice : ", error);
             }
         }
     }
@@ -26,5 +24,5 @@ const organisationSlice = createSlice({
 
 
 
-export const {orgRegister} = organisationSlice.actions;
-export default organisationSlice.reducer;
+export const {orgRegister} = organizationSlice.actions;
+export default organizationSlice.reducer;

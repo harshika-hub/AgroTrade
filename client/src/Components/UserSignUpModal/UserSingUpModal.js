@@ -1,82 +1,91 @@
 import Modal from "react-bootstrap/Modal";
 import leafwallpaper from "../../Images/leaves_Image.jpeg";
 import { useState } from "react";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { getOtp } from "../../store/commonSlice.js";
-import { register } from "../../store/userSlice.js";
+import { userRegister } from "../../store/userSlice.js";
 import axios from 'axios';
 import { REQUESTED_URL } from "../../urls.js";
 import "./singUpmodal.css"
 
-var userObj={};
-var email=false,password=false;
+var userObj = {};
+var email = false, password = false;
 function UserSingUpModal() {
-  const [userData,setUserData] = useState({});
+  const [userData, setUserData] = useState({});
   const [otp, setOtp] = useState();
   const [lgShow, setLgShow] = useState(false);
   const dispatch = useDispatch();
 
   function resetData() {
-    email=false;
-    password=false;
+    email = false;
+    password = false;
   }
- 
 
-  const handleGetOtp = async()=>{
+  var getData = (event) => {
+    const { name, value } = event.target;
+    setUserData({
+      ...userData,
+      [name]: value
+    });
+  };
+
+  const handleGetOtp = async () => {
     if (email && password) {
-      dispatch(getOtp(userData));
+      // dispatch(getOtp(userData));
+      getOtp(userData);
       document.getElementById("otpvarifyform").style.display = "block";
     }
-   
   }
 
 
 
-  const handleSubmit = (event)=>{
+  const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(register({otp}));
+    dispatch(userRegister({ otp }));
   }
   function validateEmail(e) {
-   const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    getData(e);
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     var EmailField = document.getElementById(e.target.id);
-    if (pattern.test(e.target.value.trim())){
-      const {name,value}=e.target;
-      userObj={...userObj,[name]:value.trim()}
+    if (pattern.test(e.target.value.trim())) {
+      const { name, value } = e.target;
+      userObj = { ...userObj, [name]: value.trim() }
       EmailField.classList.add('is-valid');
       EmailField.classList.remove('is-invalid');
-      email=true;
+      email = true;
     }
-    else{
+    else {
       EmailField.classList.remove('is-valid');
       EmailField.classList.add('is-invalid');
-      email=false;
+      email = false;
     }
 
-    if(e.target.value===""){
+    if (e.target.value === "") {
       EmailField.classList.remove('is-valid');
       EmailField.classList.remove('is-invalid');
-      email=false;
+      email = false;
     }
   }
   function validatePassword(e) {
+    getData(e);
     const pattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     var compnypasswordField = document.getElementById('userSignuppassword');
-    if (pattern.test(e.target.value.trim())){
-      const {name,value}=e.target;
-      userObj={...userObj,[name]:value}
+    if (pattern.test(e.target.value.trim())) {
+      const { name, value } = e.target;
+      userObj = { ...userObj, [name]: value }
       compnypasswordField.classList.add('is-valid');
       compnypasswordField.classList.remove('is-invalid');
-      password=true;
-      }
-    else{
+      password = true;
+    }
+    else {
       compnypasswordField.classList.remove('is-valid');
       compnypasswordField.classList.add('is-invalid');
-      password=true;
+      password = true;
     }
-    if(e.target.value===""){
+    if (e.target.value === "") {
       compnypasswordField.classList.remove('is-valid');
       compnypasswordField.classList.remove('is-invalid');
-      password=false;
+      password = false;
     }
   }
 
@@ -91,7 +100,7 @@ function UserSingUpModal() {
       <Modal
         size="lg"
         show={lgShow}
-        onHide={() =>{ setLgShow(false); resetData()  }}
+        onHide={() => { setLgShow(false); resetData() }}
         aria-labelledby="example-modal-sizes-title-lg"
         backdrop="static"
       >
@@ -147,7 +156,7 @@ function UserSingUpModal() {
                   <label htmlFor="validationCustom03" className="form-label midgreen">
                     OTP
                   </label>
-                  <input placeholder="Enter OTP" onChange={(event)=>{setOtp(event.target.value)}} type="number" className="form-control" id="validationCustom03" required />
+                  <input placeholder="Enter OTP" onChange={(event) => { setOtp(event.target.value) }} type="number" className="form-control" id="validationCustom03" required />
                   <div className="invalid-feedback">
                     Please provide a valid city.
                   </div>
@@ -155,6 +164,7 @@ function UserSingUpModal() {
 
                 <div className="col-12 signupbtn-col">
                   <div className="d-grid gap-2">
+                    <button type="button" name="" id="SignUpBtn" onClick={handleSubmit} className="btn btn-success">Sign Up</button>
                   </div>
                 </div>
               </form>

@@ -73,7 +73,7 @@ export const indexUserRegistrationController = async(request,response)=>{
     }
 }
 
-export const organisationsSignUpController = async(request,response)=>{
+export const indexOrganizationRegistrantionController = async(request,response)=>{
     console.log("request.body",request.body);
     var image = request.files['org_image'][0];
     console.log("image",image);

@@ -10,17 +10,18 @@ const userSlice = createSlice({
     name : 'userSlice',
     initialState,
     reducers:{
-        register : async(state,action)=>{
+        userRegister : async(state,action)=>{
             try{
-                var result  = await axios.post(REQUESTED_URL+"/userRegistration", action.payload);
-                console.log("Result 2 :" ,result);
+                console.log("insede userRegister in userSlice : ",action.payload);
+                var result  = await axios.post(REQUESTED_URL+"/userregistration", action.payload);
+                console.log("Result :" ,result);
             }catch(error){
-                console.log("Error in register userSlice : ",error);
+                console.log("Error in useRregister in userSlice : ",error);
             }
         }
 
     }
 });
 
-export const {getOtp,register} = userSlice.actions;
+export const {userRegister} = userSlice.actions;
 export default userSlice.reducer;

@@ -14,14 +14,25 @@ const commonSlice = createSlice({
             try{
                 console.log(action.payload);
                 var result = await axios.post(REQUESTED_URL+"/getotp",action.payload); 
+                // var result = await axios.post("localhost:3000/getotp",action.payload); 
                 console.log("Result 1 : ",result);
-            }catch(err){
-                console.log("error in getOtp userSlice : ",err);
+            }catch(error){
+                console.log("error in getOtp userSlice : ",error);
             }
         },
     }
 });
 
+export const getOtp = async (user)=>{  
+    try{
+        console.log(user);
+        var result = await axios.post(REQUESTED_URL+"/getotp",user); 
+        // var result = await axios.post("localhost:3000/getotp",action.payload); 
+        console.log("Result 1 : ",result);
+    }catch(error){
+        console.log("error in getOtp userSlice : ",error);
+    }
+}
 
-export const {getOtp} = commonSlice.actions;
+// export const {getOtp} = commonSlice.actions;
 export default commonSlice.reducer;
