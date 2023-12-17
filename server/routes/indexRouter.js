@@ -1,15 +1,14 @@
 import express from 'express';
-import {indexGetOtpController,organisationsSignUpController} from '../controller/indexController.js';
-import { upload } from '../middleware/fileUpload.js';
-
+import { indexOrganizationRegistrantionController,indexGetOtpController,indexUserRegistrationController,indexUserLoginController } from '../controller/indexController.js';
+// import { upload } from '../middleware/fileUpload.js';
 
 var indexRouter = express.Router();
 
-// indexRouter.post('/getotp',indexGetOtpController);
-indexRouter.post('/organisationRegister',upload.single('org_image'));
+indexRouter.post('/getotp',indexGetOtpController);
+indexRouter.post('/userregistration',indexUserRegistrationController);
+// indexRouter.post('/organizationregistration',upload.single('org_image'),indexOrganizationRegistrantionController);
+indexRouter.post('/organizationregistration',indexOrganizationRegistrantionController);
+indexRouter.post('/userLogin',indexUserLoginController);
+
 
 export default indexRouter;
-
-// git add .
-// git commit -m "updated 14/12/23 12:13"
-// git push origin Chirag

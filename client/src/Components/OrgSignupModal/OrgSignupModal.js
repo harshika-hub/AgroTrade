@@ -32,11 +32,11 @@ function OrgSingUpModal() {
               <form
                 className="row g-3 needs-validation"
                 id="dataForm"
-                novalidate
+                noValidate
               >
                 <div className="col-12">
                   <label
-                    for="validationCustomUsername"
+                    htmlFor="validationCustomUsername"
                     className="form-label midgreen"
                   >
                     Email
@@ -57,7 +57,7 @@ function OrgSingUpModal() {
                 </div>
                 <div className="col-12">
                   <label
-                    for="validationCustom03"
+                    htmlFor="validationCustom03"
                     className="form-label midgreen"
                   >
                     password
@@ -98,11 +98,11 @@ function OrgSingUpModal() {
                 className="row g-3 needs-validation mt-1"
                 style={{ display: "none" }}
                 id="otpvarifyform"
-                novalidate
+                noValidate
               >
                 <div className="col-12">
                   <label
-                    for="validationCustom03"
+                    htmlFor="validationCustom03"
                     className="form-label midgreen"
                   >
                     OTP

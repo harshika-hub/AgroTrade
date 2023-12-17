@@ -1,32 +1,138 @@
-// import { request } from 'http';
-// import users from '../models/userModel.js';
-// import organisations from "../models/organisationModel";
-// import express from 'express';
+import users from '../models/userModel.js';
+import organizations from "../models/organizationModel.js";
 import { sendMail } from '../middleware/nodeMailer.js';
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import { request, response } from 'express';
 
-export const indexGetOtpController = (request,response)=>{
-    var min = 1000; 
-    var max = 9999; 
+dotenv.config();
+
+/* Removable after solving session problem */
+var TEMP_SESSION = {};
+/* Removable after solving session problem */
+
+export const indexGetOtpController = async (request, response) => {
+    var min = 1000;
+    var max = 9999;
     var otp = Math.floor(Math.random() * (max - min + 1)) + min;
     var email = request.body.email;
-    var subject =  `Welcome to Agrotrade - Your Ultimate Agriculture Solution!`;
+    var subject = `Welcome to Agrotrade - Your Ultimate Agriculture Solution!`;
     var body = `Thank you for choosing us as your trusted partner for all your Grains and Equipments Need. Our team is dedicated to providing you with a seamless and convenient experience for your Agriculture requirements.
     Your One time Password is ${otp}`;
     var html = '';
-    try{
-        sendMail(email,subject,body,html);
-        request.session.email = email;
-        request.session.password = request.body.password;
-        request.session.otp = otp;
-        console.log("Email Sended Successfully. Otp : ",otp);
-    }catch(error){
-        console.error("Error while sending Email : ",error);
+    try {
+        sendMail(email, subject, body, html);
+        var hashed_password = await bcrypt.hash(request.body.password, 10)
+        // console.log(request.session);
+        // request.session.email = request.body.email;
+        // request.session.password = hashed_password;
+        // request.session.otp = otp;
+        // request.session.save();
+        // console.log(request.session);
+
+        /* Removable after solving session problem */
+        TEMP_SESSION.email = request.body.email;
+        TEMP_SESSION.password = hashed_password;
+        TEMP_SESSION.otp = otp;
+        /* Removable after solving session problem */
+
+        console.log("Email Sended Successfully. Otp : ", otp);
+    } catch (error) {
+        console.error("Error while sending Email : ", error);
     }
 }
 
-export const organisationsSignUpController = async(request,response)=>{
-    console.log("request.body",request.body);
-    var image = request.files['org_image'][0];
-    console.log("image",image);
+export const indexUserRegistrationController = async (request, response) => {
+    console.log(request.body);
+    // var email = request.session.email;
+    // var password = request.session.password;
+    // var real_otp = request.session.otp;
 
+    /* Removable after solving session problem */
+    var email = TEMP_SESSION.email;
+    var password = TEMP_SESSION.password;
+    var real_otp = TEMP_SESSION.otp;
+    /* Removable after solving session problem */
+
+    if (real_otp == request.body.otp) {
+        try {
+            const existingUser = await users.findOne({ email: email });
+            if (existingUser) {
+                console.log("User Allready Exist.");
+                response.json({ status: "exist" });
+            }
+            else {
+                let payload = {};
+                const MAX_AGE = 6 * 24 * 60 * 60 * 1000;
+                const SECRET_KEY = process.env.USER_JWT_SECRET_KEY;
+                payload.data = {
+                    email: email,
+                    role: process.env.USER_ROLE
+                }
+
+                const EXPIRY_TIME = {
+                    expiresIn: '6d'
+                }
+                var token = jwt.sign(payload, SECRET_KEY, EXPIRY_TIME);
+                response.cookie('jwt', token, { httpOnly: true, maxAge: MAX_AGE });
+                console.log("JWT cookie saved successfully.");
+
+                console.log(email, password);
+                var newUser = await users.create({
+                    email,
+                    password
+                });
+                console.log(newUser);
+                console.log("User Registered Successfully");
+                response.json({ status: "success" });
+            }
+        } catch (error) {
+            console.log("Error while user Registration in indexUserRegistrationController : ", error);
+        }
+    } else {
+        console.log("Invalid Otp.");
+        response.json({ status: "invalid" });
+    }
+}
+
+export const indexUserLoginController = async (request, response) => {
+    try {
+        const { email, password } = request.body;
+        const existingUser = await users.findOne({ email: email });
+        if (existingUser == null) {
+            return response.status(202).json({ message: 'Invalid Email Id ' });
+        } else {
+        const hashpassword = await bcrypt.compare(password, existingUser.password);
+            if (hashpassword) {
+                let payload = {};
+                const MAX_AGE = 6 * 24 * 60 * 60 * 1000;
+                const SECRET_KEY = process.env.USER_JWT_SECRET_KEY;
+                payload.data = {
+                    email: email,
+                    role: process.env.USER_ROLE
+                }
+
+                const EXPIRY_TIME = {
+                    expiresIn: '6d'
+                }
+                var token = jwt.sign(payload, SECRET_KEY, EXPIRY_TIME);
+                response.cookie('jwt', token, { httpOnly: true, maxAge: MAX_AGE });
+                console.log("Login Successfully");
+                return response.status(201).json({ message: 'login successfull', token: token });
+            }
+            else {
+                console.log("Entry in else part password match");
+                return response.status(203).json({ message: 'incorrect password' });
+            }
+        }
+    } catch (err) {
+        console.log("technical issue in user login controller catch :", err);
+        return response.status(204).json({ message: 'technical issue' });
+    }
+
+}
+
+export const indexOrganizationRegistrantionController = async (request, response) => {
+    console.log("request.body", request.body);
 }

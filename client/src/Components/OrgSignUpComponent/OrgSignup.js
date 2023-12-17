@@ -1,218 +1,55 @@
-// import "./OrgSignup.css"
-// import factory from "../../Images/factory1.jpeg"
-// function OrgSingupComponent() {
-
-//   const getData = (event)=>{
-//     const {name,value} = event.target;
-//     setUserData({
-//       ...userData,
-//       [name] : value
-//     });
-//   }
-
-//   return (
-//     <>
-//       <div className="container-fluid p-3  " >
-//         <div className="container  bg-white p-0" id="OrgFromBox" >
-//           <div className="row w-100 m-0 g-0 " >
-
-//             <div className="col-12 col-md-12 col-lg-7 m-0 pt-3" >
-//               <h2 className="midgreen text-center wght-600 " >Orgnisation Sign Up</h2>
-//               <form className="" encType="multipart/form-data">
-//                 <div className="row m-0 w-100" >
-
-//                   <div class=" col-12 col-md-6  p-2">
-//                     <label for="validationServer01" class="form-label midgreen">Orgnisation name</label>
-//                     <input name="company_name" type="text" class="form-control form-control-sm" id="validationServer01"  placeholder="Enter orgnisation name"  />
-//                     <div class="valid-feedback">
-//                       Looks good!
-//                     </div>
-//                   </div>
-
-//                   <div class=" col-12 col-md-6  p-2">
-//                     <label for="validationServer01" class="form-label midgreen">Regestration  name</label>
-//                     <input name="reg_name" type="text" class="form-control form-control-sm" id="validationServer01" placeholder="Enter regestration name" zy  />
-//                     <div class="valid-feedback">
-//                       Looks good!
-//                     </div>
-//                   </div>
-
-//                   <div class=" col-12 col-md-6  p-2">
-//                     <label for="validationServer01" class="form-label midgreen">Registration number</label>
-//                     <input name="reg_number" type="number" class="form-control form-control-sm" id="validationServer01" placeholder="Enter registration number" onChange={getData}  />
-//                   </div>
-
-
-//                   <div class=" col-12 col-md-6  p-2">
-//                     <label for="validationServer01" class="form-label midgreen m-0 mt-1">Orgnisation email</label>
-//                     <input name="email" type="email" class="form-control form-control-sm" id="validationServer01" placeholder="Enter orgnisation email" onChange={getData}  />
-//                     <div class="valid-feedback">
-//                       Looks good!
-//                     </div>
-//                   </div>
-
-//                   <div class=" col-12 col-md-6  p-2">
-//                     <label for="validationServer01" class="form-label midgreen m-0 mt-1">Password</label>
-//                     <input name="password" type="password" class="form-control form-control-sm" id="validationServer01" placeholder="Enter Password" onChange={getData}  />
-//                     <div class="valid-feedback">
-//                       Looks good!
-//                     </div>
-//                   </div>
-//                   <div class=" col-12 col-md-6 p-2">
-//                     <label for="validationServer01" class="form-label midgreen m-0 mt-1">Orgnisation Type</label>
-//                     <select name="org_type" className="form-control form-control-sm " onChange={getData}>
-//                       <option value="">Select Orgnisation Type</option>
-//                       <option value="Option 1">Option 1</option>
-//                       <option value="Option 2">Option 2</option>
-//                     </select>
-//                   </div>
-
-//                   <div class=" col-12 col-md-6 p-2">
-//                     <label for="validationServer01" class="form-label midgreen m-0 mt-1">Orgnisation Image </label>
-//                     <input type="file" className="form-control form-control-sm" name="org_image" value="org_image"  onChange={getData}/>
-//                   </div>
-
-//                   <div class=" col-12 col-md-6  p-2">
-//                     <label for="validationServer01" class="form-label midgreen m-0 mt-1">State</label>
-//                     <select name="state" className="form-control form-control-sm " onChange={getData} >
-//                       <option value="">Select State</option>
-//                       <option value="Madhya Pradesh">Madhya Pradesh</option>
-//                       <option value="Uttar Pradesh">Uttar Pradesh</option>
-//                     </select>
-//                   </div>
-
-//                   <div class=" col-12 col-md-6 p-2 ">
-//                     <label for="validationServer01" class="form-label midgreen m-0 mt-1">City</label>
-//                     <select name="city" className="form-control form-control-sm " onChange={getData} >
-//                       <option value="">Select City</option>
-//                       <option value="Indore">Indore</option>
-//                       <option value="Bhopal">Bhopal</option>
-//                     </select>
-//                   </div>
-
-//                   <div class=" col-12 col-md-6 p-2">
-//                     <label for="validationServer01" class="form-label midgreen m-0 mt-1">Zip code</label>
-//                     <input name="zip_code" type="number" onChange={getData} class="form-control form-control-sm" id="validationServer01" placeholder="Enter zip code"  />
-
-//                   </div>
-
-//                   <div class=" col-12 col-md-6  p-2">
-//                     <label for="validationServer01" class="form-label midgreen m-0 mt-1">Address</label>
-//                     <textarea name="address" onChange={getData} className="form-control form-control-sm" rows="3" cols="20"></textarea>
-//                   </div>
-
-//                   <div class=" col-12 col-md-6  p-2">
-//                     <label for="validationServer01" class="form-label midgreen m-0 mt-1">Orgnisation description</label>
-//                     <textarea name="description" onChange={getData} className="form-control form-control-sm " rows="3" cols="20"></textarea>
-//                   </div>
-
-
-
-//                   <div class=" col-12 col-md-6  p-2">
-//                     <label for="validationServer01" class="form-label midgreen m-0 mt-1">Owner name</label>
-//                     <input name="owner_name" type="text" onChange={getData} class="form-control form-control-sm" id="validationServer01" placeholder="Enter owner name"  />
-//                     <div class="valid-feedback">
-//                       Looks good!
-//                     </div>
-//                   </div>
-
-//                   <div class=" col-12 col-md-6  p-2">
-//                     <label for="validationServer01" class="form-label midgreen m-0 mt-1">Dealer name</label>
-//                     <input name="dealer_name" type="text" onChange={getData} class="form-control form-control-sm" id="validationServer01" placeholder="Enter dealer name"  />
-//                     <div class="valid-feedback">
-//                       Looks good!
-//                     </div>
-//                   </div>
-
-//                   <div class=" col-12 col-md-6 p-2">
-//                     <label for="validationServer01" class="form-label midgreen m-0 mt-1 ">Dealer email</label>
-//                     <input name="dealer_email" type="email" onChange={getData} class="form-control form-control-sm" id="validationServer01" placeholder="Enter dealer email"  />
-//                     <div class="valid-feedback">
-//                       Looks good!
-//                     </div>
-//                   </div>
-
-//                   <div class=" col-12 col-md-6 p-2">
-//                     <label for="validationServer01" class="form-label midgreen m-0 mt-1">Dealer contact number</label>
-//                     <input name="dealer_contact" type="number" onChange={getData} class="form-control form-control-sm" id="validationServer01" placeholder="Enter contact number"  />
-//                     <div class="valid-feedback">
-//                       Looks good!
-//                     </div>
-//                   </div>
-
-//                   <div class=" col-12 col-md-6 mt-1  p-1">
-//                     <div class="d-grid gap-2">
-//                       <button type="reset" name="" id="" class="btn btn-danger"> Reset </button>
-//                     </div>
-
-//                   </div>
-
-//                   <div class=" col-12 col-md-6 mt-1 mb-1 p-1">
-//                     <div class="d-grid gap-2">
-//                       <button type="submit" name="" id="" class="btn btn-success" > Register </button>
-//                     </div>
-
-//                   </div>
-//                 </div>
-//               </form>
-//             </div>
-//             <div id="imageColumn" className="col-12 col-lg-5"  >
-//               <img src={factory} alt="" className="w-100 h-100" />
-//             </div>
-
-
-//           </div>
-//         </div>
-//       </div>
-//     </>);
-// }
-
-// export default OrgSingupComponent;
-
 import "./OrgSignup.css"
 import factory from "../../Images/factory1.jpeg"
 import { useState } from "react";
-import { orgRegister } from "../../store/organisationSlice.js";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import { useDispatch } from "react-redux";
+import { orgRegister } from "../../store/organizationSlice.js";
+
+var orgObj = {}
+
+var checkFields = false,
+  state = false,
+  city = false,
+  image = true,
+  address = false,
+  description = false,
+  orgtype = false,
+  orgname = false,
+  regname = false,
+  ownername = false,
+  dealername = false,
+  oremail = false,
+  dealer_email = false,
+  passwrod = false;
+
 function OrgSingupComponent() {
-  const [organisation, setOrganisationData] = useState({});
+  const [organizationData,setOrgData] = useState({});
   const dispatch = useDispatch();
-  const getData = (event) => {
-    const { name, value } = event.target;
-    setOrganisationData({
-      ...organisation,
-      [name]: value
+
+  var getData = (event)=>{
+    const [name,value] = event.target;
+    setOrgData({
+      ...organizationData,
+      [name] : value
+    });
+  };
+
+  var getImageData = (event)=>{
+    const name=  event.target.name;
+    const value = event.target.files[0];
+    setOrgData({
+      ...organizationData,
+      [name] : value
     });
   }
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("inside handleSubmit");
-    dispatch(orgRegister(organisation));
-
-  }
-  var checkFields = false,
-    state = false,
-    city = false,
-    image = false,
-    address = false,
-    description = false,
-    orgtype = false,
-    orgname = false,
-    regname = false,
-    ownername = false,
-    dealername = false,
-    oremail = false,
-    dealer_email = false,
-    passwrod = false;
-
-  var orgObj = {}
 
   function validateName(e) {
     const pattern = /^[a-zA-Z]+(?:\s[a-zA-Z]+)?$/;
     var ownerName = document.getElementById(e.target.id);
     if (pattern.test(e.target.value)) {
       const { name, value } = e.target;
-      orgObj = { ...orgObj, [name]: value }
+      orgObj = { ...orgObj, [name]: value.trim() }
       ownerName.classList.add('is-valid');
       ownerName.classList.remove('is-invalid');
       checkFields = true;
@@ -257,7 +94,7 @@ function OrgSingupComponent() {
     const restrNumber = document.getElementById("restrNumber")
     if (pattern.test(e.target.value)) {
       const { name, value } = e.target;
-      orgObj = { ...orgObj, [name]: value }
+      orgObj = { ...orgObj, [name]: value.trim() }
       restrNumber.classList.add('is-valid');
       restrNumber.classList.remove('is-invalid')
       checkFields = true;
@@ -277,10 +114,9 @@ function OrgSingupComponent() {
   function validateEmail(e) {
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     var EmailField = document.getElementById(e.target.id);
-    if (pattern.test(e.target.value)) {
+    if (pattern.test(e.target.value.trim())) {
       const { name, value } = e.target;
-      orgObj = { ...orgObj, [name]: value }
-      console.log("helllo");
+      orgObj = { ...orgObj, [name]: value.trim() }
       EmailField.classList.add('is-valid');
       EmailField.classList.remove('is-invalid');
       checkFields = true;
@@ -311,13 +147,13 @@ function OrgSingupComponent() {
   function validatePassword(e) {
     const pattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     var compnypasswordField = document.getElementById('compnypasswordField');
-    if (pattern.test(e.target.value)) {
+    if (pattern.test(e.target.value.trim())) {
       const { name, value } = e.target;
       orgObj = { ...orgObj, [name]: value }
       compnypasswordField.classList.add('is-valid');
       compnypasswordField.classList.remove('is-invalid');
       checkFields = true;
-
+      passwrod = true;
     }
     else {
       compnypasswordField.classList.remove('is-valid');
@@ -347,7 +183,7 @@ function OrgSingupComponent() {
     var zipCode = document.getElementById(e.target.id);
     if (pattern.test(e.target.value)) {
       const { name, value } = e.target;
-      orgObj = { ...orgObj, [name]: value }
+      orgObj = { ...orgObj, [name]: value.trim() }
       zipCode.classList.add('is-valid');
       zipCode.classList.remove('is-invalid');
       checkFields = true;
@@ -368,7 +204,7 @@ function OrgSingupComponent() {
     var EmailField = document.getElementById(e.target.id);
     if (pattern.test(e.target.value)) {
       const { name, value } = e.target;
-      orgObj = { ...orgObj, [name]: value }
+      orgObj = { ...orgObj, [name]: value.trim() }
       EmailField.classList.add('is-valid');
       EmailField.classList.remove('is-invalid');
       checkFields = true;
@@ -385,9 +221,8 @@ function OrgSingupComponent() {
     }
   }
   function checkField(e) {
-    console.log(e.target.value);
     const field = document.getElementById(e.target.id)
-    if (e.target.value === "" || e.target.value === "null") {
+    if (e.target.value.trim() === "" || e.target.value === "null") {
       field.classList.add('is-invalid');
       field.classList.remove('is-valid');
       if (e.target.name === "state") {
@@ -413,7 +248,16 @@ function OrgSingupComponent() {
       field.classList.add('is-valid');
       field.classList.remove('is-invalid');
       const { name, value } = e.target;
-      orgObj = { ...orgObj, [name]: value }
+
+      if (e.target.type === "file") {
+        const orgimgImg = e.target.files[0];
+        orgObj = { ...orgObj, [name]: orgimgImg }
+      } else {
+        orgObj = { ...orgObj, [name]: value.trim() }
+      }
+
+
+
       if (e.target.name === "state") {
         state = true;
       }
@@ -440,47 +284,96 @@ function OrgSingupComponent() {
     }
 
 
+
   }
 
-  function handelSubmit(e) {
-    // console.log(
-    //   "state "+state+"\n"+
-    //   "city "+city+"\n"+
-    //   "image "+image+"\n"+
-    //   "address "+address+"\n"+
-    //   "description "+description+"\n"+
-    //   "orgtype "+orgtype+"\n"+
-    //   "orgname "+orgname+"\n"+
-    //   "regname "+regname+"\n"+
-    //   "ownername "+ownername+"\n"+
-    //   "dealername "+dealername+"\n"+
-    //   "oremai "+oremail+"\n"+
-    //   "dealer_email "+dealer_email+"\n"+
-    //   "passwrod "+passwrod+"\n"+
-    //   "dealer_email "+dealer_email);  
-    // ------------------------Htanaa mt----------------------
 
+  // ------------------------Htanaa mt----------------------
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  
+  function handleSubmit(e) {
     e.preventDefault();
+    console.log(
+      "state " + state + "\n" +
+      "city " + city + "\n" +
+      "image " + image + "\n" +
+      "address " + address + "\n" +
+      "description " + description + "\n" +
+      "orgtype " + orgtype + "\n" +
+      "orgname " + orgname + "\n" +
+      "regname " + regname + "\n" +
+      "ownername " + ownername + "\n" +
+      "dealername " + dealername + "\n" +
+      "oremai " + oremail + "\n" +
+      "dealer_email " + dealer_email + "\n" +
+      "passwrod " + passwrod + "\n" +
+      "dealer_email " + dealer_email);
+    // ---------------hatana mat-----------
+
     if (checkFields && state && city && image && address && description && orgtype && orgname && regname && ownername && dealername && oremail && dealer_email && passwrod) {
-      console.log("hiii");
+      handleShow();
+      dispatch(orgRegister(organizationData));
     }
   }
+  const [varifyText, setvarifyText] = useState("Varify")
+  function sendOtp(e) {
+    // checkFields=false
+    // state=false
+    // city=false
+    // image=false
+    // address=false
+    // description=false
+    // orgtype=false
+    // orgname=false
+    // regname=false
+    // ownername=false
+    // dealername=false
+    // oremail=false
+    // dealer_email=false
+    // passwrod=false
+    // document.getElementById("orgForm").reset();
+
+    // const formData = new FormData();
+    // for (const key in orgObj) {
+    //   if (orgObj[key]) {
+    //     formData.append(key, orgObj[key]);
+    //   }
+    // }
 
 
+    const elements = document.querySelectorAll(`.${"is-valid"}`);
+    elements.forEach(element => {
+      element.classList.remove("is-valid");
+    });
+    document.getElementById("spinner").classList.remove('d-none');
+    setvarifyText("varifying")
+
+    setTimeout(() => {
+      setvarifyText("varfified")
+      handleClose()
+      setvarifyText("varify");
+      // console.log(formData);
+    }, 3000)
+    // orgRegister(orgObj);
+    console.log(orgObj);
+
+  }
   return (
     <>
       <div className="container-fluid p-3  " >
         <div className="container  bg-white p-0" id="OrgFromBox" >
-          <div className="row w-100 m-0 g-0 " >
-
+          <div className="row w-100 m-0 g-0 ">
             <div className="col-12 col-md-12 col-lg-7 m-0 pt-3" >
               <h2 className="midgreen text-center">Orgnisation Sign Up</h2>
-              <form className="" onSubmit={handleSubmit} encType="multipart/form-data">
+              <form id="orgForm" onSubmit={handleSubmit} encType="multipart/form-data">
                 <div className="row m-0 w-100" >
 
                   <div className=" col-12 col-md-6  p-2">
-                    <label for="validationServer01" className="form-label midgreen">Orgnisation name</label>
-                    <input name="company_name" type="text" className="form-control form-control-sm" onChange={getData} id="nameField" placeholder="Enter orgnisation name" />
+                    <label htmlFor="validationServer01" className="form-label midgreen">Orgnisation name</label>
+                    <input name="company_name" type="text" className="form-control form-control-sm" onChange={(e)=>{validateName();getData(e);}} id="nameField" placeholder="Enter orgnisation name" required />
                     <div className="valid-feedback">
                       Looks good!!
                     </div>
@@ -490,8 +383,8 @@ function OrgSingupComponent() {
                   </div>
 
                   <div className=" col-12 col-md-6  p-2">
-                    <label for="validationServer01" className="form-label midgreen">Regestration  name</label>
-                    <input name="reg_name" type="text" className="form-control form-control-sm" id="regestrName" onChange={getData} placeholder="Enter regestration name" />
+                    <label htmlFor="validationServer01" className="form-label midgreen">Regestration  name</label>
+                    <input name="reg_name" type="text" className="form-control form-control-sm" id="regestrName" onChange={validateName} placeholder="Enter regestration name" required />
                     <div className="valid-feedback">
                       Correct regestration name!!
                     </div>
@@ -501,8 +394,8 @@ function OrgSingupComponent() {
                   </div>
 
                   <div className=" col-12 col-md-6  p-2">
-                    <label for="validationServer01" className="form-label midgreen">Registration number</label>
-                    <input name="reg_number" type="text" className="form-control form-control-sm" id="restrNumber" onChange={getData} placeholder="Enter registration number" />
+                    <label htmlFor="validationServer01" className="form-label midgreen">Registration number</label>
+                    <input name="reg_number" type="text" className="form-control form-control-sm" id="restrNumber" onChange={validateRegnum} placeholder="Enter registration number" required />
                     <div className="valid-feedback">
                       Correct regestration number!!
                     </div>
@@ -513,8 +406,8 @@ function OrgSingupComponent() {
 
 
                   <div className=" col-12 col-md-6  p-2">
-                    <label for="validationServer01" className="form-label midgreen m-0 mt-1">Orgnisation email</label>
-                    <input name="email" type="email" className="form-control form-control-sm" id="compnyEmailField" onChange={getData} placeholder="Enter orgnisation email" />
+                    <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1">Orgnisation email</label>
+                    <input name="email" type="email" className="form-control form-control-sm" id="compnyEmailField" onChange={validateEmail} placeholder="Enter orgnisation email" required />
                     <div className="valid-feedback">
                       Correct email!!
                     </div>
@@ -524,8 +417,8 @@ function OrgSingupComponent() {
                   </div>
 
                   <div className=" col-12 col-md-6  p-2">
-                    <label for="validationServer01" className="form-label midgreen m-0 mt-1">Password</label>
-                    <input name="password" type="password" className="form-control form-control-sm" id="compnypasswordField" onChange={getData} placeholder="Enter Password" />
+                    <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1">Password</label>
+                    <input name="password" type="password" className="form-control form-control-sm" id="compnypasswordField" onChange={validatePassword} placeholder="Enter Password" required />
                     <div className="valid-feedback">
                       Strong Password!!
                     </div>
@@ -535,8 +428,8 @@ function OrgSingupComponent() {
                   </div>
 
                   <div className=" col-12 col-md-6 p-2">
-                    <label for="validationServer01" className="form-label midgreen m-0 mt-1">Orgnisation Type</label>
-                    <select name="org_type" className="form-control form-control-sm" onChange={getData} id="orgnisationtype" >
+                    <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1">Orgnisation Type</label>
+                    <select name="org_type" className="form-control form-control-sm" onChange={checkField} id="orgnisationtype" >
                       <option value="null">Select Orgnisation Type</option>
                       <option value="Option 1">Option 1</option>
                       <option value="Option 2">Option 2</option>
@@ -550,13 +443,13 @@ function OrgSingupComponent() {
                   </div>
 
                   <div className=" col-12 col-md-6 p-2">
-                    <label for="validationServer01" className="form-label midgreen m-0 mt-1">Orgnisation Image </label>
-                    <input type="file" className="form-control form-control-sm" name="org_image"  onChange={getData} id="image" accept="image/*" />
+                    <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1">Orgnisation Image </label>
+                    <input type="file" className="form-control form-control-sm" name="org_image" onChange={getImageData} id="image" required/>
                   </div>
 
                   <div className=" col-12 col-md-6  p-2">
-                    <label for="validationServer01" className="form-label midgreen m-0 mt-1" >State</label>
-                    <select name="state" className="form-control form-control-sm" onChange={getData} id="state" >
+                    <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1" >State</label>
+                    <select name="state" className="form-control form-control-sm" onChange={checkField} id="state" >
                       <option value="null">Select State</option>
                       <option value="Madhya Pradesh">Madhya Pradesh</option>
                       <option value="Uttar Pradesh">Uttar Pradesh</option>
@@ -570,8 +463,8 @@ function OrgSingupComponent() {
                   </div>
 
                   <div className=" col-12 col-md-6 p-2 ">
-                    <label for="validationServer01" className="form-label midgreen m-0 mt-1"  >City</label>
-                    <select name="city" className="form-control form-control-sm" onChange={getData} id="city" >
+                    <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1"  >City</label>
+                    <select name="city" className="form-control form-control-sm" onChange={checkField} id="city" >
                       <option value="null">Select City</option>
                       <option value="Indore">Indore</option>
                       <option value="Bhopal">Bhopal</option>
@@ -585,8 +478,8 @@ function OrgSingupComponent() {
                   </div>
 
                   <div className=" col-12 col-md-6 p-2">
-                    <label for="validationServer01" className="form-label midgreen m-0 mt-1">Zip code</label>
-                    <input name="zip_code" type="number" className="form-control form-control-sm" id="zipCode" onChange={getData} placeholder="Enter zip code" />
+                    <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1">Zip code</label>
+                    <input name="zip_code" type="number" className="form-control form-control-sm" id="zipCode" onChange={validatezipCode} placeholder="Enter zip code" required />
                     <div className="valid-feedback">
                       Correct zip code!!
                     </div>
@@ -596,8 +489,8 @@ function OrgSingupComponent() {
                   </div>
 
                   <div className=" col-12 col-md-6  p-2">
-                    <label for="validationServer01" className="form-label midgreen m-0 mt-1">Address</label>
-                    <textarea name="address" className="form-control form-control-sm" rows="3" cols="20" onChange={getData} id="address"></textarea>
+                    <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1">Address</label>
+                    <textarea name="address" className="form-control form-control-sm" rows="3" cols="20" onChange={checkField} id="address" required></textarea>
                     <div className="valid-feedback">
                       Correct address!!
                     </div>
@@ -608,8 +501,8 @@ function OrgSingupComponent() {
                   </div>
 
                   <div className=" col-12 col-md-6  p-2">
-                    <label for="validationServer01" className="form-label midgreen m-0 mt-1">Orgnisation description</label>
-                    <textarea name="org_description" className="form-control form-control-sm " rows="3" cols="20" onChange={getData} id="description" ></textarea>
+                    <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1">Orgnisation description</label>
+                    <textarea name="org_description" className="form-control form-control-sm " rows="3" cols="20" onChange={checkField} id="description" required ></textarea>
                     <div className="valid-feedback">
                       Correct description!!
                     </div>
@@ -621,8 +514,8 @@ function OrgSingupComponent() {
 
 
                   <div className=" col-12 col-md-6  p-2">
-                    <label for="validationServer01" className="form-label midgreen m-0 mt-1">Owner name</label>
-                    <input name="owner_name" type="text" className="form-control form-control-sm" id="ownerName" onChange={getData} placeholder="Enter owner name" />
+                    <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1">Owner name</label>
+                    <input name="owner_name" type="text" className="form-control form-control-sm" id="ownerName" onChange={validateName} placeholder="Enter owner name" required />
                     <div className="valid-feedback">
                       Correct owner name!!
                     </div>
@@ -632,8 +525,8 @@ function OrgSingupComponent() {
                   </div>
 
                   <div className=" col-12 col-md-6  p-2">
-                    <label for="validationServer01" className="form-label midgreen m-0 mt-1">Dealer name</label>
-                    <input name="dealer_name" type="text" className="form-control form-control-sm" id="dealerName" onChange={getData} placeholder="Enter dealer name" />
+                    <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1">Dealer name</label>
+                    <input name="dealer_name" type="text" className="form-control form-control-sm" id="dealerName" onChange={validateName} placeholder="Enter dealer name" required />
                     <div className="valid-feedback">
                       Correct dealer name!!
                     </div>
@@ -643,8 +536,8 @@ function OrgSingupComponent() {
                   </div>
 
                   <div className=" col-12 col-md-6 p-2">
-                    <label for="validationServer01" className="form-label midgreen m-0 mt-1 ">Dealer email</label>
-                    <input name="dealer_email" type="email" className="form-control form-control-sm" id="dealerEmail" onChange={getData} placeholder="Enter dealer email" />
+                    <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1 ">Dealer email</label>
+                    <input name="dealer_email" type="email" className="form-control form-control-sm" id="dealerEmail" onChange={validateEmail} placeholder="Enter dealer email" required />
                     <div className="valid-feedback">
                       Correct dealer email!!
                     </div>
@@ -654,8 +547,8 @@ function OrgSingupComponent() {
                   </div>
 
                   <div className=" col-12 col-md-6 p-2">
-                    <label for="validationServer01" className="form-label midgreen m-0 mt-1">Dealer contact number</label>
-                    <input name="dealer_contact" type="number" className="form-control form-control-sm" id="phoneNumber" onChange={getData} placeholder="Enter contact number" />
+                    <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1">Dealer contact number</label>
+                    <input name="dealer_contact" type="number" className="form-control form-control-sm" id="phoneNumber" onChange={validatePhnNumber} placeholder="Enter contact number" required />
                     <div className="valid-feedback">
                       Correct phone number!!
                     </div>
@@ -666,7 +559,12 @@ function OrgSingupComponent() {
 
                   <div className=" col-12 col-md-6 mt-1  p-1">
                     <div className="d-grid gap-2">
-                      <button type="reset" name="" id="" className="btn btn-danger" >
+                      <button
+                        type="reset"
+                        name=""
+                        id=""
+                        className="btn btn-danger"
+                      >
                         Reset
                       </button>
                     </div>
@@ -675,8 +573,13 @@ function OrgSingupComponent() {
 
                   <div className=" col-12 col-md-6 mt-1 mb-1 p-1">
                     <div className="d-grid gap-2">
-                      <button type="submit" name="" id="" className="btn btn-success" >
-                        Register
+                      <button
+                        type="submit"
+                        name=""
+                        id=""
+                        className="btn btn-success"
+                      >
+                        Get OTP
                       </button>
                     </div>
 
@@ -687,12 +590,37 @@ function OrgSingupComponent() {
             <div id="imageColumn" className="col-12 col-lg-5"  >
               <img src={factory} alt="" className="w-100 h-100" />
             </div>
-
-
           </div>
         </div>
       </div>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>OTP varification</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>AN OTP is been sent on {orgObj.dealer_email}. Please Check ypur email.</p>
+
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="success" onClick={sendOtp}>
+            <span className="spinner-border spinner-border-sm d-none" id="spinner" role="status" aria-hidden="true"></span>
+            &nbsp; {varifyText}</Button>
+        </Modal.Footer>
+      </Modal>
+
+
+
+
+
     </>);
 }
-
 export default OrgSingupComponent;

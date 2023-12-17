@@ -8,7 +8,7 @@ import Grains from './Components/Grains/Grains';
 import LandsSection from './Components/LandsSection/LandsSection';
 import EquipmentsSection from './Components/EqupimentsSection/EquipmentSection';
 import OrgSingupComponent from './Components/OrgSignUpComponent/OrgSignup'
-
+import Footer from './Components/Footer/Footer';
 function App() {
   return (
     <>
@@ -21,6 +21,7 @@ function App() {
       <LandsSection />
       <EquipmentsSection /> */}
       <OrgSingupComponent/>
+      <Footer/>
 
     </>
   );
