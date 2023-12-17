@@ -89,7 +89,8 @@ function Nablinks() {
                 </li>
                 <li>
                   <a className="dropdown-item" href="#">
-                    <OrgSingUpModal />
+                    <i className="bi bi-people-fill"></i>&nbsp;Orgnisation
+                    {/* <OrgSingUpModal /> */}
                   </a>
                 </li>
               </ul>

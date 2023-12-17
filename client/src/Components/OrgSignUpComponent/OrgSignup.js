@@ -11,7 +11,7 @@ var orgObj = {}
 var checkFields = false,
   state = false,
   city = false,
-  image = false,
+  image = true,
   address = false,
   description = false,
   orgtype = false,
@@ -24,8 +24,25 @@ var checkFields = false,
   passwrod = false;
 
 function OrgSingupComponent() {
-  
+  const [organizationData,setOrgData] = useState({});
   const dispatch = useDispatch();
+
+  var getData = (event)=>{
+    const [name,value] = event.target;
+    setOrgData({
+      ...organizationData,
+      [name] : value
+    });
+  };
+
+  var getImageData = (event)=>{
+    const name=  event.target.name;
+    const value = event.target.files[0];
+    setOrgData({
+      ...organizationData,
+      [name] : value
+    });
+  }
 
   function validateName(e) {
     const pattern = /^[a-zA-Z]+(?:\s[a-zA-Z]+)?$/;
@@ -276,6 +293,7 @@ function OrgSingupComponent() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
   function handleSubmit(e) {
     e.preventDefault();
     console.log(
@@ -297,6 +315,7 @@ function OrgSingupComponent() {
 
     if (checkFields && state && city && image && address && description && orgtype && orgname && regname && ownername && dealername && oremail && dealer_email && passwrod) {
       handleShow();
+      dispatch(orgRegister(organizationData));
     }
   }
   const [varifyText, setvarifyText] = useState("Varify")
@@ -317,12 +336,12 @@ function OrgSingupComponent() {
     // passwrod=false
     // document.getElementById("orgForm").reset();
 
-    const formData = new FormData();
-    for (const key in orgObj) {
-      if (orgObj[key]) {
-        formData.append(key, orgObj[key]);
-      }
-    }
+    // const formData = new FormData();
+    // for (const key in orgObj) {
+    //   if (orgObj[key]) {
+    //     formData.append(key, orgObj[key]);
+    //   }
+    // }
 
 
     const elements = document.querySelectorAll(`.${"is-valid"}`);
@@ -338,7 +357,6 @@ function OrgSingupComponent() {
       setvarifyText("varify");
       // console.log(formData);
     }, 3000)
-    dispatch(orgRegister(orgObj));
     // orgRegister(orgObj);
     console.log(orgObj);
 
@@ -355,7 +373,7 @@ function OrgSingupComponent() {
 
                   <div className=" col-12 col-md-6  p-2">
                     <label htmlFor="validationServer01" className="form-label midgreen">Orgnisation name</label>
-                    <input name="company_name" type="text" className="form-control form-control-sm" onChange={validateName} id="nameField" placeholder="Enter orgnisation name" required />
+                    <input name="company_name" type="text" className="form-control form-control-sm" onChange={(e)=>{validateName();getData(e);}} id="nameField" placeholder="Enter orgnisation name" required />
                     <div className="valid-feedback">
                       Looks good!!
                     </div>
@@ -426,7 +444,7 @@ function OrgSingupComponent() {
 
                   <div className=" col-12 col-md-6 p-2">
                     <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1">Orgnisation Image </label>
-                    <input type="file" className="form-control form-control-sm" name="org_image" onChange={checkField} id="image" />
+                    <input type="file" className="form-control form-control-sm" name="org_image" onChange={getImageData} id="image" required/>
                   </div>
 
                   <div className=" col-12 col-md-6  p-2">

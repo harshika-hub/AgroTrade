@@ -1,12 +1,18 @@
 import users from '../models/userModel.js';
-// import organizations from "../models/organizationModel.js";
+import organizations from "../models/organizationModel.js";
 import { sendMail } from '../middleware/nodeMailer.js';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import {request,response} from 'express';
 
 dotenv.config();
 
-export const indexGetOtpController = (request,response)=>{
+/* Removable after solving session problem */
+    var TEMP_SESSION = {};
+/* Removable after solving session problem */
+
+export const indexGetOtpController = async(request,response)=>{
     var min = 1000; 
     var max = 9999; 
     var otp = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -17,12 +23,20 @@ export const indexGetOtpController = (request,response)=>{
     var html = '';
     try{
         sendMail(email,subject,body,html);
-        console.log(request.session);
-        request.session.email = request.body.email;
-        request.session.password = request.body.password;
-        request.session.otp = otp;
-        request.session.save();
-        console.log(request.session);
+        var hashed_password = await bcrypt.hash(request.body.password,10)  
+        // console.log(request.session);
+        // request.session.email = request.body.email;
+        // request.session.password = hashed_password;
+        // request.session.otp = otp;
+        // request.session.save();
+        // console.log(request.session);
+
+        /* Removable after solving session problem */
+        TEMP_SESSION.email = request.body.email;
+        TEMP_SESSION.password = hashed_password;
+        TEMP_SESSION.otp = otp;
+        /* Removable after solving session problem */
+
         console.log("Email Sended Successfully. Otp : ",otp);
     }catch(error){
         console.error("Error while sending Email : ",error);
@@ -31,10 +45,19 @@ export const indexGetOtpController = (request,response)=>{
 
 export const indexUserRegistrationController = async(request,response)=>{
     console.log(request.body);
-    console.log(request.session);
-    if(request.session.otp==request.body.otp){
+    // var email = request.session.email;
+    // var password = request.session.password;
+    // var real_otp = request.session.otp;
+    
+    /* Removable after solving session problem */
+    var email = TEMP_SESSION.email;
+    var password = TEMP_SESSION.password;
+    var real_otp = TEMP_SESSION.otp;
+    /* Removable after solving session problem */
+    
+    if(real_otp==request.body.otp){
         try{
-            const existingUser = await users.findOne({email:request.session.email});
+            const existingUser = await users.findOne({email:email});
             if(existingUser){
                 console.log("User Allready Exist.");
                 response.json({status:"exist"});
@@ -42,9 +65,9 @@ export const indexUserRegistrationController = async(request,response)=>{
             else{
                 let payload = {};
                 const MAX_AGE = 6 * 24 * 60 * 60 * 1000;
-                const SECRET_KEY = process.env.JWT_SECRET_KEY;
+                const SECRET_KEY = process.env.USER_JWT_SECRET_KEY;
                 payload.data = {
-                    email : request.session.email,
+                    email : email,
                     role : process.env.USER_ROLE
                 }
 
@@ -54,18 +77,18 @@ export const indexUserRegistrationController = async(request,response)=>{
                 var token = jwt.sign(payload,SECRET_KEY,EXPIRY_TIME);
                 response.cookie('jwt',token,{httpOnly:true,maxAge:MAX_AGE});
                 console.log("JWT cookie saved successfully.");
-
+               
+                console.log(email,password);
                 var newUser = await users.create({
-                    email : request.session.email,
-                    passsword : request.session.password
+                    email,
+                    password
                 });
-
                 console.log(newUser);
                 console.log("User Registered Successfully");
                 response.json({status:"success"});
             }
         }catch(error){
-
+            console.log("Error while user Registration in indexUserRegistrationController : ",error);
         }
     }else{
         console.log("Invalid Otp.");
@@ -77,5 +100,4 @@ export const indexOrganizationRegistrantionController = async(request,response)=
     console.log("request.body",request.body);
     // var image = request.files['org_image'][0];
     // console.log("image",image);
-
 }
