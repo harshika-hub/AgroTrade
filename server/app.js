@@ -15,7 +15,7 @@ const PORT = process.env.PORT;
 app.use(cors());
 // app.use(methodOverride("_method"));
 app.use(express.json());
-app.use(expresssession({secret:"sessionsecret",saveUninitialized:true,resave:true,cookie:{secure:false}}))
+app.use(expresssession({secret:"sessionsecret",saveUninitialized:true,resave:true}))
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 
