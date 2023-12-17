@@ -60,7 +60,7 @@ export const indexUserRegistrationController = async(request,response)=>{
             const existingUser = await users.findOne({email:email});
             if(existingUser){
                 console.log("User Allready Exist.");
-                response.json({status:"exist"});
+                response.json({message:"exist"});
             }
             else{
                 let payload = {};
@@ -85,16 +85,56 @@ export const indexUserRegistrationController = async(request,response)=>{
                 });
                 console.log(newUser);
                 console.log("User Registered Successfully");
-                response.json({status:"success"});
+                response.json({message:"success"});
             }
         }catch(error){
             console.log("Error while user Registration in indexUserRegistrationController : ",error);
         }
     }else{
         console.log("Invalid Otp.");
-        response.json({status:"invalid"});
+        response.json({message:"invalid"});
     }
 }
+
+
+export const indexUserLoginController = async (request, response) => {
+    try {
+        const { email, password } = request.body;
+        const existingUser = await users.findOne({ email: email });
+        if (existingUser == null) {
+            return response.status(202).json({ message: 'Invalid Email Id ' });
+        } else {
+            const password_status = await bcrypt.compare(password, existingUser.password);
+            if (password_status) {
+                let payload = {};
+                const MAX_AGE = 6 * 24 * 60 * 60 * 1000;
+                const SECRET_KEY = process.env.USER_JWT_SECRET_KEY;
+                payload.data = {
+                    email: email,
+                    role: process.env.USER_ROLE
+                }
+
+                const EXPIRY_TIME = {
+                    expiresIn: '6d'
+                }
+                var token = jwt.sign(payload, SECRET_KEY, EXPIRY_TIME);
+                response.cookie('jwt', token, { httpOnly: true, maxAge: MAX_AGE });
+                console.log("Login Successfully");
+                
+                return response.status(201).json({ message: 'login successfull'});
+            }
+            else {
+                console.log("Password does'nt match");
+                return response.status(203).json({ message: 'wrong password' });
+            }
+        }
+    } catch (error) {
+        console.log("Error while login in indexUserLoginController :", error);
+        return response.status(204).json({ message: 'technical issue' });
+    }
+}
+
+
 
 export const indexOrganizationRegistrantionController = async(request,response)=>{
     console.log("request.body",request.body);

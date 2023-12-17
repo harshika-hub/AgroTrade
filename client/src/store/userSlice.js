@@ -18,10 +18,19 @@ const userSlice = createSlice({
             }catch(error){
                 console.log("Error in useRregister in userSlice : ",error);
             }
+        },
+        userLogin : async(state,action)=>{
+            try{
+                console.log("inside userLogin in userSlice : ",action.payload);
+                var result  = await axios.post(REQUESTED_URL+"/userLogin", action.payload);
+                console.log("Result :" ,result);
+            }catch(error){
+                console.log("Error in userLogin in userSlice : ",error);
+            }
         }
 
     }
 });
 
-export const {userRegister} = userSlice.actions;
+export const {userRegister,userLogin} = userSlice.actions;
 export default userSlice.reducer;

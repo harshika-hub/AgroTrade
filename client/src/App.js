@@ -12,8 +12,8 @@ import Footer from './Components/Footer/Footer';
 function App() {
   return (
     <>
-      {/* <Header />
-      <HeadSlider />
+      <Header />
+      {/* <HeadSlider />
       <Services />
       <Aboutus />
       <Statistics />
