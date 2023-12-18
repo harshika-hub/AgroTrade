@@ -1,1 +1,0 @@
-<i className="bi bi-people-fill"></i>&nbsp;Orgnisation

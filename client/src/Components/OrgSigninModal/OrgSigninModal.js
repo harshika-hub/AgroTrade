@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import leafwallpaper from "../../Images/factory1.jpeg";
+import leafwallpaper from "../../assets/factory1.jpeg";
 
 import "./orgSigninModal.css";
 var orgObj={}

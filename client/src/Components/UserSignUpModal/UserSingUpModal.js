@@ -1,5 +1,5 @@
 import Modal from "react-bootstrap/Modal";
-import leafwallpaper from "../../Images/leaves_Image.jpeg";
+import leafwallpaper from "../../assets/leaves_Image.jpeg";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getOtp } from "../../store/commonSlice.js";

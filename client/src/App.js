@@ -1,18 +1,18 @@
 // import './App.css';
-import Header from './Components/Header/header';
-import HeadSlider from './Components//HeadSilder/HeadSlider';
-import Services from './Components/ServicesSection/Services';
-import Aboutus from './Components/AboutUs/Aboutus';
-import Statistics from './Components/Statastics/Statistics';
-import Grains from './Components/Grains/Grains';
-import LandsSection from './Components/LandsSection/LandsSection';
-import EquipmentsSection from './Components/EqupimentsSection/EquipmentSection';
-import OrgSingupComponent from './Components/OrgSignUpComponent/OrgSignup'
-import Footer from './Components/Footer/Footer';
-import { ServicesPage } from './Components/ServicesPageComponent/ServicesPage';
+import Header from './Components/Header/header.js';
+import HeadSlider from './Components/HeadSilder/HeadSlider.js';
+import HomeServices from './Components/HomeServicesSection/Services.js';
+import Aboutus from './Components/HomeAboutUsSection/Aboutus.js';
+import Statistics from './Components/HomeStatastics/Statistics.js';
+import Grains from './Components/HomeGrainsSection/Grains.js';
+import LandsSection from './Components/HomeLandsSection/LandsSection.js';
+import EquipmentsSection from './Components/HomeEqupimentsSection/EquipmentSection.js';
+import OrgSingupComponent from './Components/OrgSignUpComponent/OrgSignup.js';
+import Footer from './Components/Footer/Footer.js';
+import Services from './Components/ServicesPage/ServicesPage.js';
+import contactUs from './Components/ContactUsPage/ContactUs.js';
 import {Routes,Route} from 'react-router-dom'
 
-import ContactUsComponent from './Components/ContactusPageComponent/ContactUs.js';
 function App() {
   return (
     <>

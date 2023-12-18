@@ -1,8 +1,8 @@
-import banner1 from "../../Images/Banner1.jpeg"
-import banner2 from "../../Images/Banner2.jpeg"
-import banner3 from "../../Images/Banner3.jpeg"
-import banner5 from "../../Images/banner5.jpeg"
-import banner6 from "../../Images/Banner6.jpeg"
+import banner1 from "../../assets/Banner1.jpeg"
+import banner2 from "../../assets/Banner2.jpeg"
+import banner3 from "../../assets/Banner3.jpeg"
+import banner5 from "../../assets/banner5.jpeg"
+import banner6 from "../../assets/Banner6.jpeg"
 import Carousel from 'react-bootstrap/Carousel';
 
 
