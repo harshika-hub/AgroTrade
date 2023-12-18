@@ -11,9 +11,10 @@ const organizationSlice = createSlice({
     initialState,
     reducers: {
         orgRegister: async (state, action) => {
-            console.log("Payload inside orgRegister in orgSlice : ", action.payload);
+            console.log("Payload inside orgRegister in orgSlice : ", action.payload.org_image);
+            console.log("images ")
             try {
-                var result = await axios.post(REQUESTED_URL + '/organizationregistration', action.payload);
+                var result = await axios.post(REQUESTED_URL + '/organizationregistration',action.payload);
                 console.log("Result : ", result);
             } catch (error) {
                 console.log("Error in orgRegister in orgSlice : ", error);

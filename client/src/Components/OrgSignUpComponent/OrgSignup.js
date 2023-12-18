@@ -318,7 +318,8 @@ function OrgSingupComponent() {
     // document.getElementById("orgForm").reset();
 
     const formData = new FormData();
-    for (const key in orgObj) {
+    
+    for (var key in orgObj) {
       if (orgObj[key]) {
         formData.append(key, orgObj[key]);
       }
@@ -338,7 +339,8 @@ function OrgSingupComponent() {
       setvarifyText("varify");
       // console.log(formData);
     }, 3000)
-    dispatch(orgRegister(orgObj));
+    console.log("form data in client",formData)
+    dispatch(orgRegister(formData));
     // orgRegister(orgObj);
     console.log(orgObj);
 
@@ -598,11 +600,6 @@ function OrgSingupComponent() {
             &nbsp; {varifyText}</Button>
         </Modal.Footer>
       </Modal>
-
-
-
-
-
     </>);
 }
 export default OrgSingupComponent;

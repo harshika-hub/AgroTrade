@@ -11,9 +11,9 @@ return ( <>
          </div>
          <div className="col-12 col-md-6  mt-2">
           <div>
-         <div class="input-group mb-2 bg-white p-1 pe-2">
-           <input type="email" class="form-control form-control-sm m-0" placeholder="Enter email" id="subscribeInput" aria-label="Enter email" aria-describedby="button-addon2"/>
-           <button class="btn btn-success btn-sm m-0 pe-3 ps-3" type="button" id="subscribeBtn">SUBSCRIBE</button>
+         <div className="input-group mb-2 bg-white p-1 pe-2">
+           <input type="email" className="form-control form-control-sm m-0" placeholder="Enter email" id="subscribeInput" aria-label="Enter email" aria-describedby="button-addon2"/>
+           <button className="btn btn-success btn-sm m-0 pe-3 ps-3" type="button" id="subscribeBtn">SUBSCRIBE</button>
          </div>
             <p className="text-white" >Subscribe for new updates and alerts . Let's do it! </p>
           </div>
@@ -29,13 +29,13 @@ return ( <>
                  <p className="text-center  midgreen " >Follow Us on</p>
                    <div className="row m-0 w-100" >
                       <div className="col-4" >
-                         <h4 className="text-center" > <a className="footerLink" href=""><i class="bi bi-facebook"></i></a></h4> 
+                         <h4 className="text-center" > <a className="footerLink" href=""><i className="bi bi-facebook"></i></a></h4> 
                       </div>
                       <div className="col-4" >
-                        <h4 className="text-center" ><a  className="footerLink"href=""><i class="bi bi-instagram"></i></a></h4>
+                        <h4 className="text-center" ><a  className="footerLink"href=""><i className="bi bi-instagram"></i></a></h4>
                       </div>
                       <div className="col-4" >
-                        <h4 className="text-center" ><a className="footerLink" href=""><i class="bi bi-twitter-x"></i></a></h4>
+                        <h4 className="text-center" ><a className="footerLink" href=""><i className="bi bi-twitter-x"></i></a></h4>
                       </div>
                    </div>
                 </div>
@@ -65,9 +65,9 @@ return ( <>
             </div>
             <div className="col-12 col-sm-6  col-md-4  p-3 ps-4 pt-4">
                 <h4 className="  midgreen ">Contact us</h4>
-                 <h6 className="mt-3 "><a className="footerLink" href="/"><i class="bi bi-geo-alt-fill">&nbsp;Wisconsin Ave, Suite 700 Chevy Chase, Maryland 20815</i></a></h6> 
-                 <h6 className="mt-3 text-white"><a className="footerLink" href="/"><i class="bi bi-envelope"></i>&nbsp;agrotrade@gmail.com</a></h6>
-                 <h6 className="mt-3 text-white"><a className="footerLink" href="/"><i class="bi bi-telephone-fill"></i>&nbsp;+91 9977839880</a></h6>
+                 <h6 className="mt-3 "><a className="footerLink" href="/"><i className="bi bi-geo-alt-fill">&nbsp;Wisconsin Ave, Suite 700 Chevy Chase, Maryland 20815</i></a></h6> 
+                 <h6 className="mt-3 text-white"><a className="footerLink" href="/"><i className="bi bi-envelope"></i>&nbsp;agrotrade@gmail.com</a></h6>
+                 <h6 className="mt-3 text-white"><a className="footerLink" href="/"><i className="bi bi-telephone-fill"></i>&nbsp;+91 9977839880</a></h6>
 
             </div>
             
