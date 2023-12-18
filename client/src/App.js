@@ -9,7 +9,9 @@ import LandsSection from './Components/LandsSection/LandsSection';
 import EquipmentsSection from './Components/EqupimentsSection/EquipmentSection';
 import OrgSingupComponent from './Components/OrgSignUpComponent/OrgSignup'
 import Footer from './Components/Footer/Footer';
-import contactUsComponent from './Components/ContactusPageComponent/contactUs';
+import { ServicesPage } from './Components/ServicesPageComponent/ServicesPage';
+
+import ContactUsComponent from './Components/ContactusPageComponent/ContactUs.js';
 function App() {
   return (
     <>
@@ -22,7 +24,8 @@ function App() {
       <LandsSection />
       <EquipmentsSection /> */}
       {/* <OrgSingupComponent/> */}
-      <contactUsComponent/>
+      <ServicesPage/>
+      {/* <ContactUsComponent/> */}
       <Footer/>
 
     </>
