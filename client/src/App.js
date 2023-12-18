@@ -12,7 +12,7 @@ import Footer from './Components/Footer/Footer';
 function App() {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       {/* <HeadSlider />
       <Services />
       <Aboutus />
@@ -20,8 +20,8 @@ function App() {
       <Grains />
       <LandsSection />
       <EquipmentsSection /> */}
-      <OrgSingupComponent/>
-      <Footer/>
+      {/* <OrgSingupComponent/> */}
+      {/* <Footer/> */}
 
     </>
   );
