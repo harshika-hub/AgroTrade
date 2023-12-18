@@ -11,8 +11,7 @@ const organizationSlice = createSlice({
     initialState,
     reducers: {
         orgRegister: async (state, action) => {
-            console.log("Payload inside orgRegister in orgSlice : ", action.payload.org_image);
-            console.log("images ")
+            console.log("Payload inside orgRegister in orgSlice : ", action.payload);
             try {
                 var result = await axios.post(REQUESTED_URL + '/organizationregistration',action.payload);
                 console.log("Result : ", result);

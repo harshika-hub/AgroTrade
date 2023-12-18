@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
 const orgModel = new mongoose.Schema({
-    email:{
+    org_email:{
         type : String,
         required : true,
         unique : true
     },
-    passsword:{
+    password:{
         type : String,
         required : true
     },
@@ -32,7 +32,7 @@ const orgModel = new mongoose.Schema({
     },
     address:{
         type : String,
-        required : true
+        required : false
     },
     city:{
         type : String,
@@ -43,11 +43,11 @@ const orgModel = new mongoose.Schema({
         required : true
     },
     zip_code:{
-        type: Number,
+        type: String,
         required: true,
     },
     reg_number:{
-        type: Number,
+        type: String,
         required: true,
     },
     org_image:{

@@ -10,12 +10,18 @@ import EquipmentsSection from './Components/EqupimentsSection/EquipmentSection';
 import OrgSingupComponent from './Components/OrgSignUpComponent/OrgSignup'
 import Footer from './Components/Footer/Footer';
 import { ServicesPage } from './Components/ServicesPageComponent/ServicesPage';
+import {Routes,Route} from 'react-router-dom'
 
 import ContactUsComponent from './Components/ContactusPageComponent/ContactUs.js';
 function App() {
   return (
     <>
       <Header />
+      {/* <Routes>
+        <Route path="/" element={<ServicesPage/>}>
+
+        </Route>
+      </Routes> */}
       {/* <HeadSlider />
       <Services />
       <Aboutus />
@@ -23,8 +29,8 @@ function App() {
       <Grains />
       <LandsSection />
       <EquipmentsSection /> */}
-      {/* <OrgSingupComponent/> */}
-      <ServicesPage/>
+      <OrgSingupComponent/>
+      {/* <ServicesPage/> */}
       {/* <ContactUsComponent/> */}
       <Footer/>
 

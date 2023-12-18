@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch } from "react-redux";
 import { orgRegister } from "../../store/organizationSlice.js";
+import { getOtp } from "../../store/commonSlice.js";
 
 var orgObj = {}
 
@@ -19,12 +20,13 @@ var checkFields = false,
   regname = false,
   ownername = false,
   dealername = false,
-  oremail = false,
+  org_email = false,
   dealer_email = false,
   passwrod = false;
 
 function OrgSingupComponent() {
-  
+  const [email,setEmail] = useState();
+  // const [otp,setOtp] = useState();
   const dispatch = useDispatch();
 
   function validateName(e) {
@@ -103,8 +105,8 @@ function OrgSingupComponent() {
       EmailField.classList.add('is-valid');
       EmailField.classList.remove('is-invalid');
       checkFields = true;
-      if (e.target.name === "email") {
-        oremail = true;
+      if (e.target.name === "org_email") {
+        org_email = true;
       }
       else if (e.target.name === "dealer_email") {
         dealer_email = true;
@@ -114,8 +116,8 @@ function OrgSingupComponent() {
       EmailField.classList.remove('is-valid');
       EmailField.classList.add('is-invalid');
       checkFields = false;
-      if (e.target.value === "email") {
-        oremail = false;
+      if (e.target.value === "org_email") {
+        org_email = false;
       }
       else if (e.target.value === "dealer_email") {
         dealer_email = false;
@@ -265,9 +267,6 @@ function OrgSingupComponent() {
     if (e.target.value === "" && e.target.type !== "textarea") {
       field.classList.remove('is-invalid');
     }
-
-
-
   }
 
 
@@ -276,7 +275,7 @@ function OrgSingupComponent() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  function handleSubmit(e) {
+  function handleSubmitEmail(e) {
     e.preventDefault();
     console.log(
       "state " + state + "\n" +
@@ -289,43 +288,19 @@ function OrgSingupComponent() {
       "regname " + regname + "\n" +
       "ownername " + ownername + "\n" +
       "dealername " + dealername + "\n" +
-      "oremai " + oremail + "\n" +
+      "oremai " + org_email + "\n" +
       "dealer_email " + dealer_email + "\n" +
       "passwrod " + passwrod + "\n" +
       "dealer_email " + dealer_email);
     // ---------------hatana mat-----------
 
-    if (checkFields && state && city && image && address && description && orgtype && orgname && regname && ownername && dealername && oremail && dealer_email && passwrod) {
+    if (checkFields && state && city && image && address && description && orgtype && orgname && regname && ownername && dealername && org_email && dealer_email && passwrod) {
+      dispatch(getOtp({email,password : ''}));
       handleShow();
     }
   }
   const [varifyText, setvarifyText] = useState("Varify")
-  function sendOtp(e) {
-    // checkFields=false
-    // state=false
-    // city=false
-    // image=false
-    // address=false
-    // description=false
-    // orgtype=false
-    // orgname=false
-    // regname=false
-    // ownername=false
-    // dealername=false
-    // oremail=false
-    // dealer_email=false
-    // passwrod=false
-    // document.getElementById("orgForm").reset();
-
-    const formData = new FormData();
-    
-    for (var key in orgObj) {
-      if (orgObj[key]) {
-        formData.append(key, orgObj[key]);
-      }
-    }
-
-
+  function handleSubmitData(e) {
     const elements = document.querySelectorAll(`.${"is-valid"}`);
     elements.forEach(element => {
       element.classList.remove("is-valid");
@@ -333,16 +308,20 @@ function OrgSingupComponent() {
     document.getElementById("spinner").classList.remove('d-none');
     setvarifyText("varifying")
 
+    const formData = new FormData();
+    for (var key in orgObj) {
+      if (orgObj[key]) {
+        formData.append(key, orgObj[key]);
+      }
+    }
     setTimeout(() => {
       setvarifyText("varfified")
       handleClose()
       setvarifyText("varify");
-      // console.log(formData);
-    }, 3000)
+    }, 3000);
+    formData.append("otp",document.getElementById("otpfield").value);
     dispatch(orgRegister(formData));
-    // orgRegister(orgObj);
-    console.log(orgObj);
-
+    console.log("orgObj : ",orgObj);
   }
   return (
     <>
@@ -351,7 +330,7 @@ function OrgSingupComponent() {
           <div className="row w-100 m-0 g-0 ">
             <div className="col-12 col-md-12 col-lg-7 m-0 pt-3" >
               <h2 className="midgreen text-center">Orgnisation Sign Up</h2>
-              <form id="orgForm" onSubmit={handleSubmit} encType="multipart/form-data">
+              <form id="orgForm" onSubmit={handleSubmitEmail} encType="multipart/form-data">
                 <div className="row m-0 w-100" >
 
                   <div className=" col-12 col-md-6  p-2">
@@ -390,7 +369,7 @@ function OrgSingupComponent() {
 
                   <div className=" col-12 col-md-6  p-2">
                     <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1">Orgnisation email</label>
-                    <input name="email" type="email" className="form-control form-control-sm" id="compnyEmailField" onChange={validateEmail} placeholder="Enter orgnisation email" required />
+                    <input name="org_email" type="email" className="form-control form-control-sm" id="compnyEmailField" onChange={validateEmail} placeholder="Enter orgnisation email" required />
                     <div className="valid-feedback">
                       Correct email!!
                     </div>
@@ -520,7 +499,7 @@ function OrgSingupComponent() {
 
                   <div className=" col-12 col-md-6 p-2">
                     <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1 ">Dealer email</label>
-                    <input name="dealer_email" type="email" className="form-control form-control-sm" id="dealerEmail" onChange={validateEmail} placeholder="Enter dealer email" required />
+                    <input name="dealer_email" type="email" className="form-control form-control-sm" id="dealer_email" onChange={(e)=>{validateEmail(e); setEmail(e.target.value);} } placeholder="Enter dealer email" required />
                     <div className="valid-feedback">
                       Correct dealer email!!
                     </div>
@@ -587,6 +566,12 @@ function OrgSingupComponent() {
           <Modal.Title>OTP varification</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          
+          <input type="text" 
+            name="otp"
+            id="otpfield"
+            placeholder="Enter otp"
+          />
           <p>AN OTP is been sent on {orgObj.dealer_email}. Please Check ypur email.</p>
 
         </Modal.Body>
@@ -594,7 +579,7 @@ function OrgSingupComponent() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="success" onClick={sendOtp}>
+          <Button variant="success" onClick={handleSubmitData}>
             <span className="spinner-border spinner-border-sm d-none" id="spinner" role="status" aria-hidden="true"></span>
             &nbsp; {varifyText}</Button>
         </Modal.Footer>
