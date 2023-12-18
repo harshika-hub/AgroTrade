@@ -136,6 +136,7 @@ export const indexUserLoginController = async (request, response) => {
 
 
 export const indexOrganizationRegistrantionController = async(request,response)=>{
+    console.log(request);
     console.log(request.body);
     console.log(request.body.password);
     if(TEMP_SESSION.otp==request.body.otp){
@@ -148,7 +149,8 @@ export const indexOrganizationRegistrantionController = async(request,response)=
                 var hashed_password = await bcrypt.hash(request.body.password,10)  
                 var orgData = {
                     ...request.body,
-                    password : hashed_password
+                    password : hashed_password,
+                    org_image : request.file.filename
                 };
                 let payload = {};
                 const MAX_AGE = 6 * 24 * 60 * 60 * 1000;

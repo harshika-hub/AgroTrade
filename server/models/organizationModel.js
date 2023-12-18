@@ -43,15 +43,17 @@ const orgModel = new mongoose.Schema({
         required : true
     },
     zip_code:{
-        type: String,
+        type: Number,
         required: true,
     },
     reg_number:{
         type: String,
+        unique:true,
         required: true,
     },
     org_image:{
-        type: String
+        type: String,
+        required : true
     },
     org_description:{
         type : String,

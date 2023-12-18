@@ -1,16 +1,16 @@
 // import './App.css';
-import Header from './Components/Header/header.js';
-import HeadSlider from './Components/HeadSilder/HeadSlider.js';
-import HomeServices from './Components/HomeServicesSection/Services.js';
-import Aboutus from './Components/HomeAboutUsSection/Aboutus.js';
-import Statistics from './Components/HomeStatastics/Statistics.js';
-import Grains from './Components/HomeGrainsSection/Grains.js';
-import LandsSection from './Components/HomeLandsSection/LandsSection.js';
-import EquipmentsSection from './Components/HomeEqupimentsSection/EquipmentSection.js';
-import OrgSingupComponent from './Components/OrgSignUpComponent/OrgSignup.js';
-import Footer from './Components/Footer/Footer.js';
-import Services from './Components/ServicesPage/ServicesPage.js';
-import contactUs from './Components/ContactUsPage/ContactUs.js';
+import Header from './components/Header/header.js';
+import HeadSlider from './components/HeadSilder/HeadSlider.js';
+import HomeServices from './components/HomeServicesSection/Services.js';
+import Aboutus from './components/HomeAboutUsSection/Aboutus.js';
+import Statistics from './components/HomeStatastics/Statistics.js';
+import Grains from './components/HomeGrainsSection/Grains.js';
+import LandsSection from './components/HomeLandsSection/LandsSection.js';
+import EquipmentsSection from './components/HomeEqupimentsSection/EquipmentSection.js';
+import OrgSingupComponent from './components/OrgSignUpComponent/OrgSignup.js';
+import Footer from './components/Footer/Footer.js';
+import Services from './components/ServicesPage/ServicesPage.js';
+import contactUs from './components/ContactUsPage/ContactUs.js';
 import {Routes,Route} from 'react-router-dom'
 
 function App() {
