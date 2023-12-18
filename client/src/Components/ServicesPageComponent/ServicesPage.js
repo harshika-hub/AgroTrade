@@ -12,7 +12,7 @@ import { Carousel } from 'react-bootstrap';
 import { Service1,Service2 } from './Service1';
 export function ServicesPage(){
     return (
-        <div className="hero-section">
+        <div className="darkgreen hero-section">
           <Carousel >
             <Carousel.Item >
               <video className="d-block" controls style={{height:"89vh",width:'100%'}}>

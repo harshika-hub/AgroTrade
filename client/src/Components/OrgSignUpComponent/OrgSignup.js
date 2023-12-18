@@ -339,6 +339,7 @@ function OrgSingupComponent() {
       setvarifyText("varify");
       // console.log(formData);
     }, 3000)
+    console.log("form data in client",formData)
     dispatch(orgRegister(formData));
     // orgRegister(orgObj);
     console.log(orgObj);

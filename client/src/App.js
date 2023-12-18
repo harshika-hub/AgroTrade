@@ -1,33 +1,23 @@
 // import './App.css';
 import Header from './Components/Header/header';
-import HeadSlider from './Components//HeadSilder/HeadSlider';
-import Services from './Components/ServicesSection/Services';
-import Aboutus from './Components/AboutUs/Aboutus';
-import Statistics from './Components/Statastics/Statistics';
-import Grains from './Components/Grains/Grains';
-import LandsSection from './Components/LandsSection/LandsSection';
-import EquipmentsSection from './Components/EqupimentsSection/EquipmentSection';
 import OrgSingupComponent from './Components/OrgSignUpComponent/OrgSignup'
+import { HomePage } from './Components/HomePage/HomePage';
 import Footer from './Components/Footer/Footer';
 import { ServicesPage } from './Components/ServicesPageComponent/ServicesPage';
-
+import { Routes,Route } from 'react-router-dom';
 import ContactUsComponent from './Components/ContactusPageComponent/ContactUs.js';
 function App() {
   return (
     <>
       <Header />
-      {/* <HeadSlider />
-      <Services />
-      <Aboutus />
-      <Statistics />
-      <Grains />
-      <LandsSection />
-      <EquipmentsSection /> */}
-      {/* <OrgSingupComponent/> */}
-      <ServicesPage/>
-      {/* <ContactUsComponent/> */}
+      <Routes>
+        <Route path="/" element={<HomePage/>}></Route>
+        <Route path='/services' element={<ServicesPage/>}></Route>
+        <Route path='/orgSignup' element={<OrgSingupComponent/>}></Route>
+        <Route path='/contactus' element={<ContactUsComponent/>}></Route>
+        <Route path='/community' element={<ContactUsComponent/>}></Route>
+      </Routes>
       <Footer/>
-
     </>
   );
 }
