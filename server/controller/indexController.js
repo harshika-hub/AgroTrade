@@ -4,26 +4,26 @@ import { sendMail } from '../middleware/nodeMailer.js';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { request, response } from 'express';
+import {request,response} from 'express';
 
 dotenv.config();
 
 /* Removable after solving session problem */
-var TEMP_SESSION = {};
+    var TEMP_SESSION = {};
 /* Removable after solving session problem */
 
-export const indexGetOtpController = async (request, response) => {
-    var min = 1000;
-    var max = 9999;
+export const indexGetOtpController = async(request,response)=>{
+    var min = 1000; 
+    var max = 9999; 
     var otp = Math.floor(Math.random() * (max - min + 1)) + min;
     var email = request.body.email;
     var subject = `Welcome to Agrotrade - Your Ultimate Agriculture Solution!`;
     var body = `Thank you for choosing us as your trusted partner for all your Grains and Equipments Need. Our team is dedicated to providing you with a seamless and convenient experience for your Agriculture requirements.
     Your One time Password is ${otp}`;
     var html = '';
-    try {
-        sendMail(email, subject, body, html);
-        var hashed_password = await bcrypt.hash(request.body.password, 10)
+    try{
+        sendMail(email,subject,body,html);
+        var hashed_password = await bcrypt.hash(request.body.password,10)  
         // console.log(request.session);
         // request.session.email = request.body.email;
         // request.session.password = hashed_password;
