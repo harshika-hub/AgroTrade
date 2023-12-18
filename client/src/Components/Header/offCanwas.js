@@ -2,6 +2,9 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import logo from '../../Images/Agro-Trade-logo.png'
+import UserSingUpModal from '../UserSignUpModal/UserSingUpModal';
+import UserSinginModal from '../userSigninModal/userSigninModal';
+import OrgSinginModal from '../OrgSigninModal/OrgSigninModal';
 function OffCanvasExample({ name, ...props }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -30,8 +33,8 @@ function OffCanvasExample({ name, ...props }) {
                 </a>
 
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <li><a className="dropdown-item" href="#"><i class="bi bi-person-circle"></i>&nbsp;User</a></li>
-                  <li><a className="dropdown-item" href="#"><i class="bi bi-people-fill"></i>&nbsp;Orgnisation</a></li>
+                  <li><a className="dropdown-item" href="#"><UserSinginModal/></a></li>
+                  <li><a className="dropdown-item" href="#"><OrgSinginModal/></a></li>
                 </ul>
               </div>
               <div className="dropdown m-0">
@@ -39,8 +42,8 @@ function OffCanvasExample({ name, ...props }) {
                   Sign Up&nbsp;<i className="fa-solid fa-pen-to-square"></i>
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <li><a className="dropdown-item" href="#"><i class="bi bi-person-circle"></i>&nbsp;User</a></li>
-                  <li><a className="dropdown-item" href="#"><i class="bi bi-people-fill"></i>&nbsp;Orgnisation</a></li>
+                  <li><a className="dropdown-item" href="#"><UserSingUpModal/></a></li>
+                  <li><a className="dropdown-item" href="#"><i className="bi bi-people-fill"></i>&nbsp;Orgnisation</a></li>
                 </ul>
               </div>
 
