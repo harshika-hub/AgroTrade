@@ -12,6 +12,8 @@ const userSlice = createSlice({
     reducers:{
         getOtp : async(state,action)=>{
             try{
+                console.log(action.payload);
+                
                 var result = await axios.post(REQUESTED_URL+'/getotp',action.payload);
                 console.log("Result 1 :" ,result);
             }catch(error){
@@ -29,5 +31,5 @@ const userSlice = createSlice({
     }
 });
 
-export const {getOtp} = userSlice.actions;
+export const {getOtp,register} = userSlice.actions;
 export default userSlice.reducer;
