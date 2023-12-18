@@ -1,35 +1,6 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-<<<<<<< HEAD
-import { useDispatch } from "react-redux";
-import { userLogin } from "../../store/userSlice";
-import leafwallpaper from "../../Images/leaves_Image.jpeg";
-
-import "./userSinginModal.css";
-var userObj={}
-var email=false,password=false;
-function UserSinginModal() {
-const [lgShow, setLgShow] = useState(false);
-const dispatch = useDispatch();
-  function resetData() {
-    email=false;
-    password=false;
-  }
-  const [login, loginUser] = useState({});
-function handleInputs (e) {
-    const name = e.target.name;
-    const value = e.target.value;
-    loginUser({ ...login, [name]: value });
-};
- function handelSubmit(){
-  console.log("login",login);
-  dispatch(userLogin(login));
- }
-
-
-return (
-=======
-import leafwallpaper from "../../Images/leaves_Image.jpeg";
+import leafwallpaper from "../../assets/leaves_Image.jpeg";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../store/userSlice";
 
@@ -104,22 +75,10 @@ function UserSinginModal() {
   }
 
   return (
->>>>>>> 41b6a50a2bbfe4de1f5a124c2dbdc6fc743e13fa
     <>
       <p onClick={() => setLgShow(true)}>
         <i className="bi bi-person-circle"></i>&nbsp;User
       </p>
-<<<<<<< HEAD
-      <Modal size="lg" show={lgShow} 
-      onHide={
-        () => {
-          setLgShow(false)
-          resetData()
-        }
-      }
-       
-      backdrop="static" aria-labelledby="example-modal-sizes-title-lg"
-=======
       <Modal size="lg" show={lgShow}
         onHide={
           () => {
@@ -129,7 +88,6 @@ function UserSinginModal() {
         }
 
         backdrop="static" aria-labelledby="example-modal-sizes-title-lg"
->>>>>>> 41b6a50a2bbfe4de1f5a124c2dbdc6fc743e13fa
       >
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-lg" className="darkgreen">
@@ -150,21 +108,13 @@ function UserSinginModal() {
                       Email
                     </label>
                     <div className="has-validation">
-<<<<<<< HEAD
-                      <input placeholder="Enter Email Address" type="email" className="form-control" onChange={handleInputs}  id="userSinginemail" aria-describedby="inputGroupPrepend" name='email' required
-=======
                       <input placeholder="Enter Email Address" name="email" type="email" className="form-control" onChange={(event)=>{validateEmail(event); getData(event);}} id="userSinginemail" aria-describedby="inputGroupPrepend" required
->>>>>>> 41b6a50a2bbfe4de1f5a124c2dbdc6fc743e13fa
                       />
                       <div className="valid-feedback">
                         Correct email!!
                       </div>
                       <div className="invalid-feedback">
-<<<<<<< HEAD
-                         Invalid email!!!
-=======
                         Invalid email!!!
->>>>>>> 41b6a50a2bbfe4de1f5a124c2dbdc6fc743e13fa
                       </div>
                     </div>
                   </div>
@@ -172,21 +122,12 @@ function UserSinginModal() {
                     <label htmlFor="validationCustom03" className="form-label midgreen" >
                       password
                     </label>
-<<<<<<< HEAD
-                    <input placeholder="Enter Password" type="password" className="form-control" id="userSiginpassword" onChange={handleInputs} name='password'  required/>
-                    <div className="valid-feedback">
-                       looks Good!!
-                    </div>
-                    <div className="invalid-feedback">
-                       Invalid password!! 
-=======
                     <input placeholder="Enter Password" name="password" type="password" className="form-control" id="userSiginpassword" onChange={(event)=>{validatePassword(event); getData(event);}} required />
                     <div className="valid-feedback">
                       looks Good!!
                     </div>
                     <div className="invalid-feedback">
                       Invalid password!!
->>>>>>> 41b6a50a2bbfe4de1f5a124c2dbdc6fc743e13fa
                     </div>
                   </div>
 
@@ -197,11 +138,7 @@ function UserSinginModal() {
                       </button>
                     </div>
                   </div>
-<<<<<<< HEAD
-                    <h6 className="text-center text-info">
-=======
                   <h6 className="text-center text-info">
->>>>>>> 41b6a50a2bbfe4de1f5a124c2dbdc6fc743e13fa
                     Don't have account ? Create account {" "}
                     <span className="midgreen">Sign up</span>{" "}
                   </h6>

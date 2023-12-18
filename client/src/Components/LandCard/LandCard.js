@@ -1,5 +1,5 @@
 import "./LandCard.css";
-import land from "../../Images/Banner1.jpeg";
+import land from "../../assets/Banner1.jpeg";
 function LandCard() {
   return (
     <>

@@ -1,4 +1,4 @@
-import about from "../../Images/about.jpeg"
+import about from "../../assets/about.jpeg"
 import "./About.css"
 
 

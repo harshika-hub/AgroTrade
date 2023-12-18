@@ -1,4 +1,4 @@
-import logo from "../../Images/Agro-Trade-logo.png"
+import logo from "../../assets/Agro-Trade-logo.png"
 import "./Footer.css"
 function Footer() {
 return ( <>

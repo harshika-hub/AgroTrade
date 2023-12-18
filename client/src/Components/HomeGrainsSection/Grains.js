@@ -1,6 +1,6 @@
 import "./Grains.css"
-import daal from "../../Images/daal.jpeg"
-import GrainCards from "../GrainCards/GrainCards";
+import daal from "../../assets/daal.jpeg"
+import GrainCard from "../GrainCards/GrainCards";
 
 function Grains() {
   return (< >
@@ -36,7 +36,7 @@ function Grains() {
             </div>
           </div>
         </div>
-        <GrainCards />
+        <GrainCard />
       </div>
 
     </div>

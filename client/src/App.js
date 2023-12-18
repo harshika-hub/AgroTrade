@@ -1,19 +1,27 @@
 // import './App.css';
-import Header from './Components/Header/header';
-import HeadSlider from './Components//HeadSilder/HeadSlider';
-import Services from './Components/ServicesSection/Services';
-import Aboutus from './Components/AboutUs/Aboutus';
-import Statistics from './Components/Statastics/Statistics';
-import Grains from './Components/Grains/Grains';
-import LandsSection from './Components/LandsSection/LandsSection';
-import EquipmentsSection from './Components/EqupimentsSection/EquipmentSection';
-import OrgSingupComponent from './Components/OrgSignUpComponent/OrgSignup'
-import Footer from './Components/Footer/Footer';
-import contactUsComponent from './Components/ContactusPageComponent/contactUs';
+import Header from './components/Header/header.js';
+import HeadSlider from './components/HeadSilder/HeadSlider.js';
+import HomeServices from './components/HomeServicesSection/Services.js';
+import Aboutus from './components/HomeAboutUsSection/Aboutus.js';
+import Statistics from './components/HomeStatastics/Statistics.js';
+import Grains from './components/HomeGrainsSection/Grains.js';
+import LandsSection from './components/HomeLandsSection/LandsSection.js';
+import EquipmentsSection from './components/HomeEqupimentsSection/EquipmentSection.js';
+import OrgSingupComponent from './components/OrgSignUpComponent/OrgSignup.js';
+import Footer from './components/Footer/Footer.js';
+import Services from './components/ServicesPage/ServicesPage.js';
+import contactUs from './components/ContactUsPage/ContactUs.js';
+import {Routes,Route} from 'react-router-dom'
+
 function App() {
   return (
     <>
-      {/* <Header /> */}
+      <Header />
+      {/* <Routes>
+        <Route path="/" element={<ServicesPage/>}>
+
+        </Route>
+      </Routes> */}
       {/* <HeadSlider />
       <Services />
       <Aboutus />
@@ -21,8 +29,9 @@ function App() {
       <Grains />
       <LandsSection />
       <EquipmentsSection /> */}
-      {/* <OrgSingupComponent/> */}
-      <contactUsComponent/>
+      <OrgSingupComponent/>
+      {/* <ServicesPage/> */}
+      {/* <ContactUsComponent/> */}
       <Footer/>
 
     </>

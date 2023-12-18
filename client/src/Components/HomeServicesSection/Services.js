@@ -1,6 +1,5 @@
 import "./Services.css"
-import "./Service.js"
-function Services() {
+function HomeServices() {
   return (< >
     <div className="container-fluid   d-flex justify-content-center"  >
       <div className="row" id="services-row" >
@@ -87,4 +86,4 @@ function Services() {
   </>);
 }
 
-export default Services;
+export default HomeServices;

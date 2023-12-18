@@ -1,5 +1,5 @@
-import chawal from "../../Images/rice.jpeg"
-function GrainCards() {
+import chawal from "../../assets/rice.jpeg"
+function GrainCard() {
   return (<>
     <div className="col-12 col-sm-12 col-md-6  d-flex justify-content-center">
       <div className="card mb-3">
@@ -37,4 +37,4 @@ function GrainCards() {
   </>);
 }
 
-export default GrainCards;
+export default GrainCard;

@@ -1,5 +1,5 @@
 import "./LandsSection.css";
-import land from "../../Images/randy-fath-dDc0vuVH_LU-unsplash.jpg";
+import land from "../../assets/randy-fath-dDc0vuVH_LU-unsplash.jpg";
 import Carousel from "react-bootstrap/Carousel";
 import LandCard from "../LandCard/LandCard";
 function LandsSection() {

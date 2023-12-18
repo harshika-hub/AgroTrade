@@ -6,7 +6,7 @@
     
     #datacol{
     
-        background-image: url("../../Images/leaves_Image.jpeg");
+        background-image: url("../../assets/leaves_Image.jpeg");
         background-size: cover; 
         position: relative;
         background-blend-mode:overlay;
