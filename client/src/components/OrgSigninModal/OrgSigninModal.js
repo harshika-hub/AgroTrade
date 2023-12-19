@@ -1,23 +1,35 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import leafwallpaper from "../../assets/factory1.jpeg";
+import { orgLogin } from "../../store/organizationSlice";
+import { useDispatch } from "react-redux";
 
 import "./orgSigninModal.css";
-var orgObj={}
+// var orgObj={}
 var email =false,password=false;
 function OrgSinginModal() {
   const [lgShow, setLgShow] = useState(false);
+  const [loginData, setLoginData] = useState({});
+  const dispatch = useDispatch();
 
   function resetData() {
     email=false;
     password=false;
   }
+
+  function getData (event) {
+    const {name, value} = event.target;
+    setLoginData({
+      ...loginData,
+      [name]: value
+    });
+  };
   function validateEmail(e) {
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
      var EmailField = document.getElementById(e.target.id);
      if (pattern.test(e.target.value.trim())){
-       const {name,value}=e.target;
-       orgObj={...orgObj,[name]:value.trim()}
+      //  const {name,value}=e.target;
+      //  orgObj={...orgObj,[name]:value.trim()}
        EmailField.classList.add('is-valid');
        EmailField.classList.remove('is-invalid');
        email=true;
@@ -38,8 +50,8 @@ function OrgSinginModal() {
      const pattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
      var passwordField = document.getElementById('orgSiginpassword');
      if (pattern.test(e.target.value.trim())){
-       const {name,value}=e.target;
-       orgObj={...orgObj,[name]:value}
+      //  const {name,value}=e.target;
+      //  orgObj={...orgObj,[name]:value}
        passwordField.classList.add('is-valid');
        passwordField.classList.remove('is-invalid');
        password=true;
@@ -56,12 +68,13 @@ function OrgSinginModal() {
      }
  }
 
-  function handelSubmit(e) {
-    if (email && password) {
-      /////////////// Send Axiox request here
-      alert("Send Axiox request here")
-    }   
- }
+ function handelSubmit(e) {
+  e.preventDefault();
+  if (email && password) {
+    dispatch(orgLogin(loginData));
+  }
+
+}
   
   return (
     <>
@@ -90,7 +103,7 @@ function OrgSinginModal() {
                       Email
                     </label>
                     <div className="has-validation">
-                      <input placeholder="Enter Email Address" type="email" className="form-control" onChange={validateEmail} id="orgSigninemail" aria-describedby="inputGroupPrepend" required
+                      <input placeholder="Enter Email Address" type="email" name="org_email"  className="form-control" onChange={(event)=>{validateEmail(event); getData(event);}} id="orgSigninemail" aria-describedby="inputGroupPrepend" required
                       />
                       <div className="valid-feedback">
                       Correct email!!
@@ -104,7 +117,7 @@ function OrgSinginModal() {
                     <label htmlFor="validationCustom03" className="form-label midgreen" >
                       password
                     </label>
-                    <input placeholder="Enter Password" type="password" className="form-control" id="orgSiginpassword" onChange={validatePassword} required/>
+                    <input placeholder="Enter Password" type="password" name="password" className="form-control" id="orgSiginpassword" onChange={(event)=>{validatePassword(event); getData(event);}} required/>
                     <div className="valid-feedback">
                       Valid password!!
                     </div>

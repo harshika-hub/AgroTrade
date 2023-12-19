@@ -36,7 +36,7 @@ function Nablinks() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className=" text-white nav-link" to="/contact">
+                  <Link className=" text-white nav-link" to="/contactus">
                     <i class="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard
                   </Link>
                 </li>
@@ -58,7 +58,7 @@ function Nablinks() {
                       </Link>
                     </li>
                     <li className="dropdown-item">
-                      <Link className=" text-success nav-link" to="/contact">
+                      <Link className=" text-success nav-link" to="/contactus">
                         <i className="bi bi-telephone-fill"></i>&nbsp;Contact
                       </Link>
                     </li>
@@ -88,7 +88,7 @@ function Nablinks() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className=" text-white nav-link" to="/contact">
+                  <Link className=" text-white nav-link" to="/contactus">
                     <i className="bi bi-telephone-fill"></i>&nbsp;Contact
                   </Link>
                 </li>

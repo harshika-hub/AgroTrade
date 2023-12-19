@@ -2,7 +2,7 @@ import about from "../../assets/about.jpeg"
 import "./About.css"
 
 
-function Aboutus() {
+function AboutUs() {
     return (
         <>
             <div className="site-section pb-0 mt-5 pt-5">
@@ -45,4 +45,4 @@ function Aboutus() {
     )
 }
 
-export default Aboutus;
+export default AboutUs;

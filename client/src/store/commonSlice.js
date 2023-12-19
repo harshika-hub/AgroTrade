@@ -19,8 +19,17 @@ const commonSlice = createSlice({
                 console.log("error in getOtp commonSlice : ",error);
             }
         },
+        jwtVerification : async(state,action)=>{
+            try{
+                console.log("Token Inside commonSlice jwtVerification : ",action.payload);
+                var result = await axios.post(REQUESTED_URL+"/",action.payload); 
+                console.log("commonSlice jwtVerification Result : ",result);
+            }catch(error){
+                console.log("error in jwtVerification commonSlice : ",error);
+            }
+        }
     }
 });
 
-export const {getOtp} = commonSlice.actions;
+export const {getOtp,jwtVerification} = commonSlice.actions;
 export default commonSlice.reducer;

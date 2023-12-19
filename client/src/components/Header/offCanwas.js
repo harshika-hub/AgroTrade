@@ -26,10 +26,6 @@ function OffCanvasExample({ name, ...props }) {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <div className='row w-100 '>
-
-
-
-
             {
               false ? <div className='col-12  d-flex justify-content-end   '> <button type="Button" className="btn btn-danger">Log Out&nbsp;<i class="bi bi-box-arrow-right"></i></button></div>
                 :
@@ -56,9 +52,7 @@ function OffCanvasExample({ name, ...props }) {
 
                 </div>
             }
-
-
-
+            
             {
               false ? <div className='col-12 mt-2 mb-5 ' >
                 <ul className="nav d-flex flex-column">
@@ -81,7 +75,7 @@ function OffCanvasExample({ name, ...props }) {
                     </button>
                     <ul className="dropdown-menu">
                       <li className="dropdown-item">
-                        <Link className=" text-success nav-link" href="/aboutus">
+                        <Link className=" text-success nav-link" to="/aboutus">
                           <i className="bi bi-info-circle-fill"></i>&nbsp;About us
                         </Link>
                       </li>
@@ -93,7 +87,7 @@ function OffCanvasExample({ name, ...props }) {
                         </Link>
                       </li>
                       <li className="dropdown-item">
-                        <Link className=" text-success nav-link" href="/contact">
+                        <Link className=" text-success nav-link" to="/contactus">
                           <i className="bi bi-telephone-fill"></i>&nbsp;Contact
                         </Link>
                       </li>
@@ -113,7 +107,7 @@ function OffCanvasExample({ name, ...props }) {
                       <Link className=" offcanvasLinks darkgreen mb-1 nav-link" to="/services"> <i className="bi bi-gear-wide-connected"></i>&nbsp;Services</Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="offcanvasLinks darkgreen  mb-1  nav-link" to="/contact"><i className="bi bi-telephone-fill"></i>&nbsp;Contact</Link>
+                      <Link className="offcanvasLinks darkgreen  mb-1  nav-link" to="/contactus"><i className="bi bi-telephone-fill"></i>&nbsp;Contact</Link>
                     </li>
                   </ul>
                 </div>

@@ -64,7 +64,7 @@ export const indexUserRegistrationController = async(request,response)=>{
             else{
                 let payload = {};
                 const MAX_AGE = 6 * 24 * 60 * 60 * 1000;
-                const SECRET_KEY = process.env.USER_JWT_SECRET_KEY;
+                const SECRET_KEY = process.env.JWT_SECRET_KEY;
                 payload.data = {
                     email : email,
                     role : process.env.USER_ROLE
@@ -108,7 +108,7 @@ export const indexUserLoginController = async (request, response) => {
             if (password_status) {
                 let payload = {};
                 const MAX_AGE = 6 * 24 * 60 * 60 * 1000;
-                const SECRET_KEY = process.env.USER_JWT_SECRET_KEY;
+                const SECRET_KEY = process.env.JWT_SECRET_KEY;
                 payload.data = {
                     email: email,
                     role: process.env.USER_ROLE
@@ -130,7 +130,7 @@ export const indexUserLoginController = async (request, response) => {
         }
     } catch (error) {
         console.log("Error while login in indexUserLoginController :", error);
-        return response.status(204).json({ message: 'technical issue' });
+        return response.status(204).json({ message: 'error' });
     }
 }
 
@@ -154,7 +154,7 @@ export const indexOrganizationRegistrantionController = async(request,response)=
                 };
                 let payload = {};
                 const MAX_AGE = 6 * 24 * 60 * 60 * 1000;
-                const SECRET_KEY = process.env.ORG_JWT_SECRET_KEY;
+                const SECRET_KEY = process.env.JWT_SECRET_KEY;
                 payload.data = {
                     email : request.body.org_email,
                     role : process.env.ORG_ROLE
@@ -179,5 +179,43 @@ export const indexOrganizationRegistrantionController = async(request,response)=
         }
     }else{
         response.status(204).json({message:'invalid'});
+    }
+}
+
+
+export const indexOrganizationLoginController = async (request, response) => {
+    try {
+        const { org_email, password } = request.body;
+        const existingUser = await organizations.findOne({ org_email: org_email });
+        if (existingUser == null) {
+            return response.status(202).json({ message: 'not exist' });
+        } else {
+            const password_status = await bcrypt.compare(password, existingUser.password);
+            if (password_status) {
+                let payload = {};
+                const MAX_AGE = 6 * 24 * 60 * 60 * 1000;
+                const SECRET_KEY = process.env.JWT_SECRET_KEY;
+                payload.data = {
+                    org_email: org_email,
+                    role: process.env.ORG_ROLE
+                }
+
+                const EXPIRY_TIME = {
+                    expiresIn: '6d'
+                }
+                var token = jwt.sign(payload, SECRET_KEY, EXPIRY_TIME);
+                response.cookie('jwt', token, { httpOnly: true, maxAge: MAX_AGE });
+                console.log("Login Successfully");
+                
+                return response.status(201).json({ message: 'success'});
+            }
+            else {
+                console.log("Password does'nt match");
+                return response.status(203).json({ message: 'wrong password' });
+            }
+        }
+    } catch (error) {
+        console.log("Error while login in indexOrgLoginController :", error);
+        return response.status(204).json({ message: 'error' });
     }
 }
