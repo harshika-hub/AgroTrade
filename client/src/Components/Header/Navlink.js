@@ -4,7 +4,24 @@ import OrgSingUpModal from "../OrgSigninModal/OrgSigninModal";
 import UserSinginModal from "../userSigninModal/userSigninModal";
 import OrgSinginModal from "../OrgSigninModal/OrgSigninModal";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 function Nablinks() {
+  const [navs, setNav] = useState();
+  const nav = useSelector((state) => {
+
+    if (state.userSlice.signUp)
+      return true
+    else
+      return false
+  });
+  useEffect(() => {
+    if (nav)
+      setNav(true);
+    else
+      setNav(false);
+
+  },[nav])
   return (
     <>
       <div
@@ -17,7 +34,7 @@ function Nablinks() {
 
 
             {
-              false ? <ul id="navLinkul" className="nav d-felx justify-content-around aling-items-center" >
+              navs ? <ul id="navLinkul" className="nav d-felx justify-content-around aling-items-center" >
                 <li className="nav-item ">
 
                   <Link to='/' className=" text-white nav-link">

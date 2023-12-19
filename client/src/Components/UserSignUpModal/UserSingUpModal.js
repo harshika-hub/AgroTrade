@@ -1,12 +1,13 @@
 import Modal from "react-bootstrap/Modal";
 import leafwallpaper from "../../Images/leaves_Image.jpeg";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getOtp } from "../../store/commonSlice.js";
 import { userRegister } from "../../store/userSlice.js";
 // import axios from 'axios';
 // import { REQUESTED_URL } from "../../urls.js";
 import "./singUpmodal.css"
+import { useNavigate } from "react-router-dom";
 
 var userObj = {};
 var email = false, password = false;
@@ -15,6 +16,14 @@ function UserSingUpModal() {
   const [otp, setOtp] = useState();
   const [lgShow, setLgShow] = useState(false);
   const dispatch = useDispatch();
+  const navigate=useNavigate();
+  const status=useSelector((state)=>{
+    if(state.userSlice.signstatus){
+      setLgShow(false)
+      navigate("/");
+    }
+  })
+
 
   function resetData() {
     email = false;
@@ -37,11 +46,11 @@ function UserSingUpModal() {
     }
   }
 
-
-
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(userRegister({ otp }));
+
+
   }
   function validateEmail(e) {
     getData(e);
@@ -88,6 +97,8 @@ function UserSingUpModal() {
       password = false;
     }
   }
+
+  
 
 
 
