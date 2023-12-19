@@ -3,22 +3,33 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image';
+import React from 'react';
+import logo from "../../Images/imagecontactpage.jpg.crdownload"
 // import React from 'react';
 import "./ContactUs.css";
 
 function ContactUs() {
     return (
         <>
+            <div class="container-fluid p-0">
+            <Row className="">
+                <Col sm={12}>
+                <Image src={logo} alt="Example Image" className='banner1' fluid/>
+                </Col>
+            </Row>
+            </div>
             <Container>
-                <Row className='mt-5'>
-                    <Col sm={6}>
+                <Row>
+                    <Col sm={6} className='p-0'>
                         <h2 className="textcolor">Have Any Question?</h2>
                         <p className="textcolor">
-                            Elementum   eu   facilisis sed  odio  morbi  quis hd
-                            commodo odio. Mauris rhoncus aenean vel elit
-                            ud scelerisque mauris pellentesqueElementum eu
-                            hd facilisis sed  odio  morbi  quis  commodo odio.
-                            hd facilisis sed  odio  morbi  quis  commodo odio.
+                        AgroTrade is an innovative online platform revolutionizing
+                        agricultural trade by connecting farmers, factory owners,
+                        and buyers in an efficient and transparent marketplace.
+                        Our digital ecosystem optimizes land utilization, 
+                        crop cultivation, and product purchase, fostering a seamless
+                        network for agricultural trade and growth. 
                         </p>
                         <div>
                             <Form>
@@ -67,7 +78,7 @@ function ContactUs() {
                         </div>
                     </Col>
                 </Row>
-                <Row class="mx-auto mt-5">
+                <Row class=" mt-5">
                     <Col sm={12} class="mt-5 justify-content-center align-items-center">
                         <h2 className="text-center textcolor">Follow Us On Social Media</h2>
                         <p className="text-center">Our AgroTeach Web-Application Is To Easy Undarstand To Client And Formers</p>

@@ -25,3 +25,8 @@
     background-color: rgb(13, 80, 16);
     /* color: rgb(13, 80, 16) */
 }
+.banner1{
+    width: 100vw;
+    height: 80vh;
+    padding: 0;
+}
