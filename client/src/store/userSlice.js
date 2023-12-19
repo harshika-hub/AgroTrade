@@ -15,7 +15,6 @@ const userSlice = createSlice({
                 console.log("insede userRegister in userSlice : ",action.payload);
                 var result  = await axios.post(REQUESTED_URL+"/userregistration", action.payload);
                 console.log("Result :" ,result);
-        state.user_Data.status="true";
             }catch(error){
                 console.log("Error in useRregister in userSlice : ",error);
             }

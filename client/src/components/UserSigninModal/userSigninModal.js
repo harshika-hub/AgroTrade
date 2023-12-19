@@ -68,8 +68,11 @@ function UserSinginModal() {
     }
   }
   function handelSubmit(e) {
+    e.preventDefault();
     if (email && password) {
       dispatch(userLogin(loginData));
+      // console.log();
+      // userLogin(loginData);
     }
 
   }

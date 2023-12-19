@@ -10,6 +10,7 @@ dotenv.config();
 
 /* Removable after solving session problem */
     var TEMP_SESSION = {};
+    var LOG = {};
 /* Removable after solving session problem */
 
 export const indexGetOtpController = async(request,response)=>{
@@ -84,6 +85,8 @@ export const indexUserRegistrationController = async(request,response)=>{
                 });
                 console.log(newUser);
                 console.log("User Registered Successfully");
+                LOG.email = newUser.email;
+// ..................................................... working start here
                 response.json({message:"success"});
             }
         }catch(error){
@@ -219,3 +222,6 @@ export const indexOrganizationLoginController = async (request, response) => {
         return response.status(204).json({ message: 'error' });
     }
 }
+
+
+export {LOG};
