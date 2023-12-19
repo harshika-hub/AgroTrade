@@ -43,7 +43,7 @@ function OrgSingUpModal() {
                   </label>
                   <div className="has-validation">
                     <input
-                      placeholder="Emter Enail Address"
+                      placeholder="Enter Email Address"
                       type="email"
                       className="form-control"
                       id="validationCustomUsername"
