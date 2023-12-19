@@ -9,6 +9,7 @@ import LandsSection from './Components/LandsSection/LandsSection';
 import EquipmentsSection from './Components/EqupimentsSection/EquipmentSection';
 import OrgSingupComponent from './Components/OrgSignUpComponent/OrgSignup'
 import Footer from './Components/Footer/Footer';
+import ContactUs from "./Components/ContactUs/ContactUs";
 function App() {
   return (
     <>
@@ -19,10 +20,10 @@ function App() {
       <Statistics />
       <Grains />
       <LandsSection />
-      <EquipmentsSection /> */}
-      <OrgSingupComponent/>
+      <EquipmentsSection />
+      <OrgSingupComponent/> */}
+      <ContactUs/>
       <Footer/>
-
     </>
   );
 }
