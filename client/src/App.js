@@ -15,19 +15,19 @@ import UserdashBoard from './Components/UserdashBoard/UserdashBoard.min.js';
 function App() {
   return (
     <>
-      {/* <Header /> */}
-      {/* <HeadSlider />
+      <Header />
+      {/* {/* <HeadSlider /> */}
       <Services />
       <Aboutus />
       <Statistics />
       <Grains />
       <LandsSection />
-      <EquipmentsSection /> */}
+      {/* <EquipmentsSection /> */}
       {/* <OrgSingupComponent/> */}
       {/* <ServicesPage/> */}
-      <UserdashBoard/>
+      {/* <UserdashBoard/> */}
       {/* <ContactUsComponent/> */}
-      {/* <Footer/> */}
+      <Footer/>
 
     </>
   );
