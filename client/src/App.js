@@ -9,10 +9,13 @@ import LandsSection from './Components/LandsSection/LandsSection';
 import EquipmentsSection from './Components/EqupimentsSection/EquipmentSection';
 import OrgSingupComponent from './Components/OrgSignUpComponent/OrgSignup'
 import Footer from './Components/Footer/Footer';
+import { ServicesPage } from './Components/ServicesPageComponent/ServicesPage';
+import ContactUsComponent from './Components/ContactusPageComponent/ContactUs.js';
+import UserdashBoard from './Components/UserdashBoard/UserdashBoard.min.js';
 function App() {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       {/* <HeadSlider />
       <Services />
       <Aboutus />
@@ -20,8 +23,11 @@ function App() {
       <Grains />
       <LandsSection />
       <EquipmentsSection /> */}
-      <OrgSingupComponent/>
-      <Footer/>
+      {/* <OrgSingupComponent/> */}
+      {/* <ServicesPage/> */}
+      <UserdashBoard/>
+      {/* <ContactUsComponent/> */}
+      {/* <Footer/> */}
 
     </>
   );

@@ -42,10 +42,10 @@ function Nablinks() {
                 <i class="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard
                 </a>
               </li>
-              <div className="btn-group">
-                <button type="button" className="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  More
-                </button>
+              <div className="btn-group nav-item">
+                <a className=" text-white nav-link dropdown-toggle" style={{fontSize:"20px"}} data-bs-toggle="dropdown" href="contact">
+                  &nbsp;More
+                </a>
                 <ul className="dropdown-menu">
                 <li className="dropdown-item">
                 <a className=" text-success nav-link" href="/aboutus">
@@ -112,7 +112,7 @@ function Nablinks() {
 
          
                {
-                false? <button type="Button" className="btn btn-danger"><i class="bi bi-box-arrow-left"></i>&nbsp;Log Out</button>:
+                true? <button type="Button" className="btn btn-danger">Log Out&nbsp;<i class="bi bi-box-arrow-right"></i></button>:
                    <>
                           <div className="dropdown m-0">
               <a
@@ -159,7 +159,6 @@ function Nablinks() {
                 <li>
                   <a className="dropdown-item" href="#">
                     <i className="bi bi-people-fill"></i>&nbsp;Orgnisation
-                    <OrgSingUpModal />
                   </a>
                 </li>
               </ul>

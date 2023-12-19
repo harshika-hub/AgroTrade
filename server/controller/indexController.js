@@ -136,8 +136,21 @@ export const indexUserLoginController = async (request, response) => {
 
 
 
+// export const indexOrganizationRegistrantionController = async(request,response)=>{
+//     console.log("request.body",request.body);
+//     // var image = request.files['org_image'][0];
+//     // console.log("image",image);
+// }
+
 export const indexOrganizationRegistrantionController = async(request,response)=>{
+    
     console.log("request.body",request.body);
+    console.log("image name ",request.file.filename);
+    request.body.org_image=request.file.filename;
     // var image = request.files['org_image'][0];
-    // console.log("image",image);
+    console.log("image after adding file",request.body);
+    // organizations.create(request.body);
+
+
+
 }

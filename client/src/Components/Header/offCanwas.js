@@ -30,7 +30,7 @@ function OffCanvasExample({ name, ...props }) {
 
             
         {
-          true?<div className='col-12  d-flex justify-content-end   '> <button type="Button" className="btn btn-danger"><i class="bi bi-box-arrow-left"></i>&nbsp;Log Out</button></div>
+          true?<div className='col-12  d-flex justify-content-end   '> <button type="Button" className="btn btn-danger">Log Out&nbsp;<i class="bi bi-box-arrow-right"></i></button></div>
           :
           <div className='col-12  d-flex justify-content-around mb-3 '>
           <div className="dropdown m-0">
@@ -167,5 +167,3 @@ function Example() {
 }
 
 export default Example;
-
-
