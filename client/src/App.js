@@ -7,31 +7,24 @@ import Statistics from './components/HomeStatastics/Statistics.js';
 import Grains from './components/HomeGrainsSection/Grains.js';
 import LandsSection from './components/HomeLandsSection/LandsSection.js';
 import EquipmentsSection from './components/HomeEqupimentsSection/EquipmentSection.js';
-import OrgSingupComponent from './components/OrgSignUpComponent/OrgSignup.js';
+import OrgSingup from './components/OrgSignUpComponent/OrgSignup.js';
 import Footer from './components/Footer/Footer.js';
 import Services from './components/ServicesPage/ServicesPage.js';
 import contactUs from './components/ContactUsPage/ContactUs.js';
+import Home from './components/Home/HomePage.js';
 import {Routes,Route} from 'react-router-dom'
 
 function App() {
   return (
     <>
       <Header />
-      {/* <Routes>
-        <Route path="/" element={<ServicesPage/>}>
-
-        </Route>
-      </Routes> */}
-      {/* <HeadSlider />
-      <Services />
-      <Aboutus />
-      <Statistics />
-      <Grains />
-      <LandsSection />
-      <EquipmentsSection /> */}
-      <OrgSingupComponent/>
-      {/* <ServicesPage/> */}
-      {/* <ContactUsComponent/> */}
+        <Routes>
+          <Route path="/" element={<Home/>}></Route>
+          <Route path='/services' element={<Services/>}></Route>
+          <Route path='/orgSignup' element={<OrgSingup/>}></Route>
+          <Route path='/contactus' element={<contactUs/>}></Route>
+          {/* <Route path='/community' element={<ContactUsComponent/>}></Route> */}
+        </Routes>
       <Footer/>
 
     </>

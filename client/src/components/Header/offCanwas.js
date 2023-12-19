@@ -5,6 +5,7 @@ import logo from '../../assets/Agro-Trade-logo.png'
 import UserSingUpModal from '../UserSignUpModal/UserSingUpModal';
 import UserSinginModal from '../UserSigninModal/userSigninModal';
 import OrgSinginModal from '../OrgSigninModal/OrgSigninModal';
+import { Link } from 'react-router-dom';
 function OffCanvasExample({ name, ...props }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -25,6 +26,10 @@ function OffCanvasExample({ name, ...props }) {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <div className='row w-100 '>
+
+
+
+
             {
               false ? <div className='col-12  d-flex justify-content-end   '> <button type="Button" className="btn btn-danger">Log Out&nbsp;<i class="bi bi-box-arrow-right"></i></button></div>
                 :
@@ -45,7 +50,7 @@ function OffCanvasExample({ name, ...props }) {
                     </a>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                       <li><a className="dropdown-item" href="#"><UserSingUpModal /></a></li>
-                      <li><a className="dropdown-item" href="#"><i className="bi bi-people-fill"></i>&nbsp;Orgnisation</a></li>
+                      <li><Link className="dropdown-item" to="orgSignup"><i className="bi bi-people-fill"></i>&nbsp;Orgnisation</Link></li>
                     </ul>
                   </div>
 
@@ -58,16 +63,16 @@ function OffCanvasExample({ name, ...props }) {
               false ? <div className='col-12 mt-2 mb-5 ' >
                 <ul className="nav d-flex flex-column">
                   <li className="nav-item ">
-                    <a className="offcanvasLinks  darkgreen mb-1 nav-link active" aria-current="page" href="/home"><i className="bi bi-house-fill"></i>&nbsp;Home</a>
+                    <Link className="offcanvasLinks  darkgreen mb-1 nav-link active" aria-current="page" to="/"><i className="bi bi-house-fill"></i>&nbsp;Home</Link>
                   </li>
                   <li className="nav-item">
-                    <a className="offcanvasLinks darkgreen mb-1  nav-link" href="/aboutus"><i class="bi bi-basket3-fill"></i>&nbsp;Market</a>
+                    <Link className="offcanvasLinks darkgreen mb-1  nav-link" to="/aboutus"><i class="bi bi-basket3-fill"></i>&nbsp;Market</Link>
                   </li>
                   <li className="nav-item">
-                    <a className=" offcanvasLinks darkgreen mb-1 nav-link" href="services"><i class="bi bi-chat-fill"></i>&nbsp;Community</a>
+                    <Link className=" offcanvasLinks darkgreen mb-1 nav-link" to="/community"><i class="bi bi-chat-fill"></i>&nbsp;Community</Link>
                   </li>
                   <li className="nav-item">
-                    <a className="offcanvasLinks darkgreen  mb-1  nav-link" href="contact"><i class="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard</a>
+                    <a className="offcanvasLinks darkgreen  mb-1  nav-link" to="contact"><i class="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard</a>
                   </li>
 
                   <div className="btn-group">
@@ -76,21 +81,21 @@ function OffCanvasExample({ name, ...props }) {
                     </button>
                     <ul className="dropdown-menu">
                       <li className="dropdown-item">
-                        <a className=" text-success nav-link" href="/aboutus">
+                        <Link className=" text-success nav-link" href="/aboutus">
                           <i className="bi bi-info-circle-fill"></i>&nbsp;About us
-                        </a>
+                        </Link>
                       </li>
 
                       <li className="dropdown-item">
-                        <a className=" text-success nav-link" href="services">
+                        <Link className=" text-success nav-link" to="/services">
                           {" "}
                           <i className="bi bi-gear-wide-connected"></i>&nbsp;Services
-                        </a>
+                        </Link>
                       </li>
                       <li className="dropdown-item">
-                        <a className=" text-success nav-link" href="contact">
+                        <Link className=" text-success nav-link" href="/contact">
                           <i className="bi bi-telephone-fill"></i>&nbsp;Contact
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </div>
@@ -99,21 +104,20 @@ function OffCanvasExample({ name, ...props }) {
                 <div className='col-12 mt-2 mb-5 ' >
                   <ul className="nav d-flex flex-column">
                     <li className="nav-item ">
-                      <a className="offcanvasLinks  darkgreen mb-1 nav-link active" aria-current="page" href="/home"><i className="bi bi-house-fill"></i>&nbsp;Home</a>
+                      <Link className="offcanvasLinks  darkgreen mb-1 nav-link active" aria-current="page" to="/"><i className="bi bi-house-fill"></i>&nbsp;Home</Link>
                     </li>
                     <li className="nav-item">
-                      <a className="offcanvasLinks darkgreen mb-1  nav-link" href="/aboutus"><i className="bi bi-info-circle-fill"></i>&nbsp;About us</a>
+                      <Link className="offcanvasLinks darkgreen mb-1  nav-link" to="/aboutus"><i className="bi bi-info-circle-fill"></i>&nbsp;About us</Link>
                     </li>
                     <li className="nav-item">
-                      <a className=" offcanvasLinks darkgreen mb-1 nav-link" href="services"> <i className="bi bi-gear-wide-connected"></i>&nbsp;Services</a>
+                      <Link className=" offcanvasLinks darkgreen mb-1 nav-link" to="/services"> <i className="bi bi-gear-wide-connected"></i>&nbsp;Services</Link>
                     </li>
                     <li className="nav-item">
-                      <a className="offcanvasLinks darkgreen  mb-1  nav-link" href="contact"><i className="bi bi-telephone-fill"></i>&nbsp;Contact</a>
+                      <Link className="offcanvasLinks darkgreen  mb-1  nav-link" to="/contact"><i className="bi bi-telephone-fill"></i>&nbsp;Contact</Link>
                     </li>
                   </ul>
                 </div>
             }
-
             <div className='col-12 mt-5'>
               <div className='ps-3'>
                 <h5 className='darkgreen wght-600'><i className="bi bi-geo-fill"></i> <span>Address</span></h5>
@@ -143,6 +147,9 @@ function OffCanvasExample({ name, ...props }) {
 
               </div>
             </div>
+
+
+
           </div>
         </Offcanvas.Body>
       </Offcanvas>

@@ -2,12 +2,13 @@ import "./header.css";
 import UserSingUpModal from "../UserSignUpModal/UserSingUpModal.js";
 import UserSinginModal from "../UserSigninModal/userSigninModal.js";
 import OrgSinginModal from "../OrgSigninModal/OrgSigninModal.js";
+import { Link } from "react-router-dom";
 function Nablinks() {
   return (
     <>
       <div
         id="nacLinksdiv"
-        className="bg-darkgreen d-felx   aling-items-center"
+        className="bg-darkgreen d-felx aling-items-center"
       >
         <div className="row m-0">
           <div className="col-md-8 offset-1">
@@ -17,51 +18,49 @@ function Nablinks() {
             {
               false ? <ul id="navLinkul" className="nav d-felx justify-content-around aling-items-center" >
                 <li className="nav-item ">
-                  <a
-                    className=" text-white nav-link active"
-                    aria-current="page"
-                    href="/home"
-                  >
+
+                  <Link to='/' className=" text-white nav-link">
                     <i className="bi bi-house-fill"></i>&nbsp;Home
-                  </a>
+                  </Link>
+
                 </li>
                 <li className="nav-item">
-                  <a className=" text-white nav-link" href="/aboutus">
+                  <Link className=" text-white nav-link" to="/aboutus">
                     <i class="bi bi-basket3-fill"></i>&nbsp;Market
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className=" text-white nav-link" href="services">
+                  <Link className=" text-white nav-link" to="/services">
                     {" "}
                     <i class="bi bi-chat-fill"></i>&nbsp;Community
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className=" text-white nav-link" href="contact">
+                  <Link className=" text-white nav-link" to="/contact">
                     <i class="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard
-                  </a>
+                  </Link>
                 </li>
                 <div className="btn-group nav-item">
-                  <a className=" text-white nav-link dropdown-toggle" style={{ fontSize: "20px" }} data-bs-toggle="dropdown" href="contact">
+                  <Link className=" text-white nav-link dropdown-toggle" style={{ fontSize: "20px" }} data-bs-toggle="dropdown" to="contact">
                     &nbsp;More
-                  </a>
+                  </Link>
                   <ul className="dropdown-menu">
                     <li className="dropdown-item">
-                      <a className=" text-success nav-link" href="/aboutus">
+                      <Link className=" text-success nav-link" to="/aboutus">
                         <i className="bi bi-info-circle-fill"></i>&nbsp;About us
-                      </a>
+                      </Link>
                     </li>
 
                     <li className="dropdown-item">
-                      <a className=" text-success nav-link" href="services">
+                      <Link className=" text-success nav-link" to="/services">
                         {" "}
                         <i className="bi bi-gear-wide-connected"></i>&nbsp;Services
-                      </a>
+                      </Link>
                     </li>
                     <li className="dropdown-item">
-                      <a className=" text-success nav-link" href="contact">
+                      <Link className=" text-success nav-link" to="/contact">
                         <i className="bi bi-telephone-fill"></i>&nbsp;Contact
-                      </a>
+                      </Link>
                     </li>
 
 
@@ -69,33 +68,32 @@ function Nablinks() {
                 </div>
               </ul> : <ul id="navLinkul" className="nav d-felx justify-content-around aling-items-center" >
                 <li className="nav-item ">
-                  <a
+                  <Link
                     className=" text-white nav-link active"
                     aria-current="page"
-                    href="/home"
+                    to="/"
                   >
                     <i className="bi bi-house-fill"></i>&nbsp;Home
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className=" text-white nav-link" href="/aboutus">
+                  <Link className=" text-white nav-link" to="/aboutus">
                     <i className="bi bi-info-circle-fill"></i>&nbsp;About us
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className=" text-white nav-link" href="services">
+                  <Link className=" text-white nav-link" to="/services">
                     {" "}
                     <i className="bi bi-gear-wide-connected"></i>&nbsp;Services
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className=" text-white nav-link" href="contact">
+                  <Link className=" text-white nav-link" to="/contact">
                     <i className="bi bi-telephone-fill"></i>&nbsp;Contact
-                  </a>
+                  </Link>
                 </li>
               </ul>
             }
-
           </div>
 
           <div className=" offset-1 col-2 order-last d-flex justify-content-around ">
@@ -106,25 +104,25 @@ function Nablinks() {
               false ? <button type="Button" className="btn btn-danger">Log Out&nbsp;<i class="bi bi-box-arrow-right"></i></button> :
                 <>
                   <div className="dropdown m-0">
-                    <a
+                    <Link
                       className="btn linksbtn btn-warning dropdown-toggle"
-                      href="#"
+                      to="#"
                       role="button"
                       id="dropdownMenuLink"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
                       Sign In&nbsp;<i className="bi bi-box-arrow-in-right"></i>
-                    </a>
+                    </Link>
 
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                       <li>
-                        <a className="dropdown-item" href="#">
+                        <a className="dropdown-item" to="#">
                           <UserSinginModal />
                         </a>
                       </li>
                       <li>
-                        <a className="dropdown-item" href="#">
+                        <a className="dropdown-item" to="#">
                           <OrgSinginModal />
                         </a>
                       </li>
@@ -133,7 +131,7 @@ function Nablinks() {
                   <div className="dropdown m-0">
                     <a
                       className="btn linksbtn btn-warning dropdown-toggle"
-                      href="#"
+                      to="/orgSignup"
                       role="button"
                       id="dropdownMenuLink"
                       data-bs-toggle="dropdown"
@@ -143,14 +141,14 @@ function Nablinks() {
                     </a>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                       <li>
-                        <a className="dropdown-item" href="#">
+                        <a className="dropdown-item" to="#">
                           <UserSingUpModal />
                         </a>
                       </li>
                       <li>
-                        <a className="dropdown-item" href="#">
+                        <Link className="dropdown-item" to="/orgSignup">
                           <i className="bi bi-people-fill"></i>&nbsp;Orgnisation
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </div>
@@ -158,9 +156,6 @@ function Nablinks() {
 
                 </>
             }
-
-
-
 
           </div>
         </div>
