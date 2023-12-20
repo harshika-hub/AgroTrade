@@ -75,7 +75,6 @@ export const indexUserRegistrationController = async(request,response)=>{
                     expiresIn : '6d'
                 }
                 var token = jwt.sign(payload,SECRET_KEY,EXPIRY_TIME);
-                response.cookie('jwt',token,{httpOnly:true,maxAge:MAX_AGE});
                 console.log("JWT cookie saved successfully.");
                
                 console.log(email,password);
@@ -86,8 +85,7 @@ export const indexUserRegistrationController = async(request,response)=>{
                 console.log(newUser);
                 console.log("User Registered Successfully");
                 LOG.email = newUser.email;
-// ..................................................... working start here
-                response.json({message:"success"});
+                response.json({message:"success",token:token});
             }
         }catch(error){
             console.log("Error while user Registration in indexUserRegistrationController : ",error);
@@ -123,7 +121,6 @@ export const indexUserLoginController = async (request, response) => {
                 var token = jwt.sign(payload, SECRET_KEY, EXPIRY_TIME);
                 response.cookie('jwt', token, { httpOnly: true, maxAge: MAX_AGE });
                 console.log("Login Successfully");
-                
                 return response.status(201).json({ message: 'success'});
             }
             else {

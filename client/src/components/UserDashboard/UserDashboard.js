@@ -1,5 +1,6 @@
 import "./UserDashboard.css";
 import logo from "../../assets/Agro-Trade-logo.png"
+import Profile from "./ProfileSection.js";
 <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
   var show=false;
   function silderBarToggle(params) {
@@ -18,7 +19,7 @@ import logo from "../../assets/Agro-Trade-logo.png"
 
 
   }
-function UserDashboard() {
+function UserdashBoard() {
   return (
     <>
       <div className="container-fluid position-relative d-flex p-0 ">
@@ -175,11 +176,11 @@ function UserDashboard() {
 
 
 {/* --------------------------------Div to be nvigate----------------------------- */}
-          <div className="container-fluid pt-4 px-4 bg-danger">
-            <div className="row">
+          <div className="container-fluid pt-4 px-4 bg-secondary">
+            {/* <div className="row"> */}
+              <Profile/>
               
-              
-            </div>
+            {/* </div> */}
           </div>
 {/* --------------------------------Div to be nvigate ends ----------------------------- */}
         </div>
@@ -188,4 +189,4 @@ function UserDashboard() {
   );
 }
 
-export default UserDashboard;
+export default UserdashBoard;
