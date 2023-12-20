@@ -121,7 +121,7 @@ export const indexUserLoginController = async (request, response) => {
                 var token = jwt.sign(payload, SECRET_KEY, EXPIRY_TIME);
                 response.cookie('jwt', token, { httpOnly: true, maxAge: MAX_AGE });
                 console.log("Login Successfully");
-                return response.status(201).json({ message: 'success'});
+                return response.status(201).json({ message: 'seccess'});
             }
             else {
                 console.log("Password does'nt match");
