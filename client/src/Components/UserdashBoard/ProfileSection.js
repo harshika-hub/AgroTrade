@@ -1,6 +1,5 @@
 import { useDispatch } from "react-redux";
-import logo from "../../Images/Agro-Trade-logo.png"
-import { useDispatch } from "react-redux";
+import logo from "../../assets/Agro-Trade-logo.png"
 function Profile() {
 
     

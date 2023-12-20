@@ -1,32 +1,27 @@
 // import './App.css';
-import Header from './Components/Header/header';
-import HeadSlider from './Components//HeadSilder/HeadSlider';
-import Services from './Components/ServicesSection/Services';
-import Aboutus from './Components/AboutUs/Aboutus';
-import Statistics from './Components/Statastics/Statistics';
-import Grains from './Components/Grains/Grains';
-import LandsSection from './Components/LandsSection/LandsSection';
-import EquipmentsSection from './Components/EqupimentsSection/EquipmentSection';
-import OrgSingupComponent from './Components/OrgSignUpComponent/OrgSignup'
-import Footer from './Components/Footer/Footer';
-import { ServicesPage } from './Components/ServicesPageComponent/ServicesPage';
-import ContactUsComponent from './Components/ContactusPageComponent/ContactUs.js';
-import UserdashBoard from './Components/UserdashBoard/UserdashBoard.min.js';
+import Header from './components/Header/header.js';
+import OrgSingup from './components/OrgSignUpComponent/OrgSignup.js';
+import Footer from './components/Footer/Footer.js';
+import Services from './components/ServicesPage/ServicesPage.js';
+import contactUs from './components/ContactUsPage/ContactUs.js';
+import Home from './components/Home/HomePage.js';
+import AboutUs from './components/AboutUsPage/AboutUs.js';
+import ContactUs from './components/ContactUsPage/ContactUs.js';
+import UserDashboard from './components/UserDashboard/UserDashboard.js';
+import {Routes,Route} from 'react-router-dom'
+
 function App() {
   return (
     <>
-      {/* <Header /> */}
-      {/* {/* <HeadSlider /> */}
-      {/* <Services />
-      <Aboutus />
-      <Statistics />
-      <Grains />
-      <LandsSection /> */}
-      {/* <EquipmentsSection /> */}
-      {/* <OrgSingupComponent/> */}
-      {/* <ServicesPage/> */}
-      <UserdashBoard/>
-      {/* <ContactUsComponent/> */}
+      <Header />
+      {/* <UserDashboard/> */}
+        <Routes>
+          <Route path="/" element={<Home/>}></Route>
+          <Route path='/services' element={<Services/>}></Route>
+          <Route path='/orgSignup' element={<OrgSingup/>}></Route>
+          <Route path='/contactus' element={<ContactUs/>}></Route>
+          <Route path='/aboutus' element={<AboutUs/>}></Route>
+        </Routes>
       <Footer/>
 
     </>

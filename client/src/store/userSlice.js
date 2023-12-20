@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import { REQUESTED_URL } from '../urls.js';
+import jscookie from 'js-cookie';
 
 const initialState = {
     user_Data :{}
@@ -22,8 +23,12 @@ const userSlice = createSlice({
         userLogin : async(state,action)=>{
             try{
                 console.log("inside userLogin in userSlice : ",action.payload);
-                var result  = await axios.post(REQUESTED_URL+"/userLogin", action.payload);
+                var result  = await axios.post(REQUESTED_URL+"/userlogin", action.payload);
                 console.log("Result :" ,result);
+                var token = result.data.token;
+                if(result.data.message=="seccess"){
+                    
+                }
             }catch(error){
                 console.log("Error in userLogin in userSlice : ",error);
             }

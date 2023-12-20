@@ -1,10 +1,10 @@
 #footerMiandiv{
-    background-image: url("../../Images/FooterBackGroung.jpeg");
+    background-image: url("../../assets/FooterBackGroung.jpeg");
     background-size: cover;
 }
 .overlay{
     margin: 0px;
-    display: flex ;
+    /* display: flex ; */
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.672);
@@ -18,12 +18,12 @@
 }
 
 #footer-innercointaner{
-    width: 80vw;
+    width: 100vw;
 }
 
 #footerHr {
     border: none;
-    height: 10px;
+    height: 7px;
     background-color: green;
     opacity: 100%;
 }
@@ -33,5 +33,3 @@
     color: #ffffff;
     /* color: #4CAF50; */
 }
-
- 

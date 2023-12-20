@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import leafwallpaper from "../../Images/leaves_Image.jpeg";
+import leafwallpaper from "../../assets/leaves_Image.jpeg";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../store/userSlice";
 
@@ -68,8 +68,11 @@ function UserSinginModal() {
     }
   }
   function handelSubmit(e) {
+    e.preventDefault();
     if (email && password) {
       dispatch(userLogin(loginData));
+      // console.log();
+      // userLogin(loginData);
     }
 
   }
