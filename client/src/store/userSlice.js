@@ -16,6 +16,10 @@ const userSlice = createSlice({
                 console.log("insede userRegister in userSlice : ",action.payload);
                 var result  = await axios.post(REQUESTED_URL+"/userregistration", action.payload);
                 console.log("Result :" ,result);
+                if(result.data.message=="seccess"){
+                    jscookie.set('token',result.data.token,{expires:1});
+                }
+                return result.data.logData;
             }catch(error){
                 console.log("Error in useRregister in userSlice : ",error);
             }
@@ -25,10 +29,10 @@ const userSlice = createSlice({
                 console.log("inside userLogin in userSlice : ",action.payload);
                 var result  = await axios.post(REQUESTED_URL+"/userlogin", action.payload);
                 console.log("Result :" ,result);
-                var token = result.data.token;
                 if(result.data.message=="seccess"){
-                    
+                    jscookie.set('token',result.data.token,{expires:1});
                 }
+                return result.data.logData;
             }catch(error){
                 console.log("Error in userLogin in userSlice : ",error);
             }

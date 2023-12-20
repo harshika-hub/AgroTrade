@@ -13,12 +13,12 @@ import { jwtVerification } from '../../store/commonSlice.js';
 
 function Home() {
     const dispatch = useDispatch();
+    var logData = {};
     (() => {
-        // Function to get the value of a cookie by its name
-        
-        // dispatch(jwtVerification({"token":token}));
-        dispatch(jwtVerification({}));
+        logData = dispatch(jwtVerification());
+        console.log("kjjjj ",logData);
     })();
+    console.log("logData : ",logData);
     return (
         <>
             <HeadSlider />

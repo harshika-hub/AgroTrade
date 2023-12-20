@@ -4,13 +4,13 @@ import { sendMail } from '../middleware/nodeMailer.js';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import { LOG } from '../middleware/jwtVerification.js';
 import {request,response} from 'express';
 
 dotenv.config();
 
 /* Removable after solving session problem */
     var TEMP_SESSION = {};
-    var LOG = {};
 /* Removable after solving session problem */
 
 export const indexGetOtpController = async(request,response)=>{
@@ -64,7 +64,6 @@ export const indexUserRegistrationController = async(request,response)=>{
             }
             else{
                 let payload = {};
-                const MAX_AGE = 6 * 24 * 60 * 60 * 1000;
                 const SECRET_KEY = process.env.JWT_SECRET_KEY;
                 payload.data = {
                     email : email,
@@ -84,8 +83,15 @@ export const indexUserRegistrationController = async(request,response)=>{
                 });
                 console.log(newUser);
                 console.log("User Registered Successfully");
+                
                 LOG.email = newUser.email;
-                response.json({message:"success",token:token});
+                LOG.role = process.env.USER_ROLE;
+
+                var logData = users.findOne(
+                    {email:email},
+                    {password:0, _id:0}
+                );
+                response.json({message:"success", token:token, logData : {log:logData, role:process.env.USER_ROLE}});
             }
         }catch(error){
             console.log("Error while user Registration in indexUserRegistrationController : ",error);
@@ -103,12 +109,11 @@ export const indexUserLoginController = async (request, response) => {
         const { email, password } = request.body;
         const existingUser = await users.findOne({ email: email });
         if (existingUser == null) {
-            return response.status(202).json({ message: 'Invalid Email Id ' });
+            return response.status(202).json({ message: 'Invalid Email Id' });
         } else {
             const password_status = await bcrypt.compare(password, existingUser.password);
             if (password_status) {
                 let payload = {};
-                const MAX_AGE = 6 * 24 * 60 * 60 * 1000;
                 const SECRET_KEY = process.env.JWT_SECRET_KEY;
                 payload.data = {
                     email: email,
@@ -119,18 +124,26 @@ export const indexUserLoginController = async (request, response) => {
                     expiresIn: '6d'
                 }
                 var token = jwt.sign(payload, SECRET_KEY, EXPIRY_TIME);
-                response.cookie('jwt', token, { httpOnly: true, maxAge: MAX_AGE });
                 console.log("Login Successfully");
-                return response.status(201).json({ message: 'seccess'});
+
+                LOG.email = email;
+                LOG.role = process.env.USER_ROLE;
+
+                var logData =await users.findOne(
+                    {email:email},
+                    {password:0,
+                    _id:0}
+                );
+                response.status(201).json({ message:'seccess', token:token, logData:{log:logData, role: process.env.USER_ROLE}});
             }
             else {
                 console.log("Password does'nt match");
-                return response.status(203).json({ message: 'wrong password' });
+                response.status(203).json({ message: 'wrong password' });
             }
         }
     } catch (error) {
         console.log("Error while login in indexUserLoginController :", error);
-        return response.status(204).json({ message: 'error' });
+        response.status(204).json({ message: 'error' });
     }
 }
 
@@ -153,7 +166,6 @@ export const indexOrganizationRegistrantionController = async(request,response)=
                     org_image : request.file.filename
                 };
                 let payload = {};
-                const MAX_AGE = 6 * 24 * 60 * 60 * 1000;
                 const SECRET_KEY = process.env.JWT_SECRET_KEY;
                 payload.data = {
                     email : request.body.org_email,
@@ -164,13 +176,20 @@ export const indexOrganizationRegistrantionController = async(request,response)=
                     expiresIn : '6d'
                 }
                 var token = jwt.sign(payload,SECRET_KEY,EXPIRY_TIME);
-                response.cookie('jwt',token,{httpOnly:true,maxAge:MAX_AGE});
                 console.log("JWT cookie saved successfully.");
                
                 var newOrg = await organizations.create(orgData);
                 console.log(newOrg);
                 console.log("Organization Registered Successfully");
-                response.json({message:"success"}); 
+
+                LOG.email = newOrg.email;
+                LOG.role = process.env.ORG_ROLE;
+
+                var logData = organizations.findOne(
+                    {org_email:newOrg.org_email},
+                    {password:0, _id:0}
+                );
+                response.status(204).json({message:"success",token: token, logData:{log: logData, role: process.env.ORG_ROLE}}); 
             }
 
         }catch(error){
@@ -193,7 +212,6 @@ export const indexOrganizationLoginController = async (request, response) => {
             const password_status = await bcrypt.compare(password, existingUser.password);
             if (password_status) {
                 let payload = {};
-                const MAX_AGE = 6 * 24 * 60 * 60 * 1000;
                 const SECRET_KEY = process.env.JWT_SECRET_KEY;
                 payload.data = {
                     org_email: org_email,
@@ -204,9 +222,16 @@ export const indexOrganizationLoginController = async (request, response) => {
                     expiresIn: '6d'
                 }
                 var token = jwt.sign(payload, SECRET_KEY, EXPIRY_TIME);
-                response.cookie('jwt', token, { httpOnly: true, maxAge: MAX_AGE });
                 console.log("Login Successfully");
-                
+
+                LOG.email = org_email;
+                LOG.role = process.env.ORG_ROLE;
+
+                var logData = organizations.findOne(
+                    {org_email:request.body.org_email},
+                    {password:0, _id:0}
+                );
+                response.status(204).json({message:"success",token: token, logData:{log: logData, role: process.env.ORG_ROLE}}); 
                 return response.status(201).json({ message: 'success'});
             }
             else {
@@ -220,5 +245,3 @@ export const indexOrganizationLoginController = async (request, response) => {
     }
 }
 
-
-export {LOG};

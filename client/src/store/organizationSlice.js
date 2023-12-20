@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import {REQUESTED_URL } from '../urls.js';
+import jscookie from 'js-cookie';
 
 const initialState = {
     org_Data: {}
@@ -15,6 +16,10 @@ const organizationSlice = createSlice({
             try {
                 var result = await axios.post(REQUESTED_URL + '/organizationregistration',action.payload);
                 console.log("Result : ", result);
+                if(result.data.message=="seccess"){
+                    jscookie.set('token',result.data.token,{expires:1});
+                }
+                return result;
             } catch (error) {
                 console.log("Error in orgRegister in orgSlice : ", error);
             }
@@ -24,6 +29,10 @@ const organizationSlice = createSlice({
                 console.log("inside orgLogin in orgSlice : ",action.payload);
                 var result  = await axios.post(REQUESTED_URL+"/organizationlogin", action.payload);
                 console.log("Result :" ,result);
+                if(result.data.message=="seccess"){
+                    jscookie.set('token',result.data.token,{expires:1});
+                }
+                return result.data.logData;
             }catch(error){
                 console.log("Error in orgLogin in orgSlice : ",error);
             }

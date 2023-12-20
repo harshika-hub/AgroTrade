@@ -1,6 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import { REQUESTED_URL } from '../urls.js';
+import jscookie from 'js-cookie';
+
 
 const initialState = {
 
@@ -13,6 +15,7 @@ const commonSlice = createSlice({
         getOtp : async (state,action)=>{  
             try{
                 console.log("Pauload inside commonSlice getOtp : ",action.payload);
+                
                 var result = await axios.post(REQUESTED_URL+"/getotp",action.payload); 
                 console.log("commonSlice getOtp Result : ",result);
             }catch(error){
@@ -22,8 +25,11 @@ const commonSlice = createSlice({
         jwtVerification : async(state,action)=>{
             try{
                 console.log("Token Inside commonSlice jwtVerification : ",action.payload);
-                var result = await axios.post(REQUESTED_URL+"/",action.payload); 
+                var token = jscookie.get();
+                console.log("token :", token);
+                var result = await axios.post(REQUESTED_URL+"/",token);
                 console.log("commonSlice jwtVerification Result : ",result);
+                return result.data.logData;
             }catch(error){
                 console.log("error in jwtVerification commonSlice : ",error);
             }
