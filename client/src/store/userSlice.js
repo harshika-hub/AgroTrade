@@ -38,7 +38,6 @@ const userSlice = createSlice({
                 console.log("inside userLogin in userSlice : ", action.payload);
                 var result = await axios.post(REQUESTED_URL + "/userLogin", action.payload);
                 console.log("Result :", result);
-
             } catch (error) {
                 console.log("Error in userLogin in userSlice : ", error);
             }
