@@ -1,14 +1,14 @@
-.custom-height-width{
+/* .custom-height-width{
     height: 80%;
     width: 100%;
-}
+} */
 .google-map {
-    padding-bottom: 50%;
+    padding-bottom: 65%;
     position: relative;
 }
 
 .google-map iframe {
-    height: 130%;
+    height: 100%;
     width: 100%;
     left: 0;
     top: 0;
@@ -25,8 +25,8 @@
     background-color: rgb(13, 80, 16);
     /* color: rgb(13, 80, 16) */
 }
-.banner1{
+/* .banner1{
     width: 100vw;
     height: 80vh;
     padding: 0;
-}
+} */

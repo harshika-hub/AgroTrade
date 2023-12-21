@@ -5,23 +5,23 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import React from 'react';
-import logo from "../../Images/imagecontactpage.jpg.crdownload"
+import logo from "../../Images/contactusimage1.jpg";
 // import React from 'react';
 import "./ContactUs.css";
 
 function ContactUs() {
     return (
         <>
-            <div class="container-fluid p-0">
-            <Row className="">
+            <div className="container-fluid p-0">
+            <Row className="p-0">
                 <Col sm={12}>
-                <Image src={logo} alt="Example Image" className='banner1' fluid/>
+                <Image src={logo} alt="Example Image" className='banner1 img-fluid w-100'/>
                 </Col>
             </Row>
             </div>
-            <Container>
+            <Container className="container-fluid p-0 mt-5">
                 <Row>
-                    <Col sm={6} className='p-0'>
+                    <Col sm={6} className='pe-5'>
                         <h2 className="textcolor">Have Any Question?</h2>
                         <p className="textcolor">
                         AgroTrade is an innovative online platform revolutionizing
@@ -56,42 +56,44 @@ function ContactUs() {
                             </Form>
                         </div>
                     </Col>
-                    <Col sm={6}>
-                        <div class="google-map">
+                    <Col sm={6} className="">
+                        <div className="google-map">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14719.188998439324!2d75.86501435!3d22.73577615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1702892842353!5m2!1sen!2sin " allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
-                        <div class="mt-5">
-                            <i class="mt-5 fa-solid fa-phone textcolor"></i>&nbsp;&nbsp;+91574534567
+                        <div className="mt-0">
+                            <i className="mt-2 fa-solid fa-phone textcolor p-1"></i>&nbsp;&nbsp;+91574534567
                         </div>
                         <div>
-                            <i class="mt-2 fa-solid fa-phone textcolor"></i>&nbsp;&nbsp;+91574534567
+                            <i className="mt-2 fa-solid fa-phone textcolor p-1"></i>&nbsp;&nbsp;+91574534567
                         </div>
                         <div>
-                            <i class="fa-solid fa-message mt-2 textcolor"></i>&nbsp;&nbsp;agrotradehelp@gmail.com
+                            <i className="fa-solid fa-message mt-2 textcolor p-1"></i>&nbsp;&nbsp;agrotradehelp@gmail.com
                         </div>
                         <div>
-                            <i class="fa-solid fa-location-dot mt-2 textcolor"></i>&nbsp;&nbsp;Yashwant Ganj,M.T Cloth Market, Indore,MP.
+                            <i className="fa-solid fa-location-dot mt-2 textcolor p-1"></i>&nbsp;&nbsp;Yashwant Ganj,M.T Cloth Market, Indore,MP.
                         </div>
                         <div>
-                            <i class="fa-solid fa-clock mt-2 textcolor"></i>&nbsp;&nbsp;9:00 am to 5:00 pm
-                            <br /><p class="ms-4">Monday to Saturday</p>
+                            <i className="fa-solid fa-clock mt-2 textcolor p-1"></i>&nbsp;&nbsp;9:00 am to 5:00 pm
+                            <br /><p className="ms-4 p-1">Monday to Saturday</p>
                         </div>
                     </Col>
                 </Row>
-                <Row class=" mt-5">
-                    <Col sm={12} class="mt-5 justify-content-center align-items-center">
+                </Container>
+                <div className="container-fluid pt-2 mt-2 bg-white">
+                <Row className="mt-2 mb-2 pt-0">
+                    <Col sm={12} className="mt-4 justify-content-center align-items-center">
                         <h2 className="text-center textcolor">Follow Us On Social Media</h2>
-                        <p className="text-center">Our AgroTeach Web-Application Is To Easy Undarstand To Client And Formers</p>
+                        <p className="text-center">Our AgroTread Web-Application Is To Easy Undarstand To Client And Formers</p>
                         <div className='p-1 text-center'>
-                            <i class="fa-brands fa-square-facebook fs-1 m-2 socialicons"></i>
-                            <i class="fa-brands fa-square-instagram fs-1 m-2 socialicons"></i>
-                            <i class="fa-brands fa-square-twitter fs-1 m-2 socialicons"></i>
-                            <i class="fa-brands fa-square-whatsapp fs-1 m-2 socialicons"></i>
+                            <i className="fa-brands fa-square-facebook fs-1 m-2 socialicons"></i>
+                            <i className="fa-brands fa-square-instagram fs-1 m-2 socialicons"></i>
+                            <i className="fa-brands fa-square-twitter fs-1 m-2 socialicons"></i>
+                            <i className="fa-brands fa-square-whatsapp fs-1 m-2 socialicons"></i>
                         </div>
                     </Col>
                 </Row>
-            </Container></>
+                </div>
+            </>
     );
 }
-
 export default ContactUs;
