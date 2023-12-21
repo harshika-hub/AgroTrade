@@ -219,3 +219,31 @@ export const indexOrgLoginController = async (request, response) => {
         return response.status(204).json({ message: 'technical issue' });
     }
 }
+
+export const indexOtpCheckController = async (request, response) => {
+    console.log("request.body",request.body);
+    const  {otp}=request.body;
+    if(TEMP_SESSION.otp==otp){
+        response.status(200).json({ message: 'success' });
+    }
+    else{
+        response.status(204).json({ message: `don't match` });
+    }
+}
+export const indexchangeController = async (request, response) => {
+    const  {password,cPassword}=request.body;
+    console.log(password+":",cPassword);
+    console.log("1");
+    if(password==cPassword){
+    console.log("2");
+
+        var hashed_password = await bcrypt.hash(password,10)  
+        var result  = await users.updateOne({email:TEMP_SESSION.email}, { $set: { password:hashed_password } })
+    console.log("3 Successfully");
+
+        response.status(200).json({ message: 'Password Change' });
+    }
+    else{
+        response.status(204).json({ message: `don't match` });
+    }
+}

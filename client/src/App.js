@@ -7,7 +7,7 @@ import Statistics from './components/HomeStatastics/Statistics.js';
 import Grains from './components/HomeGrainsSection/Grains.js';
 import LandsSection from './components/HomeLandsSection/LandsSection.js';
 import EquipmentsSection from './components/HomeEqupimentsSection/EquipmentSection.js';
-import OrgSingupComponent from './components/OrgSignUpComponent/OrgSignup.js';
+// import OrgSingupComponent from './components/OrgSignUpComponent/OrgSignup.js';
 import Footer from './components/Footer/Footer.js';
 import Services from './components/ServicesPage/ServicesPage.js';
 import contactUs from './components/ContactUsPage/ContactUs.js';
@@ -29,7 +29,7 @@ function App() {
       <Grains />
       <LandsSection />
       <EquipmentsSection /> */}
-      <OrgSingupComponent/>
+      {/* <OrgSingupComponent/> */}
       {/* <ServicesPage/> */}
       {/* <ContactUsComponent/> */}
       <Footer/>

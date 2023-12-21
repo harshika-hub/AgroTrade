@@ -3,15 +3,19 @@ import Modal from "react-bootstrap/Modal";
 import leafwallpaper from "../../assets/leaves_Image.jpeg";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../store/userSlice";
-
+import { Link } from "react-router-dom";
 import "./userSinginModal.css";
+import Button from 'react-bootstrap/Button';
+import FogotpasswordModal from "./FogotpassModal";
+
 var userObj = {}
 var email = false, password = false;
+
+
 function UserSinginModal() {
   const [lgShow, setLgShow] = useState(false);
   const [loginData, setLoginData] = useState({});
   const dispatch = useDispatch();
-  
   function getData (event) {
     const {name, value} = event.target;
     setLoginData({
@@ -19,7 +23,6 @@ function UserSinginModal() {
       [name]: value
     });
   };
-
   function resetData() {
     email = false;
     password = false;
@@ -68,9 +71,17 @@ function UserSinginModal() {
     }
   }
   function handelSubmit(e) {
+    e.preventDefault();
     if (email && password) {
       dispatch(userLogin(loginData));
+      // console.log();
+      // userLogin(loginData);
     }
+
+  }
+  
+  function closeUsersingUpModal(){
+    setLgShow(false)
 
   }
 
@@ -129,6 +140,8 @@ function UserSinginModal() {
                     <div className="invalid-feedback">
                       Invalid password!!
                     </div>
+                    {/* <p className="text-end mt-1"> <Link className="text-danger  text-decoration-none" onClick={openForgetPassworedModal}>Forgot Password ?</Link></p> */}
+                <FogotpasswordModal closeUsersingUpModal={closeUsersingUpModal}/>
                   </div>
 
                   <div className="col-12  columns signupbtn-col mt-5">
@@ -157,3 +170,12 @@ function UserSinginModal() {
   );
 }
 export default UserSinginModal;
+
+
+
+
+
+
+
+
+
