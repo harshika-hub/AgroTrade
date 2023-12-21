@@ -85,10 +85,10 @@ function ContactUs() {
                         <h2 className="text-center textcolor">Follow Us On Social Media</h2>
                         <p className="text-center">Our AgroTread Web-Application Is To Easy Undarstand To Client And Formers</p>
                         <div className='p-1 text-center'>
-                            <i className="fa-brands fa-square-facebook fs-1 m-2 socialicons"></i>
-                            <i className="fa-brands fa-square-instagram fs-1 m-2 socialicons"></i>
-                            <i className="fa-brands fa-square-twitter fs-1 m-2 socialicons"></i>
-                            <i className="fa-brands fa-square-whatsapp fs-1 m-2 socialicons"></i>
+                            <i className="fa-brands fa-square-facebook fs-1 m-2 socialicons Sicons"></i>
+                            <i className="fa-brands fa-square-instagram fs-1 m-2 socialicons Sicons"></i>
+                            <i className="fa-brands fa-square-twitter fs-1 m-2 socialicons Sicons"></i>
+                            <i className="fa-brands fa-square-whatsapp fs-1 m-2 socialicons Sicons"></i>
                         </div>
                     </Col>
                 </Row>
