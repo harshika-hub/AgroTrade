@@ -13,17 +13,17 @@ import {Routes,Route} from 'react-router-dom'
 function App() {
   return (
     <>
-      <Header />
-      {/* <UserDashboard/> */}
+      {/* <Header /> */}
         <Routes>
           <Route path="/" element={<Home/>}></Route>
           <Route path='/services' element={<Services/>}></Route>
           <Route path='/orgSignup' element={<OrgSingup/>}></Route>
           <Route path='/contactus' element={<ContactUs/>}></Route>
           <Route path='/aboutus' element={<AboutUs/>}></Route>
+          <Route path='/dashboard' element={<UserDashboard/>}></Route>
         </Routes>
-      <Footer/>
-
+      {/* <Footer/> */}
+   
     </>
   );
 }

@@ -2,20 +2,22 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import logo from '../../assets/Agro-Trade-logo.png'
-import UserSingUpModal from '../UserSignUpModal/UserSingUpModal';
-import UserSinginModal from '../UserSigninModal/userSigninModal';
-import OrgSinginModal from '../OrgSigninModal/OrgSigninModal';
 import { Link } from 'react-router-dom';
-function OffCanvasExample({ name, ...props }) {
+import "./DashboardLinks.css"
+function DashoffCanvas({ name, ...props }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   return (
     <>
-      <Button style={{ background: "transparent", border: "none", color: "green", fontSize: "40px" }} onClick={handleShow} className="me-2">
+      {/* <Button style={{ background: "transparent", border: "none", color: "green", fontSize: "40px" }} onClick={handleShow} className="me-2">
         <i className="bi bi-list"></i>
-      </Button>
+      </Button> */}
+
+      <a href="#" className="sidebar-toggler m-2 text-decoration-none flex-shrink-0" onClick={handleShow} id="navToggler">
+                 <i class="fa-solid fa-bars midgreen"></i>
+       </a>
       <Offcanvas show={show} onHide={handleClose} {...props}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>
@@ -36,8 +38,8 @@ function OffCanvasExample({ name, ...props }) {
                     </a>
 
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <li><a className="dropdown-item" href="#"><UserSinginModal /></a></li>
-                      <li><a className="dropdown-item" href="#"><OrgSinginModal /></a></li>
+                      <li><a className="dropdown-item" href="#"></a></li>
+                      <li><a className="dropdown-item" href="#"></a></li>
                     </ul>
                   </div>
                   <div className="dropdown m-0">
@@ -45,7 +47,7 @@ function OffCanvasExample({ name, ...props }) {
                       Sign Up&nbsp;<i className="fa-solid fa-pen-to-square"></i>
                     </a>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <li><a className="dropdown-item" href="#"><UserSingUpModal /></a></li>
+                      <li><a className="dropdown-item" href="#"></a></li>
                       <li><Link className="dropdown-item" to="orgSignup"><i className="bi bi-people-fill"></i>&nbsp;Orgnisation</Link></li>
                     </ul>
                   </div>
@@ -151,14 +153,14 @@ function OffCanvasExample({ name, ...props }) {
   );
 }
 
-function Example() {
+function DashboardCanvas() {
   return (
     <>
 
-      <OffCanvasExample key={1} placement={"end"} name={"end"} />
+      <DashoffCanvas key={1} placement={"end"} name={"end"} />
 
     </>
   );
 }
 
-export default Example;
+export default DashboardCanvas;

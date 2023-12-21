@@ -36,7 +36,7 @@ function Nablinks() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className=" text-white nav-link" to="/contactus">
+                  <Link className=" text-white nav-link" to="/dashboard">
                     <i class="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard
                   </Link>
                 </li>
