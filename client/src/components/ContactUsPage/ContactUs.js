@@ -6,12 +6,14 @@ import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import React from 'react';
 import logo from "../../assets/imagecontactpage.jpg"
+import Header from '../Header/Header.js';
 // import React from 'react';
 import "./ContactUs.css";
 
 function ContactUs() {
     return (
-        <>
+        <>  
+            <Header/>
             <div class="container-fluid p-0">
                 <Row className="">
                     <Col sm={12}>

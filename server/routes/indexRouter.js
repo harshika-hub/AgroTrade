@@ -1,5 +1,5 @@
 import express from 'express';
-import { indexOrganizationRegistrantionController,indexGetOtpController,indexUserRegistrationController,indexOrganizationLoginController, indexUserLoginController } from '../controller/indexController.js';
+import { indexOrganizationRegistrantionController,indexGetOtpController,indexUserRegistrationController,indexOrganizationLoginController, indexUserLoginController, indexCheckOtpController,indexChangePasswordController } from '../controller/indexController.js';
 import { upload } from '../middleware/fileUpload.js';
 import { aunthicateJWT,authorizeUser } from '../middleware/jwtVerification.js';
 
@@ -12,5 +12,8 @@ indexRouter.post('/userlogin',indexUserLoginController);
 // indexRouter.post('/organizationregistration',upload.single('org_image'),indexOrganizationRegistrantionController);
 indexRouter.post('/organizationregistration',upload.single('org_image'),indexOrganizationRegistrantionController);
 indexRouter.post('/organizationlogin',indexOrganizationLoginController);
+
+indexRouter.post('/checkotp',indexCheckOtpController);
+indexRouter.post('/changepassword',indexChangePasswordController);
 
 export default indexRouter;

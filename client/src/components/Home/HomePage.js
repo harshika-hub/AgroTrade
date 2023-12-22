@@ -6,21 +6,34 @@ import Grains from '../HomeGrainsSection/Grains.js';
 import LandsSection from '../HomeLandsSection/LandsSection.js';
 import EquipmentsSection from '../HomeEqupimentsSection/EquipmentSection.js';
 import { useDispatch } from 'react-redux';
-import { jwtVerification } from '../../store/commonSlice.js';
+import { jwtVerification, setRoleStatus } from '../../store/commonSlice.js';
+import { setUserData } from '../../store/userSlice.js';
+import { setOrgData } from '../../store/organizationSlice.js';
+import Header from '../Header/Header.js';
 
 
 
 
 function Home() {
     const dispatch = useDispatch();
-    var logData = {};
-    (() => {
-        logData = dispatch(jwtVerification());
-        console.log("kjjjj ",logData);
-    })();
-    console.log("logData : ",logData);
+    jwtVerification().then((logData)=>{
+        console.log("logdata : -> ",logData  );
+        if(logData.role=="user"){
+            dispatch(setUserData(logData.log));
+            dispatch(setRoleStatus({role:"user", status: true}));
+        }else if(logData.role=="organization"){
+            dispatch(setOrgData(logData.log));
+            dispatch(setRoleStatus({role:"organization", status: true}));
+        }else if(logData.role=="admin"){
+            dispatch(setAdminData(logData.role));
+            dispatch(setRoleStatus({role:"admin", status:true}));
+        }
+    }).catch(()=>{
+        
+    });
     return (
         <>
+            <Header/>
             <HeadSlider />
             <HomeServices />
             <AboutUs />

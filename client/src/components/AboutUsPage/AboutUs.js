@@ -4,11 +4,12 @@ import aboutimg from '../../assets/aboutimage.jpg'
 import aboutlast from '../../assets/aboutlast.jpeg'
 import about1 from '../../assets/aboutimag1.jpg'
 import about2 from '../../assets/about2.webp'
-
+import Header from '../Header/Header.js';
 
 function AboutUs() {
   return (
     <>
+      <Header/>
       <div className="blur">
         <img src={aboutimg} alt="" className='w-100' />
       </div>

@@ -87,11 +87,12 @@ export const indexUserRegistrationController = async(request,response)=>{
                 LOG.email = newUser.email;
                 LOG.role = process.env.USER_ROLE;
 
-                var logData = users.findOne(
-                    {email:email},
+                var logData = await users.findOne(
+                    {email:newUser.email},
                     {password:0, _id:0}
                 );
-                response.json({message:"success", token:token, logData : {log:logData, role:process.env.USER_ROLE}});
+                console.log("hi ",logData);
+                response.status(200).json({message:"success", token:token, logData : {log:logData, role:process.env.USER_ROLE}});
             }
         }catch(error){
             console.log("Error while user Registration in indexUserRegistrationController : ",error);
@@ -131,8 +132,7 @@ export const indexUserLoginController = async (request, response) => {
 
                 var logData =await users.findOne(
                     {email:email},
-                    {password:0,
-                    _id:0}
+                    {password:0, _id:0}
                 );
                 response.status(201).json({ message:'seccess', token:token, logData:{log:logData, role: process.env.USER_ROLE}});
             }
@@ -245,3 +245,31 @@ export const indexOrganizationLoginController = async (request, response) => {
     }
 }
 
+export const indexCheckOtpController = async (request, response) => {
+    console.log("request.body",request.body);
+    const  {otp}=request.body;
+    if(TEMP_SESSION.otp==otp){
+        response.status(200).json({ message: 'success' });
+    }
+    else{
+        response.status(204).json({ message: `don't match` });
+    }
+}
+
+export const indexChangePasswordController = async (request, response) => {
+    const  {password}=request.body;
+    const hashed_password = await bcrypt.hash(password,10) 
+    try{
+        var result  = await users.updateOne(
+            {   email: TEMP_SESSION.email   },
+            { $set: 
+                {   password: hashed_password   }
+            }
+        );
+        response.status(200).json({ message: 'success' });
+    } 
+    catch(error){
+        console.log("Error while changing Password : ",error);
+        response.status(204).json({ message: `error` });
+    }
+}
