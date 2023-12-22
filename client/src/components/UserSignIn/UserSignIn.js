@@ -3,7 +3,8 @@ import Modal from "react-bootstrap/Modal";
 import leafwallpaper from "../../assets/leaves_Image.jpeg";
 import { useDispatch,useSelector } from "react-redux";
 import { userLogin,setUserData } from "../../store/userSlice";
-// import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 import "./UserSingIn.css";
 import UserFogotPassword from "./UserForgetPassword.js";
@@ -16,7 +17,7 @@ function UserSingIn() {
   const [loginData, setLoginData] = useState({});
   const user_Data = useSelector(state=>state.userSlice)
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   function getData (event) {
     const {name, value} = event.target;
@@ -76,15 +77,46 @@ function UserSingIn() {
   function handelSubmit(e) {
     e.preventDefault();
     if (email && password) {
-      userLogin(loginData).then((logData)=>{
-        console.log("logData : ",logData);
-        dispatch(setUserData(logData.log));
-        dispatch(setRoleStatus({role:logData.role, status: true}));
-        // navigate('/contactus');
-        setLgShow(false);
-        // console.log("user : ",user_Data);
+      userLogin(loginData).then((data)=>{
+        if(data.message=="success"){
+          dispatch(setUserData(data.logData.log));
+          dispatch(setRoleStatus({role:data.logData.role, status: true}));
+          setLgShow(false);
+          Swal.fire({
+            position: "middle",
+            icon: "success",
+            title: "Welcome to Agrotrage🙏",
+            showConfirmButton: false,
+            timer: 2000
+          });
+          navigate('/');
+        }else if(data.logData.message=="wrong password"){
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Wrong Password!\nPlease try Again...",
+          });
+        }else if(data.logData.message=="not exist"){
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "User not exist. Please try Again...",
+          });
+        }else if(data.logData.message=="not exist"){
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Server Error. Please try Again...",
+          });
+        }
+        
       }).catch((error)=>{
         console.log("User data not found : ",error)
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong. Please try Again...",
+        });
       });
     }
 
@@ -92,7 +124,6 @@ function UserSingIn() {
 
   function closeUsersingUpModal(){
     setLgShow(false)
-
   }
 
   return (
@@ -150,7 +181,7 @@ function UserSingIn() {
                     <div className="invalid-feedback">
                       Invalid password!!
                     </div>
-                    <UserFogotPassword closeUsersingUpModal={closeUsersingUpModal}/>
+                    <UserFogotPassword />
                   </div>
 
                   <div className="col-12  columns signupbtn-col mt-5">

@@ -16,37 +16,7 @@ const commonSlice = createSlice({
         setRoleStatus : (state,action)=>{
             state.role = action.payload.role;
             state.status = action.payload.status
-            // localStorage.setItem('role',JSON.stringify(state.role))
-            // localStorage.setItem('status',JSON.stringify(state.status))
-        },
-        setRoleStatusOnReload : (state,action)=>{
-            // const role = JSON.parse(localStorage.getItem("role"));
-            // const status = JSON.parse(localStorage.getItem("status"));
-            // state.role = role;
-            // state.state = status;
         }
-        // getOtp : async (state,action)=>{  
-        //     try{
-        //         console.log("Pauload inside commonSlice getOtp : ",action.payload);
-                
-        //         var result = await axios.post(REQUESTED_URL+"/getotp",action.payload); 
-        //         console.log("commonSlice getOtp Result : ",result);
-        //     }catch(error){
-        //         console.log("error in getOtp commonSlice : ",error);
-        //     }
-        // },
-        // jwtVerification : async(state,action)=>{
-        //     try{
-        //         console.log("Token Inside commonSlice jwtVerification : ",action.payload);
-        //         var token = jscookie.get();
-        //         console.log("token :", token);
-        //         var result = await axios.post(REQUESTED_URL+"/",token);
-        //         console.log("commonSlice jwtVerification Result : ",result);
-        //         return result.data.logData;
-        //     }catch(error){
-        //         console.log("error in jwtVerification commonSlice : ",error);
-        //     }
-        // }
     }
 });
 

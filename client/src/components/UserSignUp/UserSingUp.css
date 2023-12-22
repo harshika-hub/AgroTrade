@@ -4,12 +4,6 @@
     display: none;
 }
 
-/* #datacol::before {
-    background-image: url("../Images/leaves_Image.jpeg");
-    background-size: cover;
-    opacity: 50%;
-} */
-
 #datacol::before {
     content: "";
     position: absolute;

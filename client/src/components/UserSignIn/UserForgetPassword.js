@@ -6,13 +6,14 @@ import { useDispatch } from 'react-redux';
 import leafwallpaper from "../../assets/leaves_Image.jpeg";
 import { getOtp } from '../../store/commonSlice';
 import { checkOtp, changePassword } from '../../store/userSlice';
+import Swal from 'sweetalert2';
 
 
-function UserFogotPassword(props) {
+function UserFogotPassword() {
   const [show, setShow] = useState(false);
   const [emailset, setEmail] = useState("");
   const [varifyOtp, setvarifyOtp] = useState("");
-  const [chagePassword, setPassword] = useState("");
+  const [password, setPassword] = useState({});
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const dispatch = useDispatch();
@@ -26,12 +27,13 @@ function UserFogotPassword(props) {
 
   function showPasswordFields() {
     document.getElementById("otpvarifyform").style.display = "none"
-
     document.getElementById("passwordchangrForm").style.display = "block"
   }
+
   const handleEmail = (e) => {
     setEmail({ ...emailset, [e.target.name]: e.target.value })
   }
+
   const handleOtp = (e) => {
     console.log("Inside handleOtp ");
     setvarifyOtp({ ...varifyOtp, [e.target.name]: e.target.value })
@@ -44,7 +46,6 @@ function UserFogotPassword(props) {
     if (pattern.test(e.target.value.trim())) {
       EmailField.classList.add('is-valid');
       EmailField.classList.remove('is-invalid');
-      console.log("hello111111");
 
       checkFields = true;
       if (e.target.name === "email") {
@@ -66,6 +67,7 @@ function UserFogotPassword(props) {
       checkFields = false;
     }
   }
+
   function handleOtpCheck(e) {
     const otp = varifyOtp.otp;
     console.log("Inside handleOtp ", otp);
@@ -76,25 +78,49 @@ function UserFogotPassword(props) {
 
       }
     });
-
   }
+
   function handleSubmitEmail(e) {
     e.preventDefault();
     const email = emailset.email;
 
     console.log("getOtp1", email + " sdddd ", checkFields + "sdddd", email);
     // if (checkFields && email) {
-    dispatch(getOtp({ email, password: "" }));
+    getOtp({ email, password: "" });
     showOtpfrom()
     // }
   }
 
   const handleChangePassword = (e) => {
-    setPassword({ ...chagePassword, [e.target.name]: e.target.value })
+    setPassword({ ...password, [e.target.name]: e.target.value })
   }
 
-  function changePassword(e) {
-    changePassword(chagePassword)
+  function handleChangePasswordSubmit(e) {
+    changePassword(password).then((data)=>{
+      console.log(data.message);
+      if(data.message=='success'){
+        Swal.fire({
+          position: "middle",
+          icon: "success",
+          title: "Password Changed Successfully",
+          showConfirmButton: false,
+          timer: 2000
+        });
+        setShow(false);
+      }else{
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!"
+        });
+      }
+    }).catch(()=>{
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!"
+      });
+    });
   }
 
 
@@ -102,7 +128,6 @@ function UserFogotPassword(props) {
 
   return (
     <>
-
       <p className="text-end mt-1" onClick={handleShow}> <Link className="text-danger  text-decoration-none">Forgot Password ?</Link></p>
       <Modal size={'lg'} show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -133,8 +158,6 @@ function UserFogotPassword(props) {
                     <button type="submit" name="" id="getotpBtn" className="btn btn-success" >Get OTP</button>
                   </div>
                 </div>
-
-
               </form>
 
               <form className="row g-3 needs-validation mt-1" style={{ display: "none" }} onSubmit={handleOtpCheck} id="otpvarifyform" noValidate>
@@ -156,7 +179,7 @@ function UserFogotPassword(props) {
               </form>
 
 
-              <form className="row g-3 needs-validation mt-1" style={{ display: "none" }} onSubmit={changePassword} id="passwordchangrForm" noValidate>
+              <form className="row g-3 needs-validation mt-1" style={{ display: "none" }} onSubmit={handleChangePasswordSubmit} id="passwordchangrForm" noValidate>
                 <div className="col-12">
                   <label htmlFor="validationCustom03" className="form-label midgreen">
                     Password
@@ -166,17 +189,15 @@ function UserFogotPassword(props) {
                     Please provide a valid city.
                   </div>
                 </div>
-
                 <div className="col-12">
                   <label htmlFor="validationCustom03" className="form-label midgreen">
                     Confirm Password
                   </label>
-                  <input placeholder="Confirm Password" type="password" className="form-control" name="cPassword" onChange={(e) => handleChangePassword(e)} id="validationCustom03" required />
+                  <input placeholder="Confirm Password" type="password" className="form-control" name="cnfPassword" onChange={(e) => handleChangePassword(e)} id="validationCustom03" required />
                   <div className="invalid-feedback">
                     Please provide a valid city.
                   </div>
                 </div>
-
                 <div className="col-12 signupbtn-col">
                   <div className="d-grid gap-2">
                     <button type="submit" name="" id="SignUpBtn" className="btn btn-success">Submit</button>
@@ -191,13 +212,7 @@ function UserFogotPassword(props) {
               <img src={leafwallpaper} className="w-100" alt="" />
             </div>
           </div>
-
-
         </Modal.Body>
-
-
-
-
       </Modal>
     </>
   );

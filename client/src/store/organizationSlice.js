@@ -14,34 +14,7 @@ const organizationSlice = createSlice({
         setOrgData : (state,action)=>{
             const org = action.payload;
             state.orgData = org;
-            console.log(state.userData);
-        },
-        // orgRegister: async (state, action) => {
-        //     console.log("Payload inside orgRegister in orgSlice : ", action.payload);
-        //     try {
-        //         var result = await axios.post(REQUESTED_URL + '/organizationregistration',action.payload);
-        //         console.log("Result : ", result);
-        //         if(result.data.message=="seccess"){
-        //             jscookie.set('token',result.data.token,{expires:1});
-        //         }
-        //         return result;
-        //     } catch (error) {
-        //         console.log("Error in orgRegister in orgSlice : ", error);
-        //     }
-        // },
-        // orgLogin : async(state,action)=>{
-        //     try{
-        //         console.log("inside orgLogin in orgSlice : ",action.payload);
-        //         var result  = await axios.post(REQUESTED_URL+"/organizationlogin", action.payload);
-        //         console.log("Result :" ,result);
-        //         if(result.data.message=="seccess"){
-        //             jscookie.set('token',result.data.token,{expires:1});
-        //         }
-        //         return result.data.logData;
-        //     }catch(error){
-        //         console.log("Error in orgLogin in orgSlice : ",error);
-        //     }
-        // }
+        }
     }
 });
 

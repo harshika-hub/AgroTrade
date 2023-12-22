@@ -100,7 +100,7 @@ export const indexUserRegistrationController = async(request,response)=>{
         }
     }else{
         console.log("Invalid Otp.");
-        response.status(204).json({message:"invalid"});
+        response.status(204).json({message:"wrong otp"});
     }
 }
 
@@ -110,7 +110,7 @@ export const indexUserLoginController = async (request, response) => {
         const { email, password } = request.body;
         const existingUser = await users.findOne({ email: email });
         if (existingUser == null) {
-            return response.status(202).json({ message: 'Invalid Email Id' });
+            response.status(202).json({ message: 'not exist' });
         } else {
             const password_status = await bcrypt.compare(password, existingUser.password);
             if (password_status) {
@@ -134,7 +134,7 @@ export const indexUserLoginController = async (request, response) => {
                     {email:email},
                     {password:0, _id:0}
                 );
-                response.status(201).json({ message:'seccess', token:token, logData:{log:logData, role: process.env.USER_ROLE}});
+                response.status(201).json({ message:'success', token:token, logData:{log:logData, role: process.env.USER_ROLE}});
             }
             else {
                 console.log("Password does'nt match");

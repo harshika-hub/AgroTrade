@@ -6,6 +6,7 @@ import { getOtp, setRoleStatus } from "../../store/commonSlice.js";
 import { userRegister } from "../../store/userSlice.js";
 import "./UserSingUp.css"
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 var userObj = {};
 var email = false, password = false;
@@ -32,7 +33,6 @@ function UserSingUp() {
   const handleGetOtp = async () => {
     if (email && password) {
       getOtp(userData);
-      // getOtp(userData);
       document.getElementById("otpvarifyform").style.display = "block";
     }
   }
@@ -42,17 +42,41 @@ function UserSingUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     
-    userRegister({ otp }).then((logData)=>{
-      console.log("log Data : ",logData);
-      dispatch(setUserData(logData.log));
-      dispatch(setRoleStatus({role: logData.role, status: true}));
-      // setLgShow(false);
-      console.log("hiii");
-      navigate('/');
+    userRegister({ otp }).then((data)=>{
+      if(data.message=="success"){
+        dispatch(setUserData(data.logData.log));
+        dispatch(setRoleStatus({role: data.logData.role, status: true}));
+        setLgShow(false);
+        Swal.fire({
+          position: "middle",
+          icon: "success",
+          title: "Welcome to Agrotrage🙏",
+          showConfirmButton: false,
+          timer: 2000
+        });
+        navigate('/');
+      }else if(data.message=="error"){
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Server Error. Please try Again...",
+        });
+      }else if(data.message=="wrong otp"){
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Wrong Otp!\n Please enter currect otp...",
+        });
+      }
     }).catch(()=>{
-
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Server Error. Please try Again...",
+      });
     });
   }
+
   function validateEmail(e) {
     getData(e);
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -76,6 +100,7 @@ function UserSingUp() {
       email = false;
     }
   }
+
   function validatePassword(e) {
     getData(e);
     const pattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -98,8 +123,6 @@ function UserSingUp() {
       password = false;
     }
   }
-
-
 
   return (
     <>
