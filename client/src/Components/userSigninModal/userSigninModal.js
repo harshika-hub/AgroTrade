@@ -11,7 +11,6 @@ import FogotpasswordModal from "./FogotpassModal";
 var userObj = {}
 var email = false, password = false;
 
-
 function UserSinginModal() {
   const [lgShow, setLgShow] = useState(false);
   const [loginData, setLoginData] = useState({});

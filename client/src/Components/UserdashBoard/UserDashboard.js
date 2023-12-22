@@ -95,7 +95,7 @@ function UserdashBoard() {
 {/* --------------------------------Div to be nvigate----------------------------- */}
           <div className="container-fluid p-0 " style={{flexGrow:1}}>
             {/* <div className="row"> */}
-              <Profile/>
+              <Profile/>                   
               
             {/* </div> */}
           </div>
