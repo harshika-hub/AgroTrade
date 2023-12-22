@@ -32,16 +32,13 @@ function Services() {
         <div className="col-12 col-sm-6 col-md-4 mb-2" >
           <div className=" p-3 serviceBox " >
             <h1 className="serviceIcon" ><i className="fa-solid fa-warehouse"></i></h1>
-            <h2 className="text-center darkgreen" >Rent Farm</h2>
+            <h2 className="text-center darkgreen" >Rent Farm for Storage</h2>
             <div className="d-felx " >
               <p className="servicepara darkgreen" >
                 "Enhance your storage capabilities with our cold storage land rental service, offering factory owners a seamless solution for temperature-controlled warehousing."   </p>
             </div>
           </div>
         </div>
-
-
-
         <div className="col-12 col-sm-6 col-md-4 mb-2" >
           <div className=" p-3 serviceBox " >
             <h1 className="serviceIcon" ><i className="fa-solid fa-user-tie"></i></h1>
@@ -70,7 +67,7 @@ function Services() {
         <div className="col-12 col-sm-6 col-md-4  mb-2" >
           <div className=" p-3 serviceBox " >
             <h1 className="serviceIcon" ><i className="bi bi-box-seam-fill"></i></h1>
-            <h2 className="text-center darkgreen" >Community Support</h2>
+            <h2 className="text-center darkgreen" >Buy Grains</h2>
             <div className="d-felx " >
               <p className="servicepara darkgreen" >
                 "Direct from farmers, our service offers organic, chemical-free grains for health-conscious citizens, ensuring quality, purity, and a sustainable food source."

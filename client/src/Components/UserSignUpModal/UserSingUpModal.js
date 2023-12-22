@@ -22,9 +22,7 @@ function UserSingUpModal() {
       setLgShow(false)
       navigate("/");
     }
-  })
-
-
+  });
   function resetData() {
     email = false;
     password = false;
@@ -97,11 +95,6 @@ function UserSingUpModal() {
       password = false;
     }
   }
-
-  
-
-
-
   return (
     <>
       <p onClick={() => setLgShow(true)}>
