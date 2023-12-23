@@ -119,7 +119,7 @@ function UserSingUpModal() {
                     Email
                   </label>
                   <div className="has-validation">
-                    <input placeholder="Emter Enail Address" name="email" onChange={validateEmail} type="email" className="form-control" id="userSignUpemail" aria-describedby="inputGroupPrepend" required />
+                    <input placeholder="Enter Email Address" name="email" onChange={validateEmail} type="email" className="form-control" id="userSignUpemail" aria-describedby="inputGroupPrepend" required />
                     <div className="valid-feedback">
                       Correct email!!
                     </div>

@@ -4,50 +4,177 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
-import React from 'react';
+import React, { useState } from 'react';
+import useDispatch from "react-redux";
 import logo from "../../Images/contactusimage1.jpg";
 // import React from 'react';
 import "./ContactUs.css";
 
+var orgObj = {}
+var  Conname = false, Conemail = false ,Conmessage = false;
+
+
 function ContactUs() {
+
+    const [contactData, setContactData] = useState({});
+    // const dispatch = useDispatch();
+
+    var getData = (event) => {
+        const { name, value } = event.target;
+        setContactData({
+            ...contactData,
+            [name]: value,
+        });
+    };
+
+    function validataName(event) {
+        const pattern = /^[a-zA-Z]+(?:\s[a-zA-Z]+)?$/;
+        var contactName = document.getElementById(event.target.id);
+        if (pattern.test(event.target.value)) {
+            const { name, value } = event.target;
+            orgObj = { ...orgObj, [name]: value.trim() }
+            contactName.classList.add('is-valid');
+            contactName.classList.remove('is-invalid');
+            if (event.target.name == 'Con_name') {
+                Conname = true;
+            }
+            else if (event.target.email === "Con_email") {
+                Conemail = true;
+            }
+            else if (event.target.message === "Con_message") {
+                Conmessage = true;
+            }
+        } else {
+            contactName.classList.remove('is-valid');
+            contactName.classList.add('is-invalid');
+            if(event.target.name === "Con_name"){
+               Conname = false; 
+            }
+            else if(event.target.email === "Con_email"){
+                Conemail = false;
+            }
+            else if(event.target.message === "Con_message"){
+                Conmessage = false;
+            }
+        }
+        if(event.target.value === ""){
+            contactName.classList.remove('is-valid');
+            contactName.classList.add('is-invalid');
+        }
+    }
+    
+
+
+    function validateEmail(e) {
+        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var EmailField = document.getElementById(e.target.id);
+        if (pattern.test(e.target.value.trim())) {
+          const { name, value } = e.target;
+          orgObj = { ...orgObj, [name]: value.trim() }
+          EmailField.classList.add('is-valid');
+          EmailField.classList.remove('is-invalid');
+          if (e.target.name === "Con_email") {
+            Conemail = true;
+          }
+        }
+        else {
+          EmailField.classList.remove('is-valid');
+          EmailField.classList.add('is-invalid');
+          if (e.target.value === "email") {
+            Conemail = false;
+          }
+        }
+        if (e.target.value === "") {
+          EmailField.classList.remove('is-valid');
+          EmailField.classList.remove('is-invalid');
+        }
+      }
+
+    function validateMessage(event){
+        const pattern = /\w+$/;
+        var Messagefield = document.getElementById(event.target.id);
+        if(pattern.test(event.target.value)){
+            const {name,value} = event.target;
+            orgObj = {...contactData, [name] : value.trim()}
+            Messagefield.classList.add("is-valid");
+            Messagefield.classList.remove("is-invalid");
+            if(event.target.name === 'Con_message'){
+                Conmessage = false;
+            }
+            else{
+                Messagefield.classList.remove('is-valid');
+                Messagefield.classList.remove('is-invalid');
+                if(event.target.value === 'message'){
+                    Conmessage = false;
+                }
+            }
+            if(event.target.value === ''){
+                Messagefield.classList.remove('is-valid');
+                Messagefield.classList.add('is-invalid');
+            }
+        }
+    }
+
+    var handleSubmit = (event)=>{
+        event.preventDefault();
+    }
+
     return (
         <>
             <div className="container-fluid p-0">
-            <Row className="p-0">
-                <Col sm={12}>
-                <Image src={logo} alt="Example Image" className='banner1 img-fluid w-100'/>
-                </Col>
-            </Row>
+                <Row className="p-0">
+                    <Col sm={12}>
+                        <Image src={logo} alt="Example Image" className='banner1 img-fluid w-100' />
+                    </Col>
+                </Row>
             </div>
             <Container className="container-fluid p-0 mt-5">
                 <Row>
                     <Col sm={6} className='pe-5'>
                         <h2 className="textcolor">Have Any Question?</h2>
                         <p className="textcolor">
-                        AgroTrade is an innovative online platform revolutionizing
-                        agricultural trade by connecting farmers, factory owners,
-                        and buyers in an efficient and transparent marketplace.
-                        Our digital ecosystem optimizes land utilization, 
-                        crop cultivation, and product purchase, fostering a seamless
-                        network for agricultural trade and growth. 
+                            AgroTrade is an innovative online platform revolutionizing
+                            agricultural trade by connecting farmers, factory owners,
+                            and buyers in an efficient and transparent marketplace.
+                            Our digital ecosystem optimizes land utilization,
+                            crop cultivation, and product purchase, fostering a seamless
+                            network for agricultural trade and growth.
                         </p>
                         <div>
-                            <Form>
+                            <Form className="needs-validation" id="contactForm" onSubmit={handleSubmit} novalidate>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                     <Form.Label className="textcolor">Your Name</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter Your Name" />
+                                    <Form.Control type="text" name="Con_name" id="contact_name" onChange={(event) => {validataName(event); getData(event); }} placeholder="Enter Your Name" required />
+                                    <div className="valid-feedback">
+                                        Correct name!!
+                                    </div>
+                                    <div className="invalid-feedback">
+                                        Invalid name!!
+                                    </div>
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                     <Form.Label className="textcolor">Your Email</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter Your Email" />
+                                    <Form.Control type="email" placeholder="Enter Your Email" onChange={(event) => { validateEmail(event); getData(event); }} name="Con_email" id="contact_email" required />
+                                    <div className="valid-feedback">
+                                        Correct email!!
+                                    </div>
+                                    <div className="invalid-feedback">
+                                        Invalid email!!
+                                    </div>
                                 </Form.Group>
                                 <Form.Group controlId="exampleForm.ControlTextarea1">
                                     <Form.Label className="textcolor">Enter Message</Form.Label>
-                                    <Form.Control as="textarea" rows={5} className='fs-6' size="lg" placeholder='Enter Message' />
+                                    <Form.Control as="textarea" rows={5} className='fs-6' size="lg" onChange={(event) => { validateMessage(event); getData(event); }} id="contact_message" name="Con_message" placeholder='Enter Message' required />
+                                    <div className="valid-feedback">
+                                        Correct message!!
+                                    </div>
+                                    <div className="invalid-feedback">
+                                        Invalid message!!
+                                    </div>
                                 </Form.Group>
                                 <div className=" col-12 col-md-12 mt-1 mb-1 p-1">
                                     <div className="d-grid gap-2">
-                                        <button type="submit" name="" id="" className="btn btn-success btn1 mt-1">
+                                        <button type="submit" name="" id="send_msg" className="btn btn-success btn1 mt-1">
                                             Send Message
                                         </button>
                                     </div>
@@ -78,8 +205,8 @@ function ContactUs() {
                         </div>
                     </Col>
                 </Row>
-                </Container>
-                <div className="container-fluid pt-2 mt-2 bg-white">
+            </Container>
+            <div className="container-fluid pt-2 mt-2 bg-white">
                 <Row className="mt-2 mb-2 pt-0">
                     <Col sm={12} className="mt-4 justify-content-center align-items-center">
                         <h2 className="text-center textcolor">Follow Us On Social Media</h2>
@@ -92,8 +219,8 @@ function ContactUs() {
                         </div>
                     </Col>
                 </Row>
-                </div>
-            </>
+            </div>
+        </>
     );
 }
 export default ContactUs;
