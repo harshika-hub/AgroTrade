@@ -10,27 +10,18 @@ import { jwtVerification, setRoleStatus } from '../../store/commonSlice.js';
 import { setUserData } from '../../store/userSlice.js';
 import { setOrgData } from '../../store/organizationSlice.js';
 import Header from '../Header/Header.js';
+import { useEffect } from 'react';
+import jscookie from 'js-cookie';
+import { authorize } from '../../store/auth/auth.js';
 
 
 
 
 function Home() {
     const dispatch = useDispatch();
-    jwtVerification().then((logData)=>{
-        console.log("logdata : -> ",logData  );
-        if(logData.role=="user"){
-            dispatch(setUserData(logData.log));
-            dispatch(setRoleStatus({role:"user", status: true}));
-        }else if(logData.role=="organization"){
-            dispatch(setOrgData(logData.log));
-            dispatch(setRoleStatus({role:"organization", status: true}));
-        }else if(logData.role=="admin"){
-            dispatch(setAdminData(logData.role));
-            dispatch(setRoleStatus({role:"admin", status:true}));
-        }
-    }).catch(()=>{
-        
-    });
+    useEffect(()=>{
+        authorize(dispatch);
+    },[]);
     return (
         <>
             <Header/>

@@ -90,19 +90,19 @@ function UserSingIn() {
             timer: 2000
           });
           navigate('/');
-        }else if(data.logData.message=="wrong password"){
+        }else if(data.message=="wrong password"){
           Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "Wrong Password!\nPlease try Again...",
           });
-        }else if(data.logData.message=="not exist"){
+        }else if(data.message=="not exist"){
           Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "User not exist. Please try Again...",
           });
-        }else if(data.logData.message=="not exist"){
+        }else if(data.message=="not exist"){
           Swal.fire({
             icon: "error",
             title: "Oops...",

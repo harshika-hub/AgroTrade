@@ -31,11 +31,11 @@ export const getOtp = async (payload)=>{
     }
 };
 
-export const jwtVerification = async()=>{
+export const jwtVerification = async(token)=>{
     try{
-        var token = jscookie.get();
+        var token = jscookie.get('token');
         console.log("token :", token);
-        var result = await axios.post(REQUESTED_URL+"/",token);
+        var result = await axios.post(REQUESTED_URL+"/",{token});
         console.log("commonSlice jwtVerification Result : ",result);
         return result.data.logData;
     }catch(error){

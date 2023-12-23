@@ -24,7 +24,7 @@ export const userRegister = async(payload)=>{
         console.log("insede userRegister in userSlice : ",payload);
         var result  = await axios.post(REQUESTED_URL+"/userregistration", payload);
         console.log("Result :" ,result);
-        if(result.data.message=="seccess"){
+        if(result.data.message=="success"){
             jscookie.set('token',result.data.token,{expires:1});
         }
         return result.data;
@@ -38,7 +38,7 @@ export const userLogin = async(payload)=>{
         console.log("inside userLogin in userSlice : ",payload);
         var result  = await axios.post(REQUESTED_URL+"/userlogin", payload);
         console.log("Result :" ,result);
-        if(result.data.message=="seccess"){
+        if(result.data.message=="success"){
             jscookie.set('token',result.data.token,{expires:1});
         }
         return result.data;
