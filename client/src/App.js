@@ -1,29 +1,33 @@
 // import './App.css';
-import Header from './Components/Header/header';
-import HeadSlider from './Components//HeadSilder/HeadSlider';
-import Services from './Components/ServicesSection/Services';
-import Aboutus from './Components/AboutUs/Aboutus';
-import Statistics from './Components/Statastics/Statistics';
-import Grains from './Components/Grains/Grains';
-import LandsSection from './Components/LandsSection/LandsSection';
-import EquipmentsSection from './Components/EqupimentsSection/EquipmentSection';
-import OrgSingupComponent from './Components/OrgSignUpComponent/OrgSignup'
-import Footer from './Components/Footer/Footer';
-import ContactUs from "./Components/ContactUs/ContactUs";
+import Header from './components/Header/Header.js';
+import OrgSingUp from './components/OrgSignUp/OrgSignUp.js';
+import Footer from './components/Footer/Footer.js';
+import Services from './components/ServicesPage/ServicesPage.js';
+import contactUs from './components/ContactUsPage/ContactUs.js';
+import Home from './components/Home/HomePage.js';
+import AboutUs from './components/AboutUsPage/AboutUs.js';
+import ContactUs from './components/ContactUsPage/ContactUs.js';
+// import UserDashboard from './components/UserDashboard/UserDashboard.js';
+import UserdashBoard from './components/UserDashboard/UserDashboard.js';
+// import ExpertModal from './components/BecomeExpertModal/ExpertModal.js';
+import {Routes,Route} from 'react-router-dom'
+// import DashboardLinks from './components/DashboardLinks/DashboardLinks.js';
+
 function App() {
   return (
     <>
-      <Header />
-      {/* <HeadSlider />
-      <Services />
-      <Aboutus />
-      <Statistics />
-      <Grains />
-      <LandsSection />
-      <EquipmentsSection />
-      <OrgSingupComponent/> */}
-      <ContactUs/>
+    {/* <ExpertModal/> */}
+      {/* <Header /> */}
+        <Routes>
+          <Route path="/" element={<Home/>}></Route>
+          <Route path='/services' element={<Services/>}></Route>
+          <Route path='/orgSignup' element={<OrgSingUp/>}></Route>
+          <Route path='/contactus' element={<ContactUs/>}></Route>
+          <Route path='/aboutus' element={<AboutUs/>}></Route>
+          <Route path='/dashboard' element={<UserdashBoard/>}></Route>
+        </Routes>
       <Footer/>
+
     </>
   );
 }
