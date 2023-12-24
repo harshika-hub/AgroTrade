@@ -67,8 +67,11 @@ function Updateprofile(params) {
 function Profile() {
   const [fields,dispatch] =  useReducer(reducer,initialsate)
       clone={...fields} 
-    return ( <>
-    <div className="row m-0 w-100 h-100" style={{height:"auto"}}>
+    return (
+      
+      
+      <>
+    <div className="row m-0 w-100 h-100" style={{height:"auto",overflow:"hidden"}}>
        <div className="col-12 col-md-6 bg-midgreen p-0 offset-lg-3" id="profileCard">
              <div className="p-5 h-75" >
              <img src={logo} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/>
