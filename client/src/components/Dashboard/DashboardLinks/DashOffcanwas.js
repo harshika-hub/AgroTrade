@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import logo from '../../assets/Agro-Trade-logo.png'
+import logo from '../../../assets/Agro-Trade-logo.png'
 import { Link } from 'react-router-dom';
 import "./DashboardLinks.css"
 function DashoffCanvas({ name, ...props }) {

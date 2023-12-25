@@ -1,4 +1,4 @@
-import logo from "../../assets/Agro-Trade-logo.png"
+import logo from "../../../assets/Agro-Trade-logo.png"
 import "./DashboardLinks.css"
 import { Link } from "react-router-dom";
 import DashboardCanvas from "./DashOffcanwas";

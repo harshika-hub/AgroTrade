@@ -1,7 +1,8 @@
-import "./UserDashboard.css";
+import "./Dashboard.css";
 import logo from "../../assets/Agro-Trade-logo.png"
 import Profile from "./ProfileSection/ProfileSection.js";
-import DashboardLinks from "../DashboardLinks/DashboardLinks.js";
+import DashboardLinks from './DashboardLinks/DashboardLinks.js';
+import { Link } from "react-router-dom";
 <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" /> 
   // var show=false;
   // function silderBarToggle(params) {
@@ -19,7 +20,7 @@ import DashboardLinks from "../DashboardLinks/DashboardLinks.js";
   //   }
   // }
 
-function UserdashBoard() {
+function DashBoard() {
     console.log("sjdccuswdyuvwge");
   return (
     <>
@@ -42,9 +43,9 @@ function UserdashBoard() {
               </div>
             </div>
             <div className="navbar-nav w-100 ">
-              <a href="index.html" className="nav-item nav-link  active  ">
+              <Link to="/dashboard/profile" className="nav-item nav-link  active  ">
               <i class="bi bi-person-circle text-center"></i>&nbsp;Profile
-              </a>  
+              </Link>  
               <a href="widget.html" className="nav-item nav-link ">
                 <i className="fa fa-th me-2 text-success"></i>&nbsp;Listed Grains
               </a>
@@ -89,16 +90,15 @@ function UserdashBoard() {
         
         <div className="content " id="content" style={{display:"flex",flexDirection:"column"}}>
         <DashboardLinks/>
-        {/* <DashboardLinks/> */}
 
 
 
 {/* --------------------------------Div to be nvigate----------------------------- */}
           <div className="container-fluid p-0 " style={{flexGrow:1}}>
-            {/* <div className="row"> */}
+            <div className="row">
               <Profile/>
               
-            {/* </div> */}
+            </div>
           </div>
 {/* --------------------------------Div to be nvigate ends ----------------------------- */}
         </div>
@@ -107,4 +107,4 @@ function UserdashBoard() {
   );
 }
 
-export default UserdashBoard;
+export default DashBoard;
