@@ -1,5 +1,3 @@
-// import './App.css';
-import Header from './components/Header/Header.js';
 import OrgSingUp from './components/OrgSignUp/OrgSignUp.js';
 import Footer from './components/Footer/Footer.js';
 import Services from './components/ServicesPage/ServicesPage.js';
@@ -8,7 +6,7 @@ import Home from './components/Home/HomePage.js';
 import AboutUs from './components/AboutUsPage/AboutUs.js';
 import ContactUs from './components/ContactUsPage/ContactUs.js';
 // import UserDashboard from './components/UserDashboard/UserDashboard.js';
-import UserdashBoard from './components/UserDashboard/UserDashboard.js';
+import DashBoard from './components/UserDashboard/UserDashboard.js';
 // import ExpertModal from './components/BecomeExpertModal/ExpertModal.js';
 import {Routes,Route} from 'react-router-dom'
 // import DashboardLinks from './components/DashboardLinks/DashboardLinks.js';
@@ -16,18 +14,16 @@ import {Routes,Route} from 'react-router-dom'
 function App() {
   return (
     <>
-    {/* <ExpertModal/> */}
-      {/* <Header /> */}
-        <Routes>
-          <Route path="/" element={<Home/>}></Route>
-          <Route path='/services' element={<Services/>}></Route>
-          <Route path='/orgSignup' element={<OrgSingUp/>}></Route>
-          <Route path='/contactus' element={<ContactUs/>}></Route>
-          <Route path='/aboutus' element={<AboutUs/>}></Route>
-          <Route path='/dashboard' element={<UserdashBoard/>}></Route>
-        </Routes>
-      <Footer/>
-
+      <Routes>
+        <Route path="/" element={<Home/>}></Route>
+        <Route path='/services' element={<Services/>}></Route>
+        <Route path='/orgSignup' element={<OrgSingUp/>}></Route>
+        <Route path='/contactus' element={<ContactUs/>}></Route>
+        <Route path='/aboutus' element={<AboutUs/>}></Route>
+        <Route path='/dashboard' element={<DashBoard/>}></Route>
+        <Route path='/community' element={<DashBoard/>}> </Route>
+        <Route path='/market' element={<DashBoard/>}> </Route>
+      </Routes>
     </>
   );
 }

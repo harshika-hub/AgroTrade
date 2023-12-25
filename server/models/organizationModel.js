@@ -20,7 +20,8 @@ const orgModel = new mongoose.Schema({
     },
     dealer_email:{
         type : String,
-        required : true
+        required : true,
+        unique : true
     },
     dealer_contact:{
         type: Number,

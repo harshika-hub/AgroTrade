@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import leafwallpaper from "../../assets/leaves_Image.jpeg";
-import { useDispatch,useSelector } from "react-redux";
-import { userLogin,setUserData } from "../../store/userSlice";
+import { useDispatch } from "react-redux";
+import { userLogin, setUserData } from "../../store/userSlice";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
@@ -11,16 +11,15 @@ import UserFogotPassword from "./UserForgetPassword.js";
 
 import { setRoleStatus } from "../../store/commonSlice";
 var userObj = {}
-var email = false, password = false;
+var email = false;
 function UserSingIn() {
   const [lgShow, setLgShow] = useState(false);
   const [loginData, setLoginData] = useState({});
-  const user_Data = useSelector(state=>state.userSlice)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function getData (event) {
-    const {name, value} = event.target;
+  function getData(event) {
+    const { name, value } = event.target;
     setLoginData({
       ...loginData,
       [name]: value
@@ -29,7 +28,6 @@ function UserSingIn() {
 
   function resetData() {
     email = false;
-    password = false;
   }
   function validateEmail(e) {
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -53,34 +51,14 @@ function UserSingIn() {
       email = false;
     }
   }
-  function validatePassword(e) {
-    const pattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    var passwordField = document.getElementById('userSiginpassword');
-    if (pattern.test(e.target.value.trim())) {
-      const { name, value } = e.target;
-      userObj = { ...userObj, [name]: value }
-      passwordField.classList.add('is-valid');
-      passwordField.classList.remove('is-invalid');
-      password = true;
-    }
-    else {
-      passwordField.classList.remove('is-valid');
-      passwordField.classList.add('is-invalid');
-      password = true;
-    }
-    if (e.target.value === "") {
-      passwordField.classList.remove('is-valid');
-      passwordField.classList.remove('is-invalid');
-      password = false;
-    }
-  }
+
   function handelSubmit(e) {
     e.preventDefault();
-    if (email && password) {
-      userLogin(loginData).then((data)=>{
-        if(data.message=="success"){
-          dispatch(setUserData(data.logData.log));
-          dispatch(setRoleStatus({role:data.logData.role, status: true}));
+    if (email) {
+      userLogin(loginData).then((data) => {
+        if (data.message == "success") {
+          dispatch(setUserData(data.log));
+          dispatch(setRoleStatus({ role: data.role, status: true }));
           setLgShow(false);
           Swal.fire({
             position: "middle",
@@ -90,28 +68,28 @@ function UserSingIn() {
             timer: 2000
           });
           navigate('/');
-        }else if(data.message=="wrong password"){
+        } else if (data.message == "wrong password") {
           Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "Wrong Password!\nPlease try Again...",
           });
-        }else if(data.message=="not exist"){
+        } else if (data.message == "not exist") {
           Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "User not exist. Please try Again...",
           });
-        }else if(data.message=="not exist"){
+        } else if (data.message == "error") {
           Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "Server Error. Please try Again...",
           });
         }
-        
-      }).catch((error)=>{
-        console.log("User data not found : ",error)
+
+      }).catch((error) => {
+        console.log("User data not found : ", error)
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -120,10 +98,6 @@ function UserSingIn() {
       });
     }
 
-  }
-
-  function closeUsersingUpModal(){
-    setLgShow(false)
   }
 
   return (
@@ -160,7 +134,7 @@ function UserSingIn() {
                       Email
                     </label>
                     <div className="has-validation">
-                      <input placeholder="Enter Email Address" name="email" type="email" className="form-control" onChange={(event)=>{validateEmail(event); getData(event);}} id="userSinginemail" aria-describedby="inputGroupPrepend" required
+                      <input placeholder="Enter Email Address" name="email" type="email" className="form-control" onChange={(event) => { validateEmail(event); getData(event); }} id="userSinginemail" aria-describedby="inputGroupPrepend" required
                       />
                       <div className="valid-feedback">
                         Correct email!!
@@ -174,14 +148,8 @@ function UserSingIn() {
                     <label htmlFor="validationCustom03" className="form-label midgreen" >
                       password
                     </label>
-                    <input placeholder="Enter Password" name="password" type="password" className="form-control" id="userSiginpassword" onChange={(event)=>{validatePassword(event); getData(event);}} required />
-                    <div className="valid-feedback">
-                      looks Good!!
-                    </div>
-                    <div className="invalid-feedback">
-                      Invalid password!!
-                    </div>
-                    <UserFogotPassword />
+                    <input placeholder="Enter Password" name="password" type="password" className="form-control" id="userSiginpassword" onChange={getData} required />
+                    <div onClick={resetData}><UserFogotPassword /></div>
                   </div>
 
                   <div className="col-12  columns signupbtn-col mt-5">

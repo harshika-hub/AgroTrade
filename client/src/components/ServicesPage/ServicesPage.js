@@ -7,25 +7,21 @@ import land from '../../assets/lands2.jpg'
 import expert from '../../assets/expert2.jpg'
 import community from '../../assets/community1.jpg'
 import Header from '../Header/Header.js';
-import { jwtVerification } from '../../store/commonSlice.js'
-
 import React from 'react';
 import { Carousel } from 'react-bootstrap';
 import { Service1, Service2 } from './Service1.js';
 import { useDispatch } from 'react-redux'
 
-import { setUserData } from '../../store/userSlice.js'
-import { setRoleStatus } from '../../store/commonSlice.js'
-import { setOrgData } from '../../store/organizationSlice.js'
-import { setAdminData } from '../../store/adminSlice.js'
-// import {}
+import { authorize } from '../../store/auth/auth.js';
+
 
 import { useEffect } from 'react'
 function Services() {
   const dispatch = useDispatch();
   useEffect(() => {
-
+    authorize(dispatch);
   }, []);
+  
   return (<>
     <Header />
     <div className="hero-section">

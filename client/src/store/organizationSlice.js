@@ -23,10 +23,10 @@ export const orgRegister = async (payload) => {
     try {
         var result = await axios.post(REQUESTED_URL + '/organizationregistration',payload);
         console.log("Result : ", result);
-        if(result.data.message=="seccess"){
+        if(result.data.message=="success"){
             jscookie.set('token',result.data.token,{expires:1});
         }
-        return result.data.logData;
+        return result.data;
     } catch (error) {
         console.log("Error in orgRegister in orgSlice : ", error);
     }

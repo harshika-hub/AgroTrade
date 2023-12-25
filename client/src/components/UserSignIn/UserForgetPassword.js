@@ -40,7 +40,6 @@ function UserFogotPassword() {
   }
 
   function validateEmail(e) {
-    console.log("hello");
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     var EmailField = document.getElementById(e.target.id);
     if (pattern.test(e.target.value.trim())) {
@@ -49,7 +48,6 @@ function UserFogotPassword() {
 
       checkFields = true;
       if (e.target.name === "email") {
-        console.log("hello11112");
         email = true;
       }
     }
@@ -74,20 +72,38 @@ function UserFogotPassword() {
     checkOtp({ otp }).then((data) => {
       if (data.message == "success") {
         showPasswordFields();
-      }else {
-
+      }else{
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Wrong Otp!\n Please enter currect otp...",
+        });
       }
     });
   }
 
   function handleSubmitEmail(e) {
     e.preventDefault();
-    const email = emailset.email;
+    const emails = emailset.email;
 
-    console.log("getOtp1", email + " sdddd ", checkFields + "sdddd", email);
-    // if (checkFields && email) {
-    getOtp({ email, password: "" });
-    showOtpfrom()
+    // if (email) {
+      getOtp({ emails, password: "", message:"user change password" }).then((data)=>{
+        if(data.message=="success"){
+          showOtpfrom();
+        }else if(data.message=="not exist"){
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "You don't have any account! Please SignUp first.."
+          });
+        }
+      }).catch((error)=>{
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!"
+        });
+      });
     // }
   }
 

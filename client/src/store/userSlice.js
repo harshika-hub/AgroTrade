@@ -51,7 +51,7 @@ export const checkOtp =  async(payload)=>{
     try{
         console.log("inside check in userSlice : ",payload);
         var result  = await axios.post(REQUESTED_URL+"/checkotp",payload);
-        console.log("Result :" ,result);
+        console.log("Result : " ,result);
         return result.data;
     }catch(error){
         console.log("Error in check in userSlice : ",error);

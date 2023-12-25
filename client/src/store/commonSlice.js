@@ -26,6 +26,7 @@ export const getOtp = async (payload)=>{
         
         var result = await axios.post(REQUESTED_URL+"/getotp",payload); 
         console.log("commonSlice getOtp Result : ",result);
+        return result.data;
     }catch(error){
         console.log("error in getOtp commonSlice : ",error);
     }

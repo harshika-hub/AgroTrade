@@ -7,11 +7,12 @@ import { userRegister } from "../../store/userSlice.js";
 import "./UserSingUp.css"
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { setUserData } from "../../store/userSlice.js";
 
 var userObj = {};
 var email = false, password = false;
 function UserSingUp() {
-  const [userData, setUserData] = useState({});
+  const [userData, setUserDataState] = useState({});
   const [otp, setOtp] = useState();
   const [lgShow, setLgShow] = useState(false);
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function UserSingUp() {
 
   var getData = (event) => {
     const { name, value } = event.target;
-    setUserData({
+    setUserDataState({
       ...userData,
       [name]: value
     });
@@ -41,12 +42,13 @@ function UserSingUp() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
-    userRegister({ otp }).then((data)=>{
-      if(data.message=="success"){
-        dispatch(setUserData(data.logData.log));
-        dispatch(setRoleStatus({role: data.logData.role, status: true}));
+
+    userRegister({ otp }).then((data) => {
+      if (data.message == "success") {
+        dispatch(setUserData(data.log));
+        dispatch(setRoleStatus({ role: data.role, status: true }));
         setLgShow(false);
+        navigate('/');
         Swal.fire({
           position: "middle",
           icon: "success",
@@ -54,21 +56,21 @@ function UserSingUp() {
           showConfirmButton: false,
           timer: 2000
         });
-        navigate('/');
-      }else if(data.message=="error"){
+      } else if (data.message == "error") {
         Swal.fire({
           icon: "error",
           title: "Oops...",
           text: "Server Error. Please try Again...",
         });
-      }else if(data.message=="wrong otp"){
+      } else if (data.message == "wrong otp") {
         Swal.fire({
           icon: "error",
           title: "Oops...",
           text: "Wrong Otp!\n Please enter currect otp...",
         });
       }
-    }).catch(()=>{
+    }).catch((error) => {
+      console.log("catch", error);
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -115,7 +117,7 @@ function UserSingUp() {
     else {
       compnypasswordField.classList.remove('is-valid');
       compnypasswordField.classList.add('is-invalid');
-      password = true;
+      password = false;
     }
     if (e.target.value === "") {
       compnypasswordField.classList.remove('is-valid');
@@ -180,7 +182,7 @@ function UserSingUp() {
                   </div>
                 </div>
 
-                <h6 className="text-center darkgreen" >Already have Account ? <span className="midgreen">Sign Up</span> </h6>
+                <h6 className="text-center darkgreen" >Already have Account ? <span className="midgreen">Sign In</span> </h6>
 
               </form>
 

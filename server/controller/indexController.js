@@ -15,31 +15,51 @@ dotenv.config();
 
 export const indexGetOtpController = async(request,response)=>{
     console.log(request.body);
+    var check = true;
+    const {email,password} = request.body;
     var min = 1000; 
     var max = 9999; 
     var otp = Math.floor(Math.random() * (max - min + 1)) + min;
-    var email = request.body.email;
     var subject =  `Welcome to Agrotrade - Your Ultimate Agriculture Solution!`;
     var body = `Thank you for choosing us as your trusted partner for all your Grains and Equipments Need. Our team is dedicated to providing you with a seamless and convenient experience for your Agriculture requirements.
     Your One time Password is ${otp}`;
     var html = '';
     try{
-        sendMail(email,subject,body,html);
-        var hashed_password = await bcrypt.hash(request.body.password,10)  
-        // request.session.email = request.body.email;
-        // request.session.password = hashed_password;
-        // request.session.otp = otp;
-        // request.session.save();
-
-        /* Removable after solving session problem */
-        TEMP_SESSION.email = email;
-        TEMP_SESSION.password = hashed_password;
-        TEMP_SESSION.otp = otp;
-        /* Removable after solving session problem */
-
-        console.log("Email Sended Successfully. Otp : ",otp);
+        if(request.body.message=="user change password"){
+            var checkUser = await users.findOne({ email: email });
+            console.log(checkUser);
+            if(!checkUser){
+                check=false;
+            }
+        }else if(request.body.message=="org change password"){
+            var checkOrg = await organizations.findOne({dealer_email:email});
+            if(!checkOrg){
+                check = false;
+            }
+        }
+        if(check){
+            sendMail(email,subject,body,html);
+            var hashed_password = await bcrypt.hash(password,10)  
+            // request.session.email = request.body.email;
+            // request.session.password = hashed_password;
+            // request.session.otp = otp;
+            // request.session.save();
+            
+            /* Removable after solving session problem */
+            
+            TEMP_SESSION.email = email;
+            TEMP_SESSION.password = hashed_password;
+            TEMP_SESSION.otp = otp;
+            /* Removable after solving session problem */
+            
+            console.log("Email Sended Successfully. Otp : ",otp);
+            response.status(200).json({message:"success"});
+        }else{
+            response.status(200).json({message:"not exist"});
+        }
     }catch(error){
         console.error("Error while sending Email : ",error);
+        response.status(500).json({message:"error"})
     }
 }
 
@@ -82,25 +102,25 @@ export const indexUserRegistrationController = async(request,response)=>{
                     password
                 });
                 console.log(newUser);
-                console.log("User Registered Successfully");
+                console.log("User Registered Successfully.");
                 
                 LOG.email = newUser.email;
                 LOG.role = process.env.USER_ROLE;
 
                 var logData = await users.findOne(
                     {email:newUser.email},
-                    {password:0, _id:0}
+                    {password:0, _id:0, __v:0}
                 );
-                console.log("hi ",logData);
-                response.status(200).json({message:"success", token:token, logData : {log:logData, role:process.env.USER_ROLE}});
+                console.log("LogData : ",logData);
+                response.status(201).json({message:"success", token:token, log:logData, role:process.env.USER_ROLE});
             }
         }catch(error){
             console.log("Error while user Registration in indexUserRegistrationController : ",error);
-            response.status(204).json({message:'error'})
+            response.status(500).json({message:'error'})
         }
     }else{
         console.log("Invalid Otp.");
-        response.status(204).json({message:"wrong otp"});
+        response.status(200).json({message:"wrong otp"});
     }
 }
 
@@ -130,20 +150,21 @@ export const indexUserLoginController = async (request, response) => {
                 LOG.email = email;
                 LOG.role = process.env.USER_ROLE;
 
-                var logData =await users.findOne(
+                var logData = await users.findOne(
                     {email:email},
-                    {password:0, _id:0}
+                    {password:0, _id:0, __v:0}
                 );
-                response.status(201).json({ message:'success', token:token, logData:{log:logData, role: process.env.USER_ROLE}});
+                console.log("LogData : ",logData);
+                response.status(200).json({ message:'success', token:token, log:logData, role: process.env.USER_ROLE});
             }
             else {
                 console.log("Password does'nt match");
-                response.status(203).json({ message: 'wrong password' });
+                response.status(200).json({ message: 'wrong password' });
             }
         }
     } catch (error) {
         console.log("Error while login in indexUserLoginController :", error);
-        response.status(204).json({ message: 'error' });
+        response.status(500).json({ message: 'error' });
     }
 }
 
@@ -157,7 +178,7 @@ export const indexOrganizationRegistrantionController = async(request,response)=
             var existingOrg = await organizations.findOne({org_email:request.body.org_email}); 
             if(existingOrg){
                 console.log("Organization allready registered.");
-                response.status(204).json({message:"exist"});
+                response.status(200).json({message:"exist"});
             }else{
                 var hashed_password = await bcrypt.hash(request.body.password,10)  
                 var orgData = {
@@ -180,24 +201,26 @@ export const indexOrganizationRegistrantionController = async(request,response)=
                
                 var newOrg = await organizations.create(orgData);
                 console.log(newOrg);
-                console.log("Organization Registered Successfully");
+                console.log("Organization Registered Successfully.");
 
                 LOG.email = newOrg.email;
                 LOG.role = process.env.ORG_ROLE;
 
-                var logData = organizations.findOne(
+                var logData =await organizations.findOne(
                     {org_email:newOrg.org_email},
-                    {password:0, _id:0}
+                    {password:0, _id:0, __v:0}
                 );
-                response.status(204).json({message:"success",token: token, logData:{log: logData, role: process.env.ORG_ROLE}}); 
+                console.log("LogData : ",logData);
+                response.status(201).json({ message:'success', token:token, log:logData, role: process.env.ORG_ROLE});
             }
 
         }catch(error){
             console.log("Error while organization registration in indexOrganizationRegistrationController : ",error);
-            response.status(204).json({message:"error"})
+            response.status(500).json({message:"error"})
         }
     }else{
-        response.status(204).json({message:'invalid'});
+        console.log("Otp does not match.");
+        response.status(200).json({message:"wrong otp"});
     }
 }
 
@@ -247,12 +270,12 @@ export const indexOrganizationLoginController = async (request, response) => {
 
 export const indexCheckOtpController = async (request, response) => {
     console.log("request.body",request.body);
-    const  {otp}=request.body;
+    const {otp} = request.body;
     if(TEMP_SESSION.otp==otp){
         response.status(200).json({ message: 'success' });
     }
     else{
-        response.status(204).json({ message: `don't match` });
+        response.status(200).json({ message: 'wrong otp' });
     }
 }
 
