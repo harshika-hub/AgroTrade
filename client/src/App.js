@@ -9,14 +9,22 @@ import AboutUs from './components/AboutUsPage/AboutUs.js';
 import ContactUs from './components/ContactUsPage/ContactUs.js';
 // import UserDashboard from './components/UserDashboard/UserDashboard.js';
 import UserdashBoard from './components/UserDashboard/UserDashboard.js';
-import ChatComponent from './components/ChatComponent/ChatComponent.js';
+// import ChatComponent from './components/ChatComponent/ChatComponent.js';
+import Chatsection from './components/ChatComponent/Chatsection.js';
 
 // import ExpertModal from './components/BecomeExpertModal/ExpertModal.js';
 import {Routes,Route} from 'react-router-dom'
 import Profile from './components/UserDashboard/ProfileSection/ProfileSection.js';
+import { useEffect, useState } from 'react';
+// import {io} from 'socket.io-client';
 // import DashboardLinks from './components/DashboardLinks/DashboardLinks.js';
 
 function App() {
+  // const [socket,setSocket]=useState(null);
+  // useEffect(()=>{
+  //   setSocket(io("http://localhost:3000"));
+  // },[]);
+
   return (
     <>
     {/* <ExpertModal/> */}
@@ -30,7 +38,7 @@ function App() {
           <Route path='/dashboard' element={<UserdashBoard/>}>
                 <Route index element={<Profile />} />
                 <Route path="profile" element={<Profile />} />
-                <Route path='chat' element={<ChatComponent/>}></Route>
+                <Route path='chat' element={<Chatsection/>}></Route>
           </Route>          
         </Routes>
       {/* <Footer/> */}

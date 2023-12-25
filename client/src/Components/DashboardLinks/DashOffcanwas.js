@@ -16,7 +16,7 @@ function DashoffCanvas({ name, ...props }) {
       </Button> */}
 
       <a href="#" className="sidebar-toggler m-2 text-decoration-none flex-shrink-0" onClick={handleShow} id="navToggler">
-                 <i class="fa-solid fa-bars midgreen"></i>
+                 <i className="fa-solid fa-bars midgreen"></i>
        </a>
       <Offcanvas show={show} onHide={handleClose} {...props}>
         <Offcanvas.Header closeButton>
@@ -29,7 +29,7 @@ function DashoffCanvas({ name, ...props }) {
         <Offcanvas.Body>
           <div className='row w-100 '>
             {
-              true ? <div className='col-12  d-flex justify-content-end   '> <button type="Button" className="btn btn-danger">Log Out&nbsp;<i class="bi bi-box-arrow-right"></i></button></div>
+              true ? <div className='col-12  d-flex justify-content-end   '> <button type="Button" className="btn btn-danger">Log Out&nbsp;<i className="bi bi-box-arrow-right"></i></button></div>
                 :
                 <div className='col-12  d-flex justify-content-around mb-3 '>
                   <div className="dropdown m-0">
@@ -62,13 +62,13 @@ function DashoffCanvas({ name, ...props }) {
                     <Link className="offcanvasLinks  darkgreen mb-1 nav-link active" aria-current="page" to="/"><i className="bi bi-house-fill"></i>&nbsp;Home</Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="offcanvasLinks darkgreen mb-1  nav-link" to="/aboutus"><i class="bi bi-basket3-fill"></i>&nbsp;Market</Link>
+                    <Link className="offcanvasLinks darkgreen mb-1  nav-link" to="/aboutus"><i className="bi bi-basket3-fill"></i>&nbsp;Market</Link>
                   </li>
                   <li className="nav-item">
-                    <Link className=" offcanvasLinks darkgreen mb-1 nav-link" to="/community"><i class="bi bi-chat-fill"></i>&nbsp;Community</Link>
+                    <Link className=" offcanvasLinks darkgreen mb-1 nav-link" to="/community"><i className="bi bi-chat-fill"></i>&nbsp;Community</Link>
                   </li>
                   <li className="nav-item">
-                    <a className="offcanvasLinks darkgreen  mb-1  nav-link" to="contact"><i class="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard</a>
+                    <a className="offcanvasLinks darkgreen  mb-1  nav-link" to="contact"><i className="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard</a>
                   </li>
 
                   <div className="btn-group">

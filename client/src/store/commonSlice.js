@@ -52,7 +52,7 @@ const commonSlice = createSlice({
 
 export const getOtp = async (payload)=>{  
     try{
-        console.log("Pauload inside commonSlice getOtp : ",payload);
+        console.log("Payload inside commonSlice getOtp : ",payload);
         
         var result = await axios.post(REQUESTED_URL+"/getotp",payload); 
         console.log("commonSlice getOtp Result : ",result);

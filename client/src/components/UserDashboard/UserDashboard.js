@@ -3,6 +3,11 @@ import logo from "../../assets/Agro-Trade-logo.png"
 import Profile from "./ProfileSection/ProfileSection.js";
 import DashboardLinks from "../DashboardLinks/DashboardLinks.js";
 import { Link, Outlet } from "react-router-dom";
+import {io} from 'socket.io-client';
+import { useEffect, useState } from "react";
+import ExpertModal from "../BecomeExpertModal/ExpertModal";
+import { Button } from "react-bootstrap";
+
 <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" /> 
   // var show=false;
   // function silderBarToggle(params) {
@@ -21,6 +26,13 @@ import { Link, Outlet } from "react-router-dom";
   // }
 
 function UserdashBoard() {
+  const [show, setShow] = useState(false);
+
+  const [socket,setSocket]=useState(null);
+
+  useEffect(()=>{
+    setSocket(io('http://127.0.0.1:3000'));
+  },[]);
     console.log("sjdccuswdyuvwge");
   return (
     <>
@@ -44,7 +56,7 @@ function UserdashBoard() {
             </div>
             <div className="navbar-nav w-100 ">
             <Link to="/dashboard/profile" className="nav-item nav-link  active  ">
-              <i class="bi bi-person-circle text-center"></i>&nbsp;Profile
+              <i className="bi bi-person-circle text-center"></i>&nbsp;Profile
               </Link>
               <Link to="/dashboard/chat" className="nav-item nav-link ">
                 <i className="fa fa-th me-2 text-success"></i>&nbsp;Chat
@@ -53,27 +65,29 @@ function UserdashBoard() {
                 <i className="fa fa-th me-2 text-success"></i>&nbsp;Listed Grains
               </a>
               <a href="widget.html" className="nav-item nav-link ">
-              <i class="fa-solid fa-tractor text-success"></i>&nbsp;Listed Equipments
+              <i className="fa-solid fa-tractor text-success"></i>&nbsp;Listed Equipments
               </a>
               <a href="form.html" className="nav-item nav-link">
-              <i class="fa-solid fa-building-wheat text-success"></i>&nbsp;Agriculture Land
+              <i className="fa-solid fa-building-wheat text-success"></i>&nbsp;Agriculture Land
               </a>
               <a href="table.html" className="nav-item nav-link ">
-              <i class="fa-solid fa-warehouse text-success"></i>&nbsp;Cold Storage Land
+              <i className="fa-solid fa-warehouse text-success"></i>&nbsp;Cold Storage Land
               </a>
               <a href="chart.html" className="nav-item nav-link ">
-              <i class="fa-solid fa-wheat-awn text-success"></i>&nbsp;Grain Orders
+              <i className="fa-solid fa-wheat-awn text-success"></i>&nbsp;Grain Orders
               </a>
               <a href="chart.html" className="nav-item nav-link ">
                 <i className="bi bi-wrench-adjustable-circle-fill text-success"></i>&nbsp;Equipment Orders
               </a>
-              <a href="chart.html" className="nav-item nav-link ">
-              <i class="bi bi-layout-text-window-reverse text-success"></i>&nbsp;Expert Dashboard
-              </a>
+              <Button  onClick={() => setShow(true)} className="nav-item nav-link ms-0">
+              <i className="bi bi-layout-text-window-reverse text-success"></i>&nbsp;
+                      Expert Dashboard
+              </Button>
+              
               <div className="nav-item dropdown">
                 <a
                   href="#"
-                  className="nav-link dropdown-toggle "
+                  className="nav-link dropdown-toggle"
                   data-bs-toggle="dropdown"
                 >
                   <i className="far fa-file-alt me-2 text-success "></i>Agreements
@@ -96,12 +110,12 @@ function UserdashBoard() {
         {/* <DashboardLinks/> */}
 
 
-
+<ExpertModal setShow={setShow} show={show}/>
 {/* --------------------------------Div to be nvigate----------------------------- */}
           <div className="container-fluid p-0 " style={{flexGrow:1}}>
             {/* <div className="row"> */}
               {/* <Profile/> */}
-              <Outlet/>
+              <Outlet context={{socket}}/>
               
             {/* </div> */}
           </div>

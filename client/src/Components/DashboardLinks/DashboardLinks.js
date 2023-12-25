@@ -24,7 +24,7 @@ function DashboardLinks() {
     <div>
             <nav className="navbar navbar-expand bg-darkgreen sticky-top px-4 py-0  d-flex justify-content-between">
             <a href="#" className="sidebar-toggler m-2 text-decoration-none flex-shrink-0" id="sidebar-toggler" onClick={silderBarToggle}>
-            <i class="fa-solid fa-bars midgreen"></i>
+            <i className="fa-solid fa-bars midgreen"></i>
             </a>
            
             <div className="navbar-nav  w-75 " id="lg-links">
@@ -38,18 +38,18 @@ function DashboardLinks() {
                 </li>
                 <li className="nav-item">
                   <Link className=" text-white nav-link" to="/aboutus">
-                    <i class="bi bi-basket3-fill midgreen"></i>&nbsp;Market
+                    <i className="bi bi-basket3-fill midgreen"></i>&nbsp;Market
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className=" text-white nav-link" to="/services">
                     {" "}
-                    <i class="bi bi-chat-fill midgreen"></i>&nbsp;Community
+                    <i className="bi bi-chat-fill midgreen"></i>&nbsp;Community
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className=" text-white nav-link" to="/dashboard">
-                    <i class="bi bi-layout-text-window-reverse midgreen"></i>&nbsp;Dashboard
+                    <i className="bi bi-layout-text-window-reverse midgreen"></i>&nbsp;Dashboard
                   </Link>
                 </li>
                 </ul> 
@@ -86,7 +86,7 @@ function DashboardLinks() {
             </div>
             <div className="d-flex align-items-center justify-content-center" >
             {/* <a href="#" className="sidebar-toggler m-2 text-decoration-none flex-shrink-0 " id="navToggler">
-                 <i class="fa-solid fa-bars midgreen"></i>
+                 <i className="fa-solid fa-bars midgreen"></i>
              </a> */}
              <DashboardCanvas/>
               <div className="nav-item" id="logIutButton" >

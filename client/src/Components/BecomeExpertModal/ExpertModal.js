@@ -4,14 +4,18 @@ import Modal from 'react-bootstrap/Modal';
 // import expert from "../../assets/expert.jpg"
 import "./ExpertModal.css"
 
-function ExpertModal() {
-  const [show, setShow] = useState(false);
-
+function ExpertModal({setShow,show}) {
+  const [expert,setExpert]=useState({})
+  // const [show, setShow] = useState(false);
+  const getData=(e)=>{
+    let {name,value}=e.target;
+    
+  }
   return (
     <>
-      <Button variant="primary" onClick={() => setShow(true)}>
+      {/* <Button variant="primary" onClick={() => setShow(true)}>
         Custom Width Modal
-      </Button>
+      </Button> */}
 
       <Modal
       size="xl"
@@ -37,7 +41,8 @@ function ExpertModal() {
 
                   <div className=" col-12 col-md-12 p-2 ">
                     <label htmlFor="validationServer01" className="form-label midgreen">Education</label>
-                    <input name="reeducationg_name" type="text" className="form-control form-control-sm" id="regestrName"  placeholder="Enter Education" required />
+                    <input name="reeducationg_name" type="text" onChange={getData}
+                     className="form-control form-control-sm" id="regestrName"  placeholder="Enter Education" required />
                     <div className="valid-feedback">
                       Correct education!!
                     </div>
@@ -77,7 +82,7 @@ function ExpertModal() {
 
                   <div className=" col-12 col-md-12 p-2">
                     <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1">Consultancy Fee chat</label>
-                    <input name="consultancy_fee_chat" type="email" className="form-control form-control-sm" id="compnyEmailField"  placeholder="Enter Consultancy Fee chat" required />
+                    <input name="consultancy_fee_chat" type="number" className="form-control form-control-sm" id="compnyEmailField"  placeholder="Enter Consultancy Fee chat" required />
                     <div className="valid-feedback">
                       Correct Consultancy Fee chat!!
                     </div>
