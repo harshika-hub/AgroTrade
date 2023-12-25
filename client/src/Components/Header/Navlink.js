@@ -3,6 +3,7 @@ import UserSingUpModal from "../UserSignUpModal/UserSingUpModal";
 import OrgSingUpModal from "../OrgSigninModal/OrgSigninModal";
 import UserSinginModal from "../userSigninModal/userSigninModal";
 import OrgSinginModal from "../OrgSigninModal/OrgSigninModal";
+import servicesComponent from "../AboutUsPageComponent/AboutUsComponent";
 function Nablinks() {
   return (
     <>
@@ -31,9 +32,8 @@ function Nablinks() {
                 </a>
               </li>
               <li className="nav-item">
-                <a className=" text-white nav-link" href="services">
-                  {" "}
-                  <i className="bi bi-gear-wide-connected"></i>&nbsp;Services
+                <a className=" text-white nav-link" href="/servicepage">Services
+                  {/* <i className="bi bi-gear-wide-connected"></i>&nbsp;Services */}
                 </a>
               </li>
               <li className="nav-item">
