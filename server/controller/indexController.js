@@ -230,7 +230,7 @@ export const indexOrganizationLoginController = async (request, response) => {
         const { org_email, password } = request.body;
         const existingUser = await organizations.findOne({ org_email: org_email });
         if (existingUser == null) {
-            return response.status(202).json({ message: 'not exist' });
+            return response.status(200).json({ message: 'not exist' });
         } else {
             const password_status = await bcrypt.compare(password, existingUser.password);
             if (password_status) {
@@ -250,21 +250,21 @@ export const indexOrganizationLoginController = async (request, response) => {
                 LOG.email = org_email;
                 LOG.role = process.env.ORG_ROLE;
 
-                var logData = organizations.findOne(
+                var logData = await organizations.findOne(
                     {org_email:request.body.org_email},
                     {password:0, _id:0}
                 );
-                response.status(204).json({message:"success",token: token, logData:{log: logData, role: process.env.ORG_ROLE}}); 
-                return response.status(201).json({ message: 'success'});
+                console.log("Logdata : ",logData);
+                response.status(200).json({message:"success",token: token, log: logData, role: process.env.ORG_ROLE}); 
             }
             else {
                 console.log("Password does'nt match");
-                return response.status(203).json({ message: 'wrong password' });
+                return response.status(200).json({ message: 'wrong password' });
             }
         }
     } catch (error) {
         console.log("Error while login in indexOrgLoginController :", error);
-        return response.status(204).json({ message: 'error' });
+        return response.status(500).json({ message: 'error' });
     }
 }
 
