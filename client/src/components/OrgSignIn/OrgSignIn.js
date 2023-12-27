@@ -120,8 +120,7 @@ function OrgSingIn() {
                       Email
                     </label>
                     <div className="has-validation">
-                      <input placeholder="Enter Email Address" type="email" name="org_email" className="form-control" onChange={(event) => { validateEmail(event); getData(event); }} id="orgSigninemail" aria-describedby="inputGroupPrepend" required
-                      />
+                      <input placeholder="Enter Dealer Email Address" type="email" name="dealer_email" className="form-control" onChange={(event) => { validateEmail(event); getData(event); }} id="orgSigninemail" aria-describedby="inputGroupPrepend" required/>
                       <div className="valid-feedback">
                         Correct email!!
                       </div>

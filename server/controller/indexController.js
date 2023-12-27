@@ -175,7 +175,7 @@ export const indexOrganizationRegistrantionController = async(request,response)=
     console.log(request.body.password);
     if(TEMP_SESSION.otp==request.body.otp){
         try{
-            var existingOrg = await organizations.findOne({org_email:request.body.org_email}); 
+            var existingOrg = await organizations.findOne({dealer_email:request.body.dealer_email}); 
             if(existingOrg){
                 console.log("Organization allready registered.");
                 response.status(200).json({message:"exist"});
@@ -203,11 +203,11 @@ export const indexOrganizationRegistrantionController = async(request,response)=
                 console.log(newOrg);
                 console.log("Organization Registered Successfully.");
 
-                LOG.email = newOrg.email;
+                LOG.email = newOrg.dealer_email;
                 LOG.role = process.env.ORG_ROLE;
 
                 var logData =await organizations.findOne(
-                    {org_email:newOrg.org_email},
+                    {dealer_email:newOrg.dealer_email},
                     {password:0, _id:0, __v:0}
                 );
                 console.log("LogData : ",logData);
@@ -227,8 +227,8 @@ export const indexOrganizationRegistrantionController = async(request,response)=
 
 export const indexOrganizationLoginController = async (request, response) => {
     try {
-        const { org_email, password } = request.body;
-        const existingUser = await organizations.findOne({ org_email: org_email });
+        const { dealer_email, password } = request.body;
+        const existingUser = await organizations.findOne({ dealer_email: dealer_email });
         if (existingUser == null) {
             return response.status(200).json({ message: 'not exist' });
         } else {
@@ -237,7 +237,7 @@ export const indexOrganizationLoginController = async (request, response) => {
                 let payload = {};
                 const SECRET_KEY = process.env.JWT_SECRET_KEY;
                 payload.data = {
-                    org_email: org_email,
+                    dealer_email: dealer_email,
                     role: process.env.ORG_ROLE
                 }
 
@@ -247,12 +247,12 @@ export const indexOrganizationLoginController = async (request, response) => {
                 var token = jwt.sign(payload, SECRET_KEY, EXPIRY_TIME);
                 console.log("Login Successfully");
 
-                LOG.email = org_email;
+                LOG.email = dealer_email;
                 LOG.role = process.env.ORG_ROLE;
 
                 var logData = await organizations.findOne(
-                    {org_email:request.body.org_email},
-                    {password:0, _id:0}
+                    {dealer_email:request.body.dealer_email},
+                    {password:0, _id:0, __v:0}
                 );
                 console.log("Logdata : ",logData);
                 response.status(200).json({message:"success",token: token, log: logData, role: process.env.ORG_ROLE}); 

@@ -5,7 +5,10 @@ import AboutUs from './components/AboutUsPage/AboutUs.js';
 import ContactUs from './components/ContactUsPage/ContactUs.js';
 import Dashboard from './components/Dashboard/Dashboard.js';
 import {Routes,Route} from 'react-router-dom';
-// import Profile from './components/Dashboard/ProfileSection/ProfileSection.js';
+import ProfileSection from './components/Dashboard/ProfileSection/ProfileSection.js';
+import GrainsSection from './components/Dashboard/GrainsSection/GrainsSection.js';
+import EquipmentsSection from './components/Dashboard/EquipmentsSection/EquipmentsSection.js';
+
 
 
 function App() {
@@ -18,9 +21,11 @@ function App() {
         <Route path='/contactus' element={<ContactUs/>}></Route>
         <Route path='/aboutus' element={<AboutUs/>}></Route>
         <Route path='/dashboard' element={<Dashboard/>}>
-          {/* <Route path='profile' element={<Profile />} /> */}
-          {/* <Route path="profile" element={<Profile />} />
-          <Route path='chat' element={<Chatsection/>}></Route> */}
+          <Route index element={<ProfileSection />} />
+          <Route path='profile' element={<ProfileSection />} />
+          <Route path='grains' element={<GrainsSection />} />
+          <Route path='equipments' element={<EquipmentsSection />} />
+          {/* <Route path='chat' element={<Chatsection/>}></Route> */}
         </Route>
         <Route path='/community' element={<Dashboard/>}> </Route>
         <Route path='/market' element={<Dashboard/>}> </Route>

@@ -64,7 +64,7 @@ function Updateprofile(params) {
    document.getElementById("updateProfileSection").classList.add("offset-lg-3")
  }
 }
-function Profile() {
+function ProfileSection() {
   const [fields,dispatch] =  useReducer(reducer,initialsate)
       clone={...fields} 
     return ( <>
@@ -130,4 +130,4 @@ function Profile() {
     </> );
 }
 
-export default Profile;
+export default ProfileSection;
