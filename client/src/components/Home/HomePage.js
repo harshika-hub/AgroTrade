@@ -10,6 +10,7 @@ import Header from '../Header/Header.js';
 import { useEffect } from 'react';
 import { authorize } from '../../store/auth/auth.js';
 import Footer from '../Footer/Footer.js';
+import { temp } from '../../store/userSlice.js';
 
 
 
@@ -18,6 +19,7 @@ function Home() {
     const dispatch = useDispatch();
     useEffect(()=>{
         authorize(dispatch);
+        temp();
     },[]);
     return (
         <>

@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
-import { REQUESTED_URL } from '../urls.js';
+import { USER_REQUESTED_URL,REQUESTED_URL } from '../urls.js';
 import jscookie from 'js-cookie';
 
 const initialState = {
@@ -61,11 +61,20 @@ export const checkOtp =  async(payload)=>{
 export const changePassword =  async(payload)=>{
     try{
         console.log("inside change in userSlice : ",payload);
-        var result  = await axios.post(REQUESTED_URL+"/changepassword", payload);
+        var result  = await axios.post(REQUESTED_URL+"/userchangepassword", payload);
         console.log("Result :" ,result);
         return result.data;
     }catch(error){
         console.log("Error in change in userSlice : ",error);
+    }
+}
+
+export const temp = async()=>{
+    try{
+        var result  = await axios.get(USER_REQUESTED_URL+"/");
+        console.log(result);
+    }catch(error){
+        console.log("error whiler temp trial");
     }
 }
 

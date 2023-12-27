@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import "./OrgSignIn.css";
 import { setRoleStatus } from "../../store/commonSlice";
 import { useNavigate } from "react-router-dom";
+import OrgForgetPassword from "./OrgForgetPassword.js";
 var email = false;
 
 function OrgSingIn() {
@@ -140,6 +141,7 @@ function OrgSingIn() {
                     <div className="invalid-feedback">
                       Invalid password!!
                     </div>
+                    <OrgForgetPassword/>
                   </div>
 
                   <div className="col-12  columns signupbtn-col mt-5">

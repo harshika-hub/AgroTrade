@@ -46,6 +46,27 @@ export const orgLogin = async(payload)=>{
     }
 }
 
+export const checkOtp =  async(payload)=>{
+    try{
+        console.log("inside check in userSlice : ",payload);
+        var result  = await axios.post(REQUESTED_URL+"/checkotp",payload);
+        console.log("Result :" ,result);
+        return result.data;
+    }catch(error){
+        console.log("Error in check in userSlice : ",error);
+    }
+}
+
+export const changePassword =  async(payload)=>{
+    try{
+        console.log("inside change in orgSlice : ",payload);
+        var result  = await axios.post(REQUESTED_URL+"/orgchangepassword", payload);
+        console.log("Result :" ,result);
+        return result.data;
+    }catch(error){
+        console.log("Error in change in orgSlice : ",error);
+    }
+}
 
 export const { setOrgData } = organizationSlice.actions;
 // export const { orgRegister,orgLogin } = organizationSlice.actions;

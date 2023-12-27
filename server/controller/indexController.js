@@ -147,8 +147,8 @@ export const indexUserLoginController = async (request, response) => {
                 var token = jwt.sign(payload, SECRET_KEY, EXPIRY_TIME);
                 console.log("Login Successfully");
 
-                LOG.email = email;
-                LOG.role = process.env.USER_ROLE;
+                TEMP_SESSION.email = email;
+                TEMP_SESSION.role = process.env.USER_ROLE;
 
                 var logData = await users.findOne(
                     {email:email},
@@ -279,7 +279,7 @@ export const indexCheckOtpController = async (request, response) => {
     }
 }
 
-export const indexChangePasswordController = async (request, response) => {
+export const indexUserChangePasswordController = async (request, response) => {
     const  {password}=request.body;
     const hashed_password = await bcrypt.hash(password,10) 
     try{
@@ -296,3 +296,29 @@ export const indexChangePasswordController = async (request, response) => {
         response.status(204).json({ message: `error` });
     }
 }
+
+
+export const indexOrgChangePasswordController = async (request, response) => {
+    console.log(request.body);
+    // const  {password}=request.body;
+    // const hashed_password = await bcrypt.hash(password,10) 
+    // try{
+    //     var result  = await users.updateOne(
+    //         {   email: TEMP_SESSION.email   },
+    //         { $set: 
+    //             {   password: hashed_password   }
+    //         }
+    //     );
+    //     response.status(200).json({ message: 'success' });
+    // } 
+    // catch(error){
+    //     console.log("Error while changing Password : ",error);
+    //     response.status(204).json({ message: `error` });
+    // }
+}
+export const temp = ()=>{
+    console.log("inside temp");
+    console.log(TEMP_SESSION);
+}
+
+export { TEMP_SESSION };
