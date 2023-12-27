@@ -69,14 +69,14 @@ export const changePassword =  async(payload)=>{
     }
 }
 
-export const temp = async()=>{
-    try{
-        var result  = await axios.get(USER_REQUESTED_URL+"/");
-        console.log(result);
-    }catch(error){
-        console.log("error whiler temp trial");
-    }
-}
+// export const temp = async()=>{
+//     try{
+//         var result  = await axios.get(USER_REQUESTED_URL+"/");
+//         console.log(result);
+//     }catch(error){
+//         console.log("error whiler temp trial");
+//     }
+// }
 
 export const {setUserData} = userSlice.actions;
 export default userSlice.reducer;

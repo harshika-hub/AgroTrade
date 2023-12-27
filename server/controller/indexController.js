@@ -4,13 +4,12 @@ import { sendMail } from '../middleware/nodeMailer.js';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { LOG } from '../middleware/jwtVerification.js';
 import {request,response} from 'express';
 
 dotenv.config();
 
 /* Removable after solving session problem */
-    var TEMP_SESSION = {};
+    var TEMP_SESSION1 = {};
 /* Removable after solving session problem */
 
 export const indexGetOtpController = async(request,response)=>{
@@ -47,9 +46,9 @@ export const indexGetOtpController = async(request,response)=>{
             
             /* Removable after solving session problem */
             
-            TEMP_SESSION.email = email;
-            TEMP_SESSION.password = hashed_password;
-            TEMP_SESSION.otp = otp;
+            TEMP_SESSION1.email = email;
+            TEMP_SESSION1.password = hashed_password;
+            TEMP_SESSION1.otp = otp;
             /* Removable after solving session problem */
             
             console.log("Email Sended Successfully. Otp : ",otp);
@@ -70,9 +69,9 @@ export const indexUserRegistrationController = async(request,response)=>{
     // var real_otp = request.session.otp;
     
     /* Removable after solving session problem */
-    var email = TEMP_SESSION.email;
-    var password = TEMP_SESSION.password;
-    var real_otp = TEMP_SESSION.otp;
+    var email = TEMP_SESSION1.email;
+    var password = TEMP_SESSION1.password;
+    var real_otp = TEMP_SESSION1.otp;
     /* Removable after solving session problem */
     
     if(real_otp==request.body.otp){
@@ -147,8 +146,8 @@ export const indexUserLoginController = async (request, response) => {
                 var token = jwt.sign(payload, SECRET_KEY, EXPIRY_TIME);
                 console.log("Login Successfully");
 
-                TEMP_SESSION.email = email;
-                TEMP_SESSION.role = process.env.USER_ROLE;
+                TEMP_SESSION1.email = email;
+                TEMP_SESSION1.role = process.env.USER_ROLE;
 
                 var logData = await users.findOne(
                     {email:email},
@@ -173,7 +172,7 @@ export const indexOrganizationRegistrantionController = async(request,response)=
     console.log(request);
     console.log(request.body);
     console.log(request.body.password);
-    if(TEMP_SESSION.otp==request.body.otp){
+    if(TEMP_SESSION1.otp==request.body.otp){
         try{
             var existingOrg = await organizations.findOne({dealer_email:request.body.dealer_email}); 
             if(existingOrg){
@@ -271,7 +270,7 @@ export const indexOrganizationLoginController = async (request, response) => {
 export const indexCheckOtpController = async (request, response) => {
     console.log("request.body",request.body);
     const {otp} = request.body;
-    if(TEMP_SESSION.otp==otp){
+    if(TEMP_SESSION1.otp==otp){
         response.status(200).json({ message: 'success' });
     }
     else{
@@ -284,7 +283,7 @@ export const indexUserChangePasswordController = async (request, response) => {
     const hashed_password = await bcrypt.hash(password,10) 
     try{
         var result  = await users.updateOne(
-            {   email: TEMP_SESSION.email   },
+            {   email: TEMP_SESSION1.email   },
             { $set: 
                 {   password: hashed_password   }
             }
@@ -304,7 +303,7 @@ export const indexOrgChangePasswordController = async (request, response) => {
     // const hashed_password = await bcrypt.hash(password,10) 
     // try{
     //     var result  = await users.updateOne(
-    //         {   email: TEMP_SESSION.email   },
+    //         {   email: TEMP_SESSION1.email   },
     //         { $set: 
     //             {   password: hashed_password   }
     //         }
@@ -318,7 +317,7 @@ export const indexOrgChangePasswordController = async (request, response) => {
 }
 export const temp = ()=>{
     console.log("inside temp");
-    console.log(TEMP_SESSION);
+    console.log(TEMP_SESSION1);
 }
 
-export { TEMP_SESSION };
+export { TEMP_SESSION1 };

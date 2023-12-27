@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-var LOG = {};
+var TEMP_SESSION2 = {};
 
 
 export const aunthicateJWT = (request,response,next)=>{
@@ -45,8 +45,8 @@ export const authorizeUser = async(request,response,next)=>{
                 {password : 0, _id:0 }
             );
             if (loggedUser) {
-                LOG.email = loggedUser.email;
-                LOG.role = process.env.USER_ROLE;
+                TEMP_SESSION2.email = loggedUser.email;
+                TEMP_SESSION2.role = process.env.USER_ROLE;
                 response.status(200).json({message:"success", logData :{log : loggedUser, role:process.env.USER_ROLE}});
                 console.log("user Login Successfully.");
             }else{
@@ -65,8 +65,8 @@ export const authorizeUser = async(request,response,next)=>{
                 {password : 0, _id:0}
             );
             if(loggedOrg){
-                LOG.email = loggedOrg.org_email;
-                LOG.role = process.env.ORG_ROLE;
+                TEMP_SESSION2.email = loggedOrg.org_email;
+                TEMP_SESSION2.role = process.env.ORG_ROLE;
                 response.status(200).json({message:"success", logData :{log : loggedOrg, role:process.env.ORG_ROLE}});
                 console.log("Organization Login Successfully.");
             }else{
@@ -84,8 +84,8 @@ export const authorizeUser = async(request,response,next)=>{
                 {password : 0, _id:0}
             );
             if(loggedAdmin){
-                LOG.email = loggedAdmin.email;
-                LOG.role = process.env.ADMIN_ROLE;
+                TEMP_SESSION2.email = loggedAdmin.email;
+                TEMP_SESSION2.role = process.env.ADMIN_ROLE;
                 response.status(200).json({message:"success", logData :{log : loggedAdmin, role:process.env.ADMIN_ROLE}});
                 console.log("Organization Login Successfully.");
             }else{
@@ -100,7 +100,7 @@ export const authorizeUser = async(request,response,next)=>{
         console.error('Authorization Failed.');
         response.status(204).json({message:'error'});
     }
-    // next();
+    next();
 }
 
-export {LOG};
+export {TEMP_SESSION2};

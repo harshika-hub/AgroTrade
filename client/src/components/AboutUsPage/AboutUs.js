@@ -8,11 +8,14 @@ import Header from '../Header/Header.js';
 import { authorize } from '../../store/auth/auth.js';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+// import { temp } from '../../store/userSlice.js';
+
 
 function AboutUs() {
   const dispatch = useDispatch();
   useEffect(() => {
     authorize(dispatch);
+    // temp();
   }, []);
   
   return (
