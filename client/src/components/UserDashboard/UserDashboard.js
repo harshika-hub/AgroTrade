@@ -7,6 +7,7 @@ import {io} from 'socket.io-client';
 import { useEffect, useState } from "react";
 import ExpertModal from "../BecomeExpertModal/ExpertModal";
 import { Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" /> 
   // var show=false;
@@ -29,9 +30,13 @@ function UserdashBoard() {
   const [show, setShow] = useState(false);
 
   const [socket,setSocket]=useState(null);
+  const expertStatus=useSelector(state=>state.commonSlice.expert);
+  console.log("expert status in dashboard",String(expertStatus));
 
   useEffect(()=>{
     setSocket(io('http://127.0.0.1:3000'));
+
+
   },[]);
     console.log("sjdccuswdyuvwge");
   return (
@@ -79,10 +84,14 @@ function UserdashBoard() {
               <a href="chart.html" className="nav-item nav-link ">
                 <i className="bi bi-wrench-adjustable-circle-fill text-success"></i>&nbsp;Equipment Orders
               </a>
-              <Button  onClick={() => setShow(true)} className="nav-item nav-link ms-0">
-              <i className="bi bi-layout-text-window-reverse text-success"></i>&nbsp;
-                      Expert Dashboard
-              </Button>
+
+              {
+                !expertStatus?<Button  onClick={() => setShow(true)} className="nav-item nav-link ms-0">
+                <i className="bi bi-layout-text-window-reverse text-success"></i>&nbsp;
+                        Become Expert
+                </Button>:""
+              }
+              
               
               <div className="nav-item dropdown">
                 <a

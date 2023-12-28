@@ -6,7 +6,8 @@ import jscookie from 'js-cookie';
 
 const initialState = {
     role : '',
-    status : false
+    status : false,
+    expert:false,
 }
 
 const commonSlice = createSlice({
@@ -14,8 +15,10 @@ const commonSlice = createSlice({
     initialState,
     reducers :{
         setRoleStatus : (state,action)=>{
+            console.log("action.payload ",action.payload)
             state.role = action.payload.role;
             state.status = action.payload.status
+            state.expert = action.payload.expert
             // localStorage.setItem('role',JSON.stringify(state.role))
             // localStorage.setItem('status',JSON.stringify(state.status))
         },

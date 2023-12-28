@@ -79,7 +79,7 @@ function UserSingIn() {
       userLogin(loginData).then((logData)=>{
         console.log("logData : ",logData);
         dispatch(setUserData(logData.log));
-        dispatch(setRoleStatus({role:logData.role, status: true}));
+        dispatch(setRoleStatus({role:logData.role,expert:logData.expert_status, status: true}));
         // navigate('/contactus');
         setLgShow(false);
         // console.log("user : ",user_Data);

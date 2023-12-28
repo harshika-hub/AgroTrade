@@ -1,4 +1,5 @@
 function ChatListitem(props) {
+  
     return ( <>
     <div className="card p-0">
                 <div className="card-body bg-light m-0 pb-0 p-1 ps-2 pe-2 pt-2">
@@ -9,7 +10,7 @@ function ChatListitem(props) {
                           <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"className="rounded-circle d-flex align-self-center me-3 shadow-1-strong"width="60"/>
                           <div>
                             <h4 className="darkgreen" >Vikas Joshi</h4>
-                            <p className="small  midgreen">
+                            <p className="small midgreen">
                               Hello
                             </p>
                           </div>

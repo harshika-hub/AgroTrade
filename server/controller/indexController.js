@@ -134,6 +134,7 @@ export const indexUserLoginController = async (request, response) => {
                     {email:email},
                     {password:0, _id:0}
                 );
+                console.log("userData in sign in controller",logData);
                 response.status(201).json({ message:'seccess', token:token, logData:{log:logData, role: process.env.USER_ROLE}});
             }
             else {
