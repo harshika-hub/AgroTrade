@@ -4,6 +4,7 @@ import { sendMail } from '../middleware/nodeMailer.js';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import { LOG } from '../middleware/jwtVerification.js';
 import {request,response} from 'express';
 
 dotenv.config();
@@ -13,6 +14,7 @@ dotenv.config();
 /* Removable after solving session problem */
 
 export const indexGetOtpController = async(request,response)=>{
+    console.log(request.body);
     var min = 1000; 
     var max = 9999; 
     var otp = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -24,15 +26,13 @@ export const indexGetOtpController = async(request,response)=>{
     try{
         sendMail(email,subject,body,html);
         var hashed_password = await bcrypt.hash(request.body.password,10)  
-        // console.log(request.session);
         // request.session.email = request.body.email;
         // request.session.password = hashed_password;
         // request.session.otp = otp;
         // request.session.save();
-        // console.log(request.session);
 
         /* Removable after solving session problem */
-        TEMP_SESSION.email = request.body.email;
+        TEMP_SESSION.email = email;
         TEMP_SESSION.password = hashed_password;
         TEMP_SESSION.otp = otp;
         /* Removable after solving session problem */
@@ -64,8 +64,7 @@ export const indexUserRegistrationController = async(request,response)=>{
             }
             else{
                 let payload = {};
-                const MAX_AGE = 6 * 24 * 60 * 60 * 1000;
-                const SECRET_KEY = process.env.USER_JWT_SECRET_KEY;
+                const SECRET_KEY = process.env.JWT_SECRET_KEY;
                 payload.data = {
                     email : email,
                     role : process.env.USER_ROLE
@@ -75,7 +74,6 @@ export const indexUserRegistrationController = async(request,response)=>{
                     expiresIn : '6d'
                 }
                 var token = jwt.sign(payload,SECRET_KEY,EXPIRY_TIME);
-                response.cookie('jwt',token,{httpOnly:true,maxAge:MAX_AGE});
                 console.log("JWT cookie saved successfully.");
                
                 console.log(email,password);
@@ -85,14 +83,24 @@ export const indexUserRegistrationController = async(request,response)=>{
                 });
                 console.log(newUser);
                 console.log("User Registered Successfully");
-                response.json({message:"success"});
+                
+                LOG.email = newUser.email;
+                LOG.role = process.env.USER_ROLE;
+
+                var logData = await users.findOne(
+                    {email:newUser.email},
+                    {password:0, _id:0}
+                );
+                console.log("hi ",logData);
+                response.status(200).json({message:"success", token:token, logData : {log:logData, role:process.env.USER_ROLE}});
             }
         }catch(error){
             console.log("Error while user Registration in indexUserRegistrationController : ",error);
+            response.status(204).json({message:'error'})
         }
     }else{
         console.log("Invalid Otp.");
-        response.json({message:"invalid"});
+        response.status(204).json({message:"invalid"});
     }
 }
 
@@ -102,13 +110,12 @@ export const indexUserLoginController = async (request, response) => {
         const { email, password } = request.body;
         const existingUser = await users.findOne({ email: email });
         if (existingUser == null) {
-            return response.status(202).json({ message: 'Invalid Email Id ' });
+            return response.status(202).json({ message: 'Invalid Email Id' });
         } else {
             const password_status = await bcrypt.compare(password, existingUser.password);
             if (password_status) {
                 let payload = {};
-                const MAX_AGE = 6 * 24 * 60 * 60 * 1000;
-                const SECRET_KEY = process.env.USER_JWT_SECRET_KEY;
+                const SECRET_KEY = process.env.JWT_SECRET_KEY;
                 payload.data = {
                     email: email,
                     role: process.env.USER_ROLE
@@ -118,10 +125,115 @@ export const indexUserLoginController = async (request, response) => {
                     expiresIn: '6d'
                 }
                 var token = jwt.sign(payload, SECRET_KEY, EXPIRY_TIME);
-                response.cookie('jwt', token, { httpOnly: true, maxAge: MAX_AGE });
                 console.log("Login Successfully");
-                
-                return response.status(201).json({ message: 'login successfull'});
+
+                LOG.email = email;
+                LOG.role = process.env.USER_ROLE;
+
+                var logData =await users.findOne(
+                    {email:email},
+                    {password:0, _id:0}
+                );
+                console.log("userData in sign in controller",logData);
+                response.status(201).json({ message:'seccess', token:token, logData:{log:logData, role: process.env.USER_ROLE}});
+            }
+            else {
+                console.log("Password does'nt match");
+                response.status(203).json({ message: 'wrong password' });
+            }
+        }
+    } catch (error) {
+        console.log("Error while login in indexUserLoginController :", error);
+        response.status(204).json({ message: 'error' });
+    }
+}
+
+
+export const indexOrganizationRegistrantionController = async(request,response)=>{
+    console.log(request);
+    console.log(request.body);
+    console.log(request.body.password);
+    if(TEMP_SESSION.otp==request.body.otp){
+        try{
+            var existingOrg = await organizations.findOne({org_email:request.body.org_email}); 
+            if(existingOrg){
+                console.log("Organization allready registered.");
+                response.status(204).json({message:"exist"});
+            }else{
+                var hashed_password = await bcrypt.hash(request.body.password,10)  
+                var orgData = {
+                    ...request.body,
+                    password : hashed_password,
+                    org_image : request.file.filename
+                };
+                let payload = {};
+                const SECRET_KEY = process.env.JWT_SECRET_KEY;
+                payload.data = {
+                    email : request.body.org_email,
+                    role : process.env.ORG_ROLE
+                }
+
+                const EXPIRY_TIME = {
+                    expiresIn : '6d'
+                }
+                var token = jwt.sign(payload,SECRET_KEY,EXPIRY_TIME);
+                console.log("JWT cookie saved successfully.");
+               
+                var newOrg = await organizations.create(orgData);
+                console.log(newOrg);
+                console.log("Organization Registered Successfully");
+
+                LOG.email = newOrg.email;
+                LOG.role = process.env.ORG_ROLE;
+
+                var logData = organizations.findOne(
+                    {org_email:newOrg.org_email},
+                    {password:0, _id:0}
+                );
+                response.status(204).json({message:"success",token: token, logData:{log: logData, role: process.env.ORG_ROLE}}); 
+            }
+
+        }catch(error){
+            console.log("Error while organization registration in indexOrganizationRegistrationController : ",error);
+            response.status(204).json({message:"error"})
+        }
+    }else{
+        response.status(204).json({message:'invalid'});
+    }
+}
+
+
+export const indexOrganizationLoginController = async (request, response) => {
+    try {
+        const { org_email, password } = request.body;
+        const existingUser = await organizations.findOne({ org_email: org_email });
+        if (existingUser == null) {
+            return response.status(202).json({ message: 'not exist' });
+        } else {
+            const password_status = await bcrypt.compare(password, existingUser.password);
+            if (password_status) {
+                let payload = {};
+                const SECRET_KEY = process.env.JWT_SECRET_KEY;
+                payload.data = {
+                    org_email: org_email,
+                    role: process.env.ORG_ROLE
+                }
+
+                const EXPIRY_TIME = {
+                    expiresIn: '6d'
+                }
+                var token = jwt.sign(payload, SECRET_KEY, EXPIRY_TIME);
+                console.log("Login Successfully");
+
+                LOG.email = org_email;
+                LOG.role = process.env.ORG_ROLE;
+
+                var logData = organizations.findOne(
+                    {org_email:request.body.org_email},
+                    {password:0, _id:0}
+                );
+                response.status(204).json({message:"success",token: token, logData:{log: logData, role: process.env.ORG_ROLE}}); 
+                return response.status(201).json({ message: 'success'});
             }
             else {
                 console.log("Password does'nt match");
@@ -129,28 +241,36 @@ export const indexUserLoginController = async (request, response) => {
             }
         }
     } catch (error) {
-        console.log("Error while login in indexUserLoginController :", error);
-        return response.status(204).json({ message: 'technical issue' });
+        console.log("Error while login in indexOrgLoginController :", error);
+        return response.status(204).json({ message: 'error' });
     }
 }
 
-
-
-// export const indexOrganizationRegistrantionController = async(request,response)=>{
-//     console.log("request.body",request.body);
-//     // var image = request.files['org_image'][0];
-//     // console.log("image",image);
-// }
-
-export const indexOrganizationRegistrantionController = async(request,response)=>{
-    
+export const indexCheckOtpController = async (request, response) => {
     console.log("request.body",request.body);
-    console.log("image name ",request.file.filename);
-    request.body.org_image=request.file.filename;
-    // var image = request.files['org_image'][0];
-    console.log("image after adding file",request.body);
-    // organizations.create(request.body);
+    const  {otp}=request.body;
+    if(TEMP_SESSION.otp==otp){
+        response.status(200).json({ message: 'success' });
+    }
+    else{
+        response.status(204).json({ message: `don't match` });
+    }
+}
 
-
-
+export const indexChangePasswordController = async (request, response) => {
+    const  {password}=request.body;
+    const hashed_password = await bcrypt.hash(password,10) 
+    try{
+        var result  = await users.updateOne(
+            {   email: TEMP_SESSION.email   },
+            { $set: 
+                {   password: hashed_password   }
+            }
+        );
+        response.status(200).json({ message: 'success' });
+    } 
+    catch(error){
+        console.log("Error while changing Password : ",error);
+        response.status(204).json({ message: `error` });
+    }
 }

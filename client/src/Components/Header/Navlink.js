@@ -1,27 +1,29 @@
-import "./header.css";
-import UserSingUpModal from "../UserSignUpModal/UserSingUpModal";
-import OrgSingUpModal from "../OrgSigninModal/OrgSigninModal";
-import UserSinginModal from "../userSigninModal/userSigninModal";
-import OrgSinginModal from "../OrgSigninModal/OrgSigninModal";
+// import "./Header.css";
+import UserSingUp from "../UserSignUp/UserSingUp.js";
+import UserSingIn from "../UserSignIn/UserSignIn.js";
+import OrgSingIn from "../OrgSignIn/OrgSignIn.js";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import { setRoleStatus } from "../../store/commonSlice.js";
+import { setUserData } from "../../store/userSlice.js";
+import { setOrgData } from "../../store/organizationSlice.js";
+import { setAdminData } from "../../store/adminSlice.js";
+import { useNavigate } from "react-router-dom";
+import jscookie from 'js-cookie';
+
 function Nablinks() {
-  const [navs, setNav] = useState();
-  const nav = useSelector((state) => {
-
-    if (state.userSlice.signUp)
-      return true
-    else
-      return false
-  });
-  useEffect(() => {
-    if (nav)
-      setNav(true);
-    else
-      setNav(false);
-
-  },[nav])
+  console.log("hiii");
+  const {role,status} = useSelector(state=>state.commonSlice);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  function handleLogout(){
+    dispatch(setRoleStatus({role:"", status:false}));
+    dispatch(setUserData({}));
+    dispatch(setOrgData({}));
+    dispatch(setAdminData({}));
+    jscookie.set('token','')
+    navigate('/');
+  }
   return (
     <>
       <div
@@ -34,7 +36,7 @@ function Nablinks() {
 
 
             {
-              navs ? <ul id="navLinkul" className="nav d-felx justify-content-around aling-items-center" >
+              status ? <ul id="navLinkul" className="nav d-felx justify-content-around aling-items-center" >
                 <li className="nav-item ">
 
                   <Link to='/' className=" text-white nav-link">
@@ -43,18 +45,18 @@ function Nablinks() {
 
                 </li>
                 <li className="nav-item">
-                  <Link className=" text-white nav-link" to="/aboutus">
+                  <Link className=" text-white nav-link" to="/market">
                     <i class="bi bi-basket3-fill"></i>&nbsp;Market
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className=" text-white nav-link" to="/services">
+                  <Link className=" text-white nav-link" to="/community">
                     {" "}
                     <i class="bi bi-chat-fill"></i>&nbsp;Community
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className=" text-white nav-link" to="/contact">
+                  <Link className=" text-white nav-link" to="/dashboard">
                     <i class="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard
                   </Link>
                 </li>
@@ -76,7 +78,7 @@ function Nablinks() {
                       </Link>
                     </li>
                     <li className="dropdown-item">
-                      <Link className=" text-success nav-link" to="/contact">
+                      <Link className=" text-success nav-link" to="/contactus">
                         <i className="bi bi-telephone-fill"></i>&nbsp;Contact
                       </Link>
                     </li>
@@ -106,7 +108,7 @@ function Nablinks() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className=" text-white nav-link" to="/contact">
+                  <Link className=" text-white nav-link" to="/contactus">
                     <i className="bi bi-telephone-fill"></i>&nbsp;Contact
                   </Link>
                 </li>
@@ -119,7 +121,12 @@ function Nablinks() {
 
 
             {
-              false ? <button type="Button" className="btn btn-danger">Log Out&nbsp;<i class="bi bi-box-arrow-right"></i></button> :
+              status ? <button 
+                type="Button" 
+                className="btn btn-danger"
+                onClick={handleLogout}
+                >Log Out&nbsp;<i class="bi bi-box-arrow-right"></i>
+              </button> :
                 <>
                   <div className="dropdown m-0">
                     <Link
@@ -136,17 +143,16 @@ function Nablinks() {
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                       <li>
                         <a className="dropdown-item" to="#">
-                          <UserSinginModal />
+                          <UserSingIn/>
                         </a>
                       </li>
                       <li>
                         <a className="dropdown-item" to="#">
-                          <OrgSinginModal />
+                          <OrgSingIn />
                         </a>
                       </li>
                     </ul>
                   </div>
-                  
                   <div className="dropdown m-0">
                     <a
                       className="btn linksbtn btn-warning dropdown-toggle"
@@ -161,7 +167,7 @@ function Nablinks() {
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                       <li>
                         <a className="dropdown-item" to="#">
-                          <UserSingUpModal />
+                          <UserSingUp/>
                         </a>
                       </li>
                       <li>
@@ -171,6 +177,8 @@ function Nablinks() {
                       </li>
                     </ul>
                   </div>
+
+
                 </>
             }
 

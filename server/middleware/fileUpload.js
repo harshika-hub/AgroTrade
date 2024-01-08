@@ -5,8 +5,8 @@ var storage=multer.diskStorage({
     destination:'../public/uploads'
     ,
     filename:(req,file,cb)=>{
-        console.log("inside multer filenames")
-        cb(null,file.filename+" "+Date.now()+path.extname(file.originalname));
+        console.log("inside multer filenames",file)
+        cb(null,Date.now()+path.extname(file.originalname));
     }
 });
-  export const upload=multer({storage:storage}).single('org_image');
+  export const upload=multer({storage:storage});
