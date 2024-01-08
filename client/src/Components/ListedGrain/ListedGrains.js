@@ -1,6 +1,6 @@
 import "./ListedGrains.css"
 import ListedGrainsCards from "./ListedGrainsCards";
-function ListedGrains() {
+function ListedGrains(props) {
     return ( <>
 
     <div className="row m-2 p-0 " id="ListedGrainsBox" >

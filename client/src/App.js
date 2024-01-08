@@ -13,7 +13,7 @@ import UserdashBoard from './components/UserDashboard/UserDashboard.js';
 import Chatsection from './components/ChatComponent/Chatsection.js';
 
 // import ExpertModal from './components/BecomeExpertModal/ExpertModal.js';
-import {Routes,Route} from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Profile from './components/UserDashboard/ProfileSection/ProfileSection.js';
 import ListedGrains from './components/ListedGrain/ListedGrains.js';
 import { useEffect, useState } from 'react';
@@ -28,22 +28,22 @@ function App() {
 
   return (
     <>
-    {/* <ExpertModal/> */}
+      {/* <ExpertModal/> */}
       {/* <Header /> */}
-        <Routes>
-          <Route path="/" element={<Home/>}></Route>
-          <Route path='/services' element={<Services/>}></Route>
-          <Route path='/orgSignup' element={<OrgSingUp/>}></Route>
-          <Route path='/contactus' element={<ContactUs/>}></Route>
-          <Route path='/aboutus' element={<AboutUs/>}></Route>
-          <Route path='/dashboard' element={<UserdashBoard/>}>
-                <Route index element={<Profile />} />
-                <Route path="profile" element={<Profile />} />
-                <Route path='chat' element={<Chatsection/>}></Route>
-                <Route path='listedGrain' element={<ListedGrains/>}></Route>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path='/services' element={<Services />}></Route>
+        <Route path='/orgSignup' element={<OrgSingUp />}></Route>
+        <Route path='/contactus' element={<ContactUs />}></Route>
+        <Route path='/aboutus' element={<AboutUs />}></Route>
+        <Route path='/dashboard' element={<UserdashBoard />}>
+          <Route path="profile" element={<Profile />} />
+          <Route path='chat' element={<Chatsection />}></Route>
+          <Route path='listedGrain' element={<ListedGrains />}></Route>
+          <Route index element={<Profile />} />
 
-          </Route>          
-        </Routes>
+        </Route>
+      </Routes>
       {/* <Footer/> */}
 
     </>

@@ -29,7 +29,7 @@ import { getDataonLoad } from "../../store/userSlice";
   // }
 
 function UserdashBoard() {
-  const navigate=useNavigate();
+  var navigate=useNavigate();
   const [show, setShow] = useState(false);
   const [userData,setUserData]=useState({})
 
@@ -51,32 +51,22 @@ function UserdashBoard() {
         setUserData({...user});
         }
 
-  },[dispatch]);
+  },[dispatch,user]);
+  
   const checUser=(route)=>{
-    console.log("route inside checkuser",String(route))
+    navigate('/dashboard/chat')
+    // console.log("route inside checkuser",String(route))
     if(!user.user_status){
     alert("Please complete your profiile first.")
     navigate("/dashboard/profile")
-    }else if(route=="/dashboard/chat")
-    {
-      navigate("/dashboard/chat");
-      console.log("inside chat check",route)
-    }else if(route=="/dashboard/listedGrain")
-    {
-      navigate("/dashboard/listedGrain");
-      console.log("inside chat check",route)
-    }else if(route=="/dashboard/listedEquipment")
-    {
-      navigate("/dashboard/listedequipment");
-      console.log("inside chat check",route)
-    }
-  // }else{
-  //   navigate(String(route));
-  //   console.log("route inside checkuser",String(route));
-  // }
+    return
+  }else{
+    navigate(String(route));
+    console.log("route inside checkuser",String(route));
+  }
 
   }
-    console.log("sjdccuswdyuvwge");
+  
   return (
     <>
       <div className="container-fluid position-relative d-flex p-0 ">
@@ -101,12 +91,12 @@ function UserdashBoard() {
             <Link to="/dashboard/profile" className="nav-item nav-link  active  ">
               <i className="bi bi-person-circle text-center"></i>&nbsp;Profile
               </Link>
-              <Link onClick={()=>checUser("/dashboard/chat")} className="nav-item nav-link ">
+              <a onClick={()=>checUser("/dashboard/chat")} className="nav-item nav-link ">
                 <i className="fa fa-th me-2 text-success"></i>&nbsp;Chat
-              </Link> 
-              <Link onClick={()=>checUser("/dashboard/listedGrain")}  className="nav-item nav-link ">
+              </a> 
+              <a onClick={()=>checUser("/dashboard/listedGrain")}  className="nav-item nav-link ">
                 <i className="fa fa-th me-2 text-success"></i>&nbsp;Listed Grains
-              </Link>
+              </a>
               <a onClick={()=>checUser("/dashboard/listedEquipment")} className="nav-item nav-link ">
               <i className="fa-solid fa-tractor text-success"></i>&nbsp;Listed Equipments
               </a>
