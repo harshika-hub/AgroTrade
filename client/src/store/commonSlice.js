@@ -8,6 +8,8 @@ const initialState = {
     role : '',
     status : false,
     expert:false,
+    user:false,
+    userObj:{}
 }
 
 const commonSlice = createSlice({
@@ -18,11 +20,18 @@ const commonSlice = createSlice({
             console.log("action.payload ",action.payload)
             state.role = action.payload.role;
             state.status = action.payload.status
-            state.expert = action.payload.expert
+            state.expert = action.payload.data.expert_status;
+            state.user = action.payload.data.user_status;
+            state.userObj=action.payload.data
+
             // localStorage.setItem('role',JSON.stringify(state.role))
             // localStorage.setItem('status',JSON.stringify(state.status))
         },
+      
+        
         setRoleStatusOnReload : (state,action)=>{
+
+
             // const role = JSON.parse(localStorage.getItem("role"));
             // const status = JSON.parse(localStorage.getItem("status"));
             // state.role = role;

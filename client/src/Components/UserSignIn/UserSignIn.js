@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import leafwallpaper from "../../assets/leaves_Image.jpeg";
 import { useDispatch,useSelector } from "react-redux";
 import { userLogin,setUserData } from "../../store/userSlice";
+import jscookie from 'js-cookie';
 // import { useNavigate } from "react-router-dom";
 
 import "./UserSingIn.css";
@@ -77,9 +78,10 @@ function UserSingIn() {
     e.preventDefault();
     if (email && password) {
       userLogin(loginData).then((logData)=>{
-        console.log("logData : ",logData);
+        console.log("logData in components: ",logData);
         dispatch(setUserData(logData.log));
-        dispatch(setRoleStatus({role:logData.role,expert:logData.expert_status, status: true}));
+        dispatch(setRoleStatus({role:logData.role,data:logData.log,status:true}));
+        jscookie.set('userEmail',logData.log.email);
         // navigate('/contactus');
         setLgShow(false);
         // console.log("user : ",user_Data);

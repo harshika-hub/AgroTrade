@@ -17,6 +17,7 @@ const userModel = new mongoose.Schema({
     contact:Number,
     state:String,
     city:String,
+    image:String,
     education:String,
     experience:String,
     consultancy_fee_video:Number,
@@ -29,8 +30,15 @@ const userModel = new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    user_status:Boolean
-
+    user_status:{
+        type:Boolean,
+        default:false
+    },
+    verify_status:{
+        type:Boolean,
+        default:false
+    }
+    
 
 });
 

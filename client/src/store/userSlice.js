@@ -1,22 +1,48 @@
 import {createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import { REQUESTED_URL } from '../urls.js';
+import { USER_REQUESTED_URL } from '../urls.js';
 import jscookie from 'js-cookie';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const initialState = {
     userData :{}
 }
+export const getDataonLoad=createAsyncThunk("userSlice/getDataonLoad",async(detailObj)=>{
+    var obj=await axios.post(USER_REQUESTED_URL+`/getUser`,detailObj);
+    console.log(obj.data[0].email);
+    return obj.data[0];
+
+})
+// export const completeProfile=createAsyncThunk("userSlice/completeProfile",async(profileData)=>{
+//     console.log("form data in complete thunk",profileData)
+//     var result=await axios.post(USER_REQUESTED_URL+"/updateUser",profileData);
+//     return result;
+// })
 
 const userSlice = createSlice({
     name : 'userSlice',
     initialState,
+    extraReducers:(builder)=>{
+        builder.addCase(getDataonLoad.fulfilled,(state,action)=>{
+            console.log("inside getDataOnload reducer",action.payload);
+            state.userData=action.payload;
+        });
+        // builder.addCase(completeProfile.fulfilled,(state,action)=>{
+        //     console.log("action in complete profile reducer",action.payload)
+
+        // })
+
+    },
     reducers:{
         setUserData :(state,action)=>{
             const user = action.payload;
             state.userData = user;
             // console.log(state.userData);
             // localStorage.setItem('userData',JSON.stringify(state.userData));
+            console.log("user data inside user reducer",user);
         },
+        
         setStateOnReload: (state,action)=>{
             console.log(state);
             // const userslice = JSON.parse(localStorage.getItem("userData"));
@@ -51,6 +77,17 @@ const userSlice = createSlice({
         // }
     }
 });
+
+export const completeProfile=async(profileData)=>{
+    console.log("form data in complete thunk",profileData)
+    try{
+        var result=await axios.post(USER_REQUESTED_URL+"/updateUser",profileData);
+        return result;
+    }catch(err){
+            console.log("error inside complete profile",err);
+    }
+
+}
 
 
 export const userRegister = async(payload)=>{
@@ -103,6 +140,6 @@ export const changePassword =  async(payload)=>{
     }
 }
 
-export const {setUserData,setStateOnReload} = userSlice.actions;
+export const {setUserData} = userSlice.actions;
 // export const {userRegister,userLogin} = userSlice.actions;
 export default userSlice.reducer;

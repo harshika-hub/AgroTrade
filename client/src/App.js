@@ -15,6 +15,7 @@ import Chatsection from './components/ChatComponent/Chatsection.js';
 // import ExpertModal from './components/BecomeExpertModal/ExpertModal.js';
 import {Routes,Route} from 'react-router-dom'
 import Profile from './components/UserDashboard/ProfileSection/ProfileSection.js';
+import ListedGrains from './components/ListedGrain/ListedGrains.js';
 import { useEffect, useState } from 'react';
 // import {io} from 'socket.io-client';
 // import DashboardLinks from './components/DashboardLinks/DashboardLinks.js';
@@ -39,6 +40,8 @@ function App() {
                 <Route index element={<Profile />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path='chat' element={<Chatsection/>}></Route>
+                <Route path='listedGrain' element={<ListedGrains/>}></Route>
+
           </Route>          
         </Routes>
       {/* <Footer/> */}

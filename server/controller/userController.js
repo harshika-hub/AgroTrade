@@ -33,3 +33,36 @@ console.log("updated expert ",user);
     }
    
 }
+export const getUserController=async(req,res)=>{
+    console.log("ooooooooooooooo",req.body)
+    try
+    {
+        const userData=await users.aggregate([{$match:{email:req.body.email}}]);
+        console.log(userData);
+        res.status(200).json(userData);
+    }catch(err){
+        console.log("error while getting user",err)
+        res.status(500).json({msg:"err while fetching user"})
+    }
+   
+
+}
+export const updateProfileController=async(req,res)=>{
+    req.body.image=req.file.filename;
+    req.body.user_status=true;
+    console.log("user data in update user router",req.body);
+    try
+    {
+        const res=await users.findOneAndUpdate({email:req.body.email},{$set:req.body});
+        console.log("res in complete user",res)
+
+    }catch(err){
+        console.log("err while completing profile",err);
+
+        
+    }
+
+
+    
+
+}
