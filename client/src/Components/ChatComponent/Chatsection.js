@@ -43,7 +43,7 @@ function Chatsection() {
                    <div className="d-flex flex-row">
                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"className="rounded-circle d-flex align-self-center me-3 shadow-1-strong"width="60"/>
                      <div className=" ms-3 " >
-                       <h3 className="m-0 darkgreen" >Vikas Joshi</h3>
+                       <h3 className="m-0 darkgreen" >Jackson Jack</h3>
                        <p className="fs-6 m-0 midgreen">Online</p>
                      </div>
                    </div>
@@ -54,24 +54,35 @@ function Chatsection() {
            </div>
        </div>
              }
-{false&&
+{/* {false&& */}
        <div className=" overflow-scroll">
             <ul className="list-unstyled p-3">
                 <RecivedMessage message={"Hello"}/>
-                 <Sentmessage message={"Hello vikas"}/>
+                 <Sentmessage message={"Hello Jack"}/>
+                 <RecivedMessage message={"How are you"}/>
+                 <Sentmessage message={"i am good and you"}/>
+                 <RecivedMessage message={"i am also fine"}/>
+                 <Sentmessage message={"ok"}/>
+                 {/* <RecivedMessage message={"ok..."}/> */}
+
+
+
+
+
             </ul>
         </div>
-}
-{false&&    <div className="p-1">
+{/* } */}
+{/* {false&&   */}
+  <div className="p-1">
         <div className="w-100  row m-0"  >
           <div className="col-9 p-1">
             <input type="text" className="form-control-lg w-100 " id="floatingInput" placeholder="Type a message..."/>
          </div>
          <div className="col-1 p-1">
           <button type="button" className="btn btn-outline-warning w-100 h-100 fs-4"  onClick={openFileExplorer}>
-          <form className=""  id="uploadprofileimage" action="/user/uploadprofileimage" method="post" enctype="multipart/form-data">
-           <input type="file" id="fileInput" name="profileimage" style={{display:"none"}} onchange="submitFormOnChange()"  accept="image/*"/>
-            <label for="imageInput" className="custom-file-input-label" id="fileInputLabel"><i className="bi bi-paperclip"></i></label>
+          <form className=""  id="uploadprofileimage" action="/user/uploadprofileimage" method="post" encType="multipart/form-data">
+           <input type="file" id="fileInput" name="profileimage" style={{display:"none"}} onChange="submitFormOnChange()"  accept="image/*"/>
+            <label htmlFor="imageInput" className="custom-file-input-label" id="fileInputLabel"><i className="bi bi-paperclip"></i></label>
            </form>
           </button>
        </div>
@@ -79,7 +90,8 @@ function Chatsection() {
            <button type="button" className="btn btn-outline-primary w-100 h-100 "><i className="bi bi-send-fill"></i>&nbsp;Send</button>
          </div>
         </div>
-        </div>}
+        </div>
+        {/* } */}
 
         </div>
     </div>

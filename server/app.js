@@ -40,6 +40,7 @@ const io = new Server(httpServer, {
     }
 }); 
 io.on("connection",sockets);
+console.log("inside server app.js")
 
 
 // app.use(methodOverride("_method"));

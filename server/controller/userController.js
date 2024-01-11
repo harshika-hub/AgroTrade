@@ -48,16 +48,25 @@ export const getUserController=async(req,res)=>{
 
 }
 export const updateProfileController=async(req,res)=>{
-    req.body.image=req.file.filename;
+    if(req.file){
+        req.body.image=req.file.filename;
+
+    }else{
+        req.body.image="";
+
+    }
     req.body.user_status=true;
     console.log("user data in update user router",req.body);
     try
     {
-        const res=await users.findOneAndUpdate({email:req.body.email},{$set:req.body});
-        console.log("res in complete user",res)
+        const resp=await users.findOneAndUpdate({email:req.body.email},{$set:req.body});
+        const userData=await users.aggregate([{$match:{email:req.body.email}}]);
+        res.status(201).json({userData:userData,updatedata:resp});
+        console.log("res in complete user",resp);
 
     }catch(err){
         console.log("err while completing profile",err);
+        res.status(500).json({msg:"err while updating"});
 
         
     }

@@ -6,6 +6,7 @@ import { getOtp, setRoleStatus } from "../../store/commonSlice.js";
 import { userRegister } from "../../store/userSlice.js";
 import "./UserSingUp.css"
 import { useNavigate } from "react-router-dom";
+import jscookie from 'js-cookie'
 
 var userObj = {};
 var email = false, password = false;
@@ -42,10 +43,12 @@ function UserSingUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     
-    userRegister({ otp }).then((logData)=>{
-      console.log("log Data : ",logData);
-      dispatch(setUserData(logData.log));
-      dispatch(setRoleStatus({role: logData.role, status: true}));
+    userRegister({ otp }).then((data)=>{
+      console.log("log Data : ",data);
+      dispatch(setUserData(data.log));
+      dispatch(setRoleStatus({role:data.role,data:data.log,status:true}));
+      jscookie.set('userEmail',data.log.email); 
+      // dispatch(setRoleStatus({role: logData.role, status: true}));
       // setLgShow(false);
       console.log("hiii");
       navigate('/');

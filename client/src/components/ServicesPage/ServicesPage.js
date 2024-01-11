@@ -45,13 +45,13 @@ function Services() {
       <div className="hero-section">
         <Carousel >
           <Carousel.Item >
-            <video className="d-block" controls style={{ height: "89vh", width: '100%' }}>
+            <video className="d-block w-100" controls style={{ height: "89vh", width: '100%' }}>
               {/* <source src={video1} type="video/mp4"  /> */}
               Your browser does not support the video tag.
             </video>
           </Carousel.Item>
           <Carousel.Item style={{ height: "99vh" }}>
-            <video className="d-block w-100 h-100" controls>
+            <video className="d-block w-100" controls>
               {/* <source src={video2} type="video/mp4" autoPlay muted loop /> */}
               Your browser does not support the video tag.
             </video>
@@ -63,7 +63,7 @@ function Services() {
             </video>
           </Carousel.Item>
         </Carousel>
-        <h1 class="text-center mt-5">Services</h1>
+        <h1 className="text-center mt-5">Services</h1>
         <Service1
           title=" Farming Equipment Rental Service"
           content="Say goodbye to the upfront costs of purchasing equipment and hello to a new era of agricultural efficiency.

@@ -1,12 +1,17 @@
 import "./OrgSignUp.css"
 import factory from "../../assets/factory1.jpeg"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch } from "react-redux";
 import { orgRegister, setOrgData } from "../../store/organizationSlice.js";
 import { getOtp, setRoleStatus } from "../../store/commonSlice.js";
-
+import Footer from '../Footer/Footer.js';
+import Header from '../Header/Header.js';
+import {authorize} from '../../store/auth/auth.js'; 
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+ 
 var orgObj = {}
 
 var checkFields = false,
@@ -28,6 +33,12 @@ function OrgSingUp() {
   const [email,setEmail] = useState();
   // const [otp,setOtp] = useState();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    authorize(dispatch);
+  },[]);
+
 
   function validateName(e) {
     const pattern = /^[a-zA-Z]+(?:\s[a-zA-Z]+)?$/;
@@ -270,8 +281,6 @@ function OrgSingUp() {
   }
 
 
-  // ------------------------Htanaa mt----------------------
-
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -295,7 +304,7 @@ function OrgSingUp() {
     // ---------------hatana mat-----------
 
     if (checkFields && state && city && image && address && description && orgtype && orgname && regname && ownername && dealername && org_email && dealer_email && passwrod) {
-      dispatch(getOtp({email,password : ''}));
+      getOtp({email,password : ''});
       handleShow();
     }
   }
@@ -314,24 +323,70 @@ function OrgSingUp() {
         formData.append(key, orgObj[key]);
       }
     }
-    setTimeout(() => {
-      setvarifyText("varfified")
-      handleClose()
-      setvarifyText("varify");
-    }, 3000);
+      
     formData.append("otp",document.getElementById("otpfield").value);
     
-    orgRegister(formData).then((logData)=>{
-      dispatch(setOrgData(logData.data));
-      dispatch(setRoleStatus({role:logData.role, status: true}));
-    }).catch((error)=>{
-      console.log(error);
-    });
+      setTimeout(() => {
+      orgRegister(formData).then((data)=>{
+        console.log("data.message",data.message);
+        if(data.message=="success"){
+          setvarifyText("varified")
+          handleClose()
+          setvarifyText("varify");
+          dispatch(setOrgData(data.log));
+          dispatch(setRoleStatus({role:data.role,data:data.log, status: true}));
+          navigate('/');
+          
+          Swal.fire({
+            position: "middle",
+            icon: "success",
+            title: "Welcome to Agrotrage🙏",
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }else if(data.message=="exist"){
+          setvarifyText("error")
+          setvarifyText("varify");
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Organozation allready registered. Please try Again...",
+          });
+        }else if(data.message=="error"){
+          setvarifyText("error")
+          setvarifyText("varify");
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong. Please try Again...",
+          });
+        }else if(data.message=="wrong otp"){
+          setvarifyText("Invalid")
+          setvarifyText("varify");
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Wrong Otp!\nPlease enter valid otp...",
+          });
+        }
+      }).catch((error)=>{
+        setvarifyText("error")
+        setvarifyText("varify");
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong. Please try Again...",
+        });
+      });
+    }, 3000);
     
     console.log("orgObj : ",orgObj);
   }
+
   return (
     <>
+      <Header/>
       <div className="container-fluid p-3  " >
         <div className="container  bg-white p-0" id="OrgFromBox" >
           <div className="row w-100 m-0 g-0 ">
@@ -562,6 +617,7 @@ function OrgSingUp() {
           </div>
         </div>
       </div>
+      <Footer/>
 
       <Modal
         show={show}

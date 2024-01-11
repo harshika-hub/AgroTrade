@@ -10,11 +10,11 @@ const userModel = new mongoose.Schema({
         type : String,
         required : true
     },
-    full_name:{
+    name:{
         type:String
     },
     address:String,
-    contact:Number,
+    number:Number,
     state:String,
     city:String,
     image:String,

@@ -22,7 +22,7 @@ function DashboardLinks() {
     }
     return (<>
     <div>
-            <nav className="navbar navbar-expand bg-darkgreen sticky-top px-4 py-0  d-flex justify-content-between">
+            <nav className="navbar navbar-expand bg-darkgreen  px-4 py-0  d-flex justify-content-between">
             <a href="#" className="sidebar-toggler m-2 text-decoration-none flex-shrink-0" id="sidebar-toggler" onClick={silderBarToggle}>
             <i className="fa-solid fa-bars midgreen"></i>
             </a>
