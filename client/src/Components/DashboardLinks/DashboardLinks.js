@@ -52,6 +52,11 @@ function DashboardLinks() {
                     <i className="bi bi-layout-text-window-reverse midgreen"></i>&nbsp;Dashboard
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link className=" text-white nav-link" to="/bookExpert">
+                    <i className="bi bi-person-fill-add midgreen"></i>&nbsp;Book Expert
+                  </Link>
+                </li>
                 </ul> 
               <div className="nav-item dropdown">
                 <a

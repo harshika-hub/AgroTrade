@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import organisations from '../models/organizationModel.js';
 import admin from '../models/adminModel.js';
-import users from '../models/userModel.js';
+import {users} from '../models/userModel.js';
 import dotenv from 'dotenv';
 
 dotenv.config();

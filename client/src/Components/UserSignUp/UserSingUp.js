@@ -6,6 +6,8 @@ import { getOtp, setRoleStatus } from "../../store/commonSlice.js";
 import { userRegister } from "../../store/userSlice.js";
 import "./UserSingUp.css"
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 import jscookie from 'js-cookie'
 
 var userObj = {};
@@ -43,6 +45,41 @@ function UserSingUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     
+    userRegister({ otp }).then((data) => {
+      if (data.message == "success") {
+        dispatch(setUserData(data.log));
+        dispatch(setRoleStatus({ role: data.role, data: data.log, status: true }));
+          jscookie.set('userEmail', data.log.email);
+          setLgShow(false);
+          Swal.fire({
+            position: "middle",
+            icon: "success",
+            title: "Welcome to Agrotrade🙏",
+            showConfirmButton: false,
+            timer: 2000
+          });
+          navigate('/');
+      } else if (data.message == "error") {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Server Error. Please try Again...",
+        });
+      } else if (data.message == "wrong otp") {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Wrong Otp!\n Please enter currect otp...",
+        });
+      }
+    }).catch((error) => {
+      console.log("catch", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Server Error. Please try Again...",
+      });
+
     userRegister({ otp }).then((data)=>{
       console.log("log Data : ",data);
       dispatch(setUserData(data.log));
@@ -53,6 +90,7 @@ function UserSingUp() {
       console.log("hiii");
       navigate('/');
     }).catch(()=>{
+
 
     });
   }

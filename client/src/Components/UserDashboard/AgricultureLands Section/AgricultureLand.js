@@ -1,5 +1,38 @@
 import AgricultureLandCard from "./AgricultureLandCard";
+
+import AddAgricultureLand from "./AddLand/AddAgricultureLand";
+import { useEffect,useState } from "react";
+import jscookie from "js-cookie";
+import axios from "axios";
+import { USER_REQUESTED_URL } from "../../../urls.js";
+
+function AgricultureLand  () {
+  const [Lands,setLands]=useState([]);
+  const userEmail = jscookie.get("userEmail");
+   function getLand(userEmail) {
+    axios.get(USER_REQUESTED_URL + "/getAgriLand",{params:{ownerEmail:userEmail}}).then((response) => {
+      setLands(response.data.Lands)
+  }).catch(err => console.log('error ', err));
+  }
+  useEffect(() => {
+    console.log(userEmail);
+    // getAgriLand(userEmail)
+    // .then((data) => {
+    //     console.log("Land Data Received", data);
+    // }).catch((err) => {
+    //     console.log("Error in getting land data", err);
+    // });
+
+    getLand(userEmail)
+  
+  }, []);
+  function  sendLands(Lands) {
+    setLands(Lands)
+  }
+
+
 function AgricultureLand() {
+
   return (
     <>
       <div className="row m-2 p-0 " id="ListedGrainsBox">
@@ -8,6 +41,19 @@ function AgricultureLand() {
             {" "}
             <i className="fa-solid fa-wheat-awn"></i>&nbsp;Agriculture Lands
           </h1>
+
+              <AddAgricultureLand sendLands={sendLands}/>
+        </div>
+      <div className="col-12" >
+     
+               {
+               Lands.map((Land,index)=>{
+                  return( <AgricultureLandCard key={index} Land={Land} sendLands={sendLands} />)
+               })
+
+
+               }             
+              </div>
           <button type="button" className="btn btn-outline-success btn-sm">
             <i class="bi bi-plus-lg"></i>&nbsp;Add Land
           </button>
@@ -20,6 +66,7 @@ function AgricultureLand() {
                
         
       </div>
+
 
       </div>
     </>
