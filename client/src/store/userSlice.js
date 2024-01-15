@@ -10,7 +10,7 @@ const initialState = {
 }
 export const getDataonLoad=createAsyncThunk("userSlice/getDataonLoad",async(detailObj)=>{
     var obj=await axios.post(USER_REQUESTED_URL+`/getUser`,detailObj);
-    console.log(obj.data[0].email);
+    console.log("inside getData thunk",obj.data[0].email);
     return obj.data[0];
 
 })

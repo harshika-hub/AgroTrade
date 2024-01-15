@@ -5,9 +5,7 @@ import "./ProfileSection.css"
 import { useEffect, useReducer } from "react";
 import { useOutletContext } from "react-router-dom";
 import jscookie from 'js-cookie';
-// import jscookie from "js-cookie";
 import { completeProfile, getDataonLoad } from "../../../store/userSlice";
-// var clone ={}
 
 
 function showUpdateForm (){
@@ -35,7 +33,7 @@ function Profile() {
     image:""
   }
   const reducer=(state,action)=>{
-    console.log("inside reducer state in profile component",state,"\n action",action)
+    // console.log("inside reducer state in profile component",state,"\n action",action)
    switch(action.action){
             case "name":
               return  {...state,name:action.value}
@@ -58,14 +56,18 @@ function Profile() {
   }
   const disp=useDispatch();
   const [fields,dispatch] =  useReducer(reducer,initialsate)
-      // clone={...fields} 
       console.log("fields",fields)
 
       const getUser=async(email,token)=>{
         try{
-          const udata=  await dispatch(getDataonLoad({email,token}))
-          console.log("user from onload in profile",udata);
-          return udata;
+          const udata=  await disp(getDataonLoad({email,token}))
+          console.log("user from onload in profile",udata.payload);
+          dispatch({action:"name",value:udata.payload.name});
+          dispatch({action:"number",value:udata.payload.number});
+          dispatch({action:"email",value:udata.payload.email});
+          dispatch({action:"address",value:udata.payload.address});
+          dispatch({action:"image",value:udata.payload.image});
+          return udata.payload;
         }catch(err){
           console.log("error hile fetching user",err)
         }
@@ -77,15 +79,10 @@ function Profile() {
         const usdata= getUser(email,token);
         console.log("inside profile useEffect",usdata);
 
-        dispatch({action:"name",value:user.name});
-        dispatch({action:"number",value:user.number});
-        dispatch({action:"email",value:user.email});
-        dispatch({action:"address",value:user.address});
-        dispatch({action:"image",value:user.image});
+       
 
           },[])
-      // var user=useSelector(state=>state.userSlice);
-      // console.log("inside profile",user)
+ 
       var status=""
 
       function Updateprofile(event) {
