@@ -1,7 +1,7 @@
 .card-col{
-  height: max-content;
+    height: max-content;
 }
 #ListedEquipmentBox{
-  max-height: 100%; /* Set the maximum height to 100% of the parent's height */
-  overflow-y: scroll; /* Enable vertical scroll */
-}
+    max-height: 100%; /* Set the maximum height to 100% of the parent's height */
+    overflow-y: scroll; /* Enable vertical scroll */
+  }

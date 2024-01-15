@@ -1,34 +1,10 @@
 import mongoose from "mongoose";
 
 const userModel = new mongoose.Schema({
-       email:{
-        type : String,
-        required : true,
-        unique : true
-    },
-    password:{
-        type : String,
-        required : true
-    },
-    name:{
-        type:String
-    },
-    address:String,
-    number:Number,
-    state:String,
-    city:String,
-    image:String,
-    education:String,
-    experience:String,
-    consultancy_fee_video:Number,
-    consultancy_fee_chat:Number,
-    consultancy_type:String,
-    consultancy_feild:String,
-    certificate:String,
-    expert_rating:String,
-    expert_status:{
-        type:Boolean,
-        default:false
+    email: {
+        type: String,
+        required: true,
+        unique: true
     },
     password: {
         type: String,

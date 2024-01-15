@@ -78,7 +78,7 @@ function ListedGrainsCards(props) {
                 Type: {Grain.graintype} <br/>
                 Price: Rs.{Grain.price}/quintal<br/>
                 Quantity:{Grain.quantity} quintal <br/>
-                Shelf Life: 1 Year <br/>
+                Shelf Life: {Grain.selflife} month <br/>
                 State: {Grain.state} <br/>
                 Moisture Level: {Grain.moisturelevel}%
               </p>

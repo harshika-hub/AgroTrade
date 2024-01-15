@@ -34,7 +34,7 @@ function UserdashBoard() {
   // const [userData,setUserData]=useState({})
 
   const [socket,setSocket]=useState(null);
-  const status=useSelector(state=>state.commonSlice);
+  // const status=useSelector(state=>state.commonSlice);
 
   const dispatch =useDispatch()
   var user=useSelector(state=>state.userSlice.userData);

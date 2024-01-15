@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import View from "./View.js";
 function AgricultureLandCard(props) {
   const {Land,sendLands}= props
-  function removeLand(_id) {
+  function removeLand(_id,ownerEmail) {
      // Open a confirmation dialog
 Swal.fire({
   title: 'Are you sure?',
@@ -17,7 +17,7 @@ Swal.fire({
 }).then((result) => {
   if (result.isConfirmed) {
    
-        removeAgriLand({_id:_id}).then((data)=>{
+        removeAgriLand({_id:_id,ownerEmail:ownerEmail}).then((data)=>{
         console.log("this is the data",data);
         if (data.message=="success") {
           Swal.fire({
@@ -122,7 +122,7 @@ Swal.fire({
                 <div className="d-grid gap-2">
                   <View image360={Land.image360} />
                     <button type="button" name="" id="" className="btn btn-outline-success btn-sm"><i class="bi bi-arrow-up-circle"></i>&nbsp;Update</button>
-                  <button type="button" onClick={()=>{removeLand(Land._id)}}  className="btn btn-outline-danger btn-sm"> <i class="bi bi-trash"></i>&nbsp;Remove</button>
+                  <button type="button" onClick={()=>{removeLand(Land._id,Land.ownerEmail)}}  className="btn btn-outline-danger btn-sm"> <i class="bi bi-trash"></i>&nbsp;Remove</button>
                 </div>
               </div>
             </div>

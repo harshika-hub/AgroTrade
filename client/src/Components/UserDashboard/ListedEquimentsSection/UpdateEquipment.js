@@ -548,7 +548,7 @@ function UpdateEquipmentModal(props) {
                                         </button>
                                     </div>
                                 </div>
-                                <div className="col-12 col-md-6 p-2 columns signupbtn-col mt-3">
+                                <div className="col-12 col-md-6 p-1  mt-1">
                                 <div className="d-grid gap-2">
                                 <button type="submit" name="" id="Submitbtn" className="btn btn-success btn-sm" >
                                 Update

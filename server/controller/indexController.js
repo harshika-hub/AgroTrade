@@ -115,7 +115,7 @@ export const indexUserRegistrationController = async(request,response)=>{
                     {password:0, _id:0}
                 );
                 console.log("hi ",logData);
-                response.status(200).json({message:"success", token:token, logData : {log:logData, role:process.env.USER_ROLE}});
+                response.status(200).json({message:"success", token:token, log:logData, role: process.env.ORG_ROLE});
             }
         }catch(error){
             console.log("Error while user Registration in indexUserRegistrationController : ",error);
@@ -126,52 +126,6 @@ export const indexUserRegistrationController = async(request,response)=>{
         response.status(204).json({message:"invalid"});
     }
 }
-
-
-
-// export const indexUserLoginController = async (request, response) => {
-//     try {
-//         const { email, password } = request.body;
-//         const existingUser = await users.findOne({ email: email });
-//         if (existingUser == null) {
-//             return response.status(202).json({ message: 'Invalid Email Id' });
-//         } else {
-//             const password_status = await bcrypt.compare(password, existingUser.password);
-//             if (password_status) {
-//                 let payload = {};
-//                 const SECRET_KEY = process.env.JWT_SECRET_KEY;
-//                 payload.data = {
-//                     email: email,
-//                     role: process.env.USER_ROLE
-//                 }
-
-//                 const EXPIRY_TIME = {
-//                     expiresIn: '6d'
-//                 }
-//                 var token = jwt.sign(payload, SECRET_KEY, EXPIRY_TIME);
-//                 console.log("Login Successfully");
-
-//                 LOG.email = email;
-//                 LOG.role = process.env.USER_ROLE;
-
-//                 var logData =await users.findOne(
-//                     {email:email},
-//                     {password:0, _id:0}
-//                 );
-//                 console.log("userData in sign in controller",logData);
-//                 response.status(201).json({ message:'seccess', token:token, logData:{log:logData, role: process.env.USER_ROLE}});
-//             }
-//             else {
-//                 console.log("Password does'nt match");
-//                 response.status(203).json({ message: 'wrong password' });
-//             }
-//         }
-//     } catch (error) {
-//         console.log("Error while login in indexUserLoginController :", error);
-//         response.status(204).json({ message: 'error' });
-//     }
-// }
-
 
 export const indexUserLoginController = async (request, response) => {
     try {
@@ -215,6 +169,8 @@ export const indexUserLoginController = async (request, response) => {
         response.status(500).json({ message: 'error' });
     }
 }
+
+
 
 export const indexOrganizationRegistrantionController = async(request,response)=>{
     // console.log(request);
