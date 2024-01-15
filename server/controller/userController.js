@@ -236,6 +236,28 @@ export const addAgriLandController = async (request, response) => {
     }
 };
 
+export const updateProfileController=async(req,res)=>{
+    if(req.file){
+        req.body.image=req.file.filename;
+
+    }else{
+        req.body.image="";
+
+    }
+    req.body.user_status=true;
+    console.log("user data in update user router",req.body);
+    try
+    {
+        const resp=await users.findOneAndUpdate({email:req.body.email},{$set:req.body});
+        const userData=await users.aggregate([{$match:{email:req.body.email}}]);
+        res.status(201).json({userData:userData,updatedata:resp});
+        console.log("res in complete user",resp);
+
+    }catch(err){
+        console.log("err while completing profile",err);
+        res.status(500).json({msg:"err while updating"});
+
+
 export const getAgriLandController = async (request, response) => {
     try {
         const Lands = await agriLand.find({ ownerEmail: request.query.ownerEmail });

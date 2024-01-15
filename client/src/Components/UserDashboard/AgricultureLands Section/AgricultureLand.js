@@ -1,4 +1,5 @@
 import AgricultureLandCard from "./AgricultureLandCard";
+
 import AddAgricultureLand from "./AddLand/AddAgricultureLand";
 import { useEffect,useState } from "react";
 import jscookie from "js-cookie";
@@ -30,6 +31,8 @@ function AgricultureLand  () {
   }
 
 
+function AgricultureLand() {
+
   return (
     <>
       <div className="row m-2 p-0 " id="ListedGrainsBox">
@@ -38,6 +41,7 @@ function AgricultureLand  () {
             {" "}
             <i className="fa-solid fa-wheat-awn"></i>&nbsp;Agriculture Lands
           </h1>
+
               <AddAgricultureLand sendLands={sendLands}/>
         </div>
       <div className="col-12" >
@@ -50,6 +54,19 @@ function AgricultureLand  () {
 
                }             
               </div>
+          <button type="button" className="btn btn-outline-success btn-sm">
+            <i class="bi bi-plus-lg"></i>&nbsp;Add Land
+          </button>
+        </div>
+      <div className="col-12" >
+               <AgricultureLandCard/>
+               <AgricultureLandCard/>
+               <AgricultureLandCard/>
+               <AgricultureLandCard/>
+               
+        
+      </div>
+
 
       </div>
     </>

@@ -76,6 +76,7 @@ function Profile() {
         const token=jscookie.get("token")
         const usdata= getUser(email,token);
         console.log("inside profile useEffect",usdata);
+
         dispatch({action:"name",value:user.name});
         dispatch({action:"number",value:user.number});
         dispatch({action:"email",value:user.email});
@@ -145,12 +146,15 @@ function Profile() {
       //   }
       // })
       const url="../../../../public/uploads/"+fields.image
-      return ( <>
+
+      return ( <>-
     <div className="row m-0 w-100 h-100" style={{height:"auto"}}>
        <div className="col-12 col-md-6 bg-midgreen p-0 offset-lg-3" id="profileCard">
              <div className="p-5 h-75" >
              {/* <img src={"../../../../public/uploads/"+fields.image} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/> */}
-             <img src={"http://localhost:3000/"+fields.image} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/>
+            <img src={"http://localhost:3000/"+fields.image} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/>
+
+             <img src={logo} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/>
 
               <h4 className="drakgreen text-center text-white">{fields.name!==undefined?fields.name:" "}</h4>
               <h4 className="drakgreen text-center text-white">{fields.number!==undefined?fields.number:" "}</h4>

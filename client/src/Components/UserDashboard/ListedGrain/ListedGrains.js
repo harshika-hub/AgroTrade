@@ -18,6 +18,18 @@ function ListedGrains(props) {
     
     useEffect(getGrians, [])
     console.log(dataGrain);
+import { useDispatch } from "react-redux";
+import jscookie from "js-cookie"
+function ListedGrains(props) {
+    const [dataGrain, setDataGrain] = useState([]);
+    useEffect(() => {
+        const userEmail = jscookie.get("userEmail");
+        axios.post(USER_REQUESTED_URL + "/getGrain", { userEmail }).then((grains) => {
+            setDataGrain(grains.data.result)
+            console.log("dataGrain", dataGrain);
+        })
+            .catch(err => console.log('error ', err));
+    }, [])
 
     return (<>
 
@@ -31,6 +43,14 @@ function ListedGrains(props) {
            return(<ListedGrainsCards key={index} Grain={Grain} index={index} getGrians={getGrians} />)
     })}
              
+                <AddGrain />
+            </div>
+            <ListedGrainsCards />
+            <ListedGrainsCards />
+            <ListedGrainsCards />
+            <ListedGrainsCards />
+            <ListedGrainsCards />
+            <ListedGrainsCards />
         </div>
 
 

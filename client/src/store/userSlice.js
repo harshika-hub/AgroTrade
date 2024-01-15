@@ -133,6 +133,7 @@ export const addGrain = async(payload)=>{
         console.log("error sendData");
     }
 }
+
 export const addColstLand = async(payload)=>{
     console.log("addColstLand",payload);
     try{
@@ -253,6 +254,19 @@ export const removeAgriLand = async(payload)=>{
 //     }
 // }
 
+
+
+
+// export const getDataGrains = async(payload)=>{
+//     console.log("email11111");
+//     try{
+//         var result  = await axios.get(USER_REQUESTED_URL+"/getGrain",payload);
+//         // console.log("result",result);
+//         // return result.data
+//     }catch(error){
+//         console.log("error sendData");
+//     }
+// }
 
 
 export const {setUserData} = userSlice.actions;
