@@ -43,7 +43,7 @@ function Chatsection() {
                    <div className="d-flex flex-row">
                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"className="rounded-circle d-flex align-self-center me-3 shadow-1-strong"width="60"/>
                      <div className=" ms-3 " >
-                       <h3 className="m-0 darkgreen" >Vikas Joshi</h3>
+                       <h3 className="m-0 darkgreen" >Jackson Jack</h3>
                        <p className="fs-6 m-0 midgreen">Online</p>
                      </div>
                    </div>
@@ -54,15 +54,26 @@ function Chatsection() {
            </div>
        </div>
              }
-{false&&
+{/* {false&& */}
        <div className=" overflow-scroll">
             <ul className="list-unstyled p-3">
                 <RecivedMessage message={"Hello"}/>
-                 <Sentmessage message={"Hello vikas"}/>
+                 <Sentmessage message={"Hello Jack"}/>
+                 <RecivedMessage message={"How are you"}/>
+                 <Sentmessage message={"i am good and you"}/>
+                 <RecivedMessage message={"i am also fine"}/>
+                 <Sentmessage message={"ok"}/>
+                 {/* <RecivedMessage message={"ok..."}/> */}
+
+
+
+
+
             </ul>
         </div>
-}
-{false&&    <div className="p-1">
+{/* } */}
+{/* {false&&   */}
+  <div className="p-1">
         <div className="w-100  row m-0"  >
           <div className="col-9 p-1">
             <input type="text" className="form-control-lg w-100 " id="floatingInput" placeholder="Type a message..."/>
@@ -79,7 +90,8 @@ function Chatsection() {
            <button type="button" className="btn btn-outline-primary w-100 h-100 "><i className="bi bi-send-fill"></i>&nbsp;Send</button>
          </div>
         </div>
-        </div>}
+        </div>
+        {/* } */}
 
         </div>
     </div>

@@ -28,12 +28,7 @@ const userSlice = createSlice({
             console.log("inside getDataOnload reducer",action.payload);
             state.userData=action.payload;
         });
-        // builder.addCase(completeProfile.fulfilled,(state,action)=>{
-        //     console.log("action in complete profile reducer",action.payload)
-
-        // })
-
-    },
+           },
     reducers:{
         setUserData :(state,action)=>{
             const user = action.payload;
@@ -49,33 +44,7 @@ const userSlice = createSlice({
             // console.log("user Slice : ",userslice);
             // state.userData = userslice;
         }
-        // userRegister : async(state,action)=>{
-        //     try{
-        //         console.log("insede userRegister in userSlice : ",action.payload);
-        //         var result  = await axios.post(REQUESTED_URL+"/userregistration", action.payload);
-        //         console.log("Result :" ,result);
-        //         if(result.data.message=="seccess"){
-        //             jscookie.set('token',result.data.token,{expires:1});
-        //         }
-        //         return result.data.logData;
-        //     }catch(error){
-        //         console.log("Error in useRregister in userSlice : ",error);
-        //     }
-        // },
-        // userLogin : async(state,action)=>{
-        //     try{
-        //         console.log("inside userLogin in userSlice : ",action.payload);
-        //         var result  = await axios.post(REQUESTED_URL+"/userlogin", action.payload);
-        //         console.log("Result :" ,result);
-        //         if(result.data.message=="seccess"){
-        //             jscookie.set('token',result.data.token,{expires:1});
-        //         }
-        //         return result.data.logData;
-        //     }catch(error){
-        //         console.log("Error in userLogin in userSlice : ",error);
-        //     }
-        // }
-    }
+        }
 });
 
 export const completeProfile=async(profileData)=>{
@@ -104,15 +73,29 @@ export const userRegister = async(payload)=>{
     }
 };
 
+// export const userLogin = async(payload)=>{
+//     try{
+//         console.log("inside userLogin in userSlice : ",payload);
+//         var result  = await axios.post(REQUESTED_URL+"/userlogin", payload);
+//         console.log("Result :" ,result);
+//         if(result.data.message=="seccess"){
+//             jscookie.set('token',result.data.token,{expires:1});
+//         }
+//         return result.data.logData;
+//     }catch(error){
+//         console.log("Error in userLogin in userSlice : ",error);
+//     }
+// }
+
 export const userLogin = async(payload)=>{
     try{
         console.log("inside userLogin in userSlice : ",payload);
         var result  = await axios.post(REQUESTED_URL+"/userlogin", payload);
         console.log("Result :" ,result);
-        if(result.data.message=="seccess"){
+        if(result.data.message=="success"){
             jscookie.set('token',result.data.token,{expires:1});
         }
-        return result.data.logData;
+        return result.data;
     }catch(error){
         console.log("Error in userLogin in userSlice : ",error);
     }
@@ -121,8 +104,8 @@ export const userLogin = async(payload)=>{
 export const checkOtp =  async(payload)=>{
     try{
         console.log("inside check in userSlice : ",payload);
-        var result  = await axios.post(REQUESTED_URL+"/checkotp",{payload});
-        console.log("Result :" ,result);
+        var result  = await axios.post(REQUESTED_URL+"/checkotp",payload);
+        console.log("Result : " ,result);
         return result.data;
     }catch(error){
         console.log("Error in check in userSlice : ",error);
@@ -140,6 +123,137 @@ export const changePassword =  async(payload)=>{
     }
 }
 
+export const addGrain = async(payload)=>{
+    console.log("Grains",payload);
+    try{
+        var result  = await axios.post(USER_REQUESTED_URL+"/grainInsert",payload);
+        console.log("result",result);
+        return result.data
+    }catch(error){
+        console.log("error sendData");
+    }
+}
+export const addColstLand = async(payload)=>{
+    console.log("addColstLand",payload);
+    try{
+        var result  = await axios.post(USER_REQUESTED_URL+"/coldStInsert",payload);
+        console.log("result",result);
+        return result.data
+    }catch(error){
+        console.log("error sendData");
+    }
+}
+
+
+    export const deleteGrainId = async(payload)=>{
+        console.log("GrainsDelete",payload);
+        try{
+            var result  = await axios.post(USER_REQUESTED_URL+"/deleteGrainId",payload);
+            console.log("result",result);
+            return result.data
+        }catch(error){
+            console.log("error sendData");
+        }
+    }
+    export const deleteColdStId = async(payload)=>{
+        console.log("ColdStId Delete",payload);
+        try{
+            var result  = await axios.post(USER_REQUESTED_URL+"/deletecoldStId",payload);
+            console.log("result",result);
+            return result.data
+        }catch(error){
+            console.log("error sendData");
+        }
+    }
+export const UpdateGrain = async(payload)=>{
+    console.log("UpdateGrain",payload);
+    try{
+        var result  = await axios.post(USER_REQUESTED_URL+"/UpdateGrain",payload);
+        console.log("result",result);
+        return result.data
+    }catch(error){
+        console.log("error sendData");
+    }
+}
+export const UpdateColdSt = async(payload)=>{
+    console.log("UpdateColdSt",payload);
+    try{
+        var result  = await axios.post(USER_REQUESTED_URL+"/UpdatecoldStId",payload);
+        console.log("result",result);
+        return result.data
+    }catch(error){
+        console.log("error sendData");
+    }
+}
+
+
+export const addEquipment = async(payload)=>{
+    console.log("Equipment",payload);
+    try{
+        var result  = await axios.post(USER_REQUESTED_URL+"/addEquipment",payload);
+        console.log("result",result);
+        return result.data
+    }catch(error){
+        console.log("error sendData");
+    }
+}
+
+export const deleteEquipmentId = async(payload)=>{
+    console.log("EquipmentDelete",payload);
+    try{
+        var result  = await axios.post(USER_REQUESTED_URL+"/deleteEquipmentId",payload);
+        console.log("result",result);
+        return result.data
+    }catch(error){
+        console.log("error sendData");
+    }
+}
+
+export const UpdateEquipment = async(payload)=>{
+    console.log("UpdateEquipment",payload);
+    try{
+        var result  = await axios.post(USER_REQUESTED_URL+"/UpdateEquipment",payload);
+        console.log("result",result);
+        return result.data
+    }catch(error){
+        console.log("error sendData");
+    }
+}
+
+export const addAgriLand = async(payload)=>{
+    console.log("This is Land data",payload);
+    try{
+         var result  = await axios.post(USER_REQUESTED_URL+"/addAgriLand",payload);
+        console.log("result",result);
+        return result.data
+    }catch(error){
+        console.log("error sendData");
+    }
+}
+
+export const removeAgriLand = async(payload)=>{
+    console.log("This is Land data",payload._id);
+    try{
+         var result  = await axios.get(USER_REQUESTED_URL+"/removeAgriLand",{params:{_id: payload._id}});
+        console.log("result",result);
+        return result.data
+    }catch(error){
+        console.log(error);
+    }
+}
+
+// export const  getAgriLand = async (payload)=>{
+//     console.log("This is email data",payload);
+//     try{
+//          var result  = await axios.get(USER_REQUESTED_URL+"/getAgriLand",{email:payload});
+
+//         return result
+//     }catch(error){
+//         console.log("error sendData");
+//     }
+// }
+
+
+
 export const {setUserData} = userSlice.actions;
-// export const {userRegister,userLogin} = userSlice.actions;
 export default userSlice.reducer;

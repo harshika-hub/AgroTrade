@@ -1,6 +1,6 @@
 import "./UserDashboard.css";
 import logo from "../../assets/Agro-Trade-logo.png"
-import Profile from "./ProfileSection/ProfileSection.js";
+// import Profile from "./ProfileSection/ProfileSection.js";
 import DashboardLinks from "../DashboardLinks/DashboardLinks.js";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import {io} from 'socket.io-client';
@@ -12,82 +12,82 @@ import jscookie from 'js-cookie'
 import { getDataonLoad } from "../../store/userSlice";
 
 <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" /> 
-  // var show=false;
-  // function silderBarToggle(params) {
-  //   var  sliderBar=document.getElementById("siderBar");
-  //   var content =document.getElementById("content")
-  //   if (show) {
-  //     sliderBar.classList.remove("open")  
-  //     content.classList.remove("open")
-  //     show=false;
-  //   }
-  //   else{
-  //     sliderBar.classList.add("open")
-  //     content.classList.add("open")
-  //     show=true;
-  //   }
-  // }
+  var show=false;
+  function silderBarToggle(params) {
+    var  sliderBar=document.getElementById("siderBar");
+    var content =document.getElementById("content")
+    if (show) {
+      sliderBar.classList.remove("open")  
+      content.classList.remove("open")
+      show=false;
+    }
+    else{
+      sliderBar.classList.add("open")
+      content.classList.add("open")
+      show=true;
+    }
+  }
 
 function UserdashBoard() {
-  const navigate=useNavigate();
+  var navigate=useNavigate();
   const [show, setShow] = useState(false);
-  const [userData,setUserData]=useState({})
+  // const [userData,setUserData]=useState({})
 
   const [socket,setSocket]=useState(null);
   const status=useSelector(state=>state.commonSlice);
-  const expertStatus=status.expert;
-  const userStatus=status.user;
-  console.log("expert status in dashboard",String(expertStatus));
+
   const dispatch =useDispatch()
   var user=useSelector(state=>state.userSlice.userData);
       console.log("inside dashboard",user)
-      var statu=""
+      const expertStatus=user.expert_status;
+      const userStatus=user.user_status;
+      console.log("expert status in dashboard",String(expertStatus));
+
+
   useEffect(()=>{
     setSocket(io('http://127.0.0.1:3000'));
-   if(user.userData==null){
+   if(user.userData===null){
           const email=jscookie.get("userEmail")
           const token=jscookie.get("token")
           dispatch(getDataonLoad({email,token}))
-        setUserData({...user});
+        // setUserData({...user});
         }
 
-  },[dispatch]);
+  },[dispatch,user]);
+  
   const checUser=(route)=>{
-    console.log("route inside checkuser",String(route))
-    if(!user.user_status){
+    navigate('/dashboard/chat')
+    // console.log("route inside checkuser",String(route))
+    // if(!user.user_status){
+      if(false){
     alert("Please complete your profiile first.")
     navigate("/dashboard/profile")
-    }else if(route=="/dashboard/chat")
-    {
-      navigate("/dashboard/chat");
-      console.log("inside chat check",route)
-    }else if(route=="/dashboard/listedGrain")
-    {
-      navigate("/dashboard/listedGrain");
-      console.log("inside chat check",route)
-    }else if(route=="/dashboard/listedEquipment")
-    {
-      navigate("/dashboard/listedequipment");
-      console.log("inside chat check",route)
-    }
-  // }else{
-  //   navigate(String(route));
-  //   console.log("route inside checkuser",String(route));
-  // }
+    return
+  }
+  
+  else{
+    navigate(String(route));
+    console.log("route inside checkuser",String(route));
+  }
 
   }
-    console.log("sjdccuswdyuvwge");
+  
   return (
     <>
       <div className="container-fluid position-relative d-flex p-0 ">
         <div className="sidebar" id="siderBar">
           <nav className="navbar navbar-light pe-2">
-            <a href="index.html" className="navbar-brand mx-4 mb-3">
+            <div className="d-flex justify-content-between ps-3 pe-3  w-100">
+              <p href="#" className="navbar-brand ">
               <h3 className="midgreen text-center ">
                 Agro Trade
               </h3>
-            </a>
-            <div className="d-flex align-items-center ms-4 mb-4">
+            </p>
+            <h2 className=" text-white sidebar-toggler m-2 text-decoration-none flex-shrink-0" id="sidebar-toggler" onClick={silderBarToggle}>
+            <i class="bi bi-x-circle-fill"></i>
+            </h2>
+            </div>
+            <div className="d-flex align-items-center ms-4 mb-1">
               <div className="position-relative">
                 <img className="rounded-circle" alt="" src={logo}  style={{ width: "60px" }} />
                 <div className="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
@@ -101,47 +101,49 @@ function UserdashBoard() {
             <Link to="/dashboard/profile" className="nav-item nav-link  active  ">
               <i className="bi bi-person-circle text-center"></i>&nbsp;Profile
               </Link>
-              <Link onClick={()=>checUser("/dashboard/chat")} className="nav-item nav-link ">
+              <p onClick={()=>checUser("/dashboard/chat")} className="nav-item nav-link ">
                 <i className="fa fa-th me-2 text-success"></i>&nbsp;Chat
-              </Link> 
-              <Link onClick={()=>checUser("/dashboard/listedGrain")}  className="nav-item nav-link ">
+              </p> 
+              <p onClick={()=>checUser("/dashboard/listedGrain")}  className="nav-item nav-link ">
                 <i className="fa fa-th me-2 text-success"></i>&nbsp;Listed Grains
-              </Link>
-              <a onClick={()=>checUser("/dashboard/listedEquipment")} className="nav-item nav-link ">
+              </p>
+              {/* listedEquipments */}
+              <p  onClick={()=>checUser("/dashboard/listedEquipments")} className="nav-item nav-link ">
               <i className="fa-solid fa-tractor text-success"></i>&nbsp;Listed Equipments
-              </a>
-              <a onClick={()=>checUser("/dashboard/agricultureLand")} className="nav-item nav-link">
+              </p>
+              <p onClick={()=>checUser("/dashboard/agricultureLands")} className="nav-item nav-link">
               <i className="fa-solid fa-building-wheat text-success"></i>&nbsp;Agriculture Land
-              </a>
-              <a onClick={()=>checUser("/dashboard/coldStorage")} className="nav-item nav-link ">
+              </p>
+              <p onClick={()=>checUser("/dashboard/coldStorageLand")} className="nav-item nav-link ">
               <i className="fa-solid fa-warehouse text-success"></i>&nbsp;Cold Storage Land
-              </a>
-              <a onClick={()=>checUser("/dashboard/grainOrder")} className="nav-item nav-link ">
-              <i className="fa-solid fa-wheat-awn text-success"></i>&nbsp;Grain Orders
-              </a>
-              <a onClick={()=>checUser("/dashboard/equipmentOrder")} className="nav-item nav-link ">
-                <i className="bi bi-wrench-adjustable-circle-fill text-success"></i>&nbsp;Equipment Orders
-              </a>
-
-              {
+              </p>
+              <p>{
                 !expertStatus&&userStatus?<Button  onClick={() => setShow(true)} className="nav-item nav-link">
                 <i className="bi bi-layout-text-window-reverse text-success"></i>&nbsp;
                         Become Expert
                 </Button>:""
-              }
+              }</p>
+              <p onClick={()=>checUser("/dashboard/grainOrder")} className="nav-item nav-link ">
+              <i className="fa-solid fa-wheat-awn text-success"></i>&nbsp;Grain Orders
+              </p>
+
+              <p onClick={()=>checUser("/dashboard/equipmentOrder")} className="nav-item nav-link ">
+                <i className="bi bi-wrench-adjustable-circle-fill text-success"></i>&nbsp;Equipment Orders
+              </p>
+
+            
               
               <div className="nav-item dropdown">
-                <a
-                  href="#"
+                <p
                   className="nav-link dropdown-toggle"
                   data-bs-toggle="dropdown"
                 >
                   <i className="far fa-file-alt me-2 text-success "></i>Agreements
-                </a>
+                </p>
                 <div className="dropdown-menu bg-transparent border-0">
-                  <a href="signin.html" className="dropdown-item text-white">
+                  <p className="dropdown-item text-white">
                     Agriculture agreements
-                  </a>
+                  </p>
                   <a href="signup.html" className="dropdown-item text-white">
                     Cold Sotrage agreements
                   </a>
@@ -154,16 +156,10 @@ function UserdashBoard() {
         <div className="content " id="content" style={{display:"flex",flexDirection:"column"}}>
         <DashboardLinks/>
         {/* <DashboardLinks/> */}
-
-
-<ExpertModal setShow={setShow} show={show}/>
+       <ExpertModal setShow={setShow} show={show}/>
 {/* --------------------------------Div to be nvigate----------------------------- */}
           <div className="container-fluid p-0 " style={{flexGrow:1}}>
-            {/* <div className="row"> */}
-              {/* <Profile/> */}
               <Outlet context={{socket,user}} />
-              
-            {/* </div> */}
           </div>
 {/* --------------------------------Div to be nvigate ends ----------------------------- */}
         </div>

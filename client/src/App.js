@@ -1,25 +1,23 @@
 // import './App.css';
-import Header from './components/Header/Header.js';
+// import Header from './components/Header/Header.js';
+// import Footer from './components/Footer/Footer.js';
+// import contactUs from './components/ContactUsPage/ContactUs.js';
+// import { useEffect, useState } from 'react';
+
 import OrgSingUp from './components/OrgSignUp/OrgSignUp.js';
-import Footer from './components/Footer/Footer.js';
 import Services from './components/ServicesPage/ServicesPage.js';
-import contactUs from './components/ContactUsPage/ContactUs.js';
+import ExpertList from "./components/ExpertList.js/ExpertList.js"
 import Home from './components/Home/HomePage.js';
 import AboutUs from './components/AboutUsPage/AboutUs.js';
 import ContactUs from './components/ContactUsPage/ContactUs.js';
-// import UserDashboard from './components/UserDashboard/UserDashboard.js';
 import UserdashBoard from './components/UserDashboard/UserDashboard.js';
-// import ChatComponent from './components/ChatComponent/ChatComponent.js';
 import Chatsection from './components/ChatComponent/Chatsection.js';
-
-// import ExpertModal from './components/BecomeExpertModal/ExpertModal.js';
-import {Routes,Route} from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Profile from './components/UserDashboard/ProfileSection/ProfileSection.js';
-import ListedGrains from './components/ListedGrain/ListedGrains.js';
-import { useEffect, useState } from 'react';
-// import {io} from 'socket.io-client';
-// import DashboardLinks from './components/DashboardLinks/DashboardLinks.js';
-
+import ListedGrains from './components/UserDashboard/ListedGrain/ListedGrains.js';
+import ListedEquipments from './components/UserDashboard/ListedEquimentsSection/ListedEquiments.js';
+import AgricultureLand from './components/UserDashboard/AgricultureLands Section/AgricultureLand.js';
+import ColdStorageLand from './components/UserDashboard/ColdStorageLandSection.js/ColdStorageLand.js';
 function App() {
   // const [socket,setSocket]=useState(null);
   // useEffect(()=>{
@@ -28,22 +26,25 @@ function App() {
 
   return (
     <>
-    {/* <ExpertModal/> */}
+      {/* <ExpertModal/> */}
       {/* <Header /> */}
-        <Routes>
-          <Route path="/" element={<Home/>}></Route>
-          <Route path='/services' element={<Services/>}></Route>
-          <Route path='/orgSignup' element={<OrgSingUp/>}></Route>
-          <Route path='/contactus' element={<ContactUs/>}></Route>
-          <Route path='/aboutus' element={<AboutUs/>}></Route>
-          <Route path='/dashboard' element={<UserdashBoard/>}>
-                <Route index element={<Profile />} />
-                <Route path="profile" element={<Profile />} />
-                <Route path='chat' element={<Chatsection/>}></Route>
-                <Route path='listedGrain' element={<ListedGrains/>}></Route>
-
-          </Route>          
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path='/services' element={<Services />}></Route>
+        <Route path='/orgSignup' element={<OrgSingUp />}></Route>
+        <Route path='/contactus' element={<ContactUs />}></Route>
+        <Route path='/aboutus' element={<AboutUs />}></Route>
+        <Route path='/bookExpert' element={<ExpertList />}></Route>
+        <Route path='/dashboard' element={<UserdashBoard />}>
+          <Route index element={<Profile />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path='chat' element={<Chatsection />}></Route>
+          <Route path='listedGrain' element={<ListedGrains />}></Route>
+          <Route path='listedEquipments' element={<ListedEquipments/>}></Route>
+          <Route path='agricultureLands' element={<AgricultureLand/>}></Route>
+          <Route path='coldStorageLand' element={<ColdStorageLand/>}></Route>
+        </Route>
+      </Routes>
       {/* <Footer/> */}
 
     </>

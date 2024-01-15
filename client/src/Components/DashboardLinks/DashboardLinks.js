@@ -22,7 +22,7 @@ function DashboardLinks() {
     }
     return (<>
     <div>
-            <nav className="navbar navbar-expand bg-darkgreen sticky-top px-4 py-0  d-flex justify-content-between">
+            <nav className="navbar navbar-expand bg-darkgreen  px-4 py-0  d-flex justify-content-between">
             <a href="#" className="sidebar-toggler m-2 text-decoration-none flex-shrink-0" id="sidebar-toggler" onClick={silderBarToggle}>
             <i className="fa-solid fa-bars midgreen"></i>
             </a>
@@ -50,6 +50,11 @@ function DashboardLinks() {
                 <li className="nav-item">
                   <Link className=" text-white nav-link" to="/dashboard">
                     <i className="bi bi-layout-text-window-reverse midgreen"></i>&nbsp;Dashboard
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className=" text-white nav-link" to="/bookExpert">
+                    <i className="bi bi-person-fill-add midgreen"></i>&nbsp;Book Expert
                   </Link>
                 </li>
                 </ul> 

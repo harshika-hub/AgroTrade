@@ -17,7 +17,13 @@ function Nablinks() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   function handleLogout(){
-    dispatch(setRoleStatus({role:"", status:false}));
+    var data={
+      user_status:"",
+      expert_status:""
+    }
+    dispatch(setRoleStatus({role:"",data:data,status:false}));
+    jscookie.set('userEmail',""); 
+    // dispatch(setRoleStatus({role:"", status:false}));
     dispatch(setUserData({}));
     dispatch(setOrgData({}));
     dispatch(setAdminData({}));
@@ -46,18 +52,18 @@ function Nablinks() {
                 </li>
                 <li className="nav-item">
                   <Link className=" text-white nav-link" to="/market">
-                    <i class="bi bi-basket3-fill"></i>&nbsp;Market
+                    <i className="bi bi-basket3-fill"></i>&nbsp;Market
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className=" text-white nav-link" to="/community">
                     {" "}
-                    <i class="bi bi-chat-fill"></i>&nbsp;Community
+                    <i className="bi bi-chat-fill"></i>&nbsp;Community
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className=" text-white nav-link" to="/dashboard">
-                    <i class="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard
+                    <i className="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard
                   </Link>
                 </li>
                 <div className="btn-group nav-item">
@@ -123,9 +129,8 @@ function Nablinks() {
             {
               status ? <button 
                 type="Button" 
-                className="btn btn-danger"
-                onClick={handleLogout}
-                >Log Out&nbsp;<i class="bi bi-box-arrow-right"></i>
+                className="btn btn-danger" onClick={handleLogout}
+                >Log Out&nbsp;<i className="bi bi-box-arrow-right"></i>
               </button> :
                 <>
                   <div className="dropdown m-0">

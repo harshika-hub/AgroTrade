@@ -2,12 +2,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import logo from "../../../assets/Agro-Trade-logo.png"
 import "./ProfileSection.css"
-import { useEffect, useReducer, useState } from "react";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useEffect, useReducer } from "react";
+import { useOutletContext } from "react-router-dom";
 import jscookie from 'js-cookie';
 // import jscookie from "js-cookie";
 import { completeProfile, getDataonLoad } from "../../../store/userSlice";
-var clone ={}
+// var clone ={}
 
 
 function showUpdateForm (){
@@ -23,17 +23,19 @@ function showUpdateForm (){
 }  
 
 function Profile() {
-  const {user,socket}=useOutletContext();
-  console.log("inside Profile",user.email);
+  const {user}=useOutletContext();
+  const data=useSelector(state=>state.userSlice.userData)
+  console.log("inside Profile",user);
  
   const initialsate={
-    name:" ",
+    name:"",
     number:0,
     email:"",
-    address:""
+    address:"",
+    image:""
   }
   const reducer=(state,action)=>{
-    console.log("inside reducer state",state,"\n action",action)
+    console.log("inside reducer state in profile component",state,"\n action",action)
    switch(action.action){
             case "name":
               return  {...state,name:action.value}
@@ -44,33 +46,49 @@ function Profile() {
   
               case "email":
                return {...state,email:action.value}
-  
-  
               case "address":
                 return   {...state,address:action.value}
                 case "image":
                   return{...state,image:action.value}
                 case"users":
                 return {...action.value};
+                default: return {...data}
   
             }  
   }
   const disp=useDispatch();
   const [fields,dispatch] =  useReducer(reducer,initialsate)
-      clone={...fields} 
+      // clone={...fields} 
       console.log("fields",fields)
 
+      const getUser=async(email,token)=>{
+        try{
+          const udata=  await dispatch(getDataonLoad({email,token}))
+          console.log("user from onload in profile",udata);
+          return udata;
+        }catch(err){
+          console.log("error hile fetching user",err)
+        }
+      }
       useEffect(()=>{
-        dispatch({action:"users",value:user});
-        
-          },[user,dispatch])
+     
+        const email=jscookie.get("userEmail")
+        const token=jscookie.get("token")
+        const usdata= getUser(email,token);
+        console.log("inside profile useEffect",usdata);
+        dispatch({action:"name",value:user.name});
+        dispatch({action:"number",value:user.number});
+        dispatch({action:"email",value:user.email});
+        dispatch({action:"address",value:user.address});
+        dispatch({action:"image",value:user.image});
+
+          },[])
       // var user=useSelector(state=>state.userSlice);
       // console.log("inside profile",user)
       var status=""
 
       function Updateprofile(event) {
         event.preventDefault();
-        // 767
         console.log("fields in update profilw",fields);
         
 
@@ -102,7 +120,7 @@ function Profile() {
         completeProfile(formData);
       }
 
-
+      console.log("userdata in profile............",data)
       function changeProfile(e){
         var  profilePhoto = document.getElementById("profilePhoto");
         const file = profilePhoto.files[0];
@@ -119,28 +137,31 @@ function Profile() {
         
       //   // // Unmount the window.onbeforeunload event
       //   // return () => { window.onbeforeunload = null };
-      //   if(user.userData==null){
+      //   if(user.userData===null){
       //     const email=jscookie.get("email")
       //     const token=jscookie.get("token")
       //     disp(getDataonLoad({email,token}))
 
       //   }
       // })
-      return ( <>-
+      const url="../../../../public/uploads/"+fields.image
+      return ( <>
     <div className="row m-0 w-100 h-100" style={{height:"auto"}}>
        <div className="col-12 col-md-6 bg-midgreen p-0 offset-lg-3" id="profileCard">
              <div className="p-5 h-75" >
-             <img src={logo} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/>
-              <h4 className="drakgreen text-center text-white">{fields.name!=undefined?fields.name:" "}</h4>
-              <h4 className="drakgreen text-center text-white">{fields.number!=undefined?fields.number:" "}</h4>
+             {/* <img src={"../../../../public/uploads/"+fields.image} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/> */}
+             <img src={"http://localhost:3000/"+fields.image} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/>
+
+              <h4 className="drakgreen text-center text-white">{fields.name!==undefined?fields.name:" "}</h4>
+              <h4 className="drakgreen text-center text-white">{fields.number!==undefined?fields.number:" "}</h4>
               <h4 className="drakgreen text-center text-white">{fields.email}</h4>
             </div>  
              <div className="h-25 bg-warning  text-center darkgreen">
               <div className="h-75 d-flex align-items-center justify-content-center " >
-               <p>Address:  {user.address}</p>
+               <p>Address:  {fields.address}</p>
               </div>
               <div className="h-25" >
-              <button type="" className="h-100 text-white bg-midgreen" onClick={showUpdateForm} style={{width:"100%"}}>{status.user?"Update":"Complete Profile"}</button>
+              <button type="" className="h-100 text-white bg-midgreen" onClick={showUpdateForm} style={{width:"100%"}}>{user.user_status?"Update":"Complete Profile"}</button>
             
               </div>
             
@@ -181,7 +202,7 @@ function Profile() {
                </div>
 
                <div className=" " style={{marginTop:"10px"}} >
-                 <button className="w-100 btn btn-warning" type="button" onClick={Updateprofile}>{status.user?"Update":"Complete Profile"}</button>
+                 <button className="w-100 btn btn-warning" type="button" onClick={Updateprofile}>{user.user_status?"Update":"Complete Profile"}</button>
               </div>
                
                

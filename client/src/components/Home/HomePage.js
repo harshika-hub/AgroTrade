@@ -11,6 +11,7 @@ import { setUserData } from '../../store/userSlice.js';
 import { setOrgData } from '../../store/organizationSlice.js';
 import { setAdminData } from '../../store/adminSlice.js';
 import Header from '../Header/Header.js';
+import Footer from '../Footer/Footer.js'
 
 
 
@@ -42,6 +43,8 @@ function Home() {
             <Grains />
             <LandsSection />
             <EquipmentsSection />
+            <Footer/>
+            
         </>);
 };
 export default Home;

@@ -30,44 +30,23 @@ const commonSlice = createSlice({
       
         
         setRoleStatusOnReload : (state,action)=>{
-
-
             // const role = JSON.parse(localStorage.getItem("role"));
             // const status = JSON.parse(localStorage.getItem("status"));
             // state.role = role;
             // state.state = status;
         }
-        // getOtp : async (state,action)=>{  
-        //     try{
-        //         console.log("Pauload inside commonSlice getOtp : ",action.payload);
-                
-        //         var result = await axios.post(REQUESTED_URL+"/getotp",action.payload); 
-        //         console.log("commonSlice getOtp Result : ",result);
-        //     }catch(error){
-        //         console.log("error in getOtp commonSlice : ",error);
-        //     }
-        // },
-        // jwtVerification : async(state,action)=>{
-        //     try{
-        //         console.log("Token Inside commonSlice jwtVerification : ",action.payload);
-        //         var token = jscookie.get();
-        //         console.log("token :", token);
-        //         var result = await axios.post(REQUESTED_URL+"/",token);
-        //         console.log("commonSlice jwtVerification Result : ",result);
-        //         return result.data.logData;
-        //     }catch(error){
-        //         console.log("error in jwtVerification commonSlice : ",error);
-        //     }
-        // }
+       
     }
 });
 
+
 export const getOtp = async (payload)=>{  
     try{
-        console.log("Payload inside commonSlice getOtp : ",payload);
+        console.log("Pauload inside commonSlice getOtp : ",payload);
         
         var result = await axios.post(REQUESTED_URL+"/getotp",payload); 
         console.log("commonSlice getOtp Result : ",result);
+        
     }catch(error){
         console.log("error in getOtp commonSlice : ",error);
     }
