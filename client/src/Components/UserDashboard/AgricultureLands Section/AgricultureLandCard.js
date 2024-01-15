@@ -64,7 +64,7 @@ Swal.fire({
       <div className="card mb-4 w-100 p-0">
         <div className="row g-0">
           <div className="col-md-4 bg-dark" id="imgeDiv">
-            <img src={"http://localhost:3000/"+Land.image} className="img-fluid rounded-start w-100" alt="..." />
+            <img src={"http://localhost:3000/"+Land.image} className="img-fluid rounded-start w-100 card-image" alt="..." />
           </div>
           <div className="col-md-5">
             <div className="card-body">

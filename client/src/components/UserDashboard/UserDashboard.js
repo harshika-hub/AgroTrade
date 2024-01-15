@@ -131,8 +131,6 @@ function UserdashBoard() {
                 <i className="bi bi-wrench-adjustable-circle-fill text-success"></i>&nbsp;Equipment Orders
               </p>
 
-            
-              
               <div className="nav-item dropdown">
                 <p
                   className="nav-link dropdown-toggle"

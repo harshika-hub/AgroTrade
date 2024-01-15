@@ -147,7 +147,7 @@ function Profile() {
       // })
       const url="../../../../public/uploads/"+fields.image
 
-      return ( <>-
+      return ( <>
     <div className="row m-0 w-100 h-100" style={{height:"auto"}}>
        <div className="col-12 col-md-6 bg-midgreen p-0 offset-lg-3" id="profileCard">
              <div className="p-5 h-75" >
