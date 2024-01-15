@@ -243,7 +243,6 @@ function UserSingIn() {
     e.preventDefault();
     if (email) {
       userLogin(loginData).then((data) => {
-
         console.log("data in signin ", data)
         if (data.message == "success") {
           dispatch(setUserData(data.log));
@@ -254,16 +253,6 @@ function UserSingIn() {
             position: "middle",
             icon: "success",
             title: "Welcome to Agrotrade🙏",
-        console.log("data in signin ",data)
-        if (data.message == "success") {
-          dispatch(setUserData(data.log));
-          dispatch(setRoleStatus({role:data.role,data:data.log,status:true}));
-                  jscookie.set('userEmail',data.log.email);    
-              setLgShow(false);
-          Swal.fire({
-            position: "middle",
-            icon: "success",
-            title: "Welcome to Agrotrage🙏",
             showConfirmButton: false,
             timer: 2000
           });

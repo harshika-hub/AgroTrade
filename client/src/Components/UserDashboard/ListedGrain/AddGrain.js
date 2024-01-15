@@ -25,7 +25,6 @@ function AddGrain(props) {
   
   const {getGrians}=props;
 
-function AddGrain() {
   const [lgShow, setLgShow] = useState(false);
   const [addgrainObj, setAddGrain] = useState(false);
 
@@ -283,9 +282,7 @@ function AddGrain() {
           showConfirmButton: false,
           timer: 2000
         });
-
         getGrians();
-
 
       }
       else {
