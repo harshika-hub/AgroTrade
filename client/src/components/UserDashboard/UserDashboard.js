@@ -78,7 +78,6 @@ function UserdashBoard() {
         <div className="sidebar" id="siderBar">
           <nav className="navbar navbar-light pe-2">
             <div className="d-flex justify-content-between ps-3 pe-3  w-100">
-
               <p href="#" className="navbar-brand ">
               <h3 className="midgreen text-center ">
                 Agro Trade
@@ -86,14 +85,6 @@ function UserdashBoard() {
             </p>
             <h2 className=" text-white sidebar-toggler m-2 text-decoration-none flex-shrink-0" id="sidebar-toggler" onClick={silderBarToggle}>
             <i class="bi bi-x-circle-fill"></i>
-
-              <a href="#" className="navbar-brand ">
-              <h3 className="midgreen text-center ">
-                Agro Trade
-              </h3>
-            </a>
-            <h2 className=" text-white sidebar-toggler m-2 text-decoration-none flex-shrink-0" id="sidebar-toggler" onClick={silderBarToggle}>
-            <i className="bi bi-x-circle-fill"></i>
             </h2>
             </div>
             <div className="d-flex align-items-center ms-4 mb-1">
@@ -123,9 +114,7 @@ function UserdashBoard() {
               <p onClick={()=>checUser("/dashboard/agricultureLands")} className="nav-item nav-link">
               <i className="fa-solid fa-building-wheat text-success"></i>&nbsp;Agriculture Land
               </p>
-
               <p onClick={()=>checUser("/dashboard/coldStorageLand")} className="nav-item nav-link ">
-              <p onClick={()=>checUser("/dashboard/coldStorage")} className="nav-item nav-link ">
               <i className="fa-solid fa-warehouse text-success"></i>&nbsp;Cold Storage Land
               </p>
               <p>{

@@ -79,19 +79,6 @@ function UserSingUp() {
         title: "Oops...",
         text: "Server Error. Please try Again...",
       });
-
-    userRegister({ otp }).then((data)=>{
-      console.log("log Data : ",data);
-      dispatch(setUserData(data.log));
-      dispatch(setRoleStatus({role:data.role,data:data.log,status:true}));
-      jscookie.set('userEmail',data.log.email); 
-      // dispatch(setRoleStatus({role: logData.role, status: true}));
-      // setLgShow(false);
-      console.log("hiii");
-      navigate('/');
-    }).catch(()=>{
-
-
     });
   }
   function validateEmail(e) {
