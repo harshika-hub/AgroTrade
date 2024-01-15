@@ -1,4 +1,4 @@
-import tractor from "../../../assets/john-deere-wallpaper-19-642x462 (1).jpg"
+// import tractor from "../../../assets/john-deere-wallpaper-19-642x462 (1).jpg"
 import "./ListedEquipmentCard.css"
 import Swal from "sweetalert2";
 import { deleteEquipmentId } from "../../../store/userSlice";
@@ -50,7 +50,7 @@ const deleteEquipment = (EquipmentId)=>{
       if (result.isConfirmed) {
        
         deleteEquipmentId({EquipmentId}).then((data) => {
-          if (data.message == "success") {
+          if (data.message === "success") {
             Swal.fire({
               position: "middle",
               icon: "success",

@@ -14,6 +14,9 @@ import jscookie from 'js-cookie';
 function Nablinks() {
   console.log("hiii");
   const {role,status} = useSelector(state=>state.commonSlice);
+  if (role) {
+    
+  }
   const dispatch = useDispatch();
   const navigate = useNavigate();
   function handleLogout(){
@@ -147,19 +150,19 @@ function Nablinks() {
 
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                       <li>
-                        <a className="dropdown-item" to="#">
+                        <Link className="dropdown-item" to="#">
                           <UserSingIn/>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a className="dropdown-item" to="#">
+                        <Link className="dropdown-item" to="#">
                           <OrgSingIn />
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </div>
                   <div className="dropdown m-0">
-                    <a
+                    <Link
                       className="btn linksbtn btn-warning dropdown-toggle"
                       to="/orgSignup"
                       role="button"
@@ -168,12 +171,12 @@ function Nablinks() {
                       aria-expanded="false"
                     >
                       Sign Up&nbsp;<i className="fa-solid fa-pen-to-square"></i>
-                    </a>
+                    </Link>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                       <li>
-                        <a className="dropdown-item" to="#">
+                        <Link className="dropdown-item" to="#">
                           <UserSingUp/>
-                        </a>
+                        </Link>
                       </li>
                       <li>
                         <Link className="dropdown-item" to="/orgSignup">

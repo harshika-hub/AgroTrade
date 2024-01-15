@@ -24,7 +24,7 @@ function AgricultureLand  () {
 
     getLand(userEmail)
   
-  }, []);
+  }, [userEmail]);
   function  sendLands(Lands) {
     setLands(Lands)
   }

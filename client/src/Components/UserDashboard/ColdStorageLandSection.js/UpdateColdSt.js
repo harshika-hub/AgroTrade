@@ -38,7 +38,7 @@ function UpdateColdStModal(props) {
         }
 
         UpdateColdSt(formData).then((data) => {
-            if (data.message == "success") {
+            if (data.message === "success") {
                 Swal.fire({
                     position: "middle",
                     icon: "success",

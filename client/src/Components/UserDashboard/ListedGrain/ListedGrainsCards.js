@@ -1,4 +1,3 @@
-import chawal from "../../../assets/rice.jpeg"
 import UpdateGrainModal from "./UpdateGrain";
 import { deleteGrainId } from "../../../store/userSlice";
 import Swal from "sweetalert2";
@@ -20,7 +19,7 @@ function ListedGrainsCards(props) {
           if (result.isConfirmed) {
            
             deleteGrainId({GrainId}).then((data) => {
-              if (data.message == "success") {
+              if (data.message === "success") {
                 Swal.fire({
                   position: "middle",
                   icon: "success",
@@ -71,14 +70,14 @@ function ListedGrainsCards(props) {
           <div className=" col-12 col-sm-6 col-md-12 col-lg-12 col-xl-6 ">
             <div className="card-body">
               <div className="d-flex justify-content-end">
-                {Grain.grain=="inorganic"? <span className="badge bg-warning fs-6">Inorganic</span>: <span className="badge bg-success fs-6">Organic</span>}
+                {Grain.grain==="inorganic"? <span className="badge bg-warning fs-6">Inorganic</span>: <span className="badge bg-success fs-6">Organic</span>}
               </div>
               <h3 className="card-title darkgreen fs-4">{Grain.grainname}</h3>
               <p className="card-text darkgreen fs-6">
                 Type: {Grain.graintype} <br/>
                 Price: Rs.{Grain.price}/quintal<br/>
                 Quantity:{Grain.quantity} quintal <br/>
-                Shelf Life: 1 Year <br/>
+                Shelf Life: {Grain.selflife} month <br/>
                 State: {Grain.state} <br/>
                 Moisture Level: {Grain.moisturelevel}%
               </p>

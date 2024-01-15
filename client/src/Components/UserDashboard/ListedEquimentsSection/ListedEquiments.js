@@ -3,8 +3,7 @@ import ListedEquipmentCard from "./ListedEquipmentCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { USER_REQUESTED_URL } from "../../../urls.js";
-import tractor from "../../../assets/john-deere-wallpaper-19-642x462 (1).jpg";
-import { useDispatch } from "react-redux";
+// import tractor from "../../../assets/john-deere-wallpaper-19-642x462 (1).jpg";
 import AddEquipment from "./AddEquipment.js";
 import jscookie from "js-cookie"
 function ListedEquipments(props) {
@@ -17,7 +16,7 @@ function ListedEquipments(props) {
     }).catch(err=>console.log("error",err));
   }
 
-  useEffect(getEquipments,[])
+  useEffect(getEquipments)
   console.log(dataEquipment);
   
   

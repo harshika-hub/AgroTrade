@@ -1,6 +1,6 @@
 // import { useDispatch } from "react-redux";
-import { useDispatch, useSelector } from "react-redux";
-import logo from "../../../assets/Agro-Trade-logo.png"
+import {  useSelector } from "react-redux";
+// import logo from "../../../assets/Agro-Trade-logo.png"
 import "./ProfileSection.css"
 import { useEffect, useReducer } from "react";
 import { useOutletContext } from "react-router-dom";
@@ -56,7 +56,7 @@ function Profile() {
   
             }  
   }
-  const disp=useDispatch();
+  // const disp=useDispatch();
   const [fields,dispatch] =  useReducer(reducer,initialsate)
       // clone={...fields} 
       console.log("fields",fields)
@@ -76,17 +76,15 @@ function Profile() {
         const token=jscookie.get("token")
         const usdata= getUser(email,token);
         console.log("inside profile useEffect",usdata);
-
         dispatch({action:"name",value:user.name});
         dispatch({action:"number",value:user.number});
         dispatch({action:"email",value:user.email});
         dispatch({action:"address",value:user.address});
         dispatch({action:"image",value:user.image});
 
-          },[])
+          },[user.address, user.email, user.image, user.name,user.number])
       // var user=useSelector(state=>state.userSlice);
       // console.log("inside profile",user)
-      var status=""
 
       function Updateprofile(event) {
         event.preventDefault();
@@ -145,16 +143,16 @@ function Profile() {
 
       //   }
       // })
-      const url="../../../../public/uploads/"+fields.image
+      // const url="../../../../public/uploads/"+fields.image
+      // return ( <>
+      // const url="../../../../public/uploads/"+fields.image
 
       return ( <>
     <div className="row m-0 w-100 h-100" style={{height:"auto"}}>
        <div className="col-12 col-md-6 bg-midgreen p-0 offset-lg-3" id="profileCard">
              <div className="p-5 h-75" >
              {/* <img src={"../../../../public/uploads/"+fields.image} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/> */}
-            <img src={"http://localhost:3000/"+fields.image} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/>
-
-             <img src={logo} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/>
+             <img src={"http://localhost:3000/"+fields.image} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/>
 
               <h4 className="drakgreen text-center text-white">{fields.name!==undefined?fields.name:" "}</h4>
               <h4 className="drakgreen text-center text-white">{fields.number!==undefined?fields.number:" "}</h4>

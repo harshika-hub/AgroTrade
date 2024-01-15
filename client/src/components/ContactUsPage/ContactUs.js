@@ -1,5 +1,4 @@
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -60,7 +59,7 @@ function ContactUs() {
                     </Col>
                     <Col sm={6}>
                         <div className="google-map">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14719.188998439324!2d75.86501435!3d22.73577615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1702892842353!5m2!1sen!2sin " allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe title='AgroTrade' src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14719.188998439324!2d75.86501435!3d22.73577615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1702892842353!5m2!1sen!2sin " allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                         <div className="mt-5">
                             <i className="mt-5 fa-solid fa-phone textcolor"></i>&nbsp;&nbsp;+91574534567

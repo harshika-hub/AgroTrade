@@ -228,35 +228,13 @@ export const addAgriLandController = async (request, response) => {
         console.log(landData);
         const newAgriLand = await agriLand.create(landData);
         console.log("Agriculture Land Inserted Successfully");
-        const Lands = await agriLand.find();
+        const Lands = await agriLand.find({ownerEmail:request.body.ownerEmail});
         response.status(201).json({ message: "success", Lands: Lands });
     } catch (err) {
         console.log("err", err);
         response.status(500).json({ message: "Internal Server Error" });
     }
 };
-
-// export const updateProfileController=async(req,res)=>{
-//     if(req.file){
-//         req.body.image=req.file.filename;
-
-//     }else{
-//         req.body.image="";
-
-//     }
-//     req.body.user_status=true;
-//     console.log("user data in update user router",req.body);
-//     try
-//     {
-//         const resp=await users.findOneAndUpdate({email:req.body.email},{$set:req.body});
-//         const userData=await users.aggregate([{$match:{email:req.body.email}}]);
-//         res.status(201).json({userData:userData,updatedata:resp});
-//         console.log("res in complete user",resp);
-
-//     }catch(err){
-//         console.log("err while completing profile",err);
-//         res.status(500).json({msg:"err while updating"});
-
 
 export const getAgriLandController = async (request, response) => {
     try {
@@ -270,9 +248,10 @@ export const getAgriLandController = async (request, response) => {
 export const removeAgriLandController = async (request, response) => {
     try {
         console.log("hello");
+
         console.log(request.query);
         await agriLand.deleteOne({ _id: request.query._id });
-        const Lands = await agriLand.find();
+        const Lands = await agriLand.find({ownerEmail: request.query.ownerEmail });
         console.log("Land Deleted Sucessfully");
         response.status(201).json({ message: "success", Lands });
     } catch (err) {

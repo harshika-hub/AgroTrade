@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import coldstorageimg from "../../../assets/coldstorageimg.jpeg"
+// import coldstorageimg from "../../../assets/coldstorageimg.jpeg"
 import grainimg from "../../../assets/grainimg.webp";
 import jscookie from "js-cookie"
 import Swal from "sweetalert2";
@@ -39,7 +39,7 @@ function AddColdStorageLand(props) {
     }
 
     addColstLand(formData).then((data) => {
-      if (data.message == "success") {
+      if (data.message === "success") {
         Swal.fire({
           position: "middle",
           icon: "success",

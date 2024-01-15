@@ -1,6 +1,5 @@
 import "./EquipmentsSection.css"
 import tractor from "../../assets/john-deere-wallpaper-19-642x462 (1).jpg"
-import GrainCards from "../GrainCards/GrainCards";
 import EquipmentCard from "../EquipmentCard/EquipmentCard";
 function EquipmentsSection() {
   return (<>

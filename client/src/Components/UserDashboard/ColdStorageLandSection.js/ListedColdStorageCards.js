@@ -1,4 +1,4 @@
-import chawal from "../../../assets/rice.jpeg"
+// import chawal from "../../../assets/rice.jpeg"
 import UpdateColdStModal from "./UpdateColdSt.js";
 import { deleteColdStId } from "../../../store/userSlice";
 import Swal from "sweetalert2";
@@ -20,7 +20,7 @@ function ListedColdStorageCards(props) {
             if (result.isConfirmed) {
              
                 deleteColdStId({coldStId}).then((data) => {
-                    if (data.message == "success") {
+                    if (data.message === "success") {
                       Swal.fire({
                         position: "middle",
                         icon: "success",

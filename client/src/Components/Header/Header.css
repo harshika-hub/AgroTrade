@@ -5,7 +5,7 @@
 #logo{
     max-width: 115px;
     min-width: 20px;
-   animation: rotateLogo;
+   animation: rotateLogo   ;
    animation-timeline: scroll();
 }
 
@@ -26,8 +26,10 @@
 
   #offcanvasDiv{
     display: flex;
-    justify-content: end;
+    justify-content: "end";
 }
+
+
 
   }
 

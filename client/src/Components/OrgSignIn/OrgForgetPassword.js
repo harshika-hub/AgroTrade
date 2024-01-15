@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import leafwallpaper from "../../assets/leaves_Image.jpeg";
 import { getOtp } from '../../store/commonSlice';
 import { checkOtp, changePassword } from '../../store/organizationSlice.js';
@@ -16,9 +14,13 @@ function OrgForgetPassword() {
   const [password, setPassword] = useState({});
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const dispatch = useDispatch();
 
   var checkFields = false, email = false;
+  //////////////////////
+  // Is condittion  ko mat htna
+  if ( checkFields && email) {
+  }
+  ///////////////////////
 
   function showOtpfrom() {
     document.getElementById("otpvarifyform").style.display = "block"
@@ -73,7 +75,7 @@ function OrgForgetPassword() {
     console.log("Inside handleOtp ", otp);
     checkOtp({ otp }).then((data) => {
       console.log("data.message",data.message);
-      if (data.message == "success") {
+      if (data.message === "success") {
         console.log("hhhhhhhhhhhhhhhhhhhhhhhhh");
         showPasswordFields();
       }else {
@@ -98,7 +100,7 @@ function OrgForgetPassword() {
   function handleChangePasswordSubmit(e) {
     changePassword(password).then((data)=>{
       console.log(data.message);
-      if(data.message=='success'){
+      if(data.message==='success'){
         Swal.fire({
           position: "middle",
           icon: "success",

@@ -23,6 +23,11 @@ price=false,
 quantity=false,
 condition=false;
 
+// ye if conditon mt hatan
+if (checkFields && equipmentname && modelnumber && state && city && address && image && description && equipmenttype && price && quantity && condition) {
+    
+}
+
 
 
 
@@ -224,7 +229,7 @@ function AddEquipment(props) {
             formData.append("userEmail",userEmail);
         }
         addEquipment(formData).then((data)=>{   
-           if(data.message=="success"){
+           if(data.message==="success"){
             Swal.fire({
                 position: "middle",
                 icon: "success",

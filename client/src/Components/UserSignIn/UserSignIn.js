@@ -244,7 +244,7 @@ function UserSingIn() {
     if (email) {
       userLogin(loginData).then((data) => {
         console.log("data in signin ", data)
-        if (data.message == "success") {
+        if (data.message === "success") {
           dispatch(setUserData(data.log));
           dispatch(setRoleStatus({ role: data.role, data: data.log, status: true }));
           jscookie.set('userEmail', data.log.email);
@@ -257,19 +257,19 @@ function UserSingIn() {
             timer: 2000
           });
           navigate('/');
-        } else if (data.message == "wrong password") {
+        } else if (data.message === "wrong password") {
           Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "Wrong Password!\nPlease try Again...",
           });
-        } else if (data.message == "not exist") {
+        } else if (data.message === "not exist") {
           Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "User not exist. Please try Again...",
           });
-        } else if (data.message == "error") {
+        } else if (data.message === "error") {
           Swal.fire({
             icon: "error",
             title: "Oops...",
