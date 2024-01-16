@@ -134,10 +134,14 @@ export const updateColdStLandController = async (request, response) => {
     console.log("request.body", request.body);
     const { _id } = request.body;
     try {
-        var image = '';
-        if (request.file.filename != "undefined") {
-            image = request.file.filename;
+        if (request.files && request.files.image) {
+            const image = request.files.image[0].filename;
             request.body = { ...request.body, ["image"]: image };
+        }
+
+        if (request.files && request.files.image360) {
+            const image360 = request.files.image360[0].filename;
+            request.body = { ...request.body, ["image360"]: image360 };
         }
     } catch (err) {
         console.log("err");

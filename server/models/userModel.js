@@ -155,10 +155,18 @@ const equipmentModel=new mongoose.Schema({
     },
     description:{
         type:String
-    }
+    }, 
+    avilable:{
+        type:Boolean,
+        default:true
+    },
 });
 
 const coldStorageLandModel = new mongoose.Schema({
+    landTitle: {
+        type: String,
+        required: true,
+    },
     userEmail:{
         type:String
     },
@@ -199,7 +207,11 @@ const coldStorageLandModel = new mongoose.Schema({
     },
     image360: {
         type: String,
-    }
+    },
+    avilable:{
+        type:Boolean,
+        default:true
+    },
 })
 
 const agriLandModel = new mongoose.Schema({
@@ -269,16 +281,15 @@ const agriLandModel = new mongoose.Schema({
         type:String,
         required:true
     },
-    adminVarify:{
+    avilable:{
         type:Boolean,
-        default:false
-    }
+        default:true
+    },
+
     
 })
 
 const  agriLand= mongoose.model('agriLand',agriLandModel, 'agriLand');
-
-
 const equipments= mongoose.model('equipments',equipmentModel,'equipments')
 const users = mongoose.model('users', userModel, 'users');
 const grains = mongoose.model('grains', grainModel, 'grains');

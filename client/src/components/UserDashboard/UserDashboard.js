@@ -156,7 +156,7 @@ function UserdashBoard() {
         {/* <DashboardLinks/> */}
        <ExpertModal setShow={setShow} show={show}/>
 {/* --------------------------------Div to be nvigate----------------------------- */}
-          <div className="container-fluid p-0 " style={{flexGrow:1}}>
+          <div className="container-fluid p-0 bg-light" style={{flexGrow:1}}>
               <Outlet context={{socket,user}} />
           </div>
 {/* --------------------------------Div to be nvigate ends ----------------------------- */}
