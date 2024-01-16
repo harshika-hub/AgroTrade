@@ -182,7 +182,7 @@ function UserSingUp() {
 
                 <div className="col-12" id="otpbtncol">
                   <div className="d-grid gap-2">
-                    <button type="button" name="" id="OtpBtn" onClick={handleGetOtp} className="btn btn-success">Get OTP</button>
+                    <button type="button" name="" id="OtpBtn" onClick={handleGetOtp} className="btn btn-success">Get ff OTP</button>
                   </div>
                 </div>
 
