@@ -3,7 +3,7 @@ import leafwallpaper from "../../assets/leaves_Image.jpeg";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getOtp, setRoleStatus } from "../../store/commonSlice.js";
-import { userRegister } from "../../store/userSlice.js";
+import { userRegister,setUserData } from "../../store/userSlice.js";
 import "./UserSingUp.css"
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -13,7 +13,7 @@ import jscookie from 'js-cookie'
 var userObj = {};
 var email = false, password = false;
 function UserSingUp() {
-  const [userData, setUserData] = useState({});
+  const [userData, setData] = useState({});
   const [otp, setOtp] = useState();
   const [lgShow, setLgShow] = useState(false);
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function UserSingUp() {
 
   var getData = (event) => {
     const { name, value } = event.target;
-    setUserData({
+    setData({
       ...userData,
       [name]: value
     });
@@ -46,8 +46,9 @@ function UserSingUp() {
     event.preventDefault();
     
     userRegister({ otp }).then((data) => {
-      if (data.message == "success") {
-        dispatch(setUserData(data.log));
+      console.log("data.log",data);
+      if (data.message === "success") {
+        dispatch(setUserData(data));
         dispatch(setRoleStatus({ role: data.role, data: data.log, status: true }));
           jscookie.set('userEmail', data.log.email);
           setLgShow(false);
@@ -59,13 +60,13 @@ function UserSingUp() {
             timer: 2000
           });
           navigate('/');
-      } else if (data.message == "error") {
+      } else if (data.data.message === "error") {
         Swal.fire({
           icon: "error",
           title: "Oops...",
           text: "Server Error. Please try Again...",
         });
-      } else if (data.message == "wrong otp") {
+      } else if (data.data.message === "wrong otp") {
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -181,7 +182,7 @@ function UserSingUp() {
 
                 <div className="col-12" id="otpbtncol">
                   <div className="d-grid gap-2">
-                    <button type="button" name="" id="OtpBtn" onClick={handleGetOtp} className="btn btn-success">Get OTP</button>
+                    <button type="button" name="" id="OtpBtn" onClick={handleGetOtp} className="btn btn-success">Get ff OTP</button>
                   </div>
                 </div>
 

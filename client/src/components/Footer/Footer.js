@@ -1,5 +1,6 @@
 import logo from "../../assets/Agro-Trade-logo.png"
 import "./Footer.css"
+import { Link } from "react-router-dom";
 function Footer() {
 return ( <>
    <div className="container-fluid  d-flex justify-content-center p-0" id="footerMiandiv">
@@ -33,13 +34,13 @@ return ( <>
                  <p className="text-center  midgreen " >Follow Us on</p>
                    <div className="row m-0 w-100" >
                       <div className="col-4" >
-                         <h4 className="text-center" > <a className="footerLink" href=""><i className="bi bi-facebook"></i></a></h4> 
+                         <h4 className="text-center" > <Link className="footerLink" to=""><i className="bi bi-facebook"></i></Link></h4> 
                       </div>
                       <div className="col-4" >
-                        <h4 className="text-center" ><a  className="footerLink"href=""><i className="bi bi-instagram"></i></a></h4>
+                        <h4 className="text-center" ><Link  className="footerLink"to=""><i className="bi bi-instagram"></i></Link></h4>
                       </div>
                       <div className="col-4" >
-                        <h4 className="text-center" ><a className="footerLink" href=""><i className="bi bi-twitter-x"></i></a></h4>
+                        <h4 className="text-center" ><Link className="footerLink" to=""><i className="bi bi-twitter-x"></i></Link></h4>
                       </div>
                    </div>
                 </div>
@@ -47,31 +48,31 @@ return ( <>
 
             <div className="col-12 col-sm-6  col-md-2  p-3 ps-4 pt-4">
                 <h4 className="  midgreen  ">Services</h4>
-                 <h6 className="mt-3 "><a className="footerLink" href="/">Book Land</a></h6> 
-                 <h6 className="mt-3 "><a className="footerLink" href="/">Rent Equipment</a></h6>
-                 <h6 className="mt-3 "><a className="footerLink" href="/">Buy Grains</a></h6>
-                 <h6 className="mt-3 "><a className="footerLink" href="/">Talk Expert </a></h6>
+                 <h6 className="mt-3 "><Link className="footerLink" to="/">Book Land</Link></h6> 
+                 <h6 className="mt-3 "><Link className="footerLink" to="/">Rent Equipment</Link></h6>
+                 <h6 className="mt-3 "><Link className="footerLink" to="/">Buy Grains</Link></h6>
+                 <h6 className="mt-3 "><Link className="footerLink" to="/">Talk Expert </Link></h6>
             </div>
 
             <div className="col-12 col-sm-6  col-md-2  p-3 ps-4 pt-4">
                 <h4 className="  midgreen">Go to</h4>
-                 <h6 className="mt-3 "><a className="footerLink" href="/">Dashboard</a></h6> 
-                 <h6 className="mt-3 "><a className="footerLink" href="/">Community</a></h6>
-                 <h6 className="mt-3 "><a className="footerLink" href="/">Shopping</a></h6>
+                 <h6 className="mt-3 "><Link className="footerLink" to="/">Dashboard</Link></h6> 
+                 <h6 className="mt-3 "><Link className="footerLink" to="/">Community</Link></h6>
+                 <h6 className="mt-3 "><Link className="footerLink" to="/">Shopping</Link></h6>
             </div>
 
             <div className="col-12 col-sm-6  col-md-2 p-3 ps-4 pt-4">
                 <h4 className="  midgreen">Company</h4>
-                 <h6 className="mt-3"><a className="footerLink" href="/">About us</a></h6> 
-                 <h6 className="mt-3"><a className="footerLink" href="/">Contact us</a></h6>
-                 <h6 className="mt-3"><a className="footerLink" href="/">FAQs</a></h6>
-                 <h6 className="mt-3"><a className="footerLink" href="/">Terms</a></h6>
+                 <h6 className="mt-3"><Link className="footerLink" to="/">About us</Link></h6> 
+                 <h6 className="mt-3"><Link className="footerLink" to="/">Contact us</Link></h6>
+                 <h6 className="mt-3"><Link className="footerLink" to="/">FAQs</Link></h6>
+                 <h6 className="mt-3"><Link className="footerLink" to="/">Terms</Link></h6>
             </div>
             <div className="col-12 col-sm-6  col-md-4  p-3 ps-4 pt-4">
                 <h4 className="  midgreen ">Contact us</h4>
-                 <h6 className="mt-3 "><a className="footerLink" href="/"><i className="bi bi-geo-alt-fill">&nbsp;Yashwant Ganj,M.T Cloth Market, Indore, Madhya Pradesh 452002</i></a></h6> 
-                 <h6 className="mt-3 text-white"><a className="footerLink" href="/"><i className="bi bi-envelope"></i>&nbsp;agrotrade@gmail.com</a></h6>
-                 <h6 className="mt-3 text-white"><a className="footerLink" href="/"><i className="bi bi-telephone-fill"></i>&nbsp;+91 9977839880</a></h6>
+                 <h6 className="mt-3 "><Link className="footerLink" to="/"><i className="bi bi-geo-alt-fill">&nbsp;Yashwant Ganj,M.T Cloth Market, Indore, Madhya Pradesh 452002</i></Link></h6> 
+                 <h6 className="mt-3 text-white"><Link className="footerLink" to="/"><i className="bi bi-envelope"></i>&nbsp;agrotrade@gmail.com</Link></h6>
+                 <h6 className="mt-3 text-white"><Link className="footerLink" to="/"><i className="bi bi-telephone-fill"></i>&nbsp;+91 9977839880</Link></h6>
 
             </div>
             

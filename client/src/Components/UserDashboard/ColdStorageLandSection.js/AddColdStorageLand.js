@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import coldstorageimg from "../../../assets/coldstorageimg.jpeg"
+// import coldstorageimg from "../../../assets/coldstorageimg.jpeg"
 import grainimg from "../../../assets/grainimg.webp";
 import jscookie from "js-cookie"
 import Swal from "sweetalert2";
@@ -39,7 +39,7 @@ function AddColdStorageLand(props) {
     }
 
     addColstLand(formData).then((data) => {
-      if (data.message == "success") {
+      if (data.message === "success") {
         Swal.fire({
           position: "middle",
           icon: "success",
@@ -91,6 +91,33 @@ function AddColdStorageLand(props) {
                 id="dataForm" onSubmit={handleSubmit}
                 noValidate
               >
+                   <div className="col-12 col-md-6 p-1 mt-1">
+                  <label
+                    htmlFor="validationCustomUsername"
+                    className="form-label midgreen"
+                  >
+                    Land Title
+                  </label>
+                  <div className="has-validation">
+                    <input
+                      placeholder="Enter land area"
+                      type="text"
+                      className="form-control form-control-sm mb-1"
+                      id="validationCustomUsername"
+                      aria-describedby="inputGroupPrepend"
+                      name="landTitle"
+                      onChange={checkFields}
+                      required
+                    />
+                    <div className="invalid-feedback">
+                      Please choose a Area.
+                    </div>
+                  </div>
+                </div>
+
+
+
+
                 <div className="col-12 col-md-6 p-1 mt-1">
                   <label
                     htmlFor="validationCustomUsername"

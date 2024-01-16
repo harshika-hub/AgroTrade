@@ -16,7 +16,7 @@ function ListedGrains(props) {
         }).catch(err => console.log('error ', err));
     }
     
-    useEffect(getGrians, [])
+    useEffect(getGrians)
     console.log(dataGrain);
 
     return (<>

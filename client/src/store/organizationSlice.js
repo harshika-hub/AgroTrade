@@ -23,7 +23,7 @@ export const orgRegister = async (payload) => {
     try {
         var result = await axios.post(REQUESTED_URL + '/organizationregistration',payload);
         console.log("Result : ", result);
-        if(result.data.message=="seccess"){
+        if(result.data.message==="seccess"){
             jscookie.set('token',result.data.token,{expires:1});
         }
         return result.data;
@@ -37,7 +37,7 @@ export const orgLogin = async(payload)=>{
         console.log("inside orgLogin in orgSlice : ",payload);
         var result  = await axios.post(REQUESTED_URL+"/organizationlogin",payload);
         console.log("Result :" ,result);
-        if(result.data.message=="seccess"){
+        if(result.data.message==="seccess"){
             jscookie.set('token',result.data.token,{expires:1});
         }
         return result.data;

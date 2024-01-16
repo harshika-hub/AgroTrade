@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import * as PANOLENS from 'panolens';
-import { useEffect } from "react";
+
 import imgs from "../../../../assets/leaves_Image.jpeg"
 import jscookie from "js-cookie"
 import { addAgriLand } from "../../../../store/userSlice";
@@ -35,7 +34,7 @@ function AddAgricultureLand(props) {
           formData.append("ownerEmail", userEmail);
         }
         addAgriLand(formData).then((data)=>{
-            if (data.message == "success") {
+            if (data.message === "success") {
                 Swal.fire({
                   position: "middle",
                   icon: "success",

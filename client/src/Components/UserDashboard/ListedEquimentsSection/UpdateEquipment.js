@@ -15,13 +15,20 @@ equipmentname = false,
 modelnumber = false,
 state = false,
 city = false,
-city = false,
 image = false,
 address = false,
 description = false,
 equipmenttype = false,
 price = false,
 condition = false
+
+// Ye If condtion mt htnaa
+if (condition  && price && equipmenttype  && description && address  && image  && city  && state  && modelnumber  && equipmentname  && checkFields){
+}
+
+
+
+
 
 function UpdateEquipmentModal(props) {
     const {Equipment,getEquipments}=props;
@@ -226,7 +233,7 @@ function UpdateEquipmentModal(props) {
         }
 
         UpdateEquipment(formData).then((data)=>{   
-           if(data.message=="success"){
+           if(data.message==="success"){
             Swal.fire({
                 position: "middle",
                 icon: "success",
@@ -548,7 +555,7 @@ function UpdateEquipmentModal(props) {
                                         </button>
                                     </div>
                                 </div>
-                                <div className="col-12 col-md-6 p-2 columns signupbtn-col mt-3">
+                                <div className="col-12 col-md-6 p-1  mt-1">
                                 <div className="d-grid gap-2">
                                 <button type="submit" name="" id="Submitbtn" className="btn btn-success btn-sm" >
                                 Update

@@ -64,35 +64,22 @@ export const userRegister = async(payload)=>{
         console.log("insede userRegister in userSlice : ",payload);
         var result  = await axios.post(REQUESTED_URL+"/userregistration", payload);
         console.log("Result :" ,result);
-        if(result.data.message=="seccess"){
+        if(result.data.message==="seccess"){
             jscookie.set('token',result.data.token,{expires:1});
         }
-        return result.data.logData;
+        return result.data;
     }catch(error){
         console.log("Error in useRregister in userSlice : ",error);
     }
 };
 
-// export const userLogin = async(payload)=>{
-//     try{
-//         console.log("inside userLogin in userSlice : ",payload);
-//         var result  = await axios.post(REQUESTED_URL+"/userlogin", payload);
-//         console.log("Result :" ,result);
-//         if(result.data.message=="seccess"){
-//             jscookie.set('token',result.data.token,{expires:1});
-//         }
-//         return result.data.logData;
-//     }catch(error){
-//         console.log("Error in userLogin in userSlice : ",error);
-//     }
-// }
 
 export const userLogin = async(payload)=>{
     try{
         console.log("inside userLogin in userSlice : ",payload);
         var result  = await axios.post(REQUESTED_URL+"/userlogin", payload);
         console.log("Result :" ,result);
-        if(result.data.message=="success"){
+        if(result.data.message==="success"){
             jscookie.set('token',result.data.token,{expires:1});
         }
         return result.data;
@@ -133,7 +120,6 @@ export const addGrain = async(payload)=>{
         console.log("error sendData");
     }
 }
-
 export const addColstLand = async(payload)=>{
     console.log("addColstLand",payload);
     try{
@@ -234,8 +220,9 @@ export const addAgriLand = async(payload)=>{
 
 export const removeAgriLand = async(payload)=>{
     console.log("This is Land data",payload._id);
+    console.log(payload);
     try{
-         var result  = await axios.get(USER_REQUESTED_URL+"/removeAgriLand",{params:{_id: payload._id}});
+         var result  = await axios.get(USER_REQUESTED_URL+"/removeAgriLand",{params:{_id: payload._id,ownerEmail:payload.ownerEmail}});
         console.log("result",result);
         return result.data
     }catch(error){
@@ -254,19 +241,6 @@ export const removeAgriLand = async(payload)=>{
 //     }
 // }
 
-
-
-
-// export const getDataGrains = async(payload)=>{
-//     console.log("email11111");
-//     try{
-//         var result  = await axios.get(USER_REQUESTED_URL+"/getGrain",payload);
-//         // console.log("result",result);
-//         // return result.data
-//     }catch(error){
-//         console.log("error sendData");
-//     }
-// }
 
 
 export const {setUserData} = userSlice.actions;

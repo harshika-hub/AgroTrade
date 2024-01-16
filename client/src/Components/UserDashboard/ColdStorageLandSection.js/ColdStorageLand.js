@@ -16,7 +16,7 @@ function ColdStorageLand(){
         }).catch(err => console.log('error ', err));
     }
     
-    useEffect(getcoldSts, [])
+    useEffect(getcoldSts)
     return (<>
 
         <div className="row m-2 p-0 " id="ListedGrainsBox" >

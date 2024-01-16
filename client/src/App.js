@@ -4,21 +4,20 @@
 // import contactUs from './components/ContactUsPage/ContactUs.js';
 // import { useEffect, useState } from 'react';
 
-import OrgSingUp from './components/OrgSignUp/OrgSignUp.js';
-import Services from './components/ServicesPage/ServicesPage.js';
-import ExpertList from "./components/ExpertList.js/ExpertList.js"
-
-import Home from './components/Home/HomePage.js';
-import AboutUs from './components/AboutUsPage/AboutUs.js';
-import ContactUs from './components/ContactUsPage/ContactUs.js';
-import UserdashBoard from './components/UserDashboard/UserDashboard.js';
-import Chatsection from './components/ChatComponent/Chatsection.js';
+import OrgSingUp from './Components/OrgSignUp/OrgSignUp.js';
+import Services from './Components/ServicesPage/ServicesPage.js';
+import ExpertList from "./Components/ExpertList.js/ExpertList.js"
+import Home from './Components/Home/HomePage.js';
+import AboutUs from './Components/AboutUsPage/AboutUs.js';
+import ContactUs from './Components/ContactUsPage/ContactUs.js';
+import UserdashBoard from './Components/UserDashboard/UserDashboard.js';
+import Chatsection from './Components/ChatComponent/Chatsection.js';
 import { Routes, Route } from 'react-router-dom'
-import Profile from './components/UserDashboard/ProfileSection/ProfileSection.js';
-import ListedGrains from './components/UserDashboard/ListedGrain/ListedGrains.js';
-import ListedEquipments from './components/UserDashboard/ListedEquimentsSection/ListedEquiments.js';
-import AgricultureLand from './components/UserDashboard/AgricultureLands Section/AgricultureLand.js';
-import ColdStorageLand from './components/UserDashboard/ColdStorageLandSection.js/ColdStorageLand.js';
+import Profile from './Components/UserDashboard/ProfileSection/ProfileSection.js';
+import ListedGrains from './Components/UserDashboard/ListedGrain/ListedGrains.js';
+import ListedEquipments from './Components/UserDashboard/ListedEquimentsSection/ListedEquiments.js';
+import AgricultureLand from './Components/UserDashboard/AgricultureLands Section/AgricultureLand.js';
+import ColdStorageLand from './Components/UserDashboard/ColdStorageLandSection.js/ColdStorageLand.js';
 function App() {
   // const [socket,setSocket]=useState(null);
   // useEffect(()=>{
@@ -35,7 +34,6 @@ function App() {
         <Route path='/orgSignup' element={<OrgSingUp />}></Route>
         <Route path='/contactus' element={<ContactUs />}></Route>
         <Route path='/aboutus' element={<AboutUs />}></Route>
-
         <Route path='/bookExpert' element={<ExpertList />}></Route>
         <Route path='/dashboard' element={<UserdashBoard />}>
           <Route index element={<Profile />} />
@@ -44,9 +42,7 @@ function App() {
           <Route path='listedGrain' element={<ListedGrains />}></Route>
           <Route path='listedEquipments' element={<ListedEquipments/>}></Route>
           <Route path='agricultureLands' element={<AgricultureLand/>}></Route>
-
           <Route path='coldStorageLand' element={<ColdStorageLand/>}></Route>
-
         </Route>
       </Routes>
       {/* <Footer/> */}

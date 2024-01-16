@@ -19,22 +19,6 @@ const app = express();
 const PORT = process.env.PORT;
 app.use(cors());
 
-// const httpServer=http.createServer(app);
-// try{
-//     const io= new Server(httpServer,{
-//         cors:{
-//             origin:["http://127.0.0.1:3001"],
-//             methods: ["GET", "POST"]
-
-//         }
-//     });
-// }catch(err)
-// {
-//     console.log("error in socket ",err)
-
-// }
-
-
 const httpServer = http.createServer(app); //used to creating server and dealing with api it is helpful for socket io
 const io = new Server(httpServer, {
     cors: {
@@ -43,7 +27,6 @@ const io = new Server(httpServer, {
     }
 }); 
 io.on("connection",sockets);
-console.log("inside server app.js")
 
 
 // app.use(methodOverride("_method"));

@@ -38,3 +38,8 @@
     scale: 110%;
 }
 
+.card-image {
+    height: 300px; /* Set your desired height */
+    width: 200px;
+    object-fit: cover; /* Maintain aspect ratio */
+  }

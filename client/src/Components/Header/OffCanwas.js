@@ -7,6 +7,7 @@ import UserSingIn from '../UserSignIn/UserSignIn.js';
 import OrgSingIn from '../OrgSignIn/OrgSignIn.js';
 import { Link } from 'react-router-dom';
 function OffCanvasExample({ name, ...props }) {
+  
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -31,21 +32,21 @@ function OffCanvasExample({ name, ...props }) {
                 :
                 <div className='col-12  d-flex justify-content-around mb-3 '>
                   <div className="dropdown m-0">
-                    <a className="btn linksbtn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <Link className="btn linksbtn btn-warning dropdown-toggle" to="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                       Sign In&nbsp;<i className="bi bi-box-arrow-in-right"></i>
-                    </a>
+                    </Link>
 
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <li><a className="dropdown-item" href="#"><UserSingIn/></a></li>
-                      <li><a className="dropdown-item" href="#"><OrgSingIn/></a></li>
+                      <li><Link className="dropdown-item" to="#"><UserSingIn/></Link></li>
+                      <li><Link className="dropdown-item" to="#"><OrgSingIn/></Link></li>
                     </ul>
                   </div>
                   <div className="dropdown m-0">
-                    <a className="btn linksbtn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <Link className="btn linksbtn btn-warning dropdown-toggle" to="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                       Sign Up&nbsp;<i className="fa-solid fa-pen-to-square"></i>
-                    </a>
+                    </Link>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <li><a className="dropdown-item" href="#"><UserSingUp /></a></li>
+                      <li><Link className="dropdown-item" to="#"><UserSingUp /></Link></li>
                       <li><Link className="dropdown-item" to="orgSignup"><i className="bi bi-people-fill"></i>&nbsp;Orgnisation</Link></li>
                     </ul>
                   </div>
@@ -66,7 +67,7 @@ function OffCanvasExample({ name, ...props }) {
                     <Link className=" offcanvasLinks darkgreen mb-1 nav-link" to="/community"><i className="bi bi-chat-fill"></i>&nbsp;Community</Link>
                   </li>
                   <li className="nav-item">
-                    <a className="offcanvasLinks darkgreen  mb-1  nav-link" to="contact"><i className="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard</a>
+                    <Link className="offcanvasLinks darkgreen  mb-1  nav-link" to="contact"><i className="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard</Link>
                   </li>
 
                   <div className="btn-group">

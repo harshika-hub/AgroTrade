@@ -3,7 +3,6 @@ import Modal from "react-bootstrap/Modal";
 import "./AddGrain.css";
 import Swal from "sweetalert2";
 import jscookie from "js-cookie"
-import grainimg from "../../../assets/grainimg.webp";
 import { UpdateGrain } from "../../../store/userSlice"
 
 
@@ -18,7 +17,15 @@ var checkFields = false,
   price = false,
   selflife = false,
   moisturelevel = false,
-  grain = false
+  grain = false;
+
+  if(grain && moisturelevel && selflife && price && quantity && graintype && description &&  image && city && state && grainname && checkFields){
+
+  }
+
+
+
+
 
 
 function UpdateGrainModal(props) {
@@ -118,8 +125,6 @@ function UpdateGrainModal(props) {
     var MoiField = document.getElementById(e.target.id);
     if (pattern.test(e.target.value)) {
       const { name, value } = e.target;
-      // Remove the percentage sign before storing in the object
-      const trimmedValue = value.trim().replace('%', '');
       setUpdateGrain({ ...UpdateGrainObj, [name]: value.trim() })
       MoiField.classList.add('is-valid');
       MoiField.classList.remove('is-invalid');
@@ -276,7 +281,7 @@ function UpdateGrainModal(props) {
     }
 
     UpdateGrain(formData).then((data) => {
-      if (data.message == "success") {
+      if (data.message === "success") {
         Swal.fire({
           position: "middle",
           icon: "success",

@@ -215,7 +215,7 @@ function OrgSingIn() {
     if (email) {
       orgLogin(loginData).then((data) => {
         console.log("data.message");
-        if(data.message=="success"){
+        if(data.message==="success"){
           dispatch(setOrgData(data.log));
           dispatch(setRoleStatus({ role: data.role,data:data.log, status: true }));
           setLgShow(false);
@@ -227,19 +227,19 @@ function OrgSingIn() {
             timer: 2000
           });
           navigate('/');
-        }else if(data.message=="not exist"){
+        }else if(data.message==="not exist"){
           Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "Organization not registered. Please try Again...",
           });
-        }else if(data.message=="wrong password"){
+        }else if(data.message==="wrong password"){
           Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "Wrong Password!\nPlease try Again...",
           });
-        }else if(data.message=="error"){
+        }else if(data.message==="error"){
           Swal.fire({
             icon: "error",
             title: "Oops...",

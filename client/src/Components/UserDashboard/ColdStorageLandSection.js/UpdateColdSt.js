@@ -38,7 +38,7 @@ function UpdateColdStModal(props) {
         }
 
         UpdateColdSt(formData).then((data) => {
-            if (data.message == "success") {
+            if (data.message === "success") {
                 Swal.fire({
                     position: "middle",
                     icon: "success",
@@ -277,6 +277,20 @@ function UpdateColdStModal(props) {
                                         Please provide a date.
                                     </div>
                                 </div>
+                                <div className="col-12 col-md-6 ">
+                  <label htmlFor="validationCustom03" className="form-label midgreen" >
+                    <i class="fa-solid fa-street-view"></i>&nbsp;360 Image
+                  </label>
+                  <input placeholder="Upload Image" type="file" className="form-control form-control-sm mb-1" id="validationCustom03" name="image360" onChange={checkFields} required
+                  />
+                  <p className="fs-6 text-danger " >Provide 360 image if avilable</p>
+                  <div className="valid-feedback">
+                    Looks Goods
+                  </div>
+                  <div className="invalid-feedback">
+                    Please provide a Image.
+                  </div>
+                </div>
                                 <div className="col-12 mt-1">
                                     <label
                                         htmlFor="validationCustom03"

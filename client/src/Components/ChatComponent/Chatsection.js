@@ -12,8 +12,8 @@ function Chatsection() {
   useEffect(() => {
       if(!socket) return
       socket.emit("join-room", { roomId: params.roomId })
-      console.log("Params ", params);
-  }, [socket])
+      console.log("Params", params);
+  }, [socket,params])
 
   function openFileExplorer() {
     document.getElementById('fileInput').click();
@@ -80,9 +80,9 @@ function Chatsection() {
          </div>
          <div className="col-1 p-1">
           <button type="button" className="btn btn-outline-warning w-100 h-100 fs-4"  onClick={openFileExplorer}>
-          <form className=""  id="uploadprofileimage" action="/user/uploadprofileimage" method="post" encType="multipart/form-data">
-           <input type="file" id="fileInput" name="profileimage" style={{display:"none"}} onChange="submitFormOnChange()"  accept="image/*"/>
-            <label htmlFor="imageInput" className="custom-file-input-label" id="fileInputLabel"><i className="bi bi-paperclip"></i></label>
+          <form className=""  id="uploadprofileimage" action="/user/uploadprofileimage" method="post" enctype="multipart/form-data">
+           <input type="file" id="fileInput" name="profileimage" style={{display:"none"}} onchange="submitFormOnChange()"  accept="image/*"/>
+            <label for="imageInput" className="custom-file-input-label" id="fileInputLabel"><i className="bi bi-paperclip"></i></label>
            </form>
           </button>
        </div>
@@ -104,130 +104,4 @@ function Chatsection() {
     </>
   );
 }
-
 export default Chatsection;
-
-
-
-{/* <div className="row p-0 m-0 h-auto " style={{flexGrow:"1",overflow:"hidden"}}>
-            <div className="col-md-6 col-lg-5 col-xl-5 p-0 bg-danger" >
-              <div className="card p-0">
-                <div className="card-body bg-light m-0">
-                  <ul className="list-unstyled">
-
-                    <li className="">
-                      <a href="#!" className="d-flex justify-content-between text-decoration-none">
-                        <div className="d-flex flex-row">
-                          <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"className="rounded-circle d-flex align-self-center me-3 shadow-1-strong"width="60"
-                          />
-                          <div className="pt-1">
-                            <p className="fw-bold mb-0">Brad Pitt</p>
-                            <p className="small text-muted">
-                              Lorem ipsum dolor sit.
-                            </p>
-                          </div>
-                        </div>
-                        <div className="pt-1">
-                          <span className="text-muted float-end">
-                            <i className="fas fa-check" aria-hidden="true"></i>
-                          </span>
-                        </div>
-                      </a>
-                    </li>
-                </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-md-6 col-lg-7 col-xl-7">
-              <ul className="list-unstyled">
-                <li className="d-flex justify-content-between mb-4">
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
-                    alt="avatar"
-                    className="rounded-circle d-flex align-self-start me-3 shadow-1-strong"
-                    width="60"
-                  />
-                  <div className="card">
-                    <div className="card-header d-flex justify-content-between p-3">
-                      <p className="fw-bold mb-0">Brad Pitt</p>
-                      <p className="text-muted small mb-0">
-                        <i className="far fa-clock"></i> 12 mins ago
-                      </p>
-                    </div>
-                    <div className="card-body">
-                      <p className="mb-0">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li className="d-flex justify-content-between mb-4">
-                  <div className="card w-100">
-                    <div className="card-header d-flex justify-content-between p-3">
-                      <p className="fw-bold mb-0">Lara Croft</p>
-                      <p className="text-muted small mb-0">
-                        <i className="far fa-clock"></i> 13 mins ago
-                      </p>
-                    </div>
-                    <div className="card-body">
-                      <p className="mb-0">
-                        Sed ut perspiciatis unde omnis iste natus error sit
-                        voluptatem accusantium doloremque laudantium.
-                      </p>
-                    </div>
-                  </div>
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp"
-                    alt="avatar"
-                    className="rounded-circle d-flex align-self-start ms-3 shadow-1-strong"
-                    width="60"
-                  />
-                </li>
-                <li className="d-flex justify-content-between mb-4">
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
-                    alt="avatar"
-                    className="rounded-circle d-flex align-self-start me-3 shadow-1-strong"
-                    width="60"
-                  />
-                  <div className="card">
-                    <div className="card-header d-flex justify-content-between p-3">
-                      <p className="fw-bold mb-0">Brad Pitt</p>
-                      <p className="text-muted small mb-0">
-                        <i className="far fa-clock"></i> 10 mins ago
-                      </p>
-                    </div>
-                    <div className="card-body">
-                      <p className="mb-0">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li className="bg-white mb-3">
-                  <div className="form-outline">
-                    <textarea
-                      className="form-control"
-                      id="textAreaExample2"
-                      rows="4"
-                    ></textarea>
-                    <label className="form-label" for="textAreaExample2">
-                      Message
-                    </label>
-                  </div>
-                </li>
-                <button
-                  type="button"
-                  className="btn btn-info btn-rounded float-end"
-                >
-                  Send
-                </button>
-              </ul>
-            </div>
-
-          </div> */}

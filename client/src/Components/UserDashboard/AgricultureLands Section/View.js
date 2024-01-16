@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react";
 import * as PANOLENS from 'panolens';
-import imge from "../../../assets/field.jpg"
+// import imge from "../../../assets/field.jpg"
 import Modal from "react-bootstrap/Modal";
 function View(props) {
     const {image360}=props;
@@ -17,7 +17,7 @@ function View(props) {
         });
         viewer.add(panoramaImage);
         }
-      }, [lgShow]); 
+      }, [lgShow,image360]); 
       
     
       

@@ -34,7 +34,7 @@ function UserdashBoard() {
   // const [userData,setUserData]=useState({})
 
   const [socket,setSocket]=useState(null);
-  const status=useSelector(state=>state.commonSlice);
+  // const status=useSelector(state=>state.commonSlice);
 
   const dispatch =useDispatch()
   var user=useSelector(state=>state.userSlice.userData);
@@ -131,8 +131,6 @@ function UserdashBoard() {
                 <i className="bi bi-wrench-adjustable-circle-fill text-success"></i>&nbsp;Equipment Orders
               </p>
 
-            
-              
               <div className="nav-item dropdown">
                 <p
                   className="nav-link dropdown-toggle"
@@ -158,7 +156,7 @@ function UserdashBoard() {
         {/* <DashboardLinks/> */}
        <ExpertModal setShow={setShow} show={show}/>
 {/* --------------------------------Div to be nvigate----------------------------- */}
-          <div className="container-fluid p-0 " style={{flexGrow:1}}>
+          <div className="container-fluid p-0 bg-light" style={{flexGrow:1}}>
               <Outlet context={{socket,user}} />
           </div>
 {/* --------------------------------Div to be nvigate ends ----------------------------- */}

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import logo from '../../assets/Agro-Trade-logo.png'
 import { Link } from 'react-router-dom';
@@ -15,9 +14,9 @@ function DashoffCanvas({ name, ...props }) {
         <i className="bi bi-list"></i>
       </Button> */}
 
-      <a href="#" className="sidebar-toggler m-2 text-decoration-none flex-shrink-0" onClick={handleShow} id="navToggler">
+      <Link to="#" className="sidebar-toggler m-2 text-decoration-none flex-shrink-0" onClick={handleShow} id="navToggler">
                  <i className="fa-solid fa-bars midgreen"></i>
-       </a>
+       </Link>
       <Offcanvas show={show} onHide={handleClose} {...props}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>
@@ -33,21 +32,21 @@ function DashoffCanvas({ name, ...props }) {
                 :
                 <div className='col-12  d-flex justify-content-around mb-3 '>
                   <div className="dropdown m-0">
-                    <a className="btn linksbtn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <Link className="btn linksbtn btn-warning dropdown-toggle" to="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                       Sign In&nbsp;<i className="bi bi-box-arrow-in-right"></i>
-                    </a>
+                    </Link>
 
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <li><a className="dropdown-item" href="#"></a></li>
-                      <li><a className="dropdown-item" href="#"></a></li>
+                      <li><Link className="dropdown-item" to="#"></Link></li>
+                      <li><Link className="dropdown-item" to="#"></Link></li>
                     </ul>
                   </div>
                   <div className="dropdown m-0">
-                    <a className="btn linksbtn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <Link className="btn linksbtn btn-warning dropdown-toggle" to="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                       Sign Up&nbsp;<i className="fa-solid fa-pen-to-square"></i>
-                    </a>
+                    </Link>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <li><a className="dropdown-item" href="#"></a></li>
+                      <li><Link className="dropdown-item" to="#"></Link></li>
                       <li><Link className="dropdown-item" to="orgSignup"><i className="bi bi-people-fill"></i>&nbsp;Orgnisation</Link></li>
                     </ul>
                   </div>
@@ -68,7 +67,7 @@ function DashoffCanvas({ name, ...props }) {
                     <Link className=" offcanvasLinks darkgreen mb-1 nav-link" to="/community"><i className="bi bi-chat-fill"></i>&nbsp;Community</Link>
                   </li>
                   <li className="nav-item">
-                    <a className="offcanvasLinks darkgreen  mb-1  nav-link" to="contact"><i className="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard</a>
+                    <Link className="offcanvasLinks darkgreen  mb-1  nav-link" to="contact"><i className="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard</Link>
                   </li>
 
                   <div className="btn-group">

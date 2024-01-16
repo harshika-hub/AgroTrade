@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import HeadSlider from '../HeadSilder/HeadSlider'
+// import HeadSlider from '../HeadSilder/HeadSlider'
 import Header from '../Header/Header'
-import jscookie from 'js-cookie'
+// import jscookie from 'js-cookie'
 import './ExpertList.css'
 import { getExpert } from '../../store/expertSlice';
 export default function ExpertList(){
@@ -11,7 +11,7 @@ export default function ExpertList(){
 
     useEffect(()=>{
         const Expert=async()=>{
-          const token=jscookie.get("token")
+          // const token=jscookie.get("token")
             const response= await getExpert()
             console.log("expertList in component",response);
             if(response)
@@ -41,7 +41,7 @@ export default function ExpertList(){
                 <h5 className="card-title">{data.name}</h5>
                 <p className="text-secondary mb-1"><b>Education-</b> {data.education}</p>
                 <p className="text-muted font-size-sm mb-1"><b>Type-</b>{data.consultancy_type}</p>
-                <p className="text-muted font-size-sm mb-1"><b>Fee-</b>{data.consultancy_type.trim()=="chat"?(data.consultancy_fee_chat):(data.consultancy_type.trim())=="vedio_call"?data.consultancy_fee_video:data.consultancy_fee_vedio+","+data.consultancy_fee_chat}</p>
+                <p className="text-muted font-size-sm mb-1"><b>Fee-</b>{data.consultancy_type.trim()==="chat"?(data.consultancy_fee_chat):(data.consultancy_type.trim())==="vedio_call"?data.consultancy_fee_video:data.consultancy_fee_vedio+","+data.consultancy_fee_chat}</p>
 
               </div>
               <div className="card-footer d-flex justify-content-center">

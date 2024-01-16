@@ -1,7 +1,4 @@
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-// import expert from "../../assets/expert.jpg"
 import "./ExpertModal.css"
 import { newExpert } from '../../store/expertSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,7 +16,14 @@ function ExpertModal({ setShow, show }) {
     consultancy_field=false,
     experiences=false,
     consultancy_fee_chat = false;
-  var expertObj = {}
+ 
+    if (checkFields && consultancy_type && vedio_call && chats && education && certificate && consultancy_fee_video && fertilizer && seed && consultancy_field && experiences && consultancy_fee_chat) {
+      
+    }
+ 
+ 
+ 
+    var expertObj = {}
   const dispatch = useDispatch();
  const userEmail=useSelector(state=>state.userSlice.userData)
 
