@@ -6,15 +6,15 @@ import about1 from '../../assets/aboutimag1.jpg'
 import about2 from '../../assets/about2.webp'
 import Header from '../Header/Header.js';
 import Footer from '../Footer/Footer.js';
-import { authorize } from '../../store/auth/auth.js';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+// import { authorize } from '../../store/auth/auth.js';
+// import { useDispatch } from 'react-redux';
+// import { useEffect } from 'react';
 
 function AboutUs() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    authorize(dispatch);
-  }, []);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   authorize(dispatch);
+  // }, []);
 
   return (
     <>
