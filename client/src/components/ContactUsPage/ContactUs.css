@@ -35,3 +35,13 @@
     height: 80vh;
     padding: 0;
 }
+
+#col {
+    padding-right: 5%;
+}
+
+@media only screen and (max-width: 992px) {
+    #col {
+        padding: 1%;
+    }
+}
