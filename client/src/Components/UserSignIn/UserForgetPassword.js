@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import leafwallpaper from "../../assets/leaves_Image.jpeg";
 import { getOtp } from '../../store/commonSlice';
 import { checkOtp, changePassword } from '../../store/userSlice';
@@ -16,7 +14,6 @@ function UserFogotPassword() {
   const [password, setPassword] = useState({});
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const dispatch = useDispatch();
 
   var checkFields = false, email = false;
 
@@ -70,7 +67,7 @@ function UserFogotPassword() {
     const otp = varifyOtp.otp;
     console.log("Inside handleOtp ", otp);
     checkOtp({ otp }).then((data) => {
-      if (data.message == "success") {
+      if (data.message === "success") {
         showPasswordFields();
       }else{
         Swal.fire({
@@ -94,31 +91,33 @@ function UserFogotPassword() {
   }
 
   function handleChangePasswordSubmit(e) {
-    changePassword(password).then((data)=>{
-      console.log(data.message);
-      if(data.message=='success'){
-        Swal.fire({
-          position: "middle",
-          icon: "success",
-          title: "Password Changed Successfully",
-          showConfirmButton: false,
-          timer: 2000
-        });
-        setShow(false);
-      }else{
+    if(checkFields && email){
+      changePassword(password).then((data)=>{
+        console.log(data.message);
+        if(data.message==='success'){
+          Swal.fire({
+            position: "middle",
+            icon: "success",
+            title: "Password Changed Successfully",
+            showConfirmButton: false,
+            timer: 2000
+          });
+          setShow(false);
+        }else{
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!"
+          });
+        }
+      }).catch(()=>{
         Swal.fire({
           icon: "error",
           title: "Oops...",
           text: "Something went wrong!"
         });
-      }
-    }).catch(()=>{
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!"
       });
-    });
+    }
   }
 
 

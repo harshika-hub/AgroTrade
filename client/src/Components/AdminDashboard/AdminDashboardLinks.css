@@ -1,9 +1,19 @@
-body{
-    margin-top: 0;
-}
 .bg-darkgreen{
     background-color: #08390A;
     
+}
+
+.light-yellow{
+ 
+/* background: rgba(46, 247, 93, 1.0);
+background: linear-gradient(315deg, rgba(46, 247, 93, 1.0), rgba(69, 214, 122, 1.0));
+   */
+
+
+
+
+background: #D6BA07;
+background: linear-gradient(315deg, #D6BA07, #EFDE88);
 }
 
 .darkgreen{
@@ -16,7 +26,7 @@ body{
     
 }
 .wght-600{
-    font-weight: 400;
+    font-weight: 600;
 }
 #lf-links{
     display: flex;
@@ -25,8 +35,8 @@ body{
      
 }
 
-#navLinkul li link {
-    font-size: 1rem;
+#navLinkul li a {
+    font-size: 1.2rem;
 }
 #navToggler{
     display: none;

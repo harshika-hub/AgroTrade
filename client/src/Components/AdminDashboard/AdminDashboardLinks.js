@@ -1,33 +1,6 @@
-import logo from "../../assets/Agro-Trade-logo.png"
-import "./DashboardLinks.css"
-import { Link, useNavigate } from "react-router-dom";
-import DashboardCanvas from "./DashOffcanwas";
-import jscookie from 'js-cookie'
-import { useDispatch } from "react-redux";
-import { setRoleStatus } from "../../store/commonSlice";
-import { setUserData } from "../../store/userSlice";
-import { setOrgData } from "../../store/organizationSlice";
-import { setAdminData } from "../../store/adminSlice";
-function DashboardLinks() {
-
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  function handleLogout(){
-    var data={
-      user_status:"",
-      expert_status:""
-    }
-    dispatch(setRoleStatus({role:"",data:data,status:false}));
-    jscookie.set('userEmail',""); 
-    // dispatch(setRoleStatus({role:"", status:false}));
-    dispatch(setUserData({}));
-    dispatch(setOrgData({}));
-    dispatch(setAdminData({}));
-    jscookie.set('token','')
-    navigate('/');
-  }
-
+import "./AdminDashboardLinks.css"
+import { Link } from "react-router-dom";
+function AdminDashboardLinks() {
     var show=false;
     function silderBarToggle(params) {
       var  sliderBar=document.getElementById("siderBar");
@@ -47,8 +20,8 @@ function DashboardLinks() {
     }
     return (<>
     <div>
-            <nav className="navbar navbar-expand bg-darkgreen  px-1 py-0  d-flex justify-content-between position-sticky ">
-            <a href="#" className="sidebar-toggler m-1 text-decoration-none flex-shrink-0" id="sidebar-toggler" onClick={silderBarToggle}>
+            <nav className="navbar navbar-expand light-yellow  px-4 py-0  d-flex justify-content-between">
+            <a href="#" className="sidebar-toggler m-2 text-decoration-none flex-shrink-0" id="sidebar-toggler" onClick={silderBarToggle}>
             <i className="fa-solid fa-bars midgreen"></i>
             </a>
            
@@ -78,7 +51,7 @@ function DashboardLinks() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="text-white nav-link" to="/bookExpert">
+                  <Link className=" text-white nav-link" to="/bookExpert">
                     <i className="bi bi-person-fill-add midgreen"></i>&nbsp;Book Expert
                   </Link>
                 </li>
@@ -118,9 +91,8 @@ function DashboardLinks() {
             {/* <a href="#" className="sidebar-toggler m-2 text-decoration-none flex-shrink-0 " id="navToggler">
                  <i className="fa-solid fa-bars midgreen"></i>
              </a> */}
-             <DashboardCanvas/>
               <div className="nav-item" id="logIutButton" >
-              <button type="button" className="btn btn-outline-danger btn-sm m-1" onClick={handleLogout}>Log Out</button>
+              <button type="button" className="btn btn-outline-danger btn-sm m-1">Log Out</button>
               </div>
             </div>
        </nav>
@@ -130,4 +102,4 @@ function DashboardLinks() {
     </>  );
 }
 
-export default DashboardLinks;
+export default AdminDashboardLinks;

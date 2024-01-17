@@ -5,11 +5,37 @@ import logo from '../../assets/Agro-Trade-logo.png'
 import UserSingUp from '../UserSignUp/UserSingUp.js';
 import UserSingIn from '../UserSignIn/UserSignIn.js';
 import OrgSingIn from '../OrgSignIn/OrgSignIn.js';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import jscookie from 'js-cookie'
+import { useDispatch, useSelector } from 'react-redux';
+import { setRoleStatus } from '../../store/commonSlice';
+import { setUserData } from '../../store/userSlice';
+import { setOrgData } from '../../store/organizationSlice';
+import { setAdminData } from '../../store/adminSlice';
 function OffCanvasExample({ name, ...props }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+
+
+  const {role,status} = useSelector(state=>state.commonSlice);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  function handleLogout(){
+    var data={
+      user_status:"",
+      expert_status:""
+    }
+    dispatch(setRoleStatus({role:"",data:data,status:false}));
+    jscookie.set('userEmail',""); 
+    // dispatch(setRoleStatus({role:"", status:false}));
+    dispatch(setUserData({}));
+    dispatch(setOrgData({}));
+    dispatch(setAdminData({}));
+    jscookie.set('token','')
+    navigate('/');
+  }
 
   return (
     <>
@@ -27,8 +53,12 @@ function OffCanvasExample({ name, ...props }) {
         <Offcanvas.Body>
           <div className='row w-100 '>
             {
-              false ? <div className='col-12  d-flex justify-content-end   '> <button type="Button" className="btn btn-danger">Log Out&nbsp;<i className="bi bi-box-arrow-right"></i></button></div>
-                :
+              status ? 
+              <button 
+                type="Button" 
+                className="btn btn-danger" onClick={handleLogout}
+                >Log Out&nbsp;<i className="bi bi-box-arrow-right"></i>
+              </button>                :
                 <div className='col-12  d-flex justify-content-around mb-3 '>
                   <div className="dropdown m-0">
                     <a className="btn linksbtn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,7 +84,7 @@ function OffCanvasExample({ name, ...props }) {
             }
             
             {
-              false ? <div className='col-12 mt-2 mb-5 ' >
+              status ? <div className='col-12 mt-2 mb-5 ' >
                 <ul className="nav d-flex flex-column">
                   <li className="nav-item ">
                     <Link className="offcanvasLinks  darkgreen mb-1 nav-link active" aria-current="page" to="/"><i className="bi bi-house-fill"></i>&nbsp;Home</Link>
@@ -66,7 +96,7 @@ function OffCanvasExample({ name, ...props }) {
                     <Link className=" offcanvasLinks darkgreen mb-1 nav-link" to="/community"><i className="bi bi-chat-fill"></i>&nbsp;Community</Link>
                   </li>
                   <li className="nav-item">
-                    <a className="offcanvasLinks darkgreen  mb-1  nav-link" to="contact"><i className="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard</a>
+                    <Link className="offcanvasLinks darkgreen  mb-1  nav-link" to="/dashboard"><i className="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard</Link>
                   </li>
 
                   <div className="btn-group">

@@ -1,5 +1,5 @@
 import daal from "../../assets/cultivator.png"
-import GrainCards from "../GrainCards/GrainCards";
+// import GrainCards from "../GrainCards/GrainCards";
 function EquipmentCard() {
   return (<>
 

@@ -2,9 +2,19 @@ import "./AgricultureLandCard.css"
 import { removeAgriLand } from "../../../store/userSlice"
 import Swal from "sweetalert2";
 import View from "./View.js";
+import UpdateAgriLand from "./UpdateAgriLand.js"
 function AgricultureLandCard(props) {
   const {Land,sendLands}= props
-  function removeLand(_id) {
+
+  var fromDate=new Date(Land.avilableFrom)
+  const dateFrom = fromDate.getDate()+"/"+fromDate.getMonth()+1+"/"+fromDate.getFullYear();   
+  console.log("This is the Date"+dateFrom);
+
+  var fromTill=new Date(Land.avilableTill)
+  const dateTill = fromTill.getDate()+"/"+fromTill.getMonth()+1+"/"+fromTill.getFullYear();   
+  console.log("This is the Date"+dateTill);
+
+  function removeLand(_id,ownerEmail) {
      // Open a confirmation dialog
 Swal.fire({
   title: 'Are you sure?',
@@ -17,9 +27,9 @@ Swal.fire({
 }).then((result) => {
   if (result.isConfirmed) {
    
-        removeAgriLand({_id:_id}).then((data)=>{
+        removeAgriLand({_id:_id,ownerEmail:ownerEmail}).then((data)=>{
         console.log("this is the data",data);
-        if (data.message=="success") {
+        if (data.message==="success") {
           Swal.fire({
             position: "middle",
             icon: "success",
@@ -64,14 +74,15 @@ Swal.fire({
       <div className="card mb-4 w-100 p-0">
         <div className="row g-0">
           <div className="col-md-4 bg-dark" id="imgeDiv">
-            <img src={"http://localhost:3000/"+Land.image} className="img-fluid rounded-start w-100" alt="..." />
+            <img src={"http://localhost:3000/"+Land.image} className="img-fluid rounded-start w-100 card-image" alt="..." />
           </div>
           <div className="col-md-5">
             <div className="card-body">
               <div className="p-1" >
                <div className="d-flex justify-content-between" >
                 <h3 className="card-title darkgreen ">{Land.landTitle}</h3> <div>
-                <span className="badge bg-success fs-6">Organic</span></div>
+               { Land.agriType=="Organic"? <span className="badge bg-success fs-6 ">Organic</span>: <span className="badge bg-warning fs-6 ">Inorganic</span>}
+               </div>
                </div>
                 <h5 className="darkgreen">
                   <span className="text-danger">
@@ -105,24 +116,24 @@ Swal.fire({
           <div className="col-md-3  p-2">
             <div className="row m-0 w-100 d-flex flex-column">
               <div className="col-12 d-flex justify-content-end pt-3 pe-3">
-                <span className="badge bg-warning text-dark fs-6 ">Available</span>
+             {Land.avilable?<span className="badge rounded-pill bg-success text-white  fs-6 ">Available</span>:<span className="badge bg-warning rounded-pill fs-6 text-white">Booked</span>}
+             
               </div>
               <div className="col-12  midgreen">
                 <h5>
                   Rent: {Land.rent}/Month
                 </h5>
-          
                 <h5 className="darkgreen ">
-                  From: {Land.avilableFrom}
+                  From: {dateFrom}
                 </h5>
 
                 <h5 className="darkgreen">
-                  To: {Land.avilableTill}
+                  To: {dateTill}
                 </h5>
                 <div className="d-grid gap-2">
                   <View image360={Land.image360} />
-                    <button type="button" name="" id="" className="btn btn-outline-success btn-sm"><i class="bi bi-arrow-up-circle"></i>&nbsp;Update</button>
-                  <button type="button" onClick={()=>{removeLand(Land._id)}}  className="btn btn-outline-danger btn-sm"> <i class="bi bi-trash"></i>&nbsp;Remove</button>
+                    <UpdateAgriLand Land={Land} sendLands={sendLands}></UpdateAgriLand>
+                  <button type="button" onClick={()=>{removeLand(Land._id,Land.ownerEmail)}}  className="btn btn-outline-danger btn-sm"> <i class="bi bi-trash"></i>&nbsp;Remove</button>
                 </div>
               </div>
             </div>

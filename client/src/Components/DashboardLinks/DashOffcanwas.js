@@ -2,13 +2,36 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import logo from '../../assets/Agro-Trade-logo.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./DashboardLinks.css"
+import { setRoleStatus } from '../../store/commonSlice';
+import { setUserData } from '../../store/userSlice';
+import { setOrgData } from '../../store/organizationSlice';
+import { setAdminData } from '../../store/adminSlice';
+import { useDispatch } from 'react-redux';
+import jscookie from 'js-cookie'
 function DashoffCanvas({ name, ...props }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const dispatch=useDispatch()
+  const navigate=useNavigate();
 
+  function handleLogout(){
+    var data={
+      user_status:"",
+      expert_status:""
+    }
+    dispatch(setRoleStatus({role:"",data:data,status:false}));
+    jscookie.set('userEmail',""); 
+    // dispatch(setRoleStatus({role:"", status:false}));
+    dispatch(setUserData({}));
+    dispatch(setOrgData({}));
+    dispatch(setAdminData({}));
+    jscookie.set('token','')
+    navigate('/');
+  }
+  
   return (
     <>
       {/* <Button style={{ background: "transparent", border: "none", color: "green", fontSize: "40px" }} onClick={handleShow} className="me-2">
@@ -29,7 +52,7 @@ function DashoffCanvas({ name, ...props }) {
         <Offcanvas.Body>
           <div className='row w-100 '>
             {
-              true ? <div className='col-12  d-flex justify-content-end   '> <button type="Button" className="btn btn-danger">Log Out&nbsp;<i className="bi bi-box-arrow-right"></i></button></div>
+              true ? <div className='col-12  d-flex justify-content-end   '> <button type="Button" className="btn btn-danger" onClick={handleLogout}>Log Out&nbsp;<i className="bi bi-box-arrow-right"></i></button></div>
                 :
                 <div className='col-12  d-flex justify-content-around mb-3 '>
                   <div className="dropdown m-0">

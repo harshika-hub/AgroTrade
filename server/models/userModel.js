@@ -1,34 +1,10 @@
 import mongoose from "mongoose";
 
 const userModel = new mongoose.Schema({
-       email:{
-        type : String,
-        required : true,
-        unique : true
-    },
-    password:{
-        type : String,
-        required : true
-    },
-    name:{
-        type:String
-    },
-    address:String,
-    number:Number,
-    state:String,
-    city:String,
-    image:String,
-    education:String,
-    experience:String,
-    consultancy_fee_video:Number,
-    consultancy_fee_chat:Number,
-    consultancy_type:String,
-    consultancy_feild:String,
-    certificate:String,
-    expert_rating:String,
-    expert_status:{
-        type:Boolean,
-        default:false
+    email: {
+        type: String,
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -179,10 +155,18 @@ const equipmentModel=new mongoose.Schema({
     },
     description:{
         type:String
-    }
+    }, 
+    avilable:{
+        type:Boolean,
+        default:true
+    },
 });
 
 const coldStorageLandModel = new mongoose.Schema({
+    landTitle: {
+        type: String,
+        required: true,
+    },
     userEmail:{
         type:String
     },
@@ -223,7 +207,11 @@ const coldStorageLandModel = new mongoose.Schema({
     },
     image360: {
         type: String,
-    }
+    },
+    avilable:{
+        type:Boolean,
+        default:true
+    },
 })
 
 const agriLandModel = new mongoose.Schema({
@@ -293,16 +281,15 @@ const agriLandModel = new mongoose.Schema({
         type:String,
         required:true
     },
-    adminVarify:{
+    avilable:{
         type:Boolean,
-        default:false
-    }
+        default:true
+    },
+
     
 })
 
-const  agriLand= mongoose.model('agriLand',agriLandModel, 'agriLand');
-
-
+const  agriLand= mongoose.model('agriLand',agriLandModel,'agriLand');
 const equipments= mongoose.model('equipments',equipmentModel,'equipments')
 const users = mongoose.model('users', userModel, 'users');
 const grains = mongoose.model('grains', grainModel, 'grains');

@@ -1,6 +1,7 @@
 // import video1 from './media/svideo1.mp4'
 // import video2 from './media/svideo2.mp4'
 // import video3 from './media/svideo3.mp4'
+import './ServicesPage.css'
 import equipment from '../../assets/equip1.jpg'
 import grain from '../../assets/grain2.jpg'
 import land from '../../assets/lands2.jpg'

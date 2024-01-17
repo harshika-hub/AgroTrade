@@ -21,7 +21,7 @@ function showUpdateForm (){
 }  
 
 function Profile() {
-  const {user}=useOutletContext();
+  const {user,setStatus}=useOutletContext();
   const data=useSelector(state=>state.userSlice.userData)
   console.log("inside Profile",user);
  
@@ -85,7 +85,7 @@ function Profile() {
  
       var status=""
 
-      function Updateprofile(event) {
+     async function Updateprofile(event) {
         event.preventDefault();
         console.log("fields in update profilw",fields);
         
@@ -115,7 +115,8 @@ function Profile() {
           }
         }
         console.log("form data in update profile",formData);
-        completeProfile(formData);
+        var cd= await disp(completeProfile(formData));
+        console.log("data after complete profile in component",cd);
       }
 
       console.log("userdata in profile............",data)
@@ -142,22 +143,20 @@ function Profile() {
 
       //   }
       // })
-      const url="../../../../public/uploads/"+fields.image
 
       return ( <>-
     <div className="row m-0 w-100 h-100" style={{height:"auto"}}>
        <div className="col-12 col-md-6 bg-midgreen p-0 offset-lg-3" id="profileCard">
              <div className="p-5 h-75" >
-             {/* <img src={"../../../../public/uploads/"+fields.image} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/> */}
-            <img src={"http://localhost:3000/"+fields.image} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/>
+           {fields.image? <img src={"http://localhost:3000/"+fields.image} className="rounded  mx-auto d-block mb-3 " style={{width:"35%",height:"30vh"}} alt=""/>
 
-             <img src={logo} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/>
+            : <img src={logo} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/>}
 
               <h4 className="drakgreen text-center text-white">{fields.name!==undefined?fields.name:" "}</h4>
               <h4 className="drakgreen text-center text-white">{fields.number!==undefined?fields.number:" "}</h4>
               <h4 className="drakgreen text-center text-white">{fields.email}</h4>
             </div>  
-             <div className="h-25 bg-warning  text-center darkgreen">
+             <div className="h-25  bg-warning  text-center darkgreen">
               <div className="h-75 d-flex align-items-center justify-content-center " >
                <p>Address:  {fields.address}</p>
               </div>

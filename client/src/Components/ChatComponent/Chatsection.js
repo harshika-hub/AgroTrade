@@ -80,9 +80,9 @@ function Chatsection() {
          </div>
          <div className="col-1 p-1">
           <button type="button" className="btn btn-outline-warning w-100 h-100 fs-4"  onClick={openFileExplorer}>
-          <form className=""  id="uploadprofileimage" action="/user/uploadprofileimage" method="post" encType="multipart/form-data">
-           <input type="file" id="fileInput" name="profileimage" style={{display:"none"}} onChange="submitFormOnChange()"  accept="image/*"/>
-            <label htmlFor="imageInput" className="custom-file-input-label" id="fileInputLabel"><i className="bi bi-paperclip"></i></label>
+          <form className=""  id="uploadprofileimage" action="/user/uploadprofileimage" method="post" enctype="multipart/form-data">
+           <input type="file" id="fileInput" name="profileimage" style={{display:"none"}} onchange="submitFormOnChange()"  accept="image/*"/>
+            <label for="imageInput" className="custom-file-input-label" id="fileInputLabel"><i className="bi bi-paperclip"></i></label>
            </form>
           </button>
        </div>

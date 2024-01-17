@@ -238,7 +238,7 @@ const handleConsultancyField= (e) => {
   return (
     <>
       <Modal
-        size="xl"
+        size="md"
         show={show}
         onHide={() => setShow(false)}
         dialogClassName="modal-90w"
@@ -246,15 +246,13 @@ const handleConsultancyField= (e) => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="example-custom-modal-styling-title">
-            Expert
+            Expert Details
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="container-fluid" >
-            <div className="container  bg-white p-0" id="OrgFromBox" >
+        
               <div className="row w-100 m-0 g-0 ">
-                <div className="col-12 col-md-12 col-lg-6 m-0 pt-3" >
-                  <h2 className="midgreen text-center">Expert Details</h2>
+                <div className="col-12" >
                   <form id="orgExpert" encType="multipart/form-data" onSubmit={handleSubmit}>
                     <div className="row m-0 w-100">
                       <div className=" col-12 col-md-12 p-2">
@@ -431,12 +429,9 @@ const handleConsultancyField= (e) => {
                     </div>
                   </form>
                 </div>
-                <div id="imageColumn" className="col-12 col-lg-6"  >
-                  {/* <img src={expert} alt="" className="w-100 h-100" /> */}
-                </div>
+               
               </div>
-            </div>
-          </div>
+           
         </Modal.Body>
       </Modal>
     </>

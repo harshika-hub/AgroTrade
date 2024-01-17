@@ -22,7 +22,7 @@ var checkFields = false,
 
 
 function UpdateGrainModal(props) {
-  const {Grain,getGrians}=props;
+  const { Grain, getGrians } = props;
   const [lgShow, setLgShow] = useState(false);
   const [UpdateGrainObj, setUpdateGrain] = useState(false);
 
@@ -201,6 +201,11 @@ function UpdateGrainModal(props) {
     }
     const { name, value } = e.target;
     setUpdateGrain({ ...UpdateGrainObj, [name]: value })
+    if (e.target.value === 'organic') {
+      Grain['grain'] = 'organic';
+    } else {
+      Grain['grain'] = 'inorganic';
+    }
     if (e.target.name === "grain") {
       grain = false;
     }
@@ -255,10 +260,7 @@ function UpdateGrainModal(props) {
       field.classList.remove('is-invalid');
     }
   }
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setUpdateGrain({ ...UpdateGrainObj, [name]: value.trim() });
-  }
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -284,7 +286,7 @@ function UpdateGrainModal(props) {
           showConfirmButton: false,
           timer: 2000
         });
-    getGrians();
+        getGrians();
       }
       else {
         Swal.fire({
@@ -310,7 +312,7 @@ function UpdateGrainModal(props) {
     <>
 
       <button type="button" onClick={() => setLgShow(true)} name="" id="" className="btn btn-outline-success btn-sm" ><i class="bi bi-arrow-up-circle"></i>&nbsp;Update</button>
-                
+
       <Modal
         size="xl"
         show={lgShow}
@@ -349,7 +351,7 @@ function UpdateGrainModal(props) {
                       aria-describedby="inputGroupPrepend"
                       required
                       defaultValue={Grain.grainname}
-                      onChange={(e)=>{validateName(e);handleChange(e)}}
+                      onChange={validateName}
                     />
                     <div className="invalid-feedback">
                       Please choose a Grainname.
@@ -370,7 +372,7 @@ function UpdateGrainModal(props) {
                     className="form-control form-control-sm mb-1"
                     id="graintype"
                     defaultValue={Grain.graintype}
-                    onChange={(e)=>{validateGrainType(e);handleChange(e)}}
+                    onChange={validateGrainType}
                     required
                   />
                   <div className="invalid-feedback">
@@ -391,7 +393,7 @@ function UpdateGrainModal(props) {
                     className="form-control form-control-sm mb-1"
                     id="quantityField"
                     defaultValue={Grain.quantity}
-                    onChange={(e)=>{validateQuantityField(e);handleChange(e)}}
+                    onChange={validateQuantityField}
                     required
                   />
                   <div className="valid-feedback">
@@ -414,7 +416,7 @@ function UpdateGrainModal(props) {
                     name="selflife"
                     id="selflife"
                     className="form-control form-control-sm mb-1"
-                    onChange={(e)=>{validateShelfLife(e);handleChange(e)}}
+                    onChange={validateShelfLife}
                     defaultValue={Grain.selflife}
                     required
                   />
@@ -436,7 +438,7 @@ function UpdateGrainModal(props) {
                     className="form-control form-control-sm mb-1"
                     id="price"
                     name="price"
-                    onChange={(e)=>{validatePriceField(e);handleChange(e)}}
+                    onChange={validatePriceField}
                     defaultValue={Grain.price}
                     required
                   />
@@ -460,7 +462,7 @@ function UpdateGrainModal(props) {
                     className="form-control form-control-sm mb-1"
                     id="moisturelevel"
                     name="moisturelevel"
-                    onChange={(e)=>{validateMoistureLevel(e);handleChange(e)}}
+                    onChange={validateMoistureLevel}
                     defaultValue={Grain.moisturelevel}
                     required
                   />
@@ -480,7 +482,7 @@ function UpdateGrainModal(props) {
                   >
                     State
                   </label>
-                  <select name="state" defaultValue={Grain.state} onChange={(e)=>{checkField(e);handleChange(e)}} id="state" className="form-control form-control-sm">
+                  <select name="state" defaultValue={Grain.state} onChange={checkField} id="state" className="form-control form-control-sm">
                     <option value="null">Selecet State</option>
                     <option value="mp">Mp</option>
                     <option value="up">Up</option>
@@ -499,7 +501,7 @@ function UpdateGrainModal(props) {
                   >
                     City
                   </label>
-                  <select name="city" defaultValue={Grain.city} onChange={(e)=>{checkField(e);handleChange(e)}} id="city" className="form-control form-control-sm">
+                  <select name="city" defaultValue={Grain.city} onChange={checkField} id="city" className="form-control form-control-sm">
                     <option value="null">Selecet City</option>
                     <option value="indore">Indore</option>
                     <option value="bhopal">Bhopal</option>
@@ -541,8 +543,10 @@ function UpdateGrainModal(props) {
                     className="form-label midgreen"
                   >
                   </label><br />
-                  <input className="m-2 mt-3" type="radio" name="grain" value="organic"  checked={Grain.grain === 'organic'} onChange={(e)=>{handleRadioChange(e);handleChange(e)}} />Organic
-                  <input className="m-2 mt-3" type="radio" name="grain" value="inorganic"  checked={Grain.grain === 'inorganic'} onChange={(e)=>{handleRadioChange(e);handleChange(e)}} />Inorganic
+                  <input id="organic" className="m-2 mt-3" type="radio" name="grain" value="organic" checked={Grain.grain === 'organic'} onChange={handleRadioChange} />
+                  <label htmlFor="organic">Organic</label>
+                  <input id="inorganic" className="m-2 mt-3" type="radio" name="grain" value="inorganic" checked={Grain.grain === 'inorganic'} onChange={handleRadioChange} />
+                  <label htmlFor="inorganic">Inorganic</label>
                   <div className="invalid-feedback">
                     Please provide correct.
                   </div>
@@ -562,7 +566,7 @@ function UpdateGrainModal(props) {
                     className="form-control form-control-sm mb-1"
                     id="description"
                     defaultValue={Grain.description}
-                    onChange={(e)=>{checkField(e);handleChange(e)}}
+                    onChange={checkField}
                     required
                   />
                   <div className="invalid-feedback">
@@ -588,7 +592,7 @@ function UpdateGrainModal(props) {
             </div>
 
             <div className="col-12  col-lg-5 m-0 p-0" id="imgcol-grain">
-              <img src={"http://localhost:3000/"+Grain.image} className="w-100 imgcol-grain-img " alt="" />
+              <img src={"http://localhost:3000/" + Grain.image} className="w-100 imgcol-grain-img " alt="" />
             </div>
           </div>
         </Modal.Body>
