@@ -28,7 +28,7 @@ function Grains() {
                   </p>
                   <p className="card-text darkgreen"><small className="text-muted"><i className="bi bi-geo-alt text-danger"></i>&nbsp;Indore</small></p>
                   <div className="d-grid gap-2">
-                    <button type="bu tton" name="" id="" className="btn btn-success btn-sm">Order Now
+                    <button type="button" name="" id="" className="btn btn-success btn-sm">Order Now
                     </button>
                   </div>
                 </div>

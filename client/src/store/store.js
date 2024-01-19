@@ -4,6 +4,7 @@ import commonSlice from './commonSlice.js';
 import orgSlice from './organizationSlice.js';
 import adminSlice from './adminSlice.js';
 import expertSlice from './expertSlice.js';
+import marketSlice from './marketSlice.js';
 
 export default configureStore({
     reducer:{
@@ -11,6 +12,7 @@ export default configureStore({
         commonSlice : commonSlice,
         orgSlice:orgSlice,
         adminSlice:adminSlice,
-        expertSlice:expertSlice
+        expertSlice:expertSlice,
+        marketSlice:marketSlice
     }
 });

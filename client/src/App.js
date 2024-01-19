@@ -21,6 +21,8 @@ import AgricultureLand from './Components/UserDashboard/AgricultureLands Section
 import ColdStorageLand from './Components/UserDashboard/ColdStorageLandSection.js/ColdStorageLand.js';
 import AdminDashboard from './Components/AdminDashboard/AdminDashboard.js';
 import AdminLogin from './Components/AdminDashboard/AdminLogin.js/AdminLogin.js'
+import Market from './Components/Market/Market.js';
+import MarketPlace from './Components/Market/MarketPlace.js';
 function App() {
   // const [socket,setSocket]=useState(null);
   // useEffect(()=>{
@@ -51,6 +53,12 @@ function App() {
         </Route>
         <Route path='/adminLogin'Component={AdminLogin} ></Route>
         <Route path='/adminDashboard'Component={AdminDashboard} ></Route>
+        <Route path='/market' Component={MarketPlace}>
+        <Route index element={<Market />} />
+          {/* <Route path="" element={<Profile />} /> */}
+
+        </Route>
+
       </Routes>
       {/* <Footer/> */}
 

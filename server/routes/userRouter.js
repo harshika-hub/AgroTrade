@@ -1,6 +1,10 @@
 import express from 'express';
 import { upload } from '../middleware/fileUpload.js';
-import { updateAgriLandController, getExpertContrller, addAgriLandController, removeAgriLandController, getAgriLandController, coldStLandsInsertController, updateColdStLandController, deleteColdStLandController,getcoldStLandsController, updateGrainController, deleteGrainController, getGrainController, grainInsertController, getUserController, newExpertController, updateProfileController,addEquipmentController ,getEquipmentController,deleteEquipmentController,updateEquipmentController} from '../controller/userController.js';
+import { updateAgriLandController, getExpertContrller, addAgriLandController, removeAgriLandController, getAgriLandController, 
+    coldStLandsInsertController, updateColdStLandController, deleteColdStLandController,getcoldStLandsController, updateGrainController,
+     deleteGrainController, getGrainController, grainInsertController, getUserController, newExpertController, updateProfileController,
+     addEquipmentController ,getEquipmentController,deleteEquipmentController,updateEquipmentController,getMarketGrainContrller,
+     getMarketEquipmentContrller,getMarketLandContrller,getMarketStorageContrller} from '../controller/userController.js';
 import { aunthicateJWT } from '../middleware/jwtVerification.js';
 const userRouter = express.Router();
 userRouter.post("/newExpert",upload.single('certificate'),newExpertController)
@@ -22,5 +26,14 @@ userRouter.post('/UpdateEquipment',upload.single("image"),updateEquipmentControl
 userRouter.get('/getAgriLand',getAgriLandController);
 userRouter.post("/addAgriLand", upload.fields([{ name: 'image', maxCount: 1 }, { name: 'image360', maxCount: 1 }]), addAgriLandController);
 userRouter.get("/removeAgriLand",removeAgriLandController)
-userRouter.get("/getExpert",getExpertContrller);
+userRouter.get("/getExpert",getExpertContrller); 
+userRouter.get("/marketGrains/:token",aunthicateJWT,getMarketGrainContrller); 
+userRouter.get("/marketEquipment/:token",aunthicateJWT,getMarketEquipmentContrller); 
+userRouter.get("/marketLand/:token",aunthicateJWT,getMarketLandContrller); 
+userRouter.get("/marketStorage/:token",aunthicateJWT,getMarketStorageContrller); 
+
+
+
+
+
 export default userRouter;

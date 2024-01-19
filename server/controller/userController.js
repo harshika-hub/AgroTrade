@@ -1,3 +1,4 @@
+import { request, response } from "express";
 import { users, grains, equipments, coldStLands, agriLand } from "../models/userModel.js";
 export const newExpertController = async (req, res) => {
     const { experience, education, consultancy_field, consultancy_type, consultancy_fee_video, consultancy_fee_chat, email } = req.body
@@ -288,5 +289,57 @@ export const getExpertContrller = async (req, res) => {
 
     }
 }
+export const getMarketGrainContrller=async(request,response)=>{
+    try{
+        const grain= await grains.find();
+        response.status(200).json({grain:grain});
 
+    }catch(err){
+        console.log("error in getMarketGrain",err);
+        response.status(500).json({msg:'err while fetching grain for market'})
+        
+    }
+
+
+}
+export const getMarketEquipmentContrller=async(request,response)=>{
+    try{
+        const equipment= await equipments.find();
+        response.status(200).json({equipment:equipment});
+
+    }catch(err){
+        console.log("error in equipment",err);
+        response.status(500).json({msg:'err while fetching equiment for market'})
+        
+    }
+
+
+}
+export const getMarketLandContrller=async(request,response)=>{
+    try{
+        const agriland= await agriLand.find();
+        response.status(200).json({agriLand:agriland});
+
+    }catch(err){
+        console.log("error in getMarketAgriLand",err);
+        response.status(500).json({msg:'err while fetching agriLand for market'})
+        
+    }
+
+
+}
+
+export const getMarketStorageContrller=async(request,response)=>{
+    try{
+        const storage= await coldStLands.find();
+        response.status(200).json({storage:storage});
+
+    }catch(err){
+        console.log("error in getMarketStorage",err);
+        response.status(500).json({msg:'err while fetching storage for market'})
+        
+    }
+
+
+}
 

@@ -10,10 +10,16 @@ var LOG = {};
 
 
 export const aunthicateJWT = (request,response,next)=>{
-    console.log('inside authenticateJWT');
+    // console.log("inside authentication ",request.method,"  param",request.params.token);
+    var TOKEN='';
+
     try{
         const SECRET_KEY = process.env.JWT_SECRET_KEY;
-        const TOKEN = request.body.token;
+        if(request.method==='POST')
+         TOKEN = request.body.token;
+        else{
+            TOKEN=request.params.token;
+        }
         if(TOKEN){
             jwt.verify(TOKEN,SECRET_KEY,(error,payload)=>{
                 if(error){
