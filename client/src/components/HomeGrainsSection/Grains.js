@@ -36,7 +36,7 @@ function Grains() {
             </div>
           </div>
         </div>
-        <GrainCard />
+        {/* <GrainCard /> */}
       </div>
 
     </div>

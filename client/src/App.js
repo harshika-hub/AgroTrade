@@ -23,6 +23,10 @@ import AdminDashboard from './Components/AdminDashboard/AdminDashboard.js';
 import AdminLogin from './Components/AdminDashboard/AdminLogin.js/AdminLogin.js'
 import Market from './Components/Market/Market.js';
 import MarketPlace from './Components/Market/MarketPlace.js';
+import { GrainMarketCard } from './Components/Market/GrainMarket/GrainMarket.js';
+import { FarmLandMarketCard } from './Components/Market/FarmLandMarket/FarmLandMarket.js';
+import { StorageMarketCard } from './Components/Market/StorageMarket/StorageMarket.js';
+import { EquipmentMarketCard } from './Components/Market/EquipmentMarket/EquipmentMarket.js';
 function App() {
   // const [socket,setSocket]=useState(null);
   // useEffect(()=>{
@@ -39,23 +43,28 @@ function App() {
         <Route path='/orgSignup' element={<OrgSingUp />}></Route>
         <Route path='/contactus' element={<ContactUs />}></Route>
         <Route path='/aboutus' element={<AboutUs />}></Route>
-
         <Route path='/bookExpert' element={<ExpertList />}></Route>
+
         <Route path='/dashboard' element={<UserdashBoard />}>
           <Route index element={<Profile />} />
           <Route path="profile" element={<Profile />} />
           <Route path='chat' element={<Chatsection />}></Route>
           <Route path='listedGrain' element={<ListedGrains />}></Route>
-          <Route path='listedEquipments' element={<ListedEquipments/>}></Route>
-          <Route path='agricultureLands' element={<AgricultureLand/>}></Route>
-          <Route path='coldStorageLand' element={<ColdStorageLand/>}></Route>
-
+          <Route path='listedEquipments' element={<ListedEquipments />}></Route>
+          <Route path='agricultureLands' element={<AgricultureLand />}></Route>
+          <Route path='coldStorageLand' element={<ColdStorageLand />}></Route>
         </Route>
-        <Route path='/adminLogin'Component={AdminLogin} ></Route>
-        <Route path='/adminDashboard'Component={AdminDashboard} ></Route>
+
+        <Route path='/adminLogin' Component={AdminLogin} ></Route>
+        <Route path='/adminDashboard' Component={AdminDashboard} ></Route>
+
         <Route path='/market' Component={MarketPlace}>
-        <Route index element={<Market />} />
-          {/* <Route path="" element={<Profile />} /> */}
+          <Route index element={<Market />} ></Route>
+          <Route path="grainMarket" element={<GrainMarketCard />} ></Route>
+          <Route path="agriLandMarket" element={<FarmLandMarketCard />} ></Route>
+          <Route path="storageMarket" element={<StorageMarketCard />} ></Route>
+          <Route path="equipmentMarket" element={<EquipmentMarketCard />} ></Route>
+
 
         </Route>
 

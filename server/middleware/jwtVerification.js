@@ -44,7 +44,7 @@ export const aunthicateJWT = (request,response,next)=>{
 
 
 export const authorizeUser = async(request,response,next)=>{
-    if(request.payload.data.role == process.env.USER_ROLE){
+    if(request.payload.data.role === process.env.USER_ROLE){
         try{
             var loggedUser = await users.findOne(
                 {email: request.payload.data.email },
@@ -64,7 +64,7 @@ export const authorizeUser = async(request,response,next)=>{
             response.status(204).json({message:'error'});
             
         }
-    }else if(request.payload.data.role==process.env.ORG_ROLE){
+    }else if(request.payload.data.role===process.env.ORG_ROLE){
         try{
             var loggedOrg = await organisations.findOne(
                 { org_email: request.payload.data.email },
@@ -83,7 +83,7 @@ export const authorizeUser = async(request,response,next)=>{
             console.log("Error while fetching Organization data inside Autherization : ",error);
             response.status(204).json({message:'error'});
         }
-    }else if(request.payload.data.role==process.env.ADMIN_ROLE){
+    }else if(request.payload.data.role===process.env.ADMIN_ROLE){
         try{
             var loggedAdmin = await admin.findOnefindOne(
                 { email: request.payload.data.email },

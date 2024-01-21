@@ -1,4 +1,4 @@
-import logo from "../../assets/Agro-Trade-logo.png"
+// import logo from "../../assets/Agro-Trade-logo.png"
 import "./DashboardLinks.css"
 import { Link, useNavigate } from "react-router-dom";
 import DashboardCanvas from "./DashOffcanwas";
@@ -48,7 +48,7 @@ function DashboardLinks() {
     return (<>
     <div>
             <nav className="navbar navbar-expand bg-darkgreen  px-1 py-0  d-flex justify-content-between position-sticky ">
-            <a href="#" className="sidebar-toggler m-1 text-decoration-none flex-shrink-0" id="sidebar-toggler" onClick={silderBarToggle}>
+            <a className="sidebar-toggler m-1 text-decoration-none flex-shrink-0" id="sidebar-toggler" onClick={silderBarToggle}>
             <i className="fa-solid fa-bars midgreen"></i>
             </a>
            
@@ -62,7 +62,7 @@ function DashboardLinks() {
 
                 </li>
                 <li className="nav-item">
-                  <Link className=" text-white nav-link" to="/aboutus">
+                  <Link className=" text-white nav-link" to="/market">
                     <i className="bi bi-basket3-fill midgreen"></i>&nbsp;Market
                   </Link>
                 </li>
@@ -85,7 +85,6 @@ function DashboardLinks() {
                 </ul> 
               <div className="nav-item dropdown">
                 <a
-                  href="#"
                   className="nav-link dropdown-toggle  text-white"
                   data-bs-toggle="dropdown"
                   style={{fontSize:"16px"}}
@@ -93,22 +92,22 @@ function DashboardLinks() {
                   <i className="fa fa-bell me-lg-2 midgreen "></i>
                 </a>
                 <div className="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                  <a href="#" className="dropdown-item">
+                  <a  className="dropdown-item">
                     <h6 className=" mb-0">Profile updated</h6>
                     <small>15 minutes ago</small>
                   </a>
                   <hr className="dropdown-divider" />
-                  <a href="#" className="dropdown-item">
+                  <a  className="dropdown-item">
                     <h6 className=" mb-0">New user added</h6>
                     <small>15 minutes ago</small>
                   </a>
                   <hr className="dropdown-divider" />
-                  <a href="#" className="dropdown-item">
+                  <a  className="dropdown-item">
                     <h6 className="mb-0">Password changed</h6>
                     <small>15 minutes ago</small>
                   </a>
                   <hr className="dropdown-divider" />
-                  <a href="#" className="dropdown-item text-center">
+                  <a className="dropdown-item text-center">
                     See all notifications
                   </a>
                 </div>

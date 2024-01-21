@@ -1,142 +1,90 @@
-// import './GrainMarket.css'
-// export  function GrainMarketCard({data}){  
-// return(
 
-//           <div className="col-lg-3 col-md-12 mb-4">
-//         <div className="card">
-//           <div className="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
-//             data-mdb-ripple-color="light">
-//             <img  src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/belt.webp"
-//             // <img  src={`https://localhost:3000/${data.image}`}
-//             className="w-100" />
-//               <div className="mask">
-//                 <div className="d-flex justify-content-start align-items-end h-100">
-//                   <h5><span className="badge bg-success ms-2">New</span></h5>
-//                 </div>
-//               </div>
-//               <div className="hover-overlay">
-//                 <div className="mask" style={{backgroundColor: 'red'}}></div>
-//               </div>
-//           </div>
-//           <div className="card-body">
-//               <h5 className="card-title mb-3">Product name:{data.grainname}</h5>
-//               <p>Category</p>
-//             <h6 className="mb-3">$61.99</h6>
+import React, { useEffect, useState } from 'react';
+// import './GrainMarket.css';
+import '../../UserDashboard/ListedGrain/ListedGrinCard.css'
+import { USER_REQUESTED_URL } from '../../../urls';
+import axios from 'axios';
+import jscookie from 'js-cookie';
+import { Link } from 'react-router-dom';
 
-//           </div>
-//         </div>
-//         </div>
+export function GrainMarketCard({ grain }) {
+  const [dat, setData] = useState([]);
+  useEffect(()=>{
+    const token = jscookie.get('token')
 
+    if(grain){
+    setData([grain]);
+  }else{
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(USER_REQUESTED_URL + "/marketGrains/" + token);
+        setData(response.data.grain);
+        console.log(response);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }
 
-//       )
+  },[grain])
 
-
-
-// }
+  const addTocart=(grain)=>{
 
 
-import React, { useState } from 'react';
-import './GrainMarket.css';
-
-export function GrainMarketCard({ data }) {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleModalOpen = () => {
-    setModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setModalOpen(false);
-  };
-
+  }
   return (
-    <div className="col-lg-3 col-md-6 mb-4">
-      <div className="card border-3 border-success">
-        <div
-          className="position-relative hover-zoom"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          onClick={handleModalOpen}
-          style={{ cursor: 'pointer' }}
-        >
-          {/* <img  src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/belt.webp" */}
-          <img src={"http://localhost:3000/" + data.image}
-            className="w-img"
-            alt="Product Image"
-          />
-          {isHovered && (
-            <button
-              type="button"
-              className="btn btn-success position-absolute top-50 start-50 translate-middle"
-            >
-              <i className="bi bi-eye-fill"></i> View
-            </button>
-          )}
-          <span className="badge bg-success position-absolute top-0 end-0 mt-2 me-2">{data.grain}</span>
-
-        </div>
-        <div className="card-body">
-          <h5 className="card-title mb-1 txt-s">Product name: {data.grainname}</h5>
-          <p className='mb-1 fs-4 me-2 txt-s'><b>State:</b> {data.state}</p>
-          <p className="mb-1 fs-3 txt-s"><b>Price:</b>{data.price}</p>
-          <button className="btn btn-success d-block px-5 d-flex mx-5">More</button>
-        </div>
-      </div>
-
-      <div
-        className={`modal fade ${modalOpen ? 'show' : ''}`}
-        tabIndex="-1"
-        role="dialog"
-        aria-hidden={!modalOpen}
-        style={{ display: modalOpen ? 'block' : 'none' }}
-      >
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">{data.grainname} Details</h5>
-              <button
-                type="button"
-                className="btn-close"
-                aria-label="Close"
-                onClick={handleModalClose}
-              ></button>
-            </div>
-            <div className="modal-body border-3 border-success">
-              <div className="row">
-                <div className="col-md-6">
-                  {/* <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/belt.webp" */}
-                              <img src={"http://localhost:3000/" + data.image}
-
-                    className="w-100 h-100"
-                    alt="Product Image"
-                  />
-                </div>
-                <div className="col-md-6">
-                  <p>Description: {data.description}</p>
-                  <p>Grain: {data.grain}</p>
-                  <p>Grain Type: {data.graintype}</p>
-                  <p>Moisture Level: {data.moisturelevel}</p>
-                  <p>Price: ${data.price}</p>
-                  <p>Quantity: {data.quantity}</p>
-                  <p>Shelf Life: {data.selflife} months</p>
-                  <p>State: {data.state}</p>
-                </div>
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={handleModalClose}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <>
+{ dat||grain?
+  dat.map((data)=>{
+return(
+<div className="col-6 col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center p-2  d-inline-flex ">
+<div className="card bg-white bg-warning">
+  <div className="row g-0">
+    <div className=" col-12 col-sm-6 col-md-12 col-lg-12 col-xl-6 p-0" id="imgeDiv">
+      <img src={"http://localhost:3000/"+data.image} className="img-fluid rounded-start w-100 card-image" alt={data.image} />
     </div>
+    <div className=" col-12 col-sm-6 col-md-12 col-lg-12 col-xl-6 ">
+      <div className="card-body">
+        <div className="d-flex justify-content-end">
+          {data.grain==="inorganic"? <span className="badge bg-warning fs-6">Inorganic</span>: <span className="badge bg-success fs-6">Organic</span>}
+        </div>
+        <h4 className="card-title darkgreen fs-4">{data.grainname}</h4>
+        <p className="card-text darkgreen fs-6 m-0">
+          Type: {data.graintype}
+        </p>
+        <p className="card-text darkgreen fs-6 m-0">
+          Price: Rs.{data.price}/quintal
+        </p>
+        <p className="card-text darkgreen fs-6 m-0">
+          Quantity:{data.quantity} quintal
+        </p>
+        <p className="card-text darkgreen fs-6 m-0">
+          Shelf Life: {data.selflife} Month 
+        </p>
+        <p className="card-text darkgreen fs-6 m-0">
+          Moisture Level: {data.moisturelevel}%
+        </p>
+        <p className="card-text darkgreen fs-6 m-0" style={{maxHeight:"40px",overflow:"scroll"}} >Description: {data.description}</p>
+        <p className="card-text darkgreen fs-6 m-0"><i className="bi bi-geo-alt text-danger"></i>&nbsp;{data.city},{data.state}</p>
+      </div>
+    
+    </div>
+    {grain?
+    <button className='btn btn-success w-25 mx-auto'>
+  <Link to='/market/grainMarket' className='text-white text-decoration-none'>Explore More</Link>
+</button>: <button className='btn btn-success mt-1 w-50 mx-auto' onPreess={()=>{addTocart(data)}}>
+  <Link className='text-white text-decoration-none'>Add to Cart</Link>
+</button>
+  }
+  </div>
+</div>
+</div>
+)
+  }):<h1 className='text-center'>There is no Grain available</h1>
+}
+
+        
+    </>
   );
 }

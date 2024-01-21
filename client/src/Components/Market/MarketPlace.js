@@ -1,10 +1,12 @@
 import { Outlet } from 'react-router-dom'
-import NavLinks from '../Header/Navlink.js'
+import Header from '../Header/Header.js'
+import Footer from '../Footer/Footer.js'
 export default function MarketPlace(){
     return(<>
-    <NavLinks/>
-    <div className="container-fluid p-0 " style={{ flexGrow: 1 }}>
+    <Header/>
+    <div className="container-fluid p-5" style={{ flexGrow: 1 }}>
             <Outlet />
           </div>
+          <Footer/>
     </>)
 }
