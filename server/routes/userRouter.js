@@ -4,7 +4,7 @@ import { updateAgriLandController, getExpertContrller, addAgriLandController, re
     coldStLandsInsertController, updateColdStLandController, deleteColdStLandController,getcoldStLandsController, updateGrainController,
      deleteGrainController, getGrainController, grainInsertController, getUserController, newExpertController, updateProfileController,
      addEquipmentController ,getEquipmentController,deleteEquipmentController,updateEquipmentController,getMarketGrainContrller,
-     getMarketEquipmentContrller,getMarketLandContrller,getMarketStorageContrller} from '../controller/userController.js';
+     getMarketEquipmentContrller,getMarketLandContrller,getMarketStorageContrller,addcartController,getCartController} from '../controller/userController.js';
 import { aunthicateJWT } from '../middleware/jwtVerification.js';
 const userRouter = express.Router();
 userRouter.post("/newExpert",upload.single('certificate'),newExpertController)
@@ -31,9 +31,8 @@ userRouter.get("/marketGrains/:token",aunthicateJWT,getMarketGrainContrller);
 userRouter.get("/marketEquipment/:token",aunthicateJWT,getMarketEquipmentContrller); 
 userRouter.get("/marketLand/:token",aunthicateJWT,getMarketLandContrller); 
 userRouter.get("/marketStorage/:token",aunthicateJWT,getMarketStorageContrller); 
-
-
-
+userRouter.post("/addTocart",aunthicateJWT,addcartController); 
+userRouter.post("/getCartitems",aunthicateJWT,getCartController); 
 
 
 export default userRouter;

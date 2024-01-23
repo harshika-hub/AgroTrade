@@ -24,7 +24,8 @@ export const completeProfile=createAsyncThunk("userSlice/completeProfile",async(
     }catch(err){
             console.log("error in store while completing profile")
     }
-})
+});
+
 const userSlice = createSlice({
     name : 'userSlice',
     initialState,
@@ -37,7 +38,7 @@ const userSlice = createSlice({
             state.userData=action.payload;
 
 
-        });
+        })
            },
     reducers:{
         setUserData :(state,action)=>{

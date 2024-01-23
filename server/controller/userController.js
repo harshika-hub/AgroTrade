@@ -1,5 +1,6 @@
 import { request, response } from "express";
-import { users, grains, equipments, coldStLands, agriLand } from "../models/userModel.js";
+import { users, grains, equipments, coldStLands, agriLand,cart } from "../models/userModel.js";
+import mongoose from "mongoose";
 export const newExpertController = async (req, res) => {
     const { experience, education, consultancy_field, consultancy_type, consultancy_fee_video, consultancy_fee_chat, email } = req.body
     const updateUser = {
@@ -342,4 +343,113 @@ export const getMarketStorageContrller=async(request,response)=>{
 
 
 }
+// export const addcartController= async(request,response)=>{
+//     try{
+//         const{_id,email,token}=request.body;
+//         var product=grains.aggregate({$match:{_id:_id}});
+//         var userId=users.aggregate({$match:{email:email}},{$project:{_id:1}});
+//         var cartResponse=cart.create({
+//             userId: mongoose.Types.ObjectId(userId),
+//             products: [{
+//               product: product,
+//             }],
+//         });
+//         console.log("cart response",cartResponse)
+//         response.status(201).json({msg:"added successfully"});
+//     }catch(err){
+//         console.log("error in cart controller",err);
+//     }
+  
 
+// }
+
+// export const getCartController= async (req, res) => {
+//     try {
+//         // Find the user's cart based on the user ID
+//         const {email}=req.body;
+//         const userId=users.aggregate({$match:{email:email}},{$project:{
+//             _id:1
+//         }});
+//         console.log("userId in get cat controller",userId);
+//         const userCart = await cart.find({ userId: mongoose.Types.ObjectId(userId) })
+//           .select('products') // Select only the 'products' field
+//           .populate('products.product'); // Populate the embedded product documents
+    
+//         if (userCart) {
+//           const productsArray = userCart.products;
+//           console.log('User Cart Products:', productsArray);
+//         } else {
+//           console.log('User does not have a cart.');
+//         }
+//       } catch (error) {
+//         console.error('Error retrieving user cart:', error);
+//       }}
+
+
+
+export const addcartController = async (request, response) => {
+    try {
+        const { _id, email} = request.body;
+        console.log("id email",_id,email);
+
+        // Execute the aggregation pipeline to get the product
+        const product = await  grains.findOne({_id:_id})
+        // grains.aggregate([
+        //     { $match: { _id: _id } }
+        // ]);
+        console.log("prosuct",product);
+
+        // Execute the aggregation pipeline to get the userId
+        const userIdObj = await users.aggregate([
+            { $match: { email: email } },
+            { $project: { _id: 1 } }
+        ]);
+        console.log("userId",userIdObj);
+        const userId = userIdObj[0]._id; // Extract the userId from the result
+
+        // Create a new cart entry
+        const cartResponse = await cart.create({
+            userId: userId,
+            products: [{
+                product: product, // Assuming there is only one product
+            }],
+        });
+
+        console.log("cart response", cartResponse)
+        response.status(201).json({ msg: "added successfully" });
+    } catch (err) {
+        console.log("error in cart controller", err);
+        response.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+export const getCartController = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        // Execute the aggregation pipeline to get the userId
+        const userIdObj = await users.aggregate([
+            { $match: { email: email } },
+            { $project: { _id: 1 } }
+        ]);
+
+        const userId = userIdObj[0]._id; // Extract the userId from the result
+
+        // Find the user's cart based on the user ID
+        const userCart = await cart.findOne({ userId: userId })
+            .select('products') // Select only the 'products' field
+            .populate('products.product'); // Populate the embedded product documents
+
+        if (userCart) {
+            const productsArray = userCart.products;
+            console.log('User Cart Products:', productsArray);
+            res.status(200).json({ products: productsArray });
+        } else {
+            console.log('User does not have a cart.');
+            res.status(404).json({ error: 'User does not have a cart.' });
+        }
+    } catch (error) {
+        console.error('Error retrieving user cart:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}

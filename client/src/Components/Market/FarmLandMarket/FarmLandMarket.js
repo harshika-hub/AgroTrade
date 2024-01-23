@@ -9,17 +9,8 @@ import { Link } from 'react-router-dom';
 
 
 export function FarmLandMarketCard({ agriLand }) {
+
   const [agriLands, setAgriland] = useState([]);
-
-  
-  var fromDate=new Date(agriLands.avilableFrom)
-  const dateFrom = fromDate.getDate()+"/"+fromDate.getMonth()+1+"/"+fromDate.getFullYear();   
-  console.log("This is the Date"+dateFrom);
-
-  var fromTill=new Date(agriLands.avilableTill)
-  const dateTill = fromTill.getDate()+"/"+fromTill.getMonth()+1+"/"+fromTill.getFullYear();   
-  console.log("This is the Date"+dateTill);
-
   const dispatch=useDispatch();
 
   const getLand = async (token) => {
@@ -28,6 +19,7 @@ export function FarmLandMarketCard({ agriLand }) {
     setAgriland(agriLand.payload);
 
   }
+
   useEffect(()=>{
     const token = jscookie.get('token')
     if(agriLand){
@@ -40,13 +32,12 @@ export function FarmLandMarketCard({ agriLand }) {
   },[agriLand])
 
 
-
   return (
     <>
 { agriLand||agriLands?
   agriLands.map((land)=>{
 return(
-    <div className="card mb-4 w-100 p-0">
+    <div key={land._id} className="card mb-4 w-100 p-0">
     <div className="row g-0">
       <div className="col-md-4 bg-dark" id="imgeDiv">
         <img src={"http://localhost:3000/"+land.image} className="img-fluid rounded-start w-100 card-image" alt="..." />

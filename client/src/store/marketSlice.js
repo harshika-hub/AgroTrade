@@ -35,13 +35,28 @@ export const storageMarket=createAsyncThunk('marketSlice/storageMarket',async(to
 
 })
 
+export const getCart=createAsyncThunk("userSlice/getCart",async(cartObj)=>{
+    var obj=await axios.post(USER_REQUESTED_URL+`/getCartitems`,cartObj);
+    console.log("inside getCart thunk",obj.data[0].email);
+    return obj.data[0];
+
+});
+export const addTocart=createAsyncThunk("userSlice/addTocartt",async(cartObj)=>{
+    var obj=await axios.post(USER_REQUESTED_URL+`/addTocart`,cartObj);
+    console.log("inside getCart thunk",obj.data[0].email);
+    return obj.data[0];
+
+})
+
 
 const marketSlice=createSlice({
     name:'marketSlice',
     initialState:{
          equipment:[],
          agriLand:[],
-         storage:[]
+         storage:[],
+         cartItem:[]
+
 
     },
     extraReducer:(builder)=>{
@@ -57,7 +72,16 @@ const marketSlice=createSlice({
             console.log("storagein reducer",action.payload);
             state.storage=action.payload;
 
-        })
+        }).addCase(getCart.fulfilled,(state,action)=>{
+            console.log("action in reducer getCart",action.payload);
+            state.cartItem=action.payload;
+
+
+        }).addCase(addTocart.fulfilled,(state,action)=>{
+            console.log("action in reducer addToCart",action.payload);
+
+
+        });
     },
     reducers:{
         market:(state,action)=>{

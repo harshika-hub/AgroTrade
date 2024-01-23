@@ -212,7 +212,7 @@ const coldStorageLandModel = new mongoose.Schema({
         type:Boolean,
         default:true
     },
-})
+});
 
 const agriLandModel = new mongoose.Schema({
     landTitle: {
@@ -287,11 +287,22 @@ const agriLandModel = new mongoose.Schema({
     },
 
     
-})
-
+});
+const cartSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true },
+  
+    // Embedding the product document in the cart
+    products: [{
+      product: { type: Object, required: true },
+      quantity: { type: Number, default: 1 },
+    }],
+  
+  }, { timestamps: true });
+  
+const cart = mongoose.model('cart', cartSchema);
 const  agriLand= mongoose.model('agriLand',agriLandModel,'agriLand');
 const equipments= mongoose.model('equipments',equipmentModel,'equipments')
 const users = mongoose.model('users', userModel, 'users');
 const grains = mongoose.model('grains', grainModel, 'grains');
 const coldStLands = mongoose.model('coldStLands', coldStorageLandModel, 'coldStLands');
-export { users, grains,equipments,coldStLands,agriLand } 
+export { users, grains,equipments,coldStLands,agriLand,cart } 

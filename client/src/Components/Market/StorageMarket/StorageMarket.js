@@ -30,14 +30,14 @@ export function StorageMarketCard({ storageLand }) {
     getStorage(token)
   }
 
-  },[getStorage])
+  },[])
 
   return (
     <>
 { storages||storageLand?
   storages.map((storage)=>{
 return(
-  <div className="card mb-4 w-100 p-0">
+  <div key={storage._id} className="card mb-4 w-100 p-0">
         {/* <h2 className="mt-4 mb-3 text-center text-success"><strong>Grains</strong></h2> */}
 
   <div className="row g-0">

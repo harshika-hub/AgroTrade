@@ -6,11 +6,26 @@ import { USER_REQUESTED_URL } from '../../../urls';
 import axios from 'axios';
 import jscookie from 'js-cookie';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { useDispatch } from 'react-redux';
+import { addTocart, getCart } from '../../../store/marketSlice';
 
 export function GrainMarketCard({ grain }) {
+
   const [dat, setData] = useState([]);
+  const[cartCount,setCartCount]=useState(0);
+  const dispatch=useDispatch();
+  const getCartitem=async({token,email})=>{
+   const cartItems=await dispatch(getCart({token,email}));
+   console.log(cartItems);
+  //  https://mdbootstrap.com/docs/standard/extended/shopping-carts/
+
+    
+  }
+
   useEffect(()=>{
     const token = jscookie.get('token')
+    const email=jscookie.get('userEmail');
 
     if(grain){
     setData([grain]);
@@ -27,18 +42,35 @@ export function GrainMarketCard({ grain }) {
     fetchData();
   }
 
+  getCartitem({token,email});
+
   },[grain])
 
-  const addTocart=(grain)=>{
+  const addTocarts=(_id)=>{
+    const token = jscookie.get('token')
+    const email=jscookie.get('userEmail');
+    
+     Swal.fire({
+      position: "middle",
+      icon: "",
+      title: "Added to Card",
+      html:"<i class='fs-1 text-info bi bi-cart-fill'></i>",
+      showConfirmButton: false,
+      timer: 1500
+    });
+    dispatch(addTocart({token,email,_id}));
 
 
   }
   return (
-    <>
+    <>{!grain? 
+     <div className='d-flex justify-content-end '> 
+    <i class='text-info bi bi-cart-fill mt-3 ' style={{fontSize:"60px"}}></i>
+    <span className='me-0 fs-2'>{cartCount}</span></div>:""}
 { dat||grain?
   dat.map((data)=>{
 return(
-<div className="col-6 col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center p-2  d-inline-flex ">
+<div key={data._id} className="col-6 col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center p-2  d-inline-flex ">
 <div className="card bg-white bg-warning">
   <div className="row g-0">
     <div className=" col-12 col-sm-6 col-md-12 col-lg-12 col-xl-6 p-0" id="imgeDiv">
@@ -73,8 +105,8 @@ return(
     {grain?
     <button className='btn btn-success w-25 mx-auto'>
   <Link to='/market/grainMarket' className='text-white text-decoration-none'>Explore More</Link>
-</button>: <button className='btn btn-success mt-1 w-50 mx-auto' onPreess={()=>{addTocart(data)}}>
-  <Link className='text-white text-decoration-none'>Add to Cart</Link>
+</button>: <button className='btn btn-success mt-1 w-50 mx-auto' onClick={()=>{addTocarts(data._id)}}>
+  <a className='text-white text-decoration-none'>Add to Cart</a>
 </button>
   }
   </div>

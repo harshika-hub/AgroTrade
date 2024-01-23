@@ -38,7 +38,7 @@ export function EquipmentMarketCard({ equips}) {
 {
  equipments||equips? equipments.map((equipment)=>{
 return(
-    <div className="col-12 col-sm-12 col-md-6  p-1  d-flex justify-content-center bg-warning d-inline-flex mb-5" >
+    <div  key={equipment._id} className="col-12 col-sm-12 col-md-6  p-1  d-flex justify-content-center bg-warning d-inline-flex mb-5" >
     <div className="card bg-light  w-100 p-0" style={{borderRadius:"5px"}}>
       <div className="row g-0">
         <div className="col-12 col-sm-6 col-md-12 col-lg-12 col-xl-6" id="imgeDiv">
