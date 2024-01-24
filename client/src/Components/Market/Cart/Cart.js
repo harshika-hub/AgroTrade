@@ -1,17 +1,40 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './Cart.css';
 import { useEffect, useState } from 'react';
+import { getCart } from '../../../store/marketSlice';
+import jscookie from 'js-cookie'
 export default function Cart(){
-    const[qty,setQty]=useState();
+  const [cartCount,setCartCount]=useState(0)
+  const dispatch=useDispatch();
+    const[qty,setQty]=useState(0);
+    const [items,setItems]=useState([]);
     var cartItem=useSelector(state=>state.marketSlice.cartItems);
+    const getCartitem=async({token,email})=>{
+      const cartItems=await dispatch(getCart({token,email}));
+      console.log("cart items in grain component",cartItems);
+      setCartCount(cartItems.payload.length)
+      setItems([...cartItems.payload]);
+   
+     //  https://mdbootstrap.com/docs/standard/extended/shopping-carts/
+   
+       
+     }
     useEffect(()=>{
+      const token = jscookie.get('token')
+      const email=jscookie.get('userEmail');
         console.log(cartItem);
+          getCartitem({token,email})
 
     },[]);
 
-    const handleClick = () => {
+    const handleClick = (event) => {
         // Increment the state by 1
-        setQty((prevValue) => prevValue + 1);
+        console.log("inside handleclick",event.target.id);
+        if(event.target.id==='minus'||event.target.id==='minus-1')
+        setQty((prevValue) => prevValue -1);
+      else
+      setQty((prevValue) => prevValue +1);
+
       };
     return(<>
     <section className="h-100 gradient-custom w-100 ">
@@ -20,24 +43,22 @@ export default function Cart(){
       <div className="col-md-8">
         <div className="card mb-4">
           <div className="card-header py-3">
-            <h5 className="mb-0">Cart - 2 items</h5>
+            <h5 className="mb-0">Cart - {cartCount}</h5>
           </div>
           <div className="card-body">
-            <div className="row">
+            {/* <div className="row">
               <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
                 <div className="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/12a.webp"
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRW7N1fMOoPhifYjMgqKfiPVMPA0Guoq-ZPiXmi5RxdHw&s"
                     className="w-100" alt="Blue Jeans Jacket" />
-                  {/* <a href="#!">
-                    <div className="mask mask-m" ></div>
-                  </a> */}
+                  
                 </div>
               </div>
 
               <div className="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                <p><strong>Blue denim shirt</strong></p>
-                <p>Color: blue</p>
-                <p>Size: M</p>
+                <p><strong>Wheat</strong></p>
+                <p>good quality</p>
+                <p>50000/quintal</p>
                 <button type="button" className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
                   title="Remove item">
                   <i className="fas fa-trash"></i>
@@ -50,13 +71,13 @@ export default function Cart(){
 
               <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
                 <div className="d-flex mb-4" style={{maxWidth: '300px'}}>
-                  <button className="btn btn-primary px-3 me-2"
+                  <button className="btn btn-primary px-3 me-2" id='minus'
                     onClick={handleClick}                    >
                     <i className="fas fa-minus"></i>
                   </button>
 
                   <div className="form-outline">
-                    <input id="form1" min="0" name="quantity" value="1" type="number" className="form-control" />
+                    <span className="form-control">{qty}</span>
                     <label className="form-label" htmlFor="form1">Quantity</label>
                   </div>
 
@@ -71,60 +92,69 @@ export default function Cart(){
                   <strong>$17.99</strong>
                 </p>
               </div>
-            </div>
+            </div> */}
 
-            <hr className="my-4" />
+              {
+                items.map((cart,i)=>{
+                  return(
+                    <div className="row">
+                    <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                      <div className="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                        <img src={"http://localhost:3000/"+cart.image}
+                          className="w-100" />
+                        <a href="#!">
+                          <div className="mask mask-m" ></div>
+                        </a>
+                      </div>
+                    </div>
+      
+                    <div className="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                    <p><strong>{cart.grainname}</strong></p>
+                      <p>{cart.productDescription}</p>
+                      <p >Rs. {cart.price}</p>
+                      <button type="button" className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
+                        title="Remove item">
+                        <i className="fas fa-trash"></i>
+                      </button>
+                      <button type="button" className="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
+                        title="Move to the wish list">
+                        <i className="fas fa-heart"></i>
+                      </button>
+                    </div>
+      
+                    <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                      <div className="d-flex mb-4"style={{maxWidth: '300px'}}>
+                        <button className="btn btn-primary px-3 me-2" id='minus-1'
+                          >
+                          <i className="fas fa-minus"></i>
+                        </button>
+      
+                        <div className="form-outline">
+                          <span className="form-control">{qty}</span>
+      
+                          <label className="form-label" htmlFor="form1">Quantity</label>
+                        </div>
+      
+                        <button className="btn btn-primary px-3 ms-2"
+                                      onClick={handleClick}                    >
+                          <i className="fas fa-plus"></i>
+                        </button>
+                      </div>
+                    
+                      <p className="text-start text-md-center">
+                        <strong>$17.99</strong>
+                      </p>
+                    </div>
+                    <hr className="my-4" />
 
-            <div className="row">
-              <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                <div className="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/13a.webp"
-                    className="w-100" />
-                  <a href="#!">
-                    <div className="mask mask-m" ></div>
-                  </a>
-                </div>
-              </div>
-
-              <div className="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                <p><strong>Red hoodie</strong></p>
-                <p>Color: red</p>
-                <p>Size: M</p>
-
-                <button type="button" className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
-                  title="Remove item">
-                  <i className="fas fa-trash"></i>
-                </button>
-                <button type="button" className="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
-                  title="Move to the wish list">
-                  <i className="fas fa-heart"></i>
-                </button>
-              </div>
-
-              <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                <div className="d-flex mb-4"style={{maxWidth: '300px'}}>
-                  <button className="btn btn-primary px-3 me-2"
-                    // onClick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                    >
-                    <i className="fas fa-minus"></i>
-                  </button>
-
-                  <div className="form-outline">
-                    <input id="form1" min="0" name="quantity" value="1" type="number" className="form-control" />
-                    <label className="form-label" htmlFor="form1">Quantity</label>
                   </div>
+                  )
 
-                  <button className="btn btn-primary px-3 ms-2"
-                                onClick={handleClick}                    >
-                    <i className="fas fa-plus"></i>
-                  </button>
-                </div>
-              
-                <p className="text-start text-md-center">
-                  <strong>$17.99</strong>
-                </p>
-              </div>
-            </div>
+                })
+              }
+            
+
+
           </div>
         </div>
         <div className="card mb-4">
@@ -133,7 +163,7 @@ export default function Cart(){
             <p className="mb-0">12.10.2020 - 14.10.2020</p>
           </div>
         </div>
-        <div className="card mb-4 mb-lg-0">
+        {/* <div className="card mb-4 mb-lg-0">
           <div className="card-body">
             <p><strong>We accept</strong></p>
             <img className="me-2" width="45px"
@@ -145,11 +175,9 @@ export default function Cart(){
             <img className="me-2" width="45px"
               src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
               alt="Mastercard" />
-            <img className="me-2" width="45px"
-              src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.webp"
-              alt="PayPal acceptance mark" />
+           
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="col-md-4">
         <div className="card mb-4">

@@ -93,17 +93,17 @@ return(
           <h5 className="darkgreen">
           To: {new Date( storage.avilableTill).getDate()+"/"+new Date( storage.avilableTill).getMonth()+1+"/"+new Date( storage.avilableTill).getFullYear()}
           </h5>
-          
-        </div>
-      </div>
-    </div>
-    {storageLand?
-    <button className='btn btn-success w-25 mx-auto'>
+          {storageLand?
+    <button className='btn btn-success w-100 mx-auto'>
   <Link to='/market/storageMarket' className='text-white text-decoration-none'>Explore More</Link>
 </button>: <button className='btn btn-success mt-1 w-50 mx-auto'>
   <Link className='text-white text-decoration-none'>Add to Cart</Link>
 </button>
   }
+        </div>
+      </div>
+    </div>
+   
   </div>
 </div>
 

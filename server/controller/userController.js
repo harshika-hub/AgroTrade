@@ -446,7 +446,8 @@ export const getCartController = async (request, response) => {
                     price: '$products.price',
                     productName: '$productDetails.name',
                     productDescription: '$productDetails.description',
-                    grainname: '$productDetails.grainname'
+                    grainname: '$productDetails.grainname',
+                    image:'$productDetails.image'
                 }
             }
         ]);

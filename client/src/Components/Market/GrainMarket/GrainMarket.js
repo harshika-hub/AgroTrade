@@ -44,9 +44,10 @@ export function GrainMarketCard({ grain }) {
     };
     fetchData();
   }
+  if(!grain){
+    getCartitem({token,email});
 
-  getCartitem({token,email});
-
+  }
   },[grain,dispatch])
 
   const addTocarts=async(_id)=>{
@@ -81,7 +82,7 @@ export function GrainMarketCard({ grain }) {
   }
   return (
     <>{!grain? 
-      <Link to='/market/cartMarket'>  <div className='d-flex justify-content-end '>  
+      <Link to='/market/cartMarket' className='text-decoration-none'>  <div className='d-flex justify-content-end '>  
     <i className='text-info bi bi-cart-fill mt-3 ' style={{fontSize:"60px"}}></i>
   <span className='me-0 fs-2'>{cartCount}</span></div> </Link>:""}
 { dat||grain?
@@ -116,16 +117,17 @@ return(
         </p>
         <p className="card-text darkgreen fs-6 m-0" style={{maxHeight:"40px",overflow:"scroll"}} >Description: {data.description}</p>
         <p className="card-text darkgreen fs-6 m-0"><i className="bi bi-geo-alt text-danger"></i>&nbsp;{data.city},{data.state}</p>
-      </div>
-    
-    </div>
-    {grain?
-    <button className='btn btn-success w-25 mx-auto'>
+        {grain?
+    <button className='btn btn-success w-100 mx-auto'>
   <Link to='/market/grainMarket' className='text-white text-decoration-none'>Explore More</Link>
 </button>: <button className='btn btn-success mt-1 w-50 mx-auto' onClick={()=>{addTocarts(data._id)}}>
   <a className='text-white text-decoration-none'>Add to Cart</a>
 </button>
   }
+      </div>
+    
+    </div>
+   
   </div>
 </div>
 </div>

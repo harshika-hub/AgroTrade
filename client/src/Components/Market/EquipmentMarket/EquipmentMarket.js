@@ -38,7 +38,7 @@ export function EquipmentMarketCard({ equips}) {
 {
  equipments||equips? equipments.map((equipment)=>{
 return(
-    <div  key={equipment._id} className="col-12 col-sm-12 col-md-6  p-1  d-flex justify-content-center bg-warning d-inline-flex mb-5" >
+    <div  key={equipment._id} className="col-12 col-sm-12 col-md-6  p-1  d-flex justify-content-center d-inline-flex mb-5" >
     <div className="card bg-light  w-100 p-0" style={{borderRadius:"5px"}}>
       <div className="row g-0">
         <div className="col-12 col-sm-6 col-md-12 col-lg-12 col-xl-6" id="imgeDiv">
@@ -70,16 +70,16 @@ return(
             </p>
             <p className="card-text darkgreen fs-6 m-0" style={{maxHeight:"40px",overflow:"scroll"}} >Description: {equipment.description}</p>
             <p className="card-text darkgreen fs-6 m-0"><i className="bi bi-geo-alt text-danger"></i>&nbsp;{equipment.city},{equipment.state}</p>
-           
-          </div>
-        </div>
-        {equips?
-    <button className='btn btn-success mt-1 w-50 mx-auto'>
+            {equips?
+    <button className='btn btn-success mt-1 w-100 mx-auto'>
   <Link to='/market/equipmentMarket' className='text-white text-decoration-none'>More</Link>
 </button>: <button className='btn btn-success mt-1 w-50 mx-auto'>
   <Link className='text-white text-decoration-none'>Add to Cart</Link>
 </button>
   }
+          </div>
+        </div>
+    
       </div>
     </div>
   </div> 

@@ -96,19 +96,19 @@ return(
             <h5 className="darkgreen">
               To: {new Date( land.avilableTill).getDate()+"/"+new Date( land.avilableTill).getMonth()+1+"/"+new Date( land.avilableTill).getFullYear()}
             </h5>
-           
-          </div>
-          
-        </div>
-     
-      </div>
-      {agriLand?
-    <button className='btn btn-success w-25 mx-auto'>
+            {agriLand?
+    <button className='btn btn-success w-100 mx-auto mt-5'>
   <Link to='/market/agriLandMarket' className='text-white text-decoration-none'>More</Link>
 </button>: <button className='btn btn-success mt-1 w-50 mx-auto'>
   <Link className='text-white text-decoration-none'>Add to Cart</Link>
 </button>
   }
+          </div>
+          
+        </div>
+     
+      </div>
+  
     </div>
   </div>
 )
