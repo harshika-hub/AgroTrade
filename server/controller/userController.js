@@ -293,7 +293,7 @@ export const getExpertContrller = async (req, res) => {
 }
 export const getMarketGrainContrller = async (request, response) => {
     try {
-        const grain = await grains.find();
+        const grain = await grains.find({admin_verify:true});
         response.status(200).json({ grain: grain });
 
     } catch (err) {
@@ -306,7 +306,7 @@ export const getMarketGrainContrller = async (request, response) => {
 }
 export const getMarketEquipmentContrller = async (request, response) => {
     try {
-        const equipment = await equipments.find();
+        const equipment = await equipments.find({admin_verify:true});
         response.status(200).json({ equipment: equipment });
 
     } catch (err) {
@@ -319,7 +319,7 @@ export const getMarketEquipmentContrller = async (request, response) => {
 }
 export const getMarketLandContrller = async (request, response) => {
     try {
-        const agriland = await agriLand.find();
+        const agriland = await agriLand.find({admin_verify:true});
         response.status(200).json({ agriLand: agriland });
 
     } catch (err) {
@@ -333,7 +333,7 @@ export const getMarketLandContrller = async (request, response) => {
 
 export const getMarketStorageContrller = async (request, response) => {
     try {
-        const storage = await coldStLands.find();
+        const storage = await coldStLands.find({admin_verify:true});
         response.status(200).json({ storage: storage });
 
     } catch (err) {

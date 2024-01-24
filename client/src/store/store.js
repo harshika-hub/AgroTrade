@@ -5,6 +5,8 @@ import orgSlice from './organizationSlice.js';
 import adminSlice from './adminSlice.js';
 import expertSlice from './expertSlice.js';
 import marketSlice from './marketSlice.js';
+import messageSlice from './messageSlice.js';
+import chatSlice from './chatSlice.js';
 
 export default configureStore({
     reducer:{
@@ -13,6 +15,8 @@ export default configureStore({
         orgSlice:orgSlice,
         adminSlice:adminSlice,
         expertSlice:expertSlice,
-        marketSlice:marketSlice
+        marketSlice:marketSlice,
+        messageSlice:messageSlice,
+        chatSlice:chatSlice,
     }
 });

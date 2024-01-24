@@ -12,15 +12,14 @@ import Home from './Components/Home/HomePage.js';
 import AboutUs from './Components/AboutUsPage/AboutUs.js';
 import ContactUs from './Components/ContactUsPage/ContactUs.js';
 import UserdashBoard from './Components/UserDashboard/UserDashboard.js';
-import Chatsection from './Components/ChatComponent/Chatsection.js';
+// import Chatsection from './Components/ChatComponent/Chatsection.js';
+import Chatsection from './Components/UserDashboard/ChatComponent/Chatsection.js'
 import { Routes, Route } from 'react-router-dom'
 import Profile from './Components/UserDashboard/ProfileSection/ProfileSection.js';
 import ListedGrains from './Components/UserDashboard/ListedGrain/ListedGrains.js';
 import ListedEquipments from './Components/UserDashboard/ListedEquimentsSection/ListedEquiments.js';
 import AgricultureLand from './Components/UserDashboard/AgricultureLands Section/AgricultureLand.js';
 import ColdStorageLand from './Components/UserDashboard/ColdStorageLandSection.js/ColdStorageLand.js';
-import AdminDashboard from './Components/AdminDashboard/AdminDashboard.js';
-import AdminLogin from './Components/AdminDashboard/AdminLogin.js/AdminLogin.js'
 import Market from './Components/Market/Market.js';
 import MarketPlace from './Components/Market/MarketPlace.js';
 import { GrainMarketCard } from './Components/Market/GrainMarket/GrainMarket.js';
@@ -28,6 +27,19 @@ import { FarmLandMarketCard } from './Components/Market/FarmLandMarket/FarmLandM
 import { StorageMarketCard } from './Components/Market/StorageMarket/StorageMarket.js';
 import { EquipmentMarketCard } from './Components/Market/EquipmentMarket/EquipmentMarket.js';
 import Cart from './Components/Market/Cart/Cart.js';
+import AdminDashboard from './Components/AdminDashboard/AdminDashboard.js';
+import AdminLogin from './Components/AdminDashboard/AdminLogin/AdminLogin.js';
+import ExpertListView from './Components/AdminDashboard/ExpertList/ExpertList.js';
+import OrganizationList from './Components/AdminDashboard/OrganizationList/OrganizationList.js';
+import UserList from './Components/AdminDashboard/UserList/UserList.js';
+import OrderedGrains from './Components/AdminDashboard/Grains/OrderedGrains/OrderedGrains.js'
+import ListedGrainsAd from './Components/AdminDashboard/Grains/ListedGrainsAd/ListedGrainsAd.js'
+import ListedEquipmentsAd from './Components/AdminDashboard/Equipments/ListedEquipmentsAd/ListedEquipmentsAd.js'
+import OrderedEquipments from './Components/AdminDashboard/Equipments/OrderedEquipments/OrderedEquipments.js';
+import ListedFarmingLand from './Components/AdminDashboard/FarmingLand/ListedFarmingLand/ListedFarmingLand.js';
+import ContactFarmingLand from './Components/AdminDashboard/FarmingLand/ContractFarmingLand/ContractFarmingLand.js'
+import ContractColdStLand from './Components/AdminDashboard/ColdStLand/ContractColdStLand/ContractColdStLand.js'
+import ListedColdStLand from './Components/AdminDashboard/ColdStLand/ListedColdStLand/ListedColdStLand.js';
 function App() {
   // const [socket,setSocket]=useState(null);
   // useEffect(()=>{
@@ -66,9 +78,21 @@ function App() {
           <Route path="storageMarket" element={<StorageMarketCard />} ></Route>
           <Route path="equipmentMarket" element={<EquipmentMarketCard />} ></Route>
           <Route path="cartMarket" element={<Cart />} ></Route>
+        </Route>
 
-
-
+        <Route path='/adminLogin' Component={AdminLogin} ></Route>
+        <Route path='/adminDashboard' Component={AdminDashboard} >
+          <Route path="expertList" element={<ExpertListView />} />
+          <Route path='organizationList' element={<OrganizationList />}></Route>
+          <Route path='userList' element={<UserList />}></Route>
+          <Route path='listedGrainsAd' element={<ListedGrainsAd />}></Route>
+          <Route path='orderedGrains' element={<OrderedGrains />}></Route>
+          <Route path='listedEquipmentsAd' element={<ListedEquipmentsAd />}></Route>
+          <Route path='orderedEquipments' element={<OrderedEquipments />}></Route>
+          <Route path='listedFarmingLand' element={<ListedFarmingLand />}></Route>
+          <Route path='contactFarmingLand' element={<ContactFarmingLand />}></Route>
+          <Route path='listedColdStLand' element={<ListedColdStLand />}></Route>
+          <Route path='contractColdStLand' element={<ContractColdStLand />}></Route>
         </Route>
 
       </Routes>

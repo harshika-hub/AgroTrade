@@ -11,7 +11,10 @@ import userRouter from "./routes/userRouter.js";
 import indexRouter from "./routes/indexRouter.js";
 import sockets from "./sockets/socketsRoutes.js";
 import path from "path";
+import messageRouter from './routes/messageRouter.js'
+import chatRouter from './routes/chatRouter.js'
 import { fileURLToPath } from 'url';
+import adminRouter from './routes/adminRouter.js'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config();
@@ -55,8 +58,11 @@ app.use(express.static(path.join(__dirname, 'uploads')));
 
 
 app.use("/uploads",express.static("uploads"))
-app.use('',indexRouter)
-app.use('/user',userRouter)
+app.use('',indexRouter);
+app.use('/user',userRouter);
+app.use('/admin',adminRouter)
+app.use("/chat",chatRouter);
+app.use("/message",messageRouter);
 
 
 httpServer.listen(PORT, () => {

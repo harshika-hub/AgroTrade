@@ -87,7 +87,7 @@ function Profile() {
 
      async function Updateprofile(event) {
         event.preventDefault();
-        // console.log("fields in update profilw",fields);
+        console.log("fields in update profilw",fields);
         
 
         document.getElementById("profileCard").classList.add("offset-lg-3")
@@ -114,9 +114,9 @@ function Profile() {
             formData.append(key,dataobject[key]);
           }
         }
-        // console.log("form data in update profile",formData);
+        console.log("form data in update profile",formData);
         var cd= await disp(completeProfile(formData));
-        // console.log("data after complete profile in component",cd);
+        console.log("data after complete profile in component",cd);
       }
 
       console.log("userdata in profile............",data)
@@ -124,9 +124,10 @@ function Profile() {
         var  profilePhoto = document.getElementById("profilePhoto");
         const file = profilePhoto.files[0];
       if (file) {
-          // console.log('Original file name:', file);
-          // console.log('File size:', file.size, 'bytes');
+          console.log('Original file name:', file);
+          console.log('File size:', file.size, 'bytes');
           dispatch({action:"image",value:file});
+          // You can perform further actions with the file object here
         }
       }
       
@@ -143,11 +144,11 @@ function Profile() {
       //   }
       // })
 
-      return ( <>-
+      return ( <>
     <div className="row m-0 w-100 h-100" style={{height:"auto"}}>
        <div className="col-12 col-md-6 bg-midgreen p-0 offset-lg-3" id="profileCard">
              <div className="p-5 h-75" >
-           {fields.image? <img src={"http://localhost:3000/"+fields.image} className="rounded  mx-auto d-block mb-3 " style={{width:"35%",height:"30vh"}} alt=""/>
+           {fields.image? <img src={"http://localhost:3000/"+fields.image} className="rounded-circle  mx-auto d-block mb-3 " style={{width:"20vh",height:"20vh"}} alt=""/>
 
             : <img src={logo} className="rounded mx-auto d-block" style={{width:"35%"}} alt=""/>}
 

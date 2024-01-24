@@ -23,6 +23,7 @@ export default function MarketCard() {
   const getEquipment = async (token) => {
     const equipment = await dispatch(EquipmentMarket(token));
     console.log('equipment in component', equipment.payload);
+    if(equipment.payload)
     setEquipment(equipment.payload.slice(0,2));
 
   }
@@ -30,6 +31,7 @@ export default function MarketCard() {
   const getLand = async (token) => {
     const agriLand = await dispatch(LandMarket(token));
     console.log('agriLand in component', agriLand.payload);
+    if(agriLand.payload)
     setAgriland((agriLand.payload).slice(0,1));
 
   }
@@ -37,6 +39,7 @@ export default function MarketCard() {
   const getStorage = async (token) => {
     const storage = await dispatch(storageMarket(token));
     console.log('storage in component', storage.payload);
+    if(storage.payload)
     setStorage((storage.payload).slice(0,1));
 
   }
@@ -47,6 +50,7 @@ export default function MarketCard() {
     const fetchData = async () => {
       try {
         const response = await axios.get(USER_REQUESTED_URL + "/marketGrains/" + token);
+        if(response.data.grain)
         setGrain(response.data.grain.slice(0,2));
         console.log(response);
       } catch (error) {

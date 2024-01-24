@@ -25,8 +25,8 @@ function AdminDashboardLinks() {
             <i className="fa-solid fa-bars midgreen"></i>
             </a>
            
-            <div className="navbar-nav  w-75 " id="lg-links">
-               <ul id="navLinkul" className="nav d-felx justify-content-around  w-100 aling-items-center" >
+            <div className="navbar-nav  w-75 d-flex  align-items-center" id="lg-links">
+               {/* <ul id="navLinkul" className="nav d-felx justify-content-around  w-100 aling-items-center" >
                 <li className="nav-item ">
 
                   <Link to='/' className=" text-white nav-link">
@@ -55,8 +55,12 @@ function AdminDashboardLinks() {
                     <i className="bi bi-person-fill-add midgreen"></i>&nbsp;Book Expert
                   </Link>
                 </li>
-                </ul> 
-              <div className="nav-item dropdown">
+                </ul>  */}
+                <div className="w-75" >
+                <h3 className="midgreen mt-3 text-center"><i class="bi bi-person-video2"></i>&nbsp;Admin Dashboard</h3>
+                </div>
+                <div className="w-25  d-flex justify-content-end">
+                <div className="nav-item dropdown ">
                 <a
                   href="#"
                   className="nav-link dropdown-toggle  text-white"
@@ -85,7 +89,9 @@ function AdminDashboardLinks() {
                     See all notifications
                   </a>
                 </div>
-              </div>
+                 </div>
+                </div>
+              
             </div>
             <div className="d-flex align-items-center justify-content-center" >
             {/* <a href="#" className="sidebar-toggler m-2 text-decoration-none flex-shrink-0 " id="navToggler">
