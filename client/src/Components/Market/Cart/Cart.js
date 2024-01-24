@@ -14,6 +14,7 @@ export default function Cart(){
       console.log("cart items in grain component",cartItems);
       setCartCount(cartItems.payload.length)
       setItems([...cartItems.payload]);
+    
    
      //  https://mdbootstrap.com/docs/standard/extended/shopping-carts/
    

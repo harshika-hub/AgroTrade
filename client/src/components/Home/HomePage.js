@@ -32,6 +32,7 @@ function Home() {
     const getEquipment = async (token) => {
     const equipment = await dispatch(EquipmentMarket(token));
     console.log('equipment in component', equipment.payload);
+    if(equipment.payload)
     setEquipment(equipment.payload.slice(0,2));
 
   }
