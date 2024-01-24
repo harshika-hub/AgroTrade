@@ -27,6 +27,7 @@ import { GrainMarketCard } from './Components/Market/GrainMarket/GrainMarket.js'
 import { FarmLandMarketCard } from './Components/Market/FarmLandMarket/FarmLandMarket.js';
 import { StorageMarketCard } from './Components/Market/StorageMarket/StorageMarket.js';
 import { EquipmentMarketCard } from './Components/Market/EquipmentMarket/EquipmentMarket.js';
+import Cart from './Components/Market/Cart/Cart.js';
 function App() {
   // const [socket,setSocket]=useState(null);
   // useEffect(()=>{
@@ -64,6 +65,8 @@ function App() {
           <Route path="agriLandMarket" element={<FarmLandMarketCard />} ></Route>
           <Route path="storageMarket" element={<StorageMarketCard />} ></Route>
           <Route path="equipmentMarket" element={<EquipmentMarketCard />} ></Route>
+          <Route path="cartMarket" element={<Cart />} ></Route>
+
 
 
         </Route>

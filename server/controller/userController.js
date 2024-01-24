@@ -1,6 +1,7 @@
-import { request, response } from "express";
-import { users, grains, equipments, coldStLands, agriLand,cart } from "../models/userModel.js";
+import { users, grains, equipments, coldStLands, agriLand, cart } from "../models/userModel.js";
 import mongoose from "mongoose";
+import { ObjectId } from 'mongodb';
+
 export const newExpertController = async (req, res) => {
     const { experience, education, consultancy_field, consultancy_type, consultancy_fee_video, consultancy_fee_chat, email } = req.body
     const updateUser = {
@@ -52,15 +53,15 @@ export const updateProfileController = async (req, res) => {
     req.body.user_status = true;
     console.log("user data in update user router", req.body);
     try {
-        const resp= await users.findOneAndUpdate({ email: req.body.email }, { $set: req.body });
+        const resp = await users.findOneAndUpdate({ email: req.body.email }, { $set: req.body });
         const userData = await users.aggregate([{ $match: { email: req.body.email } }]);
 
         // console.log("res in complete user", userData);
-        res.status(201).json({result:userData});
+        res.status(201).json({ result: userData });
 
     } catch (err) {
         console.log("err while completing profile", err);
-        res.status(500).json({msg:"error while updating"});
+        res.status(500).json({ msg: "error while updating" });
     }
 }
 
@@ -142,7 +143,7 @@ export const updateColdStLandController = async (request, response) => {
             request.body = { ...request.body, ["image360"]: image360 };
         }
     } catch (err) {
-        console.log("err",err);
+        console.log("err", err);
     }
     const result = await coldStLands.updateOne({ _id: _id }, { $set: request.body });
     response.status(201).json({ message: "success" })
@@ -160,11 +161,11 @@ export const updateAgriLandController = async (request, response) => {
             request.body = { ...request.body, ["image360"]: image360 };
         }
     } catch (err) {
-        console.log("err",err);
+        console.log("err", err);
     }
     const result = await agriLand.updateOne({ _id: _id }, { $set: request.body });
-    const Lands = await agriLand.find({ownerEmail: request.body.ownerEmail });
-    response.status(201).json({ message: "success",Lands })
+    const Lands = await agriLand.find({ ownerEmail: request.body.ownerEmail });
+    response.status(201).json({ message: "success", Lands })
 }
 
 export const updateGrainController = async (request, response) => {
@@ -244,7 +245,7 @@ export const addAgriLandController = async (request, response) => {
         console.log(landData);
         const newAgriLand = await agriLand.create(landData);
         console.log("Agriculture Land Inserted Successfully");
-        const Lands = await agriLand.find({ownerEmail:request.body.ownerEmail});
+        const Lands = await agriLand.find({ ownerEmail: request.body.ownerEmail });
         response.status(201).json({ message: "success", Lands: Lands });
     } catch (err) {
         console.log("err", err);
@@ -267,7 +268,7 @@ export const removeAgriLandController = async (request, response) => {
 
         console.log(request.query);
         await agriLand.deleteOne({ _id: request.query._id });
-        const Lands = await agriLand.find({ownerEmail: request.query.ownerEmail });
+        const Lands = await agriLand.find({ ownerEmail: request.query.ownerEmail });
         console.log("Land Deleted Sucessfully");
         response.status(201).json({ message: "success", Lands });
     } catch (err) {
@@ -290,132 +291,116 @@ export const getExpertContrller = async (req, res) => {
 
     }
 }
-export const getMarketGrainContrller=async(request,response)=>{
-    try{
-        const grain= await grains.find();
-        response.status(200).json({grain:grain});
+export const getMarketGrainContrller = async (request, response) => {
+    try {
+        const grain = await grains.find();
+        response.status(200).json({ grain: grain });
 
-    }catch(err){
-        console.log("error in getMarketGrain",err);
-        response.status(500).json({msg:'err while fetching grain for market'})
-        
+    } catch (err) {
+        console.log("error in getMarketGrain", err);
+        response.status(500).json({ msg: 'err while fetching grain for market' })
+
     }
 
 
 }
-export const getMarketEquipmentContrller=async(request,response)=>{
-    try{
-        const equipment= await equipments.find();
-        response.status(200).json({equipment:equipment});
+export const getMarketEquipmentContrller = async (request, response) => {
+    try {
+        const equipment = await equipments.find();
+        response.status(200).json({ equipment: equipment });
 
-    }catch(err){
-        console.log("error in equipment",err);
-        response.status(500).json({msg:'err while fetching equiment for market'})
-        
+    } catch (err) {
+        console.log("error in equipment", err);
+        response.status(500).json({ msg: 'err while fetching equiment for market' })
+
     }
 
 
 }
-export const getMarketLandContrller=async(request,response)=>{
-    try{
-        const agriland= await agriLand.find();
-        response.status(200).json({agriLand:agriland});
+export const getMarketLandContrller = async (request, response) => {
+    try {
+        const agriland = await agriLand.find();
+        response.status(200).json({ agriLand: agriland });
 
-    }catch(err){
-        console.log("error in getMarketAgriLand",err);
-        response.status(500).json({msg:'err while fetching agriLand for market'})
-        
+    } catch (err) {
+        console.log("error in getMarketAgriLand", err);
+        response.status(500).json({ msg: 'err while fetching agriLand for market' })
+
     }
 
 
 }
 
-export const getMarketStorageContrller=async(request,response)=>{
-    try{
-        const storage= await coldStLands.find();
-        response.status(200).json({storage:storage});
+export const getMarketStorageContrller = async (request, response) => {
+    try {
+        const storage = await coldStLands.find();
+        response.status(200).json({ storage: storage });
 
-    }catch(err){
-        console.log("error in getMarketStorage",err);
-        response.status(500).json({msg:'err while fetching storage for market'})
-        
+    } catch (err) {
+        console.log("error in getMarketStorage", err);
+        response.status(500).json({ msg: 'err while fetching storage for market' })
+
     }
 
-
 }
-// export const addcartController= async(request,response)=>{
-//     try{
-//         const{_id,email,token}=request.body;
-//         var product=grains.aggregate({$match:{_id:_id}});
-//         var userId=users.aggregate({$match:{email:email}},{$project:{_id:1}});
-//         var cartResponse=cart.create({
-//             userId: mongoose.Types.ObjectId(userId),
-//             products: [{
-//               product: product,
-//             }],
-//         });
-//         console.log("cart response",cartResponse)
-//         response.status(201).json({msg:"added successfully"});
-//     }catch(err){
-//         console.log("error in cart controller",err);
-//     }
-  
-
-// }
-
-// export const getCartController= async (req, res) => {
-//     try {
-//         // Find the user's cart based on the user ID
-//         const {email}=req.body;
-//         const userId=users.aggregate({$match:{email:email}},{$project:{
-//             _id:1
-//         }});
-//         console.log("userId in get cat controller",userId);
-//         const userCart = await cart.find({ userId: mongoose.Types.ObjectId(userId) })
-//           .select('products') // Select only the 'products' field
-//           .populate('products.product'); // Populate the embedded product documents
-    
-//         if (userCart) {
-//           const productsArray = userCart.products;
-//           console.log('User Cart Products:', productsArray);
-//         } else {
-//           console.log('User does not have a cart.');
-//         }
-//       } catch (error) {
-//         console.error('Error retrieving user cart:', error);
-//       }}
-
-
 
 export const addcartController = async (request, response) => {
     try {
-        const { _id, email} = request.body;
-        console.log("id email",_id,email);
+        const { _id, email } = request.body;
+        console.log("id email", _id, email);
 
-        // Execute the aggregation pipeline to get the product
-        const product = await  grains.findOne({_id:_id})
-        // grains.aggregate([
-        //     { $match: { _id: _id } }
-        // ]);
-        console.log("prosuct",product);
+        const productId = new ObjectId(_id);
 
-        // Execute the aggregation pipeline to get the userId
+        const product = await grains.findOne({ _id: productId });
+
         const userIdObj = await users.aggregate([
             { $match: { email: email } },
             { $project: { _id: 1 } }
         ]);
-        console.log("userId",userIdObj);
-        const userId = userIdObj[0]._id; // Extract the userId from the result
+        console.log("userId", userIdObj);
+        const userId = userIdObj[0]._id;
 
-        // Create a new cart entry
-        const cartResponse = await cart.create({
-            userId: userId,
-            products: [{
-                product: product, // Assuming there is only one product
-            }],
-        });
+        const existingCart = await cart.findOne({ userId: userId });
 
-        console.log("cart response", cartResponse)
+        if (existingCart) {
+            // Check if the product is already in the cart
+            const existingProductIndex = existingCart.products.findIndex(p => p.product.toString() === productId.toString());
+
+            if (existingProductIndex !== -1) {
+                // If the product is already in the cart, increase the quantity
+                await cart.findOneAndUpdate(
+                    { userId: userId, "products.product": productId },
+                    { $inc: { "products.$.quantity": 1 } }
+                );
+            } else {
+                await cart.findOneAndUpdate(
+                    { userId: userId },
+                    {
+                        $push: {
+                            products: {
+                                product: productId,
+                                quantity: 1,
+                                date: new Date(),
+                                price: product.price,
+                            }
+                        }
+                    }
+                );
+            }
+        } else {
+            const newCart = new cart({
+                userId: userId,
+                products: [{
+                    product: productId,
+                    quantity: 1,
+                    date: new Date(),
+                    price: product.price,
+                }],
+            });
+
+            await newCart.save();
+        }
+
         response.status(201).json({ msg: "added successfully" });
     } catch (err) {
         console.log("error in cart controller", err);
@@ -423,33 +408,54 @@ export const addcartController = async (request, response) => {
     }
 }
 
-export const getCartController = async (req, res) => {
+export const getCartController = async (request, response) => {
     try {
-        const { email } = req.body;
+        const { email } = request.body;
+        console.log("email", email);
 
-        // Execute the aggregation pipeline to get the userId
         const userIdObj = await users.aggregate([
             { $match: { email: email } },
             { $project: { _id: 1 } }
         ]);
+        console.log("userId", userIdObj);
+        const userId = userIdObj[0]._id;
 
-        const userId = userIdObj[0]._id; // Extract the userId from the result
+        const cartItems = await cart.aggregate([
+            {
+                $match: { userId: userId }
+            },
+            {
+                $unwind: "$products"
+            },
+            {
+                $lookup: {
+                    from: 'grains',
+                    localField: 'products.product',
+                    foreignField: '_id',
+                    as: 'productDetails'
+                }
+            },
+            {
+                $unwind: "$productDetails"
+            },
+            {
+                $project: {
+                    productId: '$products.product',
+                    quantity: '$products.quantity',
+                    date: '$products.date',
+                    price: '$products.price',
+                    productName: '$productDetails.name',
+                    productDescription: '$productDetails.description',
+                    grainname: '$productDetails.grainname'
+                }
+            }
+        ]);
 
-        // Find the user's cart based on the user ID
-        const userCart = await cart.findOne({ userId: userId })
-            .select('products') // Select only the 'products' field
-            .populate('products.product'); // Populate the embedded product documents
+        console.log(cartItems);
 
-        if (userCart) {
-            const productsArray = userCart.products;
-            console.log('User Cart Products:', productsArray);
-            res.status(200).json({ products: productsArray });
-        } else {
-            console.log('User does not have a cart.');
-            res.status(404).json({ error: 'User does not have a cart.' });
-        }
-    } catch (error) {
-        console.error('Error retrieving user cart:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        response.status(200).json(cartItems);
+    } catch (err) {
+        console.log("error in get cart controller", err);
+        response.status(500).json({ error: 'Internal Server Error' });
     }
 }

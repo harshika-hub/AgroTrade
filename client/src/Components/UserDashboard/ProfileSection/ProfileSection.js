@@ -87,7 +87,7 @@ function Profile() {
 
      async function Updateprofile(event) {
         event.preventDefault();
-        console.log("fields in update profilw",fields);
+        // console.log("fields in update profilw",fields);
         
 
         document.getElementById("profileCard").classList.add("offset-lg-3")
@@ -114,9 +114,9 @@ function Profile() {
             formData.append(key,dataobject[key]);
           }
         }
-        console.log("form data in update profile",formData);
+        // console.log("form data in update profile",formData);
         var cd= await disp(completeProfile(formData));
-        console.log("data after complete profile in component",cd);
+        // console.log("data after complete profile in component",cd);
       }
 
       console.log("userdata in profile............",data)
@@ -124,10 +124,9 @@ function Profile() {
         var  profilePhoto = document.getElementById("profilePhoto");
         const file = profilePhoto.files[0];
       if (file) {
-          console.log('Original file name:', file);
-          console.log('File size:', file.size, 'bytes');
+          // console.log('Original file name:', file);
+          // console.log('File size:', file.size, 'bytes');
           dispatch({action:"image",value:file});
-          // You can perform further actions with the file object here
         }
       }
       

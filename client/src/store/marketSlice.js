@@ -36,15 +36,26 @@ export const storageMarket=createAsyncThunk('marketSlice/storageMarket',async(to
 })
 
 export const getCart=createAsyncThunk("userSlice/getCart",async(cartObj)=>{
-    var obj=await axios.post(USER_REQUESTED_URL+`/getCartitems`,cartObj);
-    console.log("inside getCart thunk",obj.data[0].email);
-    return obj.data[0];
+    try {
+        var obj = await axios.post(USER_REQUESTED_URL + `/getCartitems`, cartObj);
+        console.log("inside getCart thunk", obj.data);
+        return obj.data;
+    } catch (err) {
+        console.error("Error in getCart thunk:", err);
+        throw err; // Re-throw the error to let it propagate to the calling code
+    }
 
 });
-export const addTocart=createAsyncThunk("userSlice/addTocartt",async(cartObj)=>{
-    var obj=await axios.post(USER_REQUESTED_URL+`/addTocart`,cartObj);
-    console.log("inside getCart thunk",obj.data[0].email);
-    return obj.data[0];
+export const addTocart=createAsyncThunk("userSlice/addTocart",async(cartObj)=>{
+    try{
+        var obj=await axios.post(USER_REQUESTED_URL+`/addTocart`,cartObj);
+        console.log("inside addCart thunk",obj);
+        return obj.data;
+    }catch(err){
+        console.log("Error in add cart thunk");
+        throw err;
+    }
+   
 
 })
 
@@ -73,15 +84,17 @@ const marketSlice=createSlice({
             state.storage=action.payload;
 
         }).addCase(getCart.fulfilled,(state,action)=>{
-            console.log("action in reducer getCart",action.payload);
-            state.cartItem=action.payload;
+            console.log("action in reducer getCart",action);
+            state.cartItem=([...action.payload]);
 
 
         }).addCase(addTocart.fulfilled,(state,action)=>{
             console.log("action in reducer addToCart",action.payload);
 
 
-        });
+        }) 
+        .addDefaultCase((state, action) => {
+        });;
     },
     reducers:{
         market:(state,action)=>{

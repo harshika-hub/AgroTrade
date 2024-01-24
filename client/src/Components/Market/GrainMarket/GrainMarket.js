@@ -15,9 +15,12 @@ export function GrainMarketCard({ grain }) {
   const [dat, setData] = useState([]);
   const[cartCount,setCartCount]=useState(0);
   const dispatch=useDispatch();
+
   const getCartitem=async({token,email})=>{
    const cartItems=await dispatch(getCart({token,email}));
-   console.log(cartItems);
+   console.log("cart items in grain component",cartItems);
+   setCartCount(cartItems.payload.length)
+
   //  https://mdbootstrap.com/docs/standard/extended/shopping-carts/
 
     
@@ -44,29 +47,43 @@ export function GrainMarketCard({ grain }) {
 
   getCartitem({token,email});
 
-  },[grain])
+  },[grain,dispatch])
 
-  const addTocarts=(_id)=>{
+  const addTocarts=async(_id)=>{
     const token = jscookie.get('token')
     const email=jscookie.get('userEmail');
     
-     Swal.fire({
-      position: "middle",
-      icon: "",
-      title: "Added to Card",
-      html:"<i class='fs-1 text-info bi bi-cart-fill'></i>",
-      showConfirmButton: false,
-      timer: 1500
-    });
-    dispatch(addTocart({token,email,_id}));
+     
+    const addResponse=await dispatch(addTocart({token,email,_id}));
+    console.log("addResponse",addResponse);
+    if(addResponse.payload.msg==='added successfully')
+    {
+      Swal.fire({
+        position: "center",
+        icon: "",
+        title: "Added to Cart",
+        html:"<i class='fs-1 text-info bi bi-cart-fill'></i>",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }else{
+      Swal.fire({
+        position: "center",
+        icon: "",
+        title: "there is an error please try again",
+        html:"<i class='fs-1 text-info bi bi-cart-fill'></i>",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
 
 
   }
   return (
     <>{!grain? 
-     <div className='d-flex justify-content-end '> 
-    <i class='text-info bi bi-cart-fill mt-3 ' style={{fontSize:"60px"}}></i>
-    <span className='me-0 fs-2'>{cartCount}</span></div>:""}
+      <Link to='/market/cartMarket'>  <div className='d-flex justify-content-end '>  
+    <i className='text-info bi bi-cart-fill mt-3 ' style={{fontSize:"60px"}}></i>
+  <span className='me-0 fs-2'>{cartCount}</span></div> </Link>:""}
 { dat||grain?
   dat.map((data)=>{
 return(

@@ -288,18 +288,29 @@ const agriLandModel = new mongoose.Schema({
 
     
 });
+// const cartSchema = new mongoose.Schema({
+//     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true },
+  
+//     // Embedding the product document in the cart
+//     products: [{
+//       product: { type: Object, required: true },
+//       quantity: { type: Number, default: 1 },
+//     }],
+  
+//   }, { timestamps: true });
+  
+// const cart = mongoose.model('cart', cartSchema);
 const cartSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true },
-  
-    // Embedding the product document in the cart
-    products: [{
-      product: { type: Object, required: true },
-      quantity: { type: Number, default: 1 },
-    }],
-  
-  }, { timestamps: true });
-  
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', // Assuming your user model is named 'User'
+        required: true
+    },
+    products: [Object]
+});
+
 const cart = mongoose.model('cart', cartSchema);
+
 const  agriLand= mongoose.model('agriLand',agriLandModel,'agriLand');
 const equipments= mongoose.model('equipments',equipmentModel,'equipments')
 const users = mongoose.model('users', userModel, 'users');
