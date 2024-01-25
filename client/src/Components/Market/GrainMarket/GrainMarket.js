@@ -19,6 +19,7 @@ export function GrainMarketCard({ grain }) {
   const getCartitem=async({token,email})=>{
    const cartItems=await dispatch(getCart({token,email}));
    console.log("cart items in grain component",cartItems);
+   if(cartItems.payload)
    setCartCount(cartItems.payload.length)
 
   //  https://mdbootstrap.com/docs/standard/extended/shopping-carts/

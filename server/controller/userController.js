@@ -460,3 +460,42 @@ export const getCartController = async (request, response) => {
         response.status(500).json({ error: 'Internal Server Error' });
     }
 }
+
+export const updateCartController=async(request,response)=>{
+    const {_id,productId, quantity,email}=request.body;
+    console.log("inside update cart",_id,email,productId,quantity);
+    // try {
+    //     const cart = await cart.findById(Id);
+    
+    //     // Find the index of the product in the products array
+    //     const productIndex = cart.products.findIndex(product => product.product.toString() === productId);
+    
+    //     // If the product is found in the cart
+    //     if (productIndex !== -1) {
+    //       cart.products[productIndex].quantity = quantity; // Update the quantity to your desired value
+    //     }
+    
+    //     await cart.save();
+    
+    //     response.status(200).json({ msg: 'Product quantity updated successfully' });
+    //   } catch (error) {
+    //     console.error('Error updating product quantity:', error);
+    //     response.status(500).json({ error: 'Internal Server Error' });
+    //   }
+
+    try {
+        const result = await cart.updateOne(
+          { _id: _id, 'products.product': productId },
+          { $set: { 'products.$.quantity': quantity } }
+        );
+      
+        if (result.nModified === 1) {
+          response.status(200).json({ msg: 'Product quantity updated successfully' });
+        } else {
+          response.status(404).json({ error: 'Product not found in the cart' });
+        }
+      } catch (error) {
+        console.error('Error updating product quantity:', error);
+        response.status(500).json({ error: 'Internal Server Error' });
+      }
+}

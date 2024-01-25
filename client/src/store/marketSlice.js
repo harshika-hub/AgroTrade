@@ -57,8 +57,25 @@ export const addTocart=createAsyncThunk("userSlice/addTocart",async(cartObj)=>{
     }
    
 
-})
-
+});
+export const updateCartqty = createAsyncThunk(
+    "marketSlice/updateQuantityInDatabase",
+    async ({ _id,productId, quantity,token,email }) => {
+      try {
+        await axios.post(`${USER_REQUESTED_URL}/updateCartQuantity`, {_id,productId, quantity,token,email });
+        return { productId, quantity };
+      } catch (error) {
+        console.error("Error updating quantity in the database:", error);
+        throw error;
+      }
+    }
+  );
+  export const updateProductQuantityInStore = createAsyncThunk(
+    "marketSlice/updateProductQuantityInStore",
+    async ({ productId, quantity }) => {
+      return { productId, quantity };
+    }
+  );
 
 const marketSlice=createSlice({
     name:'marketSlice',
@@ -92,7 +109,12 @@ const marketSlice=createSlice({
             console.log("action in reducer addToCart",action.payload);
 
 
-        }) 
+        })  .addCase(updateProductQuantityInStore.fulfilled, (state, action) => {
+            const { productId, quantity } = action.payload;
+            state.cartItem = state.cartItem.map((item) =>
+              item.productId === productId ? { ...item, quantity } : item
+            );
+          })
         .addDefaultCase((state, action) => {
         });;
     },
