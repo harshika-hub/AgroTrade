@@ -75,6 +75,8 @@ function Home() {
     const fetchData = async () => {
       try {
         const response = await axios.get(USER_REQUESTED_URL + "/marketGrains/" + token);
+        console.log("grain in home component",response);
+
         if (response.data)
           setGrain(response.data.grain.slice(0, 2));
         console.log(response);

@@ -54,7 +54,19 @@ export function GrainMarketCard({ grain }) {
   const addTocarts=async(_id)=>{
     const token = jscookie.get('token')
     const email=jscookie.get('userEmail');
-    
+    if(!token)
+    {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "please login first",
+        html:"",
+        showConfirmButton: false,
+        timer: 1500
+      });
+
+    }
+    else{
      
     const addResponse=await dispatch(addTocart({token,email,_id}));
     console.log("addResponse",addResponse);
@@ -79,7 +91,7 @@ export function GrainMarketCard({ grain }) {
       });
     }
 
-
+  }
   }
   return (
     <>{!grain? 
