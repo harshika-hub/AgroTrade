@@ -56,20 +56,11 @@ function ExpertCard(props) {
     }
  }
 
-
-
-
-
-
-
-
-
   return (
     <>
- <div class="containe-fluid  ">
-    <div class="card w-100">
-     
-<div class="d-flex flex-column justify-content-center aling-items-center  mt-2">
+ <div class="col-12 col-md-6 col-lg-4 col-xl-3  p-2">
+    <div class="card w-100 h-100">   
+      <div class="d-flex flex-column justify-content-center aling-items-center  mt-2">
                     <div class="image align-self-center">
                      <img src={REQUESTED_URL+"/"+expert.image} class="rounded-circle" width="100" height={100}/>
                     </div>   
@@ -83,9 +74,32 @@ function ExpertCard(props) {
                      <span className="fs-6 text-danger"><i class="bi bi-x-lg"></i>&nbsp;Unavilable</span>}</h6>   
                   </div>
                 </div>  
+                <div className="w-100 " >
+               <table class="table table-bordered border-success">
+              <thead>
+                  <tr>
+                    <th className="text-success" scope="col">Service</th>
+                    <th className="text-success" scope="col">Avilable</th>
+                    <th className="text-success" scope="col">Fee</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                    <td  className="text-success"><i class="bi bi-chat"></i>&nbsp;Chat</td>
+                    <td  className="text-success">{expert.consultancy_fee_chat?<i class="bi bi-check-lg fs-4"></i>:<i class="bi bi-x-lg text-danger"></i>}</td>
+                    <td  className="text-success">{expert.consultancy_fee_chat?expert.consultancy_fee_chat:"--"}</td>
+                  </tr>
+                  <tr>
+                    <td  className="text-success"><i class="bi bi-camera-video"></i>&nbsp;Video</td>
+                    <td  className="text-success">{expert.consultancy_fee_video?<i class="bi bi-check-lg fs-4"></i>:<i class="bi bi-x-lg text-danger"></i>}</td>
+                    <td  className="text-success">{expert.consultancy_fee_video?expert.consultancy_fee_video:"--"}</td>
+                  </tr>
+                </tbody>
+              </table>
+             </div> 
 
 
-                <div className="w-100 d-flex justify-content-center " >
+                {/* <div className="w-100 d-flex justify-content-center " >
                <div className="w-75" >
                <ul class="list-group list-group-horizontal w-100">
                    <li class=" list-group-item list-group-item-success w-50 p-2">Service</li>
@@ -104,7 +118,7 @@ function ExpertCard(props) {
                    <li class=" list-group-item list-group-item-success w-25 p-2">10000</li>
                  </ul>
                </div>
-             </div>       
+             </div>        */}
             <div className="d-flex justify-content-around mt-4" >
              <BookExpert ExpertId={expert._id} />
              <button class="btn btn-primary" onClick={showMessageBox}><i class="fa fa-clock-o"></i><i class="bi bi-chat-dots"></i>&nbsp;Message</button>

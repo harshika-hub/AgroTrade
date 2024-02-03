@@ -14,43 +14,43 @@ const userModel = new mongoose.Schema({
         type: String
     },
     address: {
-        type:String, 
+        type: String,
     },
-    number:{
-        type:Number
+    number: {
+        type: Number
     },
-    state:{
-        type:String, 
+    state: {
+        type: String,
     },
-    city:{
-        type:String, 
+    city: {
+        type: String,
     },
-    image:{
-        type:String, 
+    image: {
+        type: String,
     },
     education: {
-        type:String, 
+        type: String,
     },
     experience: {
-        type:String, 
+        type: String,
     },
     consultancy_fee_video: {
-        type:Number
+        type: Number
     },
     consultancy_fee_chat: {
-        type:Number
+        type: Number
     },
     consultancy_type: {
-        type:String, 
+        type: String,
     },
-    consultancy_feild:{
-        type:String, 
+    consultancy_feild: {
+        type: String,
     },
     certificate: {
-        type:String, 
+        type: String,
     },
-    expert_rating:{
-        type:String, 
+    expert_rating: {
+        type: String,
     },
     expert_status: {
         type: Boolean,
@@ -63,6 +63,10 @@ const userModel = new mongoose.Schema({
     verify_status: {
         type: Boolean,
         default: false
+    },
+    status: {
+        type: String,
+        default: "active"
     }
 });
 
@@ -114,52 +118,61 @@ const grainModel = new mongoose.Schema({
     graintype: {
         type: String,
         required: true
+    },
+    admin_verify: {
+        type: Boolean,
+        default: false
     }
+
 });
 
-const equipmentModel=new mongoose.Schema({
-    userEmail:{
-        type:String
+const equipmentModel = new mongoose.Schema({
+    userEmail: {
+        type: String
     },
-    name:{
-        type:String,
-        required:true
+    name: {
+        type: String,
+        required: true
 
     },
-    modelnumber:{
-        type:String, 
+    modelnumber: {
+        type: String,
     },
-    equipmenttype:{
-        type:String
+    equipmenttype: {
+        type: String
     },
-    price:{
-        type:Number
+    price: {
+        type: Number
     },
-    condition:{
-        type:String
+    condition: {
+        type: String
     },
-    quantity:{
-        type:Number
+    quantity: {
+        type: Number
     },
-    state:{
-        type:String
+    state: {
+        type: String
     },
-    city:{
-        type:String
+    city: {
+        type: String
     },
-    address:{
-        type:String
+    address: {
+        type: String
     },
-    image:{
-        type:String
+    image: {
+        type: String
     },
-    description:{
-        type:String
-    }, 
-    avilable:{
-        type:Boolean,
-        default:true
+    description: {
+        type: String
     },
+    avilable: {
+        type: Boolean,
+        default: true
+    },
+    admin_verify: {
+        type: Boolean,
+        default: false
+    }
 });
 
 const coldStorageLandModel = new mongoose.Schema({
@@ -167,40 +180,40 @@ const coldStorageLandModel = new mongoose.Schema({
         type: String,
         required: true,
     },
-    userEmail:{
-        type:String
+    userEmail: {
+        type: String
     },
-    area:{
-        type:Number
+    area: {
+        type: Number
     },
-    pincode:{
-        type:Number
+    pincode: {
+        type: Number
     },
-    rent:{
-        type:Number
+    rent: {
+        type: Number
     },
-    infrastructure:{
-        type:String
+    infrastructure: {
+        type: String
     },
-    state:{
-        type:String
+    state: {
+        type: String
     },
-    city:{
-        type:String
+    city: {
+        type: String
     },
-    address:{
-        type:String
+    address: {
+        type: String
     },
-    image:{
-        type:String
+    image: {
+        type: String
     },
-    description:{
-        type:String
+    description: {
+        type: String
     },
     avilableFrom: {
         type: Date,
         required: true,
-        default:Date.now()
+        default: Date.now()
     },
     avilableTill: {
         type: Date,
@@ -208,10 +221,14 @@ const coldStorageLandModel = new mongoose.Schema({
     image360: {
         type: String,
     },
-    avilable:{
-        type:Boolean,
-        default:true
+    avilable: {
+        type: Boolean,
+        default: true
     },
+    admin_verify: {
+        type: Boolean,
+        default: false
+    }
 });
 
 const agriLandModel = new mongoose.Schema({
@@ -241,7 +258,7 @@ const agriLandModel = new mongoose.Schema({
     avilableFrom: {
         type: Date,
         required: true,
-        default:Date.now()
+        default: Date.now()
     },
     avilableTill: {
         type: Date,
@@ -277,28 +294,31 @@ const agriLandModel = new mongoose.Schema({
         type: String,
         required: true
     },
-    ownerEmail:{
-        type:String,
-        required:true
+    ownerEmail: {
+        type: String,
+        required: true
     },
-    avilable:{
-        type:Boolean,
-        default:true
+    avilable: {
+        type: Boolean,
+        default: true
     },
+    admin_verify: {
+        type: Boolean,
+        default: false
+    }
 
-    
 });
 // const cartSchema = new mongoose.Schema({
 //     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true },
-  
+
 //     // Embedding the product document in the cart
 //     products: [{
 //       product: { type: Object, required: true },
 //       quantity: { type: Number, default: 1 },
 //     }],
-  
+
 //   }, { timestamps: true });
-  
+
 // const cart = mongoose.model('cart', cartSchema);
 const cartSchema = new mongoose.Schema({
     userId: {
@@ -346,9 +366,42 @@ const orderGrain=new mongoose.Schema({
     },
 })
 
-const  agriLand= mongoose.model('agriLand',agriLandModel,'agriLand');
-const equipments= mongoose.model('equipments',equipmentModel,'equipments')
+const expertBookSchema = new mongoose.Schema({
+    expertId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        required: true
+    },
+    clientId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        required: true
+    },
+    consultingTopic: {
+        type: String
+    },
+    consultingType: {
+        type: String
+    },
+    consultingTime: {
+        type: String
+    },
+    consultingDate: {
+        type: Date
+    },
+    consultingFee: {
+        type: Number
+    },
+    confirm: {
+        type: Boolean,
+        default: false
+    }
+});
+
+const expertBook = mongoose.model('expertBook', expertBookSchema, 'expertBook');
+const agriLand = mongoose.model('agriLand', agriLandModel, 'agriLand');
+const equipments = mongoose.model('equipments', equipmentModel, 'equipments')
 const users = mongoose.model('users', userModel, 'users');
 const grains = mongoose.model('grains', grainModel, 'grains');
 const coldStLands = mongoose.model('coldStLands', coldStorageLandModel, 'coldStLands');
-export { users, grains,equipments,coldStLands,agriLand,cart,cartEqp } 
+export { users, grains, equipments, coldStLands, agriLand, cart,cartEqp, expertBook } 

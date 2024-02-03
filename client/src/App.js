@@ -1,9 +1,3 @@
-// import './App.css';
-// import Header from './Components/Header/Header.js';
-// import Footer from './Components/Footer/Footer.js';
-// import contactUs from './Components/ContactUsPage/ContactUs.js';
-// import { useEffect, useState } from 'react';
-
 import OrgSingUp from './Components/OrgSignUp/OrgSignUp.js';
 import Services from './Components/ServicesPage/ServicesPage.js';
 import ExpertList from "./Components/ExpertList.js/ExpertList.js"
@@ -12,7 +6,8 @@ import Home from './Components/Home/HomePage.js';
 import AboutUs from './Components/AboutUsPage/AboutUs.js';
 import ContactUs from './Components/ContactUsPage/ContactUs.js';
 import UserdashBoard from './Components/UserDashboard/UserDashboard.js';
-// import Chatsection from './Components/ChatComponent/Chatsection.js';
+import Digitalsignature from "./Components/DigitalSignature/Digitalsignature.js"
+import Invoice from "./Components/Invoice/Invoice.jsx"
 import Chatsection from './Components/UserDashboard/ChatComponent/Chatsection.js'
 import { Routes, Route } from 'react-router-dom'
 import Profile from './Components/UserDashboard/ProfileSection/ProfileSection.js';
@@ -40,7 +35,12 @@ import ListedFarmingLand from './Components/AdminDashboard/FarmingLand/ListedFar
 import ContactFarmingLand from './Components/AdminDashboard/FarmingLand/ContractFarmingLand/ContractFarmingLand.js'
 import ContractColdStLand from './Components/AdminDashboard/ColdStLand/ContractColdStLand/ContractColdStLand.js'
 import ListedColdStLand from './Components/AdminDashboard/ColdStLand/ListedColdStLand/ListedColdStLand.js';
-import Invoice from './Components/Market/Cart/Invoice/Invoice.jsx'
+import OrgHome from './Components/OrgHome/OrgHome.js';
+import OrgProfile from './Components/OrgnizationSection/OrgProfile/OrgProfile.js';
+// import OrgProfile from './Components/OrgnizationSection/OrgProfile.js';
+import OrgAgricultureLand from './Components/OrgnizationSection/Market/OrgAgricutureLand.js';
+import HomeServices from './Components/HomeServicesSection/Services.js';
+import OrgColdStorageLand from './Components/OrgnizationSection/Market/OrgColdStorageLand.js';
 function App() {
   // const [socket,setSocket]=useState(null);
   // useEffect(()=>{
@@ -58,6 +58,8 @@ function App() {
         <Route path='/contactus' element={<ContactUs />}></Route>
         <Route path='/aboutus' element={<AboutUs />}></Route>
         <Route path='/bookExpert' element={<ExpertList />}></Route>
+        <Route path='/sign' element={<Digitalsignature/>}></Route>
+        <Route path='/bill' element={<Invoice/>}></Route>
 
         <Route path='/dashboard' element={<UserdashBoard />}>
           <Route index element={<Profile />} />
@@ -96,6 +98,19 @@ function App() {
           <Route path='contactFarmingLand' element={<ContactFarmingLand />}></Route>
           <Route path='listedColdStLand' element={<ListedColdStLand />}></Route>
           <Route path='contractColdStLand' element={<ContractColdStLand />}></Route>
+        </Route>
+          
+
+        <Route path='/orgnization' Component={OrgHome}>
+        {/* <Route  index element={<OrgProfile/>}/> */}
+        <Route path="profile" element={<OrgProfile/>}></Route> 
+         <Route path="agricultureLand" element={<OrgAgricultureLand/>}></Route> 
+         <Route path="coldstorageLand" element={<OrgColdStorageLand/>}></Route> 
+         <Route path='aboutus' element={<AboutUs />}></Route>
+         <Route path='orgcontactus' element={<ContactUs />}></Route>
+         <Route path='services' element={<HomeServices />}>
+         
+         </Route>
         </Route>
 
       </Routes>

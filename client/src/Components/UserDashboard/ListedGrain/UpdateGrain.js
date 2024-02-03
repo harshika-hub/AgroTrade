@@ -5,6 +5,8 @@ import Swal from "sweetalert2";
 import jscookie from "js-cookie"
 import grainimg from "../../../assets/grainimg.webp";
 import { UpdateGrain } from "../../../store/userSlice"
+import state_arr from "../../../City.js";
+import s_a from "../../../City.js";
 
 
 var checkFields = false,
@@ -25,6 +27,35 @@ function UpdateGrainModal(props) {
   const { Grain, getGrians } = props;
   const [lgShow, setLgShow] = useState(false);
   const [UpdateGrainObj, setUpdateGrain] = useState(false);
+
+  const print_state = () => {
+    var option_str = document.getElementById("state");
+
+    console.log('option ', option_str);
+    console.log('state_array ', state_arr);
+    // option_str.length = 0;
+    option_str.options[0] = new Option('Select State', '');
+    option_str.selectedIndex = 0;
+    console.log('', state_arr.state_arr);
+    for (var i = 0; i < state_arr.state_arr.length; i++) {
+      option_str.options[option_str.length] = new Option(state_arr.state_arr[i], state_arr.state_arr[i]);
+      console.log('option_str in loop ', option_str);
+    }
+  }
+  const print_city = (e, city_id) => {
+    var { name, value } = e.target;
+    var state_index = e.target.selectedIndex;
+    console.log('event ', e.target.selectedIndex);
+    var option_str = document.getElementById(city_id);
+    option_str.length = 0;
+    option_str.options[0] = new Option('Select City', '');
+    option_str.selectedIndex = 0;
+    var city_arr = s_a.s_a[state_index].split("|");
+    for (var i = 0; i < city_arr.length; i++) {
+      option_str.options[option_str.length] = new Option(city_arr[i], city_arr[i]);
+    }
+    checkField(e);
+  }
 
 
   function validateName(e) {
@@ -311,7 +342,12 @@ function UpdateGrainModal(props) {
   return (
     <>
 
-      <button type="button" onClick={() => setLgShow(true)} name="" id="" className="btn btn-outline-success btn-sm" ><i class="bi bi-arrow-up-circle"></i>&nbsp;Update</button>
+      <button type="button" onClick={() => {
+        setLgShow(true)
+        setTimeout(print_state, 1000);
+      }}
+
+        name="" id="" className="btn btn-outline-success btn-sm" ><i class="bi bi-arrow-up-circle"></i>&nbsp;Update</button>
 
       <Modal
         size="xl"
@@ -482,11 +518,7 @@ function UpdateGrainModal(props) {
                   >
                     State
                   </label>
-                  <select name="state" defaultValue={Grain.state} onChange={checkField} id="state" className="form-control form-control-sm">
-                    <option value="null">Selecet State</option>
-                    <option value="mp">Mp</option>
-                    <option value="up">Up</option>
-                  </select>
+                  <select type="text" defaultValue={Grain.state} className="form-controlform-control-sm mb-1 form-control-sm" name="state" id="state" onChange={(e) => { print_city(e, 'city') }}></select>
                   <div className="valid-feedback">
                     valid State.
                   </div>
@@ -501,11 +533,7 @@ function UpdateGrainModal(props) {
                   >
                     City
                   </label>
-                  <select name="city" defaultValue={Grain.city} onChange={checkField} id="city" className="form-control form-control-sm">
-                    <option value="null">Selecet City</option>
-                    <option value="indore">Indore</option>
-                    <option value="bhopal">Bhopal</option>
-                  </select>
+                   <select className="form-control form-control-sm mb-1 form-control-sm" defaultValue={Grain.city} name="city" id="city" onChange={checkField} ></select>
                   <div className="valid-feedback">
                     valid city.
                   </div>

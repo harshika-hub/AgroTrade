@@ -87,7 +87,7 @@ function Profile() {
 
      async function Updateprofile(event) {
         event.preventDefault();
-        console.log("fields in update profilw",fields);
+        console.log("fields in update profile",fields);
         
 
         document.getElementById("profileCard").classList.add("offset-lg-3")

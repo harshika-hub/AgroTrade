@@ -64,7 +64,7 @@ const deleteEquipment = (EquipmentId)=>{
 }
 return ( <>
 
-        <div className="col-12 col-sm-12 col-md-6  p-1  d-flex justify-content-center bg-warning " >
+        <div className="col-12 col-sm-12 col-md-6  p-1  d-flex justify-content-center " >
                     <div className="card bg-light  w-100 p-0" style={{borderRadius:"5px"}}>
                       <div className="row g-0">
                         <div className="col-12 col-sm-6 col-md-12 col-lg-12 col-xl-6" id="imgeDiv">

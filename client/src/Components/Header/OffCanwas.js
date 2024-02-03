@@ -13,6 +13,8 @@ import { setUserData } from '../../store/userSlice';
 import { setOrgData } from '../../store/organizationSlice';
 import { setAdminData } from '../../store/adminSlice';
 function OffCanvasExample({ name, ...props }) {
+  const token = jscookie.get("token");
+  const email = jscookie.get("userEmail");
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -53,7 +55,7 @@ function OffCanvasExample({ name, ...props }) {
         <Offcanvas.Body>
           <div className='row w-100 '>
             {
-              status ? 
+              token ? 
               <button 
                 type="Button" 
                 className="btn btn-danger" onClick={handleLogout}
@@ -84,7 +86,7 @@ function OffCanvasExample({ name, ...props }) {
             }
             
             {
-              status ? <div className='col-12 mt-2 mb-5 ' >
+              token ? <div className='col-12 mt-2 mb-5 ' >
                 <ul className="nav d-flex flex-column">
                   <li className="nav-item ">
                     <Link className="offcanvasLinks  darkgreen mb-1 nav-link active" aria-current="page" to="/"><i className="bi bi-house-fill"></i>&nbsp;Home</Link>

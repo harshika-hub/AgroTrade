@@ -8,10 +8,13 @@ import { orgRegister, setOrgData } from "../../store/organizationSlice.js";
 import { getOtp, setRoleStatus } from "../../store/commonSlice.js";
 import Footer from '../Footer/Footer.js';
 import Header from '../Header/Header.js';
-import {authorize} from '../../store/auth/auth.js'; 
+import { authorize } from '../../store/auth/auth.js';
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
- 
+import state_arr from "../../City.js";
+import s_a from "../../City.js";
+import jscookie from 'js-cookie'
+
 var orgObj = {}
 
 var checkFields = false,
@@ -30,14 +33,53 @@ var checkFields = false,
   passwrod = false;
 
 function OrgSingUp() {
-  const [email,setEmail] = useState();
+  const [email, setEmail] = useState();
   // const [otp,setOtp] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    authorize(dispatch);
-  },[]);
+  const print_state = () => {
+    var option_str = document.getElementById("state");
+
+    console.log('option ', option_str);
+    console.log('state_array ', state_arr);
+    // option_str.length = 0;
+    option_str.options[0] = new Option('Select State', '');
+    option_str.selectedIndex = 0;
+    console.log('', state_arr.state_arr);
+    for (var i = 0; i < state_arr.state_arr.length; i++) {
+      option_str.options[option_str.length] = new Option(state_arr.state_arr[i], state_arr.state_arr[i]);
+      console.log('option_str in loop ', option_str);
+    }
+  }
+  const print_city = (e, city_id) => {
+    var { name, value } = e.target;
+    var state_index = e.target.selectedIndex;
+    console.log('event ', e.target.selectedIndex);
+    var option_str = document.getElementById(city_id);
+    option_str.length = 0;
+    option_str.options[0] = new Option('Select City', '');
+    option_str.selectedIndex = 0;
+    var city_arr = s_a.s_a[state_index].split("|");
+    for (var i = 0; i < city_arr.length; i++) {
+      option_str.options[option_str.length] = new Option(city_arr[i], city_arr[i]);
+    }
+    checkField(e);
+  }
+
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      print_state();
+      authorize(dispatch);
+      // setProviderData({...providerData,['User_id']:location.state.id,['Service_type']:'Cleaner'});
+    }, 1000);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  // useEffect(()=>{
+
+  // },[]);
 
 
   function validateName(e) {
@@ -304,7 +346,7 @@ function OrgSingUp() {
     // ---------------hatana mat-----------
 
     if (checkFields && state && city && image && address && description && orgtype && orgname && regname && ownername && dealername && org_email && dealer_email && passwrod) {
-      getOtp({email,password : ''});
+      getOtp({ email, password: '' });
       handleShow();
     }
   }
@@ -323,20 +365,23 @@ function OrgSingUp() {
         formData.append(key, orgObj[key]);
       }
     }
-      
-    formData.append("otp",document.getElementById("otpfield").value);
-    
-      setTimeout(() => {
-      orgRegister(formData).then((data)=>{
-        console.log("data.message",data.message);
-        if(data.message=="success"){
+
+    formData.append("otp", document.getElementById("otpfield").value);
+
+    setTimeout(() => {
+      orgRegister(formData).then((data) => {
+        console.log("data.message", data.message);
+        if (data.message == "success") {
           setvarifyText("varified")
           handleClose()
           setvarifyText("varify");
           dispatch(setOrgData(data.log));
-          dispatch(setRoleStatus({role:data.role,data:data.log, status: true}));
-          navigate('/');
-          
+          dispatch(setRoleStatus({ role: data.role, data: data.log, status: true }));
+          console.log('datalog', data.log);
+          jscookie.set('dealer_email', data.log.dealer_email);
+
+          // navigate('/');
+
           Swal.fire({
             position: "middle",
             icon: "success",
@@ -344,7 +389,8 @@ function OrgSingUp() {
             showConfirmButton: false,
             timer: 2000
           });
-        }else if(data.message=="exist"){
+          navigate('/orgnization');
+        } else if (data.message == "exist") {
           setvarifyText("error")
           setvarifyText("varify");
           Swal.fire({
@@ -352,7 +398,7 @@ function OrgSingUp() {
             title: "Oops...",
             text: "Organozation allready registered. Please try Again...",
           });
-        }else if(data.message=="error"){
+        } else if (data.message == "error") {
           setvarifyText("error")
           setvarifyText("varify");
           Swal.fire({
@@ -360,7 +406,7 @@ function OrgSingUp() {
             title: "Oops...",
             text: "Something went wrong. Please try Again...",
           });
-        }else if(data.message=="wrong otp"){
+        } else if (data.message == "wrong otp") {
           setvarifyText("Invalid")
           setvarifyText("varify");
           Swal.fire({
@@ -369,7 +415,7 @@ function OrgSingUp() {
             text: "Wrong Otp!\nPlease enter valid otp...",
           });
         }
-      }).catch((error)=>{
+      }).catch((error) => {
         setvarifyText("error")
         setvarifyText("varify");
         console.log(error);
@@ -380,13 +426,13 @@ function OrgSingUp() {
         });
       });
     }, 3000);
-    
-    console.log("orgObj : ",orgObj);
+
+    console.log("orgObj : ", orgObj);
   }
 
   return (
     <>
-      <Header/>
+      <Header />
       <div className="container-fluid p-3  " >
         <div className="container  bg-white p-0" id="OrgFromBox" >
           <div className="row w-100 m-0 g-0 ">
@@ -473,11 +519,9 @@ function OrgSingUp() {
 
                   <div className=" col-12 col-md-6  p-2">
                     <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1" >State</label>
-                    <select name="state" className="form-control form-control-sm" onChange={checkField} id="state" >
-                      <option value="null">Select State</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                    </select>
+
+                    <select type="text" className="form-control form-control-sm mb-1 form-control-sm" name="state" id="state" onChange={(e) => { print_city(e, 'city') }}></select>
+
                     <div className="valid-feedback">
                       State selected!!
                     </div>
@@ -488,11 +532,9 @@ function OrgSingUp() {
 
                   <div className=" col-12 col-md-6 p-2 ">
                     <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1"  >City</label>
-                    <select name="city" className="form-control form-control-sm" onChange={checkField} id="city" >
-                      <option value="null">Select City</option>
-                      <option value="Indore">Indore</option>
-                      <option value="Bhopal">Bhopal</option>
-                    </select>
+
+                    <select className="form-control form-control-sm mb-1 form-control-sm" name="city" id="city" onChange={checkField} ></select>
+
                     <div className="valid-feedback">
                       City selected!!
                     </div>
@@ -561,7 +603,7 @@ function OrgSingUp() {
 
                   <div className=" col-12 col-md-6 p-2">
                     <label htmlFor="validationServer01" className="form-label midgreen m-0 mt-1 ">Dealer email</label>
-                    <input name="dealer_email" type="email" className="form-control form-control-sm" id="dealer_email" onChange={(e)=>{validateEmail(e); setEmail(e.target.value);} } placeholder="Enter dealer email" required />
+                    <input name="dealer_email" type="email" className="form-control form-control-sm" id="dealer_email" onChange={(e) => { validateEmail(e); setEmail(e.target.value); }} placeholder="Enter dealer email" required />
                     <div className="valid-feedback">
                       Correct dealer email!!
                     </div>
@@ -617,7 +659,7 @@ function OrgSingUp() {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
 
       <Modal
         show={show}
@@ -629,8 +671,8 @@ function OrgSingUp() {
           <Modal.Title>OTP varification</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          
-          <input type="text" 
+
+          <input type="text"
             name="otp"
             id="otpfield"
             placeholder="Enter otp"

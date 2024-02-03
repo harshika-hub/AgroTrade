@@ -29,7 +29,7 @@ function AdminDashboard() {
   return (
     <>
       <div className="container-fluid position-relative d-flex p-0 ">
-        <div className="sidebar" id="siderBar">
+        <div className="sidebar sidebar-admin" id="siderBar">
           <nav className="navbar navbar-light pe-2">
             <div className="d-flex justify-content-between ps-3 pe-3  w-100">
               <p href="#" className="navbar-brand ">
@@ -52,7 +52,7 @@ function AdminDashboard() {
                 </div>
               </div>
             </div>
-            <div className="navbar-nav w-100 ">
+            <div className="navbar-nav w-100 " id="scrollDiv">
 
               <Link to="/dashboard/profile" className="nav-item nav-link  active m-0  ">
                 <i className="bi bi-person-circle text-center"></i>&nbsp;Profile

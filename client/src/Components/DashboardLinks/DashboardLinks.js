@@ -2,16 +2,33 @@
 import "./DashboardLinks.css"
 import { Link, useNavigate } from "react-router-dom";
 import DashboardCanvas from "./DashOffcanwas";
+import axios from "axios";
 import jscookie from 'js-cookie'
+import { useEffect,useState } from "react";
+import {USER_REQUESTED_URL} from '../../urls'
 import { useDispatch } from "react-redux";
 import { setRoleStatus } from "../../store/commonSlice";
 import { setUserData } from "../../store/userSlice";
 import { setOrgData } from "../../store/organizationSlice";
+import ExperViewClientModal from './ExperViewClientModal.js'
 import { setAdminData } from "../../store/adminSlice";
-// const[cartCount,setCartCount]=useState(0);
-
 function DashboardLinks() {
-
+  const [expertData,setExpertData]=useState(false);
+  useEffect(()=>{
+    getData();
+  },[])
+  var  getData = ()=>{
+    try{
+      const userEmail = jscookie.get("userEmail");
+      var obj={"email":userEmail}
+      axios.post(USER_REQUESTED_URL + "/expertViewNotification",obj).then((userDatas) => {
+        setExpertData(userDatas.data.result)
+    })
+        .catch(err => console.log('error ', err));
+    }catch(err){
+      console.log("err",err);
+    }
+  }
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -86,17 +103,16 @@ function DashboardLinks() {
                 </li>
                 </ul> 
               <div className="nav-item dropdown">
-                <li
+                <a
                   className="nav-link dropdown-toggle  text-white"
                   data-bs-toggle="dropdown"
                   style={{fontSize:"16px"}}
                 >
                   <i className="fa fa-bell me-lg-2 midgreen "></i>
-                </li>
+                </a>
                 <div className="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                   <a  className="dropdown-item">
-                    <h6 className=" mb-0">Profile updated</h6>
-                    <small>15 minutes ago</small>
+                  <ExperViewClientModal/> 
                   </a>
                   <hr className="dropdown-divider" />
                   <a  className="dropdown-item">

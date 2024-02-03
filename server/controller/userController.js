@@ -1,4 +1,4 @@
-import { users, grains, equipments, coldStLands, agriLand, cart,cartEqp } from "../models/userModel.js";
+import { users, grains, equipments, coldStLands, agriLand, cart,cartEqp ,expertBook} from "../models/userModel.js";
 import mongoose from "mongoose";
 import { ObjectId } from 'mongodb';
 
@@ -106,6 +106,8 @@ export const getGrainController = async (request, response) => {
 export const getcoldStLandsController = async (request, response) => {
     try {
         var result = await coldStLands.find({ userEmail: request.body.userEmail });
+        console.log('cold',result);
+        
         response.status(201).json({ result })
     } catch (err) {
         console.log("err", err);
@@ -293,7 +295,7 @@ export const getExpertContrller = async (req, res) => {
 }
 export const getMarketGrainContrller = async (request, response) => {
     try {
-        const grain = await grains.find({ admin_verify: true });
+        const grain = await grains.find({admin_verify:true});
         response.status(200).json({ grain: grain });
 
     } catch (err) {
@@ -306,7 +308,7 @@ export const getMarketGrainContrller = async (request, response) => {
 }
 export const getMarketEquipmentContrller = async (request, response) => {
     try {
-        const equipment = await equipments.find({ admin_verify: true });
+        const equipment = await equipments.find({admin_verify:true});
         response.status(200).json({ equipment: equipment });
 
     } catch (err) {
@@ -319,7 +321,7 @@ export const getMarketEquipmentContrller = async (request, response) => {
 }
 export const getMarketLandContrller = async (request, response) => {
     try {
-        const agriland = await agriLand.find({ admin_verify: true });
+        const agriland = await agriLand.find({admin_verify:true});
         response.status(200).json({ agriLand: agriland });
 
     } catch (err) {
@@ -333,7 +335,7 @@ export const getMarketLandContrller = async (request, response) => {
 
 export const getMarketStorageContrller = async (request, response) => {
     try {
-        const storage = await coldStLands.find({ admin_verify: true });
+        const storage = await coldStLands.find({admin_verify:true});
         response.status(200).json({ storage: storage });
 
     } catch (err) {
@@ -471,25 +473,6 @@ export const updateCartController = async (request, response) => {
     const checkGrain = await grains.findOne({ _id: pid });
     if (checkGrain.quantity < quantity)
         response.status(500).json({ msg: "invalid quantity" });
-    // try {
-    //     const cart = await cart.findById(Id);
-
-    //     // Find the index of the product in the products array
-    //     const productIndex = cart.products.findIndex(product => product.product.toString() === productId);
-
-    //     // If the product is found in the cart
-    //     if (productIndex !== -1) {
-    //       cart.products[productIndex].quantity = quantity; // Update the quantity to your desired value
-    //     }
-
-    //     await cart.save();
-
-    //     response.status(200).json({ msg: 'Product quantity updated successfully' });
-    //   } catch (error) {
-    //     console.error('Error updating product quantity:', error);
-    //     response.status(500).json({ error: 'Internal Server Error' });
-    //   }
-
     try {
         const result = await cart.updateOne(
             { _id: new ObjectId(_id), 'products.product': pid },
@@ -695,3 +678,92 @@ export const removeCartController = async(request, response) => {
         }
     
         }
+export const bookExpertController = async (request, response) => {
+    try{
+        var userObj = await users.findOne({email:request.body.userEmail});
+        var obj = {
+            consultingTopic:request.body.consultingTopic,
+            consultingType:request.body.consultingType,
+            consultingDate:request.body.consultingDate,
+            consultingTime:request.body.consultingTime,
+            clientId:userObj._id,
+            expertId:request.body.ExpertId
+        }
+        var result = await expertBook.create(obj);
+        console.log("result",result);
+        response.status(201).json({ message: "success" })
+    }catch(err){
+        console.log("err",err);
+    }
+}
+
+export const expertViewDataController = async (request, response) => {  
+    try {
+        var obj = await users.findOne({email:request.body.email});
+        var expert = obj._id;
+        const result = await expertBook.aggregate([
+            {
+                $match: {
+                    expertId: new mongoose.Types.ObjectId(expert)
+                }
+            },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'clientId',
+                    foreignField: '_id',
+                    as: 'client'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'expertId',
+                    foreignField: '_id',
+                    as: 'expert'
+                }
+            },
+            {
+                $unwind: '$client'
+            },
+            {
+                $project: {
+                    _id: 1,
+                    expertId: 1,
+                    clientId: 1,
+                    consultingTopic: 1,
+                    consultingType: 1,
+                    consultingTime: 1,
+                    consultingDate: 1,
+                    confirm: 1,
+                    'client.name': 1,
+                }
+            }
+        ]);
+        if (result.length > 0) {
+            response.status(201).json({ message: "success", result });
+        } else {
+            response.status(500).json({ message: "Internal Server Error" });
+        }
+    } catch (error) {
+        console.error('Error fetching consulting details:', error);
+        throw error;
+    }
+}
+
+export const statusVerifyupdateController = async(request, response) => {
+    try{
+        const {clientId} = request.body
+        var userObj = await expertBook.findOne({clientId:clientId});
+        var confirm = userObj.confirm;
+        if(confirm==false){
+            await expertBook.updateOne({clientId:clientId},{$set:{confirm:true}});
+        }
+        else{
+            await expertBook.updateOne({clientId:clientId},{$set:{confirm:false}});
+        }
+        response.status(201).json({message:"success"})
+    }catch(err){
+        console.log("err",err);
+    }
+}

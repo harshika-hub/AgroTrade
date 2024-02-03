@@ -1,6 +1,7 @@
 import { ADMIN_REQUESTED_URL } from "../../../../urls";
 import { useState, useEffect } from "react";
 import { verifyAdminStatusCold } from "../../../../store/adminSlice"
+import "./ListedColdStLand.css"
 import axios from "axios";
 import Swal from "sweetalert2";
 import CardModal from "./CardModal";
@@ -68,18 +69,23 @@ function ListedColdStLand(){
 
     return(
         <>
-           <p className="mt-5 text-center fs-2 darkgreen fw-bold">Listed Cold Storage Land</p>
-            <div className="container mt-5 mr-5 table-responsive ">
-                <table className="table table-bordered table-sm ">
+     
+            <div className="mt-3 p-2" >
+            <h1 className=" text-start ps-3 darkgreen fw-bold">Listed Cold Storage Land</h1>
+            <div className="container-fluid table-responsive pb-3">
+          <div class="card table-card p-0">
+              <div class="card-body p-3">
+                <div class="table-responsive">
+                  <table class="table table-success  mb-0">
                     <thead>
                         <tr>
-                        <th className="fs-6 p-1">S. No</th>
-                            <th className="fs-6 p-1">Owner Email</th>
-                            <th className="fs-6 p-1">Farming Area</th>
-                            <th className="fs-6 p-1">Rent Per Month</th>
-                            <th className="fs-6 p-1">Address</th>
-                            <th className="fs-6 p-1">Details</th>
-                            <th className="fs-6 p-1">Verify Status</th>
+                        <th className="fs-6 p-0 text-center">S. No</th>
+                            <th className="fs-6 p-0 text-center">Owner Email</th>
+                            <th className="fs-6 p-0 text-center">Farming Area</th>
+                            <th className="fs-6 p-0 text-center">Rent Per Month</th>
+                            <th className="fs-6 p-0 text-center">Address</th>
+                            <th className="fs-6 p-0 text-center">Details</th>
+                            <th className="fs-6 p-0 text-center">Verify Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -91,22 +97,30 @@ function ListedColdStLand(){
                             ) : (
                                 coldStData.map((data, index) => (
                                     <tr key={index}>
-                                        <td className="fs-6">{index + 1}</td>
-                                        <td className="fs-6">{data.userEmail}</td>
-                                        <td className="fs-6">{data.area} acres</td>
-                                        <td className="fs-6">Rs. {data.rent}  </td>
-                                        <td className="fs-6">{data.address},{data.city},{data.state}</td>
-                                        <td className="fs-6"><CardModal Data={data}/></td>
-                                        <td className="fs-6">{data.admin_verify? <button type="button" name="" id="" className="btn btn-outline-success btn-sm" onClick={()=>updateAdminStatus(data._id)} >Verified
-                                        </button>:<button type="button" name="" id="" className="btn btn-outline-danger btn-sm" onClick={()=>updateAdminStatus(data._id)} >Not Verified
-                                        </button>}</td>
-                                        
+                                        <td className="fs-6 text-center">{index + 1}</td>
+                                        <td className="fs-6 text-center">{data.userEmail}</td>
+                                        <td className="fs-6 text-center">{data.area} acres</td>
+                                        <td className="fs-6 text-center">Rs. {data.rent}  </td>
+                                        <td className="fs-6 text-center">{data.address},{data.city},{data.state}</td>
+                                        <td className="fs-6 text-center"><CardModal Data={data}/></td>
+                                        <td className="fs-6 text-center">{data.admin_verify? <button type="button" name="" id="" className="btn btn-success btn-sm" onClick={()=>updateAdminStatus(data._id)} >Verified
+                                        </button>:
+                                        <button type="button" name="" id="" className="btn btn-danger btn-sm" onClick={()=>updateAdminStatus(data._id)} >Not Verified
+                                        </button>}
+                                        </td> 
                                     </tr>
                                 ))
                             )
                         }
                     </tbody>
-                </table>
+
+
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div>
+                
             </div>
         </>
     )

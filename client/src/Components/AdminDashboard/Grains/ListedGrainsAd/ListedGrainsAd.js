@@ -4,11 +4,9 @@ import { verifyAdminStatus} from "../../../../store/adminSlice"
 import axios from "axios";
 import Swal from "sweetalert2";
 import CardModal from "./CardModal.js"
+import "./ListedGrainsAd.css"
 function ListedGrainsAd(){
-    const [grainData, setGrainData] = useState([])
-    useEffect(() => {
-        getData();
-    }, []);
+    const [grainData, setGrainData] = useState([])  
 
     const getData = () => {
         try {
@@ -21,6 +19,10 @@ function ListedGrainsAd(){
         }
     }
 
+    useEffect(() => {
+        getData();
+        console.log("grainData",grainData);
+    }, []);
     const updateAdminStatus = (_id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -68,22 +70,27 @@ function ListedGrainsAd(){
 
     
     return(<>
-    <p className="mt-5 text-center fs-2 darkgreen fw-bold">Listed Grains</p>
-            <div className="container mt-5 mr-5 table-responsive ">
-                <table className="table table-bordered table-sm ">
+   <div className="mt-3 p-2" >
+   <h1 className=" text-start ps-3 darkgreen fw-bold"><i class="fa-solid fa-wheat-awn"></i>&nbsp;Listed Grains</h1>
+            <div className="container-fluid  table-responsive pb-3 ">
+                <div class="card table-card p-0">
+              <div class="card-body p-3">
+                <div class="table-responsive">
+                  <table class="table table-success  mb-0">
+                
                     <thead>
                         <tr>
-                        <th className="fs-6 p-1">S. No</th>
-                            <th className="fs-6 p-1">User Email</th>
-                            <th className="fs-6 p-1">Grain Name</th>
-                            <th className="fs-6 p-1">Grain Type</th>
-                            <th className="fs-6 p-1">Address</th>
-                            <th className="fs-6 p-1">Details</th>
-                            <th className="fs-6 p-1">Verify Status</th>
+                        <th className="fs-6 p-0 text-center">S. No</th>
+                            <th className="fs-6 p-0 text-center">User Email</th>
+                            <th className="fs-6 p-0 text-center">Grain Name</th>
+                            <th className="fs-6 p-0 text-center">Grain Type</th>
+                            <th className="fs-6 p-0 text-center">Address</th>
+                            <th className="fs-6 p-0 text-center">Details</th>
+                            <th className="fs-6 p-0 text-center">Verify Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {
+                    {
                             grainData.length === 0 ? (
                                 <tr>
                                     <td colSpan="13" className="text-center">No data available</td>
@@ -91,14 +98,14 @@ function ListedGrainsAd(){
                             ) : (
                                 grainData.map((grain, index) => (
                                     <tr key={index}>
-                                        <td className="fs-6">{index + 1}</td>
-                                        <td className="fs-6">{grain.userEmail}</td>
-                                        <td className="fs-6">{grain.grainname}</td>
-                                        <td className="fs-6">{grain.graintype}</td>
-                                        <td className="fs-6">{grain.city},{grain.state}</td>
-                                        <td className="fs-6"><CardModal Grain={grain}/></td>
-                                        <td className="fs-6">{grain.admin_verify? <button type="button" name="" id="" className="btn btn-outline-success btn-sm" onClick={()=>updateAdminStatus(grain._id)} >Verified
-                                        </button>:<button type="button" name="" id="" className="btn btn-outline-danger btn-sm" onClick={()=>updateAdminStatus(grain._id)} >Not Verified
+                                        <td className="fs-6 text-center">{index + 1}</td>
+                                        <td className="fs-6 text-center">{grain.userEmail}</td>
+                                        <td className="fs-6 text-center">{grain.grainname}</td>
+                                        <td className="fs-6 text-center">{grain.graintype}</td>
+                                        <td className="fs-6 text-center">{grain.city},{grain.state}</td>
+                                        <td className="fs-6 text-center"><CardModal Grain={grain}/></td>
+                                        <td className="fs-6 text-center">{grain.admin_verify? <button type="button" name="" id="" className="btn btn-success btn-sm" onClick={()=>updateAdminStatus(grain._id)} >Verified
+                                        </button>:<button type="button" name="" id="" className="btn btn-danger btn-sm" onClick={()=>updateAdminStatus(grain._id)} >Not Verified
                                         </button>}</td>
                                         
                                     </tr>
@@ -106,8 +113,12 @@ function ListedGrainsAd(){
                             )
                         }
                     </tbody>
-                </table>
+                  </table>
+                </div>
+              </div>
             </div>
+            </div>
+   </div>
     </>)
 
 }

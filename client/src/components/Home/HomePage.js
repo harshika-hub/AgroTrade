@@ -34,6 +34,7 @@ function Home() {
     console.log('equipment in component', equipment.payload);
     if (equipment.payload)
       setEquipment(equipment.payload.slice(0, 2));
+
   }
 
   const getLand = async (token) => {

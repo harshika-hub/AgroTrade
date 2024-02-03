@@ -5,7 +5,8 @@ import Swal from "sweetalert2";
 import jscookie from "js-cookie"
 import grainimg from "../../../assets/grainimg.webp";
 import { addGrain } from "../../../store/userSlice"
-
+import state_arr from "../../../City.js";
+import s_a from "../../../City.js";
 
 var checkFields = false,
   state = false,
@@ -21,12 +22,45 @@ var checkFields = false,
   grain = false
 
 
+
+
 function AddGrain(props) {
-  
-  const {getGrians}=props;
+
+  const { getGrians } = props;
 
   const [lgShow, setLgShow] = useState(false);
   const [addgrainObj, setAddGrain] = useState(false);
+
+
+ 
+  const print_state = () => {
+    var option_str = document.getElementById("state");
+
+    console.log('option ', option_str);
+    console.log('state_array ', state_arr);
+    // option_str.length = 0;
+    option_str.options[0] = new Option('Select State', '');
+    option_str.selectedIndex = 0;
+    console.log('', state_arr.state_arr);
+    for (var i = 0; i < state_arr.state_arr.length; i++) {
+      option_str.options[option_str.length] = new Option(state_arr.state_arr[i], state_arr.state_arr[i]);
+      console.log('option_str in loop ', option_str);
+    }
+  }
+  const print_city = (e, city_id) => {
+    var { name, value } = e.target;
+    var state_index = e.target.selectedIndex;
+    console.log('event ', e.target.selectedIndex);
+    var option_str = document.getElementById(city_id);
+    option_str.length = 0;
+    option_str.options[0] = new Option('Select City', '');
+    option_str.selectedIndex = 0;
+    var city_arr = s_a.s_a[state_index].split("|");
+    for (var i = 0; i < city_arr.length; i++) {
+      option_str.options[option_str.length] = new Option(city_arr[i], city_arr[i]);
+    }
+    checkField(e);
+  }
 
 
   function validateName(e) {
@@ -56,6 +90,7 @@ function AddGrain(props) {
       checkFields = false;
     }
   }
+
 
   function validateShelfLife(e) {
     const pattern = /^[1-9]\d*$/
@@ -126,10 +161,18 @@ function AddGrain(props) {
       MoiField.classList.add('is-valid');
       MoiField.classList.remove('is-invalid');
       checkFields = true;
+      if(e.target.name === "moisturelevel"){
+        moisturelevel=true;
+        
+      }
     } else {
       MoiField.classList.remove('is-valid');
       MoiField.classList.add('is-invalid');
       checkFields = false;
+      if(e.target.name === "moisturelevel"){
+        moisturelevel=false;
+        
+      }
     }
     if (e.target.value === "") {
       MoiField.classList.remove('is-valid');
@@ -138,32 +181,44 @@ function AddGrain(props) {
     }
   }
 
-
   function validateQuantityField(e) {
     const pattern = /^[1-9]\d*$/;
     const quantityField = document.getElementById(e.target.id);
-
+  
     const { name, value } = e.target;
     const trimmedValue = value.trim();
-
+  
+    console.log('name:', name);
+    console.log('value:', value);
+    console.log('trimmedValue:', trimmedValue);
+  
     if (pattern.test(trimmedValue)) {
-      setAddGrain({ ...addgrainObj, [name]: value.trim() })
+      setAddGrain({ ...addgrainObj, [name]: value.trim() });
       quantityField.classList.add('is-valid');
       quantityField.classList.remove('is-invalid');
       checkFields = true;
+      if(e.target.name === "quantity"){
+        quantity=true; 
+      }
     } else {
       quantityField.classList.remove('is-valid');
       quantityField.classList.add('is-invalid');
       checkFields = false;
+      if(e.target.name === "quantity"){
+        quantity=true;
+        
+      }
     }
-
+  
+    console.log('checkFields after validation:', checkFields);
+  
     if (value === "") {
       quantityField.classList.remove('is-valid');
       quantityField.classList.remove('is-invalid');
       checkFields = false;
     }
   }
-
+  
 
 
   function validatePriceField(e) {
@@ -178,6 +233,7 @@ function AddGrain(props) {
       priceField.classList.add('is-valid');
       priceField.classList.remove('is-invalid');
       checkFields = true;
+
     } else {
       priceField.classList.remove('is-valid');
       priceField.classList.add('is-invalid');
@@ -192,21 +248,29 @@ function AddGrain(props) {
   }
 
 
+ 
+
   function handleRadioChange(e) {
-    const field = document.getElementById(e.target.id)
+    const field = document.getElementById(e.target.id);
+
     if (e.target.value.trim() === "" || e.target.value === "null") {
-      field.classList.add('is-invalid');
-      field.classList.remove('is-valid');
-      if (e.target.name === "grain") {
-        grain = false;
-      }
+        field.classList.add('is-invalid');
+        field.classList.remove('is-valid');
+        if (e.target.name === "grain") {
+            grain = false;
+        }
+    } else {
+        field.classList.remove('is-invalid');
+        field.classList.add('is-valid');
+        if (e.target.name === "grain") {
+            grain = true; // Assuming grain should be set to true when it's a valid selection
+        }
     }
+
     const { name, value } = e.target;
-    setAddGrain({ ...addgrainObj, [name]: value })
-    if (e.target.name === "grain") {
-      grain = false;
-    }
-  }
+    setAddGrain({ ...addgrainObj, [name]: value });
+}
+
 
 
 
@@ -259,56 +323,202 @@ function AddGrain(props) {
   }
 
 
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   const formData = new FormData();
+  //   for (var key in addgrainObj) {
+  //     if (addgrainObj[key]) {
+  //       formData.append(key, addgrainObj[key]);
+  //     }
+  //   }
+
+  //   const userEmail = jscookie.get("userEmail");
+  //   if (userEmail) {
+  //     formData.append("userEmail", userEmail);
+  //   }
+
+  //   addGrain(formData).then((data) => {
+  //     if (data.message == "success") {
+  //       Swal.fire({
+  //         position: "middle",
+  //         icon: "success",
+  //         title: "Add Successfully",
+  //         showConfirmButton: false,
+  //         timer: 2000
+  //       });
+  //       getGrians();
+
+  //     }
+  //     else {
+  //       Swal.fire({
+  //         icon: "error",
+  //         title: "Oops...",
+  //         text: "Unavailable to Add Grain. Please try Again...",
+  //       });
+  //     }
+  //     setLgShow(false)
+  //   }).catch((err) => {
+  //     console.log("err", err);
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oops...",
+  //       text: "Unavailable to Add Grain. Please try Again...",
+  //     });
+  //     setLgShow(false)
+  //   })
+  // }
+
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  
+  //   // Check all validation flags
+  //   if (
+  //     grainname &&
+  //     graintype &&
+  //     quantity &&
+  //     selflife &&
+  //     moisturelevel &&
+  //     state &&
+  //     city &&
+  //     image &&
+  //     description &&
+  //     grain
+  //   ) {
+  //     const formData = new FormData();
+  //     for (var key in addgrainObj) {
+  //       if (addgrainObj[key]) {
+  //         formData.append(key, addgrainObj[key]);
+  //       }
+  //     }
+  
+  //     const userEmail = jscookie.get("userEmail");
+  //     if (userEmail) {
+  //       formData.append("userEmail", userEmail);
+  //     }
+  
+  //     // Perform the API call to add the grain
+  //     addGrain(formData)
+  //       .then((data) => {
+  //         if (data.message === "success") {
+  //           Swal.fire({
+  //             position: "middle",
+  //             icon: "success",
+  //             title: "Add Successfully",
+  //             showConfirmButton: false,
+  //             timer: 2000
+  //           });
+  //           getGrians();
+  //         } else {
+  //           Swal.fire({
+  //             icon: "error",
+  //             title: "Oops...",
+  //             text: "Unable to Add Grain. Please try Again..."
+  //           });
+  //         }
+  //         setLgShow(false);
+  //       })
+  //       .catch((err) => {
+  //         console.log("err", err);
+  //         Swal.fire({
+  //           icon: "error",
+  //           title: "Oops...",
+  //           text: "Unable to Add Grain. Please try Again..."
+  //         });
+  //         setLgShow(false);
+  //       });
+  //   // } else {
+  //   //   // Validation failed, show an error or handle it as needed
+  //   //   Swal.fire({
+  //   //     icon: "error",
+  //   //     title: "Validation Error",
+  //   //     text: "Please fill in all the required fields correctly."
+  //   //   });
+  //   }
+  // }
+  
   function handleSubmit(e) {
     e.preventDefault();
-    const formData = new FormData();
-    for (var key in addgrainObj) {
-      if (addgrainObj[key]) {
-        formData.append(key, addgrainObj[key]);
+    console.log('Validation Flags:', grainname, graintype, quantity, selflife, moisturelevel, state, city, image, description, grain);
+
+    // Check all validation flags
+    if (
+      checkFields&&
+      grainname &&
+      graintype &&
+      quantity &&
+      selflife &&
+      moisturelevel &&
+      state &&
+      city &&
+      image &&
+      description &&
+      grain
+    ) {
+      const formData = new FormData();
+      for (var key in addgrainObj) {
+        if (addgrainObj[key]) {
+          formData.append(key, addgrainObj[key]);
+        }
       }
-    }
-
-    const userEmail = jscookie.get("userEmail");
-    if (userEmail) {
-      formData.append("userEmail", userEmail);
-    }
-
-    addGrain(formData).then((data) => {
-      if (data.message == "success") {
-        Swal.fire({
-          position: "middle",
-          icon: "success",
-          title: "Add Successfully",
-          showConfirmButton: false,
-          timer: 2000
+  
+      const userEmail = jscookie.get("userEmail");
+      if (userEmail) {
+        formData.append("userEmail", userEmail);
+      }
+  
+      // Perform the API call to add the grain
+      addGrain(formData)
+        .then((data) => {
+          if (data.message === "success") {
+            Swal.fire({
+              position: "middle",
+              icon: "success",
+              title: "Add Successfully",
+              showConfirmButton: false,
+              timer: 2000
+            });
+  
+            // Close the modal after successful addition
+            setLgShow(false);
+            
+            // Fetch grains or perform any other necessary actions
+            getGrians();
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Unable to Add Grain. Please try Again..."
+            });
+          }
+        })
+        .catch((err) => {
+          console.log("err", err);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Unable to Add Grain. Please try Again..."
+          });
         });
-        getGrians();
-
-      }
-      else {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Unavailable to Add Grain. Please try Again...",
-        });
-      }
-      setLgShow(false)
-    }).catch((err) => {
-      console.log("err", err);
+    } else {
+      // Validation failed, show an error or handle it as needed
       Swal.fire({
         icon: "error",
-        title: "Oops...",
-        text: "Unavailable to Add Grain. Please try Again...",
+        title: "Validation Error",
+        text: "Please fill in all the required fields correctly."
       });
-      setLgShow(false)
-    })
+    }
   }
+  
 
 
   return (
     <>
 
-      <button type="button" onClick={() => setLgShow(true)} className="btn btn-outline-success btn-sm" ><i className="bi bi-plus-lg"></i>&nbsp;Add grains</button>
+      <button type="button" onClick={() => {
+        setLgShow(true)
+        setTimeout(print_state, 1000);
+      }}
+        className="btn btn-outline-success btn-sm" ><i className="bi bi-plus-lg"></i>&nbsp;Add grains</button>
       <Modal
         size="xl"
         show={lgShow}
@@ -382,10 +592,10 @@ function AddGrain(props) {
                   </label>
                   <input
                     placeholder="Enter Quantity"
-                    type=""
+                    type="number"
                     name="quantity"
                     className="form-control form-control-sm mb-1"
-                    id="quantityField"
+                    id="quantity"
                     onChange={validateQuantityField}
                     required
                   />
@@ -405,7 +615,7 @@ function AddGrain(props) {
                   </label>
                   <input
                     placeholder="Enter Shelf Life"
-                    type=""
+                    type="number"
                     name="selflife"
                     id="selflife"
                     className="form-control form-control-sm mb-1"
@@ -472,11 +682,8 @@ function AddGrain(props) {
                   >
                     State
                   </label>
-                  <select name="state" onChange={checkField} id="state" className="form-control form-control-sm">
-                    <option value="null">Selecet State</option>
-                    <option value="mp">Mp</option>
-                    <option value="up">Up</option>
-                  </select>
+                  <select type="text" className="form-control form-control-sm mb-1 form-control-sm" name="state" id="state" onChange={(e) => { print_city(e, 'city') }}></select>
+
                   <div className="valid-feedback">
                     valid State.
                   </div>
@@ -491,11 +698,7 @@ function AddGrain(props) {
                   >
                     City
                   </label>
-                  <select name="city" onChange={checkField} id="city" className="form-control form-control-sm">
-                    <option value="null">Selecet City</option>
-                    <option value="indore">Indore</option>
-                    <option value="bhopal">Bhopal</option>
-                  </select>
+                  <select className="form-control form-control-sm mb-1 form-control-sm" name="city" id="city" onChange={checkField} ></select>
                   <div className="valid-feedback">
                     valid city.
                   </div>
@@ -532,8 +735,8 @@ function AddGrain(props) {
                     className="form-label midgreen"
                   >
                   </label><br />
-                  <input className="m-2 mt-3" type="radio" name="grain" value="organic" onChange={handleRadioChange} />Organic
-                  <input className="m-2 mt-3" type="radio" name="grain" value="inorganic" onChange={handleRadioChange} />Inorganic
+                  <input className="m-2 mt-3" type="radio" name="grain" id="grain" value="organic" onChange={handleRadioChange} />Organic
+                  <input className="m-2 mt-3" type="radio" name="grain" id="grain" value="inorganic" onChange={handleRadioChange} />Inorganic
                   <div className="invalid-feedback">
                     Please provide correct.
                   </div>

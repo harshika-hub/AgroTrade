@@ -13,6 +13,8 @@ import sockets from "./sockets/socketsRoutes.js";
 import path from "path";
 import messageRouter from './routes/messageRouter.js'
 import chatRouter from './routes/chatRouter.js'
+import orgRouter from './routes/organizationRouter.js'
+
 import { fileURLToPath } from 'url';
 import adminRouter from './routes/adminRouter.js'
 const __filename = fileURLToPath(import.meta.url);
@@ -63,6 +65,7 @@ app.use('/user',userRouter);
 app.use('/admin',adminRouter)
 app.use("/chat",chatRouter);
 app.use("/message",messageRouter);
+app.use("/organization",orgRouter);
 
 
 httpServer.listen(PORT, () => {

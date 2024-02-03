@@ -271,7 +271,16 @@ export const removeAgriLand = async(payload)=>{
 //     }
 // }
 
-
+export const statusVerifyupdate = async (payload) => {
+    console.log("This is statusVerifyupdate", payload);
+    try {
+        var result = await axios.post(USER_REQUESTED_URL + "/statusVerifyupdate", payload);
+        console.log("result", result);
+        return result.data
+    } catch (error) {
+        console.log("error sendData");
+    }
+}
 
 export const {setUserData} = userSlice.actions;
 export default userSlice.reducer;

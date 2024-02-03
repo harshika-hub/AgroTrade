@@ -91,7 +91,7 @@ function UserFogotPassword() {
   }
 
   function handleChangePasswordSubmit(e) {
-    if(checkFields && email){
+    
       changePassword(password).then((data)=>{
         console.log(data.message);
         if(data.message==='success'){
@@ -117,7 +117,7 @@ function UserFogotPassword() {
           text: "Something went wrong!"
         });
       });
-    }
+   
   }
 
 

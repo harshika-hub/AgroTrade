@@ -1,6 +1,7 @@
 import { ADMIN_REQUESTED_URL } from "../../../../urls";
 import { useState, useEffect } from "react";
 import { verifyStatusAdmin } from "../../../../store/adminSlice"
+import "./ListedEquipmentsAd.css"
 import CardModal from "./CardModal";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -68,48 +69,54 @@ function ListedEquipmentsAd(){
 
 
     return(
-        <>
- <p className="mt-5 text-center fs-2 darkgreen fw-bold">Listed Equipments</p>
-            <div className="container mt-5 mr-5 table-responsive ">
-                <table className="table table-bordered table-sm ">
+<>
+<div className="mt-3 p-2" >
+          <h1 className="text-start ms-3  darkgreen fw-bold"><i class="bi bi-people-fill"></i>&nbsp;Listed Equipments</h1>
+          <div class="col-12">
+            <div class="card table-card p-0">
+              <div class="card-body p-3">
+                <div class="table-responsive">
+                  <table class="table table-success  mb-0">
                     <thead>
                         <tr>
-                        <th className="fs-6 p-1">S. No</th>
-                            <th className="fs-6 p-1">User Email</th>
-                            <th className="fs-6 p-1">Equipment Name</th>
-                            <th className="fs-6 p-1">Equipment Type</th>
-                            <th className="fs-6 p-1">Address</th>
-                            <th className="fs-6 p-1">Details</th>
-                            <th className="fs-6 p-1">Verify Status</th>
+                            <th className="fs-6 p-0 text-center">S. No</th>
+                            <th className="fs-6 p-0 text-center">User Email</th>
+                            <th className="fs-6 p-0 text-center">Equipment Name</th>
+                            <th className="fs-6 p-0 text-center">Equipment Type</th>
+                            <th className="fs-6 p-0 text-center">Address</th>
+                            <th className="fs-6 p-0 text-center">Details</th>
+                            <th className="fs-6 p-0 text-center">Verify Status</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {
-                            equipmentsData.length === 0 ? (
-                                <tr>
-                                    <td colSpan="13" className="text-center">No data available</td>
-                                </tr>
-                            ) : (
-                                equipmentsData.map((equipment, index) => (
-                                    <tr key={index}>
-                                        <td className="fs-6">{index + 1}</td>
-                                        <td className="fs-6">{equipment.userEmail}</td>
-                                        <td className="fs-6">{equipment.name}</td>
-                                        <td className="fs-6">{equipment.modelnumber}</td>
-                                        <td className="fs-6">{equipment.city},{equipment.state}</td>
-                                        <td className="fs-6"><CardModal Equipment={equipment}/></td>
-                                        <td className="fs-6">{equipment.admin_verify? <button type="button" name="" id="" className="btn btn-outline-success btn-sm" onClick={()=>updateAdminStatus(equipment._id)} >Verified
-                                        </button>:<button type="button" name="" id="" className="btn btn-outline-danger btn-sm" onClick={()=>updateAdminStatus(equipment._id)} >Not Verified
-                                        </button>}</td>
-                                        
-                                    </tr>
-                                ))
-                            )
-                        }
-                    </tbody>
-                </table>
+                        <tbody>
+                         {
+                             equipmentsData.length === 0 ? (
+                                 <tr>
+                                     <td colSpan="13" className="text-center">No data available</td>
+                                 </tr>
+                             ) : (
+                                 equipmentsData.map((equipment, index) => (
+                                     <tr key={index}>
+                                         <td className="fs-6 text-center">{index + 1}</td>
+                                         <td className="fs-6 text-center">{equipment.userEmail}</td>
+                                         <td className="fs-6 text-center">{equipment.name}</td>
+                                         <td className="fs-6 text-center">{equipment.modelnumber}</td>
+                                         <td className="fs-6 text-center">{equipment.city},{equipment.state}</td>
+                                         <td className="fs-6 text-center"><CardModal Equipment={equipment}/></td>
+                                         <td className="fs-6 text-center">{equipment.admin_verify? <button type="button" name="" id="" className="btn btn-outline-success btn-sm" onClick={()=>updateAdminStatus(equipment._id)} >Verified
+                                         </button>:<button type="button" name="" id="" className="btn btn-outline-danger btn-sm" onClick={()=>updateAdminStatus(equipment._id)} >Not Verified
+                                         </button>}</td>                                      
+                                     </tr>
+                                 ))
+                             )
+                         }
+                     </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
-        </>
+          </div>
+          </div></>
     )
 
 }

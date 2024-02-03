@@ -23,7 +23,7 @@ export const aunthicateJWT = (request,response,next)=>{
         if(TOKEN){
             jwt.verify(TOKEN,SECRET_KEY,(error,payload)=>{
                 if(error){
-                    console.log('Error inside verify method : ',error);
+                    console.log('Error inside verify method : ');
                     response.status(204).json({message:'error'});
                 }else{
                     console.log('Authentication Successfull');

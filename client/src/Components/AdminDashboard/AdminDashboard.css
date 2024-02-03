@@ -98,10 +98,15 @@
     overflow-y: hidden;
     /* background-color: #FFC72C; */
     /* background: linear-gradient(to top, #50cc7f 0%, #f5d100 100%); */
-    background: #D6BA07;
-background: linear-gradient(315deg, #D6BA07, #EFDE88);
+  
     transition: 0.5s;
     z-index: 999;
+}
+
+.sidebar-admin{
+
+    background: #D6BA07;
+    background: linear-gradient(315deg, #D6BA07, #EFDE88);
 }
 
 .light-yellow{
@@ -305,4 +310,9 @@ background: linear-gradient(315deg, #D6BA07, #EFDE88);
 .testimonial-carousel .owl-dot.active {
     background: var(--dark);
     border-color: var(--primary);
+}
+
+#scrollDiv{
+    max-height: 50vh;
+    overflow: scroll;
 }

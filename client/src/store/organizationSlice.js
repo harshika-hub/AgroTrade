@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import {REQUESTED_URL } from '../urls.js';
+import {REQUESTED_URL , ORGANIZATION_REQUESTED_URL} from '../urls.js';
 import jscookie from 'js-cookie';
+
 
 const initialState = {
     orgData: {}
@@ -68,6 +69,28 @@ export const changePassword =  async(payload)=>{
     }
 }
 
+export const requestForLand =  async(payload)=>{
+    try{
+        console.log("inside requestForLand : ",payload);
+        var result  = await axios.post(ORGANIZATION_REQUESTED_URL+"/requestForLand",payload);
+        console.log("Result :" ,result);
+        return result.data;
+    }catch(error){
+        console.log("Error in requestForLand : ",error);
+    }
+}
+
+export const UpdateOrgProfile=async(payload)=>{
+    try {
+        console.log("inside UpdateOrgProfile : ",payload);
+        var result =await axios.post(ORGANIZATION_REQUESTED_URL+"/UpdateOrgProfile",payload)
+        console.log("result",result);
+        return result.data
+    } catch (error) {
+        console.log('error in org Data');
+        
+    }
+}
 
 export const { setOrgData } = organizationSlice.actions;
 // export const { orgRegister,orgLogin } = organizationSlice.actions;

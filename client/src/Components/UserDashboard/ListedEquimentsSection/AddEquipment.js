@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import "./AddEquipment.css";
 import Equipmentimage from "../../../assets/Equipment.jpg"
 import { addEquipment } from "../../../store/userSlice";
 import Swal from "sweetalert2";
 import jscookie from "js-cookie"
+import state_arr from "../../../City.js";
+import s_a from "../../../City.js";
 
 
 
@@ -30,6 +32,35 @@ function AddEquipment(props) {
     const {getEquipments}=props
     const [lgShow, setLgShow] = useState(false);
     const [addEquipmentObj,setAddEquipment]=useState(false);
+
+    const print_state = () => {
+        var option_str = document.getElementById("state");
+        
+		console.log('option ',option_str);
+		console.log('state_array ',state_arr);
+        // option_str.length = 0;
+        option_str.options[0] = new Option('Select State', '');
+        option_str.selectedIndex = 0;
+		console.log('',state_arr.state_arr);
+        for (var i = 0; i < state_arr.state_arr.length; i++) {
+            option_str.options[option_str.length] = new Option(state_arr.state_arr[i], state_arr.state_arr[i]);
+			console.log('option_str in loop ',option_str);
+        }
+    }
+    const print_city = (e, city_id) => {
+        var { name, value } = e.target;
+        var state_index = e.target.selectedIndex;
+		console.log('event ',e.target.selectedIndex);
+        var option_str = document.getElementById(city_id);
+        option_str.length = 0;
+        option_str.options[0] = new Option('Select City', '');
+        option_str.selectedIndex = 0;
+        var city_arr = s_a.s_a[state_index].split("|");
+        for (var i = 0; i < city_arr.length; i++) {
+            option_str.options[option_str.length] = new Option(city_arr[i], city_arr[i]);
+        }
+        checkField(e);
+    }
 
     
 
@@ -258,7 +289,10 @@ function AddEquipment(props) {
 
     return (
         <>
-            <button type="button" onClick={() => setLgShow(true)} className="btn btn-outline-success btn-sm" ><i className="bi bi-plus-lg"></i>&nbsp;Add Equipment</button>
+            <button type="button" onClick={() =>{ setLgShow(true)
+               setTimeout(print_state,1000);
+             }} 
+            className="btn btn-outline-success btn-sm" ><i className="bi bi-plus-lg"></i>&nbsp;Add Equipment</button>
      
             <Modal
                 size="xl"
@@ -425,11 +459,7 @@ function AddEquipment(props) {
                                     >
                                         State
                                     </label>
-                                    <select name="state" onChange={checkField} className="form-control form-control-sm mb-1 form-control-sm" id="state" >
-                                        <option value="null">Select State</option>
-                                        <option value="mp">Mp</option>
-                                        <option value="bhopal">Up</option>
-                                    </select>
+                                    <select type="text" className="form-control form-control-sm mb-1 form-control-sm" name="state" id="state" onChange={(e) => { print_city(e, 'city') }}></select>
                                     <div className="valid-feedback">
                                         State selected!!
                                     </div>
@@ -444,14 +474,8 @@ function AddEquipment(props) {
                                     >
                                         City
                                     </label>
-                                    <select name="city" onChange={checkField} className="form-control form-control-sm mb-1 form-control-sm" id="city" >
-                                        <option value="null">Select State</option>
-                                        <option value="indore">Indore</option>
-                                        <option value="bhopal">Bhopal</option>
-                                        <option value="dewas">Dewas</option>
-                                        <option value="lucknow">lucknow</option>
-
-                                    </select>
+                                    
+                                    <select className="form-control form-control-sm mb-1 form-control-sm"  name="city" id="city" onChange={checkField} ></select>
                                     <div className="valid-feedback">
                                         City selected!!
                                     </div>
@@ -554,5 +578,6 @@ function AddEquipment(props) {
             </Modal>
         </>
     );
+    
 }
 export default AddEquipment;

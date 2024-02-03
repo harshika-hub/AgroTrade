@@ -1,14 +1,14 @@
 import { ADMIN_REQUESTED_URL } from "../../../urls";
 import { useState, useEffect } from "react";
 import {statusUpdate,statusVerify} from "../../../store/adminSlice"
+import OrgdetailModal from "./OrgDetail Modal/OrgdetailModal";
 import axios from "axios";
+import "./OrganizationList.css"
 import Swal from "sweetalert2";
 
 function OrganizationList() {
     const [organizationData, setOrganizationData] = useState([])
-    useEffect(() => {
-        getData();
-    }, []);
+    
     const getData = ()=>{
         try {
             axios.get(ADMIN_REQUESTED_URL + "/adminOrganizationList").then((userDatas) => {
@@ -19,6 +19,10 @@ function OrganizationList() {
             console.log("Eroor in get uer data", err);
         }
     }
+    useEffect(() => {
+      getData();
+      console.log("organizationData",organizationData);
+  }, []);
     const updateStatus = (_id)=>{
         Swal.fire({
             title: 'Are you sure?',
@@ -108,22 +112,26 @@ function OrganizationList() {
           });
     }
     return (
+ 
         <>
-            <p className="mt-5 text-center fs-2 darkgreen fw-bold">Organization List</p>
-            <div className="container mt-5 mr-5 table-responsive ">
-                <table className="table table-bordered table-sm ">
-                    {console.log("organizationData", organizationData)}
+        <div className="mt-3 p-2" >
+        <h1 className="ms-3 text-start darkgreen fw-bold"><i class="bi bi-buildings"></i>&nbsp;Organization List</h1>
+        <div className="container-fluid table-responsive pb-3">   
+           <div class="card table-card p-0">
+              <div class="card-body p-3">
+                <div class="table-responsive">
+                  <table class="table table-success  mb-0">
                     <thead>
                         <tr>
-                            <th className="fs-6 p-1">S. No</th>
-                            <th className="fs-6 p-1">Org-Name</th>
-                            <th className="fs-6 p-1">Org-Email</th>
-                            <th className="fs-6 p-1">Dealer Email</th>
-                            <th className="fs-6 p-1">Dealer Name</th>
-                            <th className="fs-6 p-1">Dealer Contact</th>
-                            <th className="fs-6 p-1">Details</th>
-                            <th className="fs-6 p-1">Status</th>
-                            <th className="fs-6 p-1">Verify</th>
+                            <th className="fs-6 p-0 text-center">S. No</th>
+                            <th className="fs-6 p-0 text-center">Image</th>
+                            <th className="fs-6 p-0 text-center">Org email</th>
+                            <th className="fs-6 p-0 text-center">Dealer email</th>
+                            <th className="fs-6 p-0 text-center">Dealer name</th>
+                            <th className="fs-6 p-0 text-center">Dealer contact</th>
+                            <th className="fs-6 p-0 text-center">Details</th>
+                            <th className="fs-6 p-0 text-center">Status</th>
+                            <th className="fs-6 p-0 text-center">Verify</th>
 
                         </tr>
                     </thead>
@@ -136,25 +144,36 @@ function OrganizationList() {
                             ) : (
                                 organizationData.map((org, index) => (
                                     <tr key={index}>
-                                        <td className="fs-6">{index + 1}</td>
-                                        <td className="fs-6">{org.company_name}</td>
-                                        <td className="fs-6">{org.org_email}</td>
-                                        <td className="fs-6">{org.dealer_email}</td>
-                                        <td className="fs-6">{org.dealer_name}</td>
-                                        <td className="fs-6">{org.dealer_contact}</td>
-                                        <td className="fs-6"><button type="button" name="" id="" className="btn btn-warning btn-sm" >See Details
-                                        </button></td><td className="fs-6">{org.status=="daactive"? <button type="button" name="" id="" className="btn btn-outline-success btn-sm" onClick={()=>updateStatus(org._id)} >Active
-                                        </button>:<button type="button" name="" id="" className="btn btn-outline-danger btn-sm" onClick={()=>updateStatus(org._id)}>Deactive
-                                        </button>}</td><td className="fs-6">{org.verify_status? <button type="button" name="" id="" className="btn btn-outline-success btn-sm" onClick={()=>updateStatusVerify(org._id)} >Verify
-                                        </button>:<button type="button" name="" id="" className="btn btn-outline-danger btn-sm" onClick={()=>updateStatusVerify(org._id)}>Not Verify
+                                        <td className="fs-6 text-center">{index + 1}</td>
+                                        <td className="fs-6  d-flex justify-content-center">
+                                         <img    src={org.org_image?"http://localhost:3000/" + org.org_image:"http://localhost:3000/altUserImage.jpeg"} alt={org.org_image} className="rounded-circle d-flex align-self-start  shadow-1-strong " width="40px" height="40px"/>
+                                        </td>
+                                        <td className="fs-6 text-center">{org.company_name}</td>
+                                        <td className="fs-6 text-center">{org.dealer_email}</td>
+                                        <td className="fs-6 text-center">{org.dealer_name}</td>
+                                        <td className="fs-6 text-center">{org.dealer_contact}</td>
+                                        <td className="fs-6 text-center">
+                                          {/* <button type="button" name="" id="" className="btn btn-warning btn-sm" >See Details
+                                        </button> */}
+                                        <OrgdetailModal key={index} org={org}/>
+                                        </td>
+                                        <td className="fs-6 text-center">{org.status=="deactive"? <button type="button" name="" id="" className="btn btn-success btn-sm" onClick={()=>updateStatus(org._id)} >Active
+                                        </button>:<button type="button" name="" id="" className="btn btn-danger btn-sm" onClick={()=>updateStatus(org._id)}>Deactive
+                                        </button>}</td>
+                                        <td className="fs-6 text-center">{org.verify_status? <button type="button" name="" id="" className="btn btn-success btn-sm" onClick={()=>updateStatusVerify(org._id)} >Verify
+                                        </button>:<button type="button" name="" id="" className="btn btn-danger btn-sm" onClick={()=>updateStatusVerify(org._id)}>Not Verify
                                         </button>}</td>
                                     </tr>
                                 ))
                             )
                         }
                     </tbody>
-                </table>
+                  </table>
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
         </>
     )
 }

@@ -1,16 +1,15 @@
 import express from 'express';
 import { upload } from '../middleware/fileUpload.js';
 import { aunthicateJWT } from '../middleware/jwtVerification.js';
-import { updateAgriLandController, getExpertContrller, addAgriLandController, removeAgriLandController, getAgriLandController, 
+import { statusVerifyupdateController, expertViewDataController, bookExpertController, updateAgriLandController, getExpertContrller, addAgriLandController, removeAgriLandController, getAgriLandController, 
     coldStLandsInsertController, updateColdStLandController, deleteColdStLandController,getcoldStLandsController, updateGrainController,
      deleteGrainController, getGrainController, grainInsertController, getUserController, newExpertController, updateProfileController,
      addEquipmentController ,getEquipmentController,deleteEquipmentController,updateEquipmentController,getMarketGrainContrller,
-     getMarketEquipmentContrller,getMarketLandContrller,getMarketStorageContrller,addcartController,getCartController,updateCartController
-     ,removeCartController,addcartEqpController,equipmentCartController,updateCartequipmentController,removeCartequipmentController} 
+     getMarketEquipmentContrller,getMarketLandContrller,getMarketStorageContrller,addcartController,getCartController,updateCartController,removeCartController,removeCartequipmentController,updateCartequipmentController,addcartEqpController,equipmentCartController} 
      from '../controller/userController.js';
 const userRouter = express.Router();
-userRouter.post("/newExpert",upload.single('certificate'),newExpertController);
-userRouter.post("/getUser",aunthicateJWT,getUserController);
+userRouter.post("/newExpert",upload.single('certificate'),newExpertController)
+userRouter.post("/getUser",aunthicateJWT,getUserController)
 userRouter.post('/grainInsert',upload.single('image'),grainInsertController);
 userRouter.post('/coldStInsert',upload.fields([{ name: 'image', maxCount: 1 }, { name: 'image360', maxCount: 1 }]),coldStLandsInsertController);
 userRouter.post("/updateUser",upload.single("image"),updateProfileController);
@@ -27,7 +26,7 @@ userRouter.post('/deleteEquipmentId',deleteEquipmentController);
 userRouter.post('/UpdateEquipment',upload.single("image"),updateEquipmentController);
 userRouter.get('/getAgriLand',getAgriLandController);
 userRouter.post("/addAgriLand", upload.fields([{ name: 'image', maxCount: 1 }, { name: 'image360', maxCount: 1 }]), addAgriLandController);
-userRouter.get("/removeAgriLand",removeAgriLandController);
+userRouter.get("/removeAgriLand",removeAgriLandController)
 userRouter.get("/getExpert",getExpertContrller); 
 userRouter.get("/marketGrains",getMarketGrainContrller); 
 userRouter.get("/marketEquipment",getMarketEquipmentContrller); 
@@ -43,9 +42,9 @@ userRouter.post("/updateCartQuantityequipment",aunthicateJWT,updateCartequipment
 userRouter.post("/removeCartequipment",aunthicateJWT,removeCartequipmentController); 
 
 
-
-
-
+userRouter.post("/expertViewData", expertViewDataController);
+userRouter.post("/statusVerifyupdate", statusVerifyupdateController);
+userRouter.post('/bookExpert',bookExpertController);
 
 
 export default userRouter;

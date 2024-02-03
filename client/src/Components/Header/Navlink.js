@@ -9,16 +9,17 @@ import { setUserData } from "../../store/userSlice.js";
 import { setOrgData } from "../../store/organizationSlice.js";
 import { setAdminData } from "../../store/adminSlice.js";
 import { useNavigate } from "react-router-dom";
+import { getCart } from "../../store/marketSlice.js";
+
 import jscookie from 'js-cookie';
 import { useEffect, useState } from "react";
-import { getCart } from "../../store/marketSlice.js";
 
 function Nablinks() {
   const token = jscookie.get("token");
   const email = jscookie.get("userEmail");
-  console.log("hiii");
   const [cartCount, setCartCount] = useState(0);
 
+  console.log("hiii");
   const { role, status } = useSelector(state => state.commonSlice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ function Nablinks() {
     jscookie.set('token', '')
     navigate('/');
   }
+
   useEffect(() => {
 
     const getCartitem = async ({ token, email }) => {
@@ -54,6 +56,9 @@ function Nablinks() {
       >
         <div className="row m-0">
           <div className="col-md-8 offset-1">
+
+
+
             {
               token ? <ul id="navLinkul" className="nav d-felx justify-content-around aling-items-center" >
                 <li className="nav-item ">
@@ -68,12 +73,18 @@ function Nablinks() {
                     <i className="bi bi-basket3-fill"></i>&nbsp;Market
                   </Link>
                 </li>
-
+                <li className="nav-item">
+                  <Link className=" text-white nav-link" to="/community">
+                    {" "}
+                    <i className="bi bi-chat-fill"></i>&nbsp;Community
+                  </Link>
+                </li>
                 <li className="nav-item">
                   <Link className=" text-white nav-link" to="/dashboard">
                     <i className="bi bi-layout-text-window-reverse"></i>&nbsp;Dashboard
                   </Link>
                 </li>
+
                 <li className="nav-item">
 
                   <Link className=" text-white nav-link" to='/market/cartMarket'>
@@ -102,6 +113,8 @@ function Nablinks() {
                         <i className="bi bi-telephone-fill"></i>&nbsp;Contact
                       </Link>
                     </li>
+
+
                   </ul>
                 </div>
               </ul> : <ul id="navLinkul" className="nav d-felx justify-content-around aling-items-center" >
@@ -134,21 +147,20 @@ function Nablinks() {
             }
           </div>
 
-          <div className=" offset-1 col-2 order-last d-flex justify-content-around ">
+          <div className=" col-3 order-last d-flex justify-content-around ">
 
 
 
             {
-              token ? <> <button
-              type="Button"
-              className="btn btn-danger" onClick={handleLogout}
-            >Log Out&nbsp;<i className="bi bi-box-arrow-right"></i>
-            </button>
-              </>  :
+              token ? <button
+                type="Button"
+                className="btn btn-danger" onClick={handleLogout}
+              >Log Out&nbsp;<i className="bi bi-box-arrow-right"></i>
+              </button> :
                 <>
                   <div className="dropdown m-0">
                     <Link
-                      className="btn linksbtn btn-warning dropdown-toggle"
+                      className="btn linksbtn btn-warning dropdown-toggle mt-1"
                       to="#"
                       role="button"
                       id="dropdownMenuLink"
@@ -173,7 +185,7 @@ function Nablinks() {
                   </div>
                   <div className="dropdown m-0">
                     <a
-                      className="btn linksbtn btn-warning dropdown-toggle"
+                      className="btn linksbtn btn-warning dropdown-toggle mt-1"
                       to="/orgSignup"
                       role="button"
                       id="dropdownMenuLink"

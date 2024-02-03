@@ -85,7 +85,7 @@ function UserdashBoard() {
   return (
     <>
       <div className="container-fluid position-relative d-flex p-0 ">
-        <div className="sidebar" id="siderBar">
+        <div  className="sidebar sidebar-user"  id="siderBar">
           <nav className="navbar navbar-light pe-2">
             <div className="d-flex justify-content-between ps-3 pe-3  w-100">
               <a href="#" className="navbar-brand ">
@@ -107,7 +107,9 @@ function UserdashBoard() {
                 <span className=" text-white" >User</span>
               </div>
             </div>
-            <div className="navbar-nav w-100 ">
+
+
+            <div className="navbar-nav w-100 " id="scrollDivUser">
               <Link to="/dashboard/profile" className="nav-item nav-link  active  ">
                 <i className="bi bi-person-circle text-center"></i>&nbsp;Profile
               </Link>
@@ -170,7 +172,7 @@ function UserdashBoard() {
           {/* <DashboardLinks/> */}
           <ExpertModal setShow={setShow} show={show} />
           {/* --------------------------------Div to be nvigate----------------------------- */}
-          <div className="container-fluid p-0 " style={{ flexGrow: 1 }}>
+          <div className="container-fluid p-0 bg-light" style={{ flexGrow: 1 }}>
             <Outlet context={{ socket, user }} />
           </div>
           {/* --------------------------------Div to be nvigate ends ----------------------------- */}
