@@ -49,7 +49,7 @@ export default function MarketCard() {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(USER_REQUESTED_URL + "/marketGrains/" + token);
+        const response = await axios.get(USER_REQUESTED_URL + "/marketGrains" );
         if(response.data.grain)
         setGrain(response.data.grain.slice(0,2));
         console.log(response);

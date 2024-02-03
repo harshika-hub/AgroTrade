@@ -34,7 +34,6 @@ function Home() {
     console.log('equipment in component', equipment.payload);
     if (equipment.payload)
       setEquipment(equipment.payload.slice(0, 2));
-
   }
 
   const getLand = async (token) => {
@@ -74,7 +73,7 @@ function Home() {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(USER_REQUESTED_URL + "/marketGrains/" + token);
+        const response = await axios.get(USER_REQUESTED_URL + "/marketGrains");
         console.log("grain in home component",response);
 
         if (response.data)

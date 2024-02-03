@@ -303,17 +303,52 @@ const agriLandModel = new mongoose.Schema({
 const cartSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', // Assuming your user model is named 'User'
-        required: true
+        ref: 'User', 
+        required: true,
     },
-    products: [Object]
+    products: [Object],
+    order_g:{
+        type:Boolean,
+        default:false
+    }
 });
 
 const cart = mongoose.model('cart', cartSchema);
+
+const cartEqpSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', 
+        required: true
+    },
+    equips: [Object],
+    order_e:{
+        type:Boolean,
+        default:false
+    }
+});
+
+const cartEqp = mongoose.model('cartEqp', cartEqpSchema);
+
+const orderGrain=new mongoose.Schema({
+    cart_id:{
+        type:Object,
+        required:true
+    },
+    order_date:{
+        type:Date
+    },
+    shipping_address:{
+        type:String
+    },
+    total_pay:{
+        type:String
+    },
+})
 
 const  agriLand= mongoose.model('agriLand',agriLandModel,'agriLand');
 const equipments= mongoose.model('equipments',equipmentModel,'equipments')
 const users = mongoose.model('users', userModel, 'users');
 const grains = mongoose.model('grains', grainModel, 'grains');
 const coldStLands = mongoose.model('coldStLands', coldStorageLandModel, 'coldStLands');
-export { users, grains,equipments,coldStLands,agriLand,cart } 
+export { users, grains,equipments,coldStLands,agriLand,cart,cartEqp } 

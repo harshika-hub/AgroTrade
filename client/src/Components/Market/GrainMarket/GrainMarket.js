@@ -8,23 +8,19 @@ import jscookie from 'js-cookie';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
-import { addTocart, getCart } from '../../../store/marketSlice';
+import { addTocart, getCart} from '../../../store/marketSlice';
 
 export function GrainMarketCard({ grain }) {
 
   const [dat, setData] = useState([]);
-  const[cartCount,setCartCount]=useState(0);
   const dispatch=useDispatch();
 
+  // const[cartCount,setCartCount]=useState(0);
   const getCartitem=async({token,email})=>{
    const cartItems=await dispatch(getCart({token,email}));
    console.log("cart items in grain component",cartItems);
-   if(cartItems.payload)
-   setCartCount(cartItems.payload.length)
-
-  //  https://mdbootstrap.com/docs/standard/extended/shopping-carts/
-
-    
+  //  if(cartItems.payload)
+  //  setCartCount(cartItems.payload.length);
   }
 
   useEffect(()=>{
@@ -36,7 +32,7 @@ export function GrainMarketCard({ grain }) {
   }else{
     const fetchData = async () => {
       try {
-        const response = await axios.get(USER_REQUESTED_URL + "/marketGrains/" + token);
+        const response = await axios.get(USER_REQUESTED_URL + "/marketGrains" );
         setData(response.data.grain);
         console.log(response);
       } catch (error) {
@@ -94,10 +90,12 @@ export function GrainMarketCard({ grain }) {
   }
   }
   return (
-    <>{!grain? 
+    <>
+    {/* {!grain? 
       <Link to='/market/cartMarket' className='text-decoration-none'>  <div className='d-flex justify-content-end '>  
     <i className='text-info bi bi-cart-fill mt-3 ' style={{fontSize:"60px"}}></i>
-  <span className='me-0 fs-2'>{cartCount}</span></div> </Link>:""}
+  <span className='me-0 fs-2'>{cartCount}</span></div> </Link>:""} */}
+
 { dat||grain?
   dat.map((data)=>{
 return(

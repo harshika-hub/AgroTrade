@@ -40,6 +40,7 @@ import ListedFarmingLand from './Components/AdminDashboard/FarmingLand/ListedFar
 import ContactFarmingLand from './Components/AdminDashboard/FarmingLand/ContractFarmingLand/ContractFarmingLand.js'
 import ContractColdStLand from './Components/AdminDashboard/ColdStLand/ContractColdStLand/ContractColdStLand.js'
 import ListedColdStLand from './Components/AdminDashboard/ColdStLand/ListedColdStLand/ListedColdStLand.js';
+import Invoice from './Components/Market/Cart/Invoice/Invoice.jsx'
 function App() {
   // const [socket,setSocket]=useState(null);
   // useEffect(()=>{
@@ -78,6 +79,8 @@ function App() {
           <Route path="storageMarket" element={<StorageMarketCard />} ></Route>
           <Route path="equipmentMarket" element={<EquipmentMarketCard />} ></Route>
           <Route path="cartMarket" element={<Cart />} ></Route>
+          <Route path="grainInvoice" element={<Invoice />} ></Route>
+
         </Route>
 
         <Route path='/adminLogin' Component={AdminLogin} ></Route>

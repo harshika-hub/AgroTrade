@@ -5,7 +5,8 @@ import { updateAgriLandController, getExpertContrller, addAgriLandController, re
     coldStLandsInsertController, updateColdStLandController, deleteColdStLandController,getcoldStLandsController, updateGrainController,
      deleteGrainController, getGrainController, grainInsertController, getUserController, newExpertController, updateProfileController,
      addEquipmentController ,getEquipmentController,deleteEquipmentController,updateEquipmentController,getMarketGrainContrller,
-     getMarketEquipmentContrller,getMarketLandContrller,getMarketStorageContrller,addcartController,getCartController,updateCartController} 
+     getMarketEquipmentContrller,getMarketLandContrller,getMarketStorageContrller,addcartController,getCartController,updateCartController
+     ,removeCartController,addcartEqpController,equipmentCartController,updateCartequipmentController,removeCartequipmentController} 
      from '../controller/userController.js';
 const userRouter = express.Router();
 userRouter.post("/newExpert",upload.single('certificate'),newExpertController);
@@ -35,6 +36,15 @@ userRouter.get("/marketStorage",getMarketStorageContrller);
 userRouter.post("/addTocart",aunthicateJWT,addcartController); 
 userRouter.post("/getCartitems",aunthicateJWT,getCartController); 
 userRouter.post("/updateCartQuantity",aunthicateJWT,updateCartController); 
+userRouter.post("/removeCart",aunthicateJWT,removeCartController); 
+userRouter.post("/addTocartGrain",aunthicateJWT,addcartEqpController);  
+userRouter.post("/equipmentCartitems",aunthicateJWT,equipmentCartController); 
+userRouter.post("/updateCartQuantityequipment",aunthicateJWT,updateCartequipmentController); 
+userRouter.post("/removeCartequipment",aunthicateJWT,removeCartequipmentController); 
+
+
+
+
 
 
 

@@ -90,7 +90,7 @@ function OffCanvasExample({ name, ...props }) {
                     <Link className="offcanvasLinks  darkgreen mb-1 nav-link active" aria-current="page" to="/"><i className="bi bi-house-fill"></i>&nbsp;Home</Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="offcanvasLinks darkgreen mb-1  nav-link" to="/aboutus"><i className="bi bi-basket3-fill"></i>&nbsp;Market</Link>
+                    <Link className="offcanvasLinks darkgreen mb-1  nav-link" to="/market"><i className="bi bi-basket3-fill"></i>&nbsp;Market</Link>
                   </li>
                   <li className="nav-item">
                     <Link className=" offcanvasLinks darkgreen mb-1 nav-link" to="/community"><i className="bi bi-chat-fill"></i>&nbsp;Community</Link>

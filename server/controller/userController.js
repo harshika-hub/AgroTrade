@@ -1,4 +1,4 @@
-import { users, grains, equipments, coldStLands, agriLand, cart } from "../models/userModel.js";
+import { users, grains, equipments, coldStLands, agriLand, cart,cartEqp } from "../models/userModel.js";
 import mongoose from "mongoose";
 import { ObjectId } from 'mongodb';
 
@@ -293,7 +293,7 @@ export const getExpertContrller = async (req, res) => {
 }
 export const getMarketGrainContrller = async (request, response) => {
     try {
-        const grain = await grains.find({admin_verify:true});
+        const grain = await grains.find({ admin_verify: true });
         response.status(200).json({ grain: grain });
 
     } catch (err) {
@@ -306,7 +306,7 @@ export const getMarketGrainContrller = async (request, response) => {
 }
 export const getMarketEquipmentContrller = async (request, response) => {
     try {
-        const equipment = await equipments.find({admin_verify:true});
+        const equipment = await equipments.find({ admin_verify: true });
         response.status(200).json({ equipment: equipment });
 
     } catch (err) {
@@ -319,7 +319,7 @@ export const getMarketEquipmentContrller = async (request, response) => {
 }
 export const getMarketLandContrller = async (request, response) => {
     try {
-        const agriland = await agriLand.find({admin_verify:true});
+        const agriland = await agriLand.find({ admin_verify: true });
         response.status(200).json({ agriLand: agriland });
 
     } catch (err) {
@@ -333,7 +333,7 @@ export const getMarketLandContrller = async (request, response) => {
 
 export const getMarketStorageContrller = async (request, response) => {
     try {
-        const storage = await coldStLands.find({admin_verify:true});
+        const storage = await coldStLands.find({ admin_verify: true });
         response.status(200).json({ storage: storage });
 
     } catch (err) {
@@ -363,10 +363,13 @@ export const addcartController = async (request, response) => {
         const existingCart = await cart.findOne({ userId: userId });
 
         if (existingCart) {
-            // Check if the product is already in the cart
             const existingProductIndex = existingCart.products.findIndex(p => p.product.toString() === productId.toString());
+            console.log("existing cart");
 
             if (existingProductIndex !== -1) {
+                const existingProduct=existingCart.products[existingProductIndex].quantity;
+                console.log("existing product quantity",existingProduct);
+
                 // If the product is already in the cart, increase the quantity
                 await cart.findOneAndUpdate(
                     { userId: userId, "products.product": productId },
@@ -447,7 +450,7 @@ export const getCartController = async (request, response) => {
                     productName: '$productDetails.name',
                     productDescription: '$productDetails.description',
                     grainname: '$productDetails.grainname',
-                    image:'$productDetails.image'
+                    image: '$productDetails.image'
                 }
             }
         ]);
@@ -461,26 +464,26 @@ export const getCartController = async (request, response) => {
     }
 }
 
-export const updateCartController=async(request,response)=>{
-    const {_id,productId, quantity,email}=request.body;
-    console.log("inside update cart",_id,email,productId,quantity);
-    const pid=new ObjectId(productId)
-    const checkGrain=await grains.findOne({_id:pid});
-    if(checkGrain.quantity<quantity)
-    response.status(500).json({msg:"invalid quantity"});
+export const updateCartController = async (request, response) => {
+    const { _id, productId, quantity, email } = request.body;
+    console.log("inside update cart", _id, email, productId, quantity);
+    const pid = new ObjectId(productId)
+    const checkGrain = await grains.findOne({ _id: pid });
+    if (checkGrain.quantity < quantity)
+        response.status(500).json({ msg: "invalid quantity" });
     // try {
     //     const cart = await cart.findById(Id);
-    
+
     //     // Find the index of the product in the products array
     //     const productIndex = cart.products.findIndex(product => product.product.toString() === productId);
-    
+
     //     // If the product is found in the cart
     //     if (productIndex !== -1) {
     //       cart.products[productIndex].quantity = quantity; // Update the quantity to your desired value
     //     }
-    
+
     //     await cart.save();
-    
+
     //     response.status(200).json({ msg: 'Product quantity updated successfully' });
     //   } catch (error) {
     //     console.error('Error updating product quantity:', error);
@@ -489,19 +492,206 @@ export const updateCartController=async(request,response)=>{
 
     try {
         const result = await cart.updateOne(
-          { _id: new ObjectId(_id), 'products.product': pid },
-          { $set: { 'products.$.quantity': quantity } }
+            { _id: new ObjectId(_id), 'products.product': pid },
+            { $set: { 'products.$.quantity': quantity } }
         );
-      
+
         if (result.modifiedCount === 1) {
-          response.status(200).json({ msg: 'Product quantity updated successfully' });
+            response.status(200).json({ msg: 'Product quantity updated successfully' });
         } else {
-            console.log("cart...............",result)
-          response.status(404).json({ error: 'Product not found in the cart' });
+            console.log("cart...............", result)
+            response.status(404).json({ error: 'Product not found in the cart' });
         }
-      } catch (error) {
+    } catch (error) {
         console.error('Error updating product quantity:', error);
         response.status(500).json({ error: 'Internal Server Error' });
-      }
+    }
 
 }
+
+export const removeCartController = async(request, response) => {
+    const { cartId, productId } = request.body;
+    console.log("inside removecart",cartId, productId)
+    const result =await cart.updateOne({ _id: new ObjectId( cartId) },
+        { $pull: { products: { product: new ObjectId(productId) } } },
+        
+    )
+   
+    if (result.modifiedCount === 0) {
+        console.log("removed successfully",result)
+
+        return response.status(404).json({ msg: "product not found in the cart" })
+    } else {
+        console.log("removed successfully",result)
+        return response.status(200).json({ msg: "removed successfully" })
+
+    }
+
+    }
+    export const addcartEqpController=async (request, response) => {
+        try {
+            const { _id, email } = request.body;
+            console.log("id email in EquipmentCart", _id, email);
+    
+            const productId = new ObjectId(_id);
+    
+            const product = await equipments.findOne({ _id: productId });
+    
+            const userIdObj = await users.aggregate([
+                { $match: { email: email } },
+                { $project: { _id: 1 } }
+            ]);
+            console.log("userId", userIdObj);
+            const userId = userIdObj[0]._id;
+    
+            const existingCart = await cartEqp.findOne({ userId: userId });
+    
+            if (existingCart) {
+                const existingProductIndex = existingCart.equips.findIndex(p => p.product.toString() === productId.toString());
+                console.log("existing cart");
+    
+                if (existingProductIndex !== -1) {
+                    const existingProduct=existingCart.equips[existingProductIndex].quantity;
+                    console.log("existing product quantity",existingProduct);
+    
+                    // If the product is already in the cart, increase the quantity
+                    await cartEqp.findOneAndUpdate(
+                        { userId: userId, "products.product": productId },
+                        { $inc: { "products.$.quantity": 1 } }
+                    );
+                } else {
+                    await cartEqp.findOneAndUpdate(
+                        { userId: userId },
+                        {
+                            $push: {
+                                equips: {
+                                    product: productId,
+                                    quantity: 1,
+                                    date: new Date(),
+                                    price: product.price,
+                                }
+                            }
+                        }
+                    );
+                }
+            } else {
+                const newCart = new cartEqp({
+                    userId: userId,
+                    equips: [{
+                        product: productId,
+                        quantity: 1,
+                        date: new Date(),
+                        price: product.price,
+                    }],
+                });
+    
+                await newCart.save();
+            }
+    
+            response.status(201).json({ msg: "Equipment added successfully" });
+        } catch (err) {
+            console.log("error in Equipent cart controller", err);
+            response.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+    
+    export const equipmentCartController= async (request, response) => {
+        try {
+            const { email } = request.body;
+            console.log("email", email);
+    
+            const userIdObj = await users.aggregate([
+                { $match: { email: email } },
+                { $project: { _id: 1 } }
+            ]);
+            console.log("userId", userIdObj);
+            const userId = userIdObj[0]._id;
+    
+            const cartItems = await cartEqp.aggregate([
+                {
+                    $match: { userId: userId }
+                },
+                {
+                    $unwind: "$equips"
+                },
+                {
+                    $lookup: {
+                        from: 'equipments',
+                        localField: 'equips.product',
+                        foreignField: '_id',
+                        as: 'productDetails'
+                    }
+                },
+                {
+                    $unwind: "$productDetails"
+                },
+                {
+                    $project: {
+                        productId: '$equips.product',
+                        quantity: '$equips.quantity',
+                        date: '$equips.date',
+                        price: '$equips.price',
+                        productName: '$productDetails.name',
+                        productDescription: '$productDetails.description',
+                        grainname: '$productDetails.grainname',
+                        image: '$productDetails.image'
+                    }
+                }
+            ]);
+    
+            console.log(cartItems);
+    
+            response.status(200).json(cartItems);
+        } catch (err) {
+            console.log("error in get equipment cart controller", err);
+            response.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+    
+    export const updateCartequipmentController=async (request, response) => {
+        const { _id, productId, quantity, email } = request.body;
+        console.log("inside update equipment cart", _id, email, productId, quantity);
+        const pid = new ObjectId(productId)
+        const checkEquip = await equipments.findOne({ _id: pid });
+        console.log("checEquip",checkEquip);
+        if (checkEquip.quantity < quantity)
+            response.status(500).json({ msg: "invalid quantity" });
+    
+        try {
+            const result = await cartEqp.updateOne(
+                { _id: new ObjectId(_id), 'equips.product': pid },
+                { $set: { 'equips.$.quantity': quantity } }
+            );
+    
+            if (result.modifiedCount === 1) {
+                response.status(200).json({ msg: 'equipment quantity updated successfully' });
+            } else {
+                console.log("Equipment cart...............", result)
+                response.status(404).json({ error: 'equipment not found in the cart' });
+            }
+        } catch (error) {
+            console.error('Error updating equipment quantity:', error);
+            response.status(500).json({ error: 'Internal Server Error' });
+        }
+    
+    }
+    
+    export const removeCartequipmentController=async(request, response) => {
+        const { cartId, productId } = request.body;
+        console.log("inside removecart equipment",cartId, productId)
+        const result =await cartEqp.updateOne({ _id: new ObjectId( cartId) },
+            { $pull: { equips: { product: new ObjectId(productId) } } },
+            
+        )
+       
+        if (result.modifiedCount === 0) {
+            console.log("removed successfully",result)
+    
+            return response.status(404).json({ msg: "product not found in the cart" })
+        } else {
+            console.log("removed successfully",result)
+            return response.status(200).json({ msg: "removed successfully" })
+    
+        }
+    
+        }

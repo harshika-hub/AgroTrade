@@ -8,6 +8,8 @@ import { setRoleStatus } from "../../store/commonSlice";
 import { setUserData } from "../../store/userSlice";
 import { setOrgData } from "../../store/organizationSlice";
 import { setAdminData } from "../../store/adminSlice";
+// const[cartCount,setCartCount]=useState(0);
+
 function DashboardLinks() {
 
 
@@ -66,12 +68,12 @@ function DashboardLinks() {
                     <i className="bi bi-basket3-fill midgreen"></i>&nbsp;Market
                   </Link>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link className=" text-white nav-link" to="/services">
                     {" "}
                     <i className="bi bi-chat-fill midgreen"></i>&nbsp;Community
                   </Link>
-                </li>
+                </li> */}
                 <li className="nav-item">
                   <Link className=" text-white nav-link" to="/dashboard">
                     <i className="bi bi-layout-text-window-reverse midgreen"></i>&nbsp;Dashboard
@@ -84,13 +86,13 @@ function DashboardLinks() {
                 </li>
                 </ul> 
               <div className="nav-item dropdown">
-                <a
+                <li
                   className="nav-link dropdown-toggle  text-white"
                   data-bs-toggle="dropdown"
                   style={{fontSize:"16px"}}
                 >
                   <i className="fa fa-bell me-lg-2 midgreen "></i>
-                </a>
+                </li>
                 <div className="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                   <a  className="dropdown-item">
                     <h6 className=" mb-0">Profile updated</h6>
