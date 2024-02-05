@@ -7,7 +7,7 @@ import AboutUs from './Components/AboutUsPage/AboutUs.js';
 import ContactUs from './Components/ContactUsPage/ContactUs.js';
 import UserdashBoard from './Components/UserDashboard/UserDashboard.js';
 import Digitalsignature from "./Components/DigitalSignature/Digitalsignature.js"
-import Invoice from "./Components/Invoice/Invoice.jsx"
+import Invoice from "./Components/Market/Cart/Invoice/Invoice.jsx"
 import Chatsection from './Components/UserDashboard/ChatComponent/Chatsection.js'
 import { Routes, Route } from 'react-router-dom'
 import Profile from './Components/UserDashboard/ProfileSection/ProfileSection.js';
@@ -81,6 +81,7 @@ function App() {
           <Route path="storageMarket" element={<StorageMarketCard />} ></Route>
           <Route path="equipmentMarket" element={<EquipmentMarketCard />} ></Route>
           <Route path="cartMarket" element={<Cart />} ></Route>
+          {/* <Route path="grainInvoice/:order" element={<Invoice />} ></Route> */}
           <Route path="grainInvoice" element={<Invoice />} ></Route>
 
         </Route>

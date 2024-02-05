@@ -26,7 +26,7 @@ export default function EquipmentCart() {
     let qty=0;
     cartItems.payload.forEach(itm=>{
       qty+=itm.quantity;
-    })
+    });
   }
 
   async function handleRemove(cartId, productId) {
@@ -124,7 +124,7 @@ export default function EquipmentCart() {
   };
   useEffect(() => {
     getCartitem({ token, email });
-  }, []);
+  }, [token]);
 
   return (
     <>

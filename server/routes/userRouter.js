@@ -1,11 +1,13 @@
 import express from 'express';
 import { upload } from '../middleware/fileUpload.js';
 import { aunthicateJWT } from '../middleware/jwtVerification.js';
-import { statusVerifyupdateController, expertViewDataController, bookExpertController, updateAgriLandController, getExpertContrller, addAgriLandController, removeAgriLandController, getAgriLandController, 
-    coldStLandsInsertController, updateColdStLandController, deleteColdStLandController,getcoldStLandsController, updateGrainController,
-     deleteGrainController, getGrainController, grainInsertController, getUserController, newExpertController, updateProfileController,
-     addEquipmentController ,getEquipmentController,deleteEquipmentController,updateEquipmentController,getMarketGrainContrller,
-     getMarketEquipmentContrller,getMarketLandContrller,getMarketStorageContrller,addcartController,getCartController,updateCartController,removeCartController,removeCartequipmentController,updateCartequipmentController,addcartEqpController,equipmentCartController} 
+import { statusVerifyupdateController, expertViewDataController, bookExpertController, updateAgriLandController, getExpertContrller, 
+    addAgriLandController, removeAgriLandController, getAgriLandController,coldStLandsInsertController, updateColdStLandController, 
+    deleteColdStLandController,getcoldStLandsController, updateGrainController,deleteGrainController, getGrainController, grainInsertController, 
+    getUserController, newExpertController, updateProfileController,addEquipmentController ,getEquipmentController,deleteEquipmentController,
+    updateEquipmentController,getMarketGrainContrller,getMarketEquipmentContrller,getMarketLandContrller,getMarketStorageContrller,addcartController,
+    getCartController,updateCartController, removeCartController,removeCartequipmentController,updateCartequipmentController,addcartEqpController,
+    equipmentCartController,grainTotalorderController} 
      from '../controller/userController.js';
 const userRouter = express.Router();
 userRouter.post("/newExpert",upload.single('certificate'),newExpertController)
@@ -40,7 +42,7 @@ userRouter.post("/addTocartGrain",aunthicateJWT,addcartEqpController);
 userRouter.post("/equipmentCartitems",aunthicateJWT,equipmentCartController); 
 userRouter.post("/updateCartQuantityequipment",aunthicateJWT,updateCartequipmentController); 
 userRouter.post("/removeCartequipment",aunthicateJWT,removeCartequipmentController); 
-
+userRouter.get("/getTotalorder",aunthicateJWT,grainTotalorderController);
 
 userRouter.post("/expertViewData", expertViewDataController);
 userRouter.post("/statusVerifyupdate", statusVerifyupdateController);

@@ -6,7 +6,7 @@ import { getCart, updateProductQuantityInStore, updateCartqty, removeCart } from
 import jscookie from 'js-cookie';
 import Swal from 'sweetalert2';
 import EquipmentCart from './EquipmentCart';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Cart() {
   var token = jscookie.get('token');
@@ -14,6 +14,7 @@ export default function Cart() {
   const [cartCount, setCartCount] = useState(0);
 
   const dispatch = useDispatch();
+  const navigate=useNavigate();
   const [items, setItems] = useState([]);
   const [billGrain, setBillGrain] = useState({});
   const [billEquip, setBillEquip] = useState({});
@@ -126,6 +127,22 @@ export default function Cart() {
     // setBill({...bill,['grand']:total});
     return total.toFixed(2);
   };
+  const order=()=>{
+    console.log("inside order function")
+    let total=parseFloat(calculateProductsTotal());
+    let totalGst=gstTotal();
+    let shippingCharge=shipping();
+    let grandTotal=calculateTotal();
+    let order={total,
+              totalGst,
+            shippingCharge,
+          grandTotal}
+          console.log("order in cart",order);
+
+          navigate('/market/grainInvoice',{state:{order,items}});
+
+    // to='/market/grainInvoice'
+  }
   useEffect(() => {
     getCartitem({ token, email });
   }, []);
@@ -208,8 +225,8 @@ export default function Cart() {
                       <span><strong>${calculateTotal()}</strong></span>
                     </li>
                   </ul>
-                  <button type="button" className="btn btn-warning  btn-lg btn-block">
-                    <Link className='text-decoration-none' to='/market/grainInvoice'>Go to checkout </Link>
+                  <button type="button" className="btn btn-warning  btn-lg btn-block" onClick={order}>
+                    <Link className='text-decoration-none' >Go to checkout </Link>
                   </button>
                 </div>
               </div>

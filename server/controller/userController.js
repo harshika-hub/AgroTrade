@@ -1,9 +1,9 @@
-import { users, grains, equipments, coldStLands, agriLand, cart,cartEqp ,expertBook} from "../models/userModel.js";
+import { users, grains, equipments, coldStLands, agriLand, cart,cartEqp ,expertBook, grainOrder} from "../models/userModel.js";
 import mongoose from "mongoose";
 import { ObjectId } from 'mongodb';
 
 export const newExpertController = async (req, res) => {
-    const { experience, education, consultancy_field, consultancy_type, consultancy_fee_video, consultancy_fee_chat, email } = req.body
+    const { experience, education, consultancy_field, consultancy_type, consultancy_fee_video, consultancy_fee_chat, email,grainOrder } = req.body
     const updateUser = {
         experience,
         education,
@@ -677,6 +677,19 @@ export const removeCartController = async(request, response) => {
     
         }
     
+        }
+
+       export const grainTotalorderController=async(request,response)=>{
+            try{
+                const order=await grainOrder.find();
+                console.log("order in grain Order",order);
+                response.status(200).json({order:order});
+            }catch(err){
+                console.log("error in grain order controller",err);
+                response.status(500).json({msg:'error occured while getting order'});
+
+            }
+           
         }
 export const bookExpertController = async (request, response) => {
     try{

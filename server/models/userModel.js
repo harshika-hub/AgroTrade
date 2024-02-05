@@ -366,6 +366,33 @@ const orderGrain=new mongoose.Schema({
     },
 })
 
+const orderG=new mongoose.Schema({
+    cart_date:{
+        type:Object,
+        ref:"carts",
+        required:true
+    },
+    order_date:{
+        type:Date,
+        required:true,
+        default:Date.now()
+    },
+    shipping_address:{
+        type:String,
+        required:true
+    },
+    total_pay:{
+        type:String,
+    },
+    pay_id:{
+        type:String
+    },
+    total_qty:{
+        type:Number
+    }
+
+})
+
 const expertBookSchema = new mongoose.Schema({
     expertId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -397,6 +424,7 @@ const expertBookSchema = new mongoose.Schema({
         default: false
     }
 });
+export const grainOrder=mongoose.model('grainOrder',orderG,'grainOrder');
 
 const expertBook = mongoose.model('expertBook', expertBookSchema, 'expertBook');
 const agriLand = mongoose.model('agriLand', agriLandModel, 'agriLand');
