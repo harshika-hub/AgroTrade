@@ -362,11 +362,11 @@ export const addcartController = async (request, response) => {
         console.log("userId", userIdObj);
         const userId = userIdObj[0]._id;
 
-        const existingCart = await cart.findOne({ userId: userId });
-
+        const existingCart = await cart.findOne({ $and:[ {userId: userId},{order_g:false}] });
+        console.log("exisisting cart",existingCart);
         if (existingCart) {
             const existingProductIndex = existingCart.products.findIndex(p => p.product.toString() === productId.toString());
-            console.log("existing cart");
+            console.log("existing cart index",existingProductIndex);
 
             if (existingProductIndex !== -1) {
                 const existingProduct=existingCart.products[existingProductIndex].quantity;
@@ -374,7 +374,7 @@ export const addcartController = async (request, response) => {
 
                 // If the product is already in the cart, increase the quantity
                 await cart.findOneAndUpdate(
-                    { userId: userId, "products.product": productId },
+                    { userId: userId, "products.product": productId, order_g:false},
                     { $inc: { "products.$.quantity": 1 } }
                 );
             } else {
@@ -427,7 +427,7 @@ export const getCartController = async (request, response) => {
 
         const cartItems = await cart.aggregate([
             {
-                $match: { userId: userId }
+                $match: { $and:[ {userId: userId},{order_g:false}] }
             },
             {
                 $unwind: "$products"
@@ -507,7 +507,6 @@ export const removeCartController = async(request, response) => {
     } else {
         console.log("removed successfully",result)
         return response.status(200).json({ msg: "removed successfully" })
-
     }
 
     }
@@ -527,7 +526,7 @@ export const removeCartController = async(request, response) => {
             console.log("userId", userIdObj);
             const userId = userIdObj[0]._id;
     
-            const existingCart = await cartEqp.findOne({ userId: userId });
+            const existingCart = await cartEqp.findOne({ $and:[ {userId: userId},{order_e:false}] });
     
             if (existingCart) {
                 const existingProductIndex = existingCart.equips.findIndex(p => p.product.toString() === productId.toString());
@@ -666,7 +665,6 @@ export const removeCartController = async(request, response) => {
             { $pull: { equips: { product: new ObjectId(productId) } } },
             
         )
-       
         if (result.modifiedCount === 0) {
             console.log("removed successfully",result)
     
@@ -674,7 +672,6 @@ export const removeCartController = async(request, response) => {
         } else {
             console.log("removed successfully",result)
             return response.status(200).json({ msg: "removed successfully" })
-    
         }
     
         }
@@ -691,6 +688,7 @@ export const removeCartController = async(request, response) => {
             }
            
         }
+
 export const bookExpertController = async (request, response) => {
     try{
         var userObj = await users.findOne({email:request.body.userEmail});

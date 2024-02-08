@@ -353,10 +353,13 @@ const cartEqp = mongoose.model('cartEqp', cartEqpSchema);
 const orderGrain=new mongoose.Schema({
     cart_id:{
         type:Object,
+        ref:"carts",
         required:true
     },
     order_date:{
-        type:Date
+        type:Date,
+        required:true,
+        default:Date.now()
     },
     shipping_address:{
         type:String
@@ -364,10 +367,19 @@ const orderGrain=new mongoose.Schema({
     total_pay:{
         type:String
     },
+    shipping:{
+        type:String
+    },
+    delivery_days:{
+        type:String
+    },
+    payment_id:{
+        type:String
+    }
 })
 
 const orderG=new mongoose.Schema({
-    cart_date:{
+    cart_id:{
         type:Object,
         ref:"carts",
         required:true
@@ -384,14 +396,43 @@ const orderG=new mongoose.Schema({
     total_pay:{
         type:String,
     },
-    pay_id:{
+    payment_id:{
         type:String
+    },
+    invoice:{
+        type:String
+    },
+    delivery_days:{
+        type:Number
     },
     total_qty:{
         type:Number
     }
 
+});
+export const grainOrder=mongoose.model('grainOrder',orderG,'grainOrder');
+
+const pay=new mongoose.Schema({
+    payment_id:{
+        type:String,
+        required:true
+    },
+    payer_id:{
+        type:Object
+    },
+    date:{
+        type:Date,
+        default:Date.now()
+    },
+    amount:{
+        type:Number
+    },
+    payment_type:{
+        type:String,
+        default:'online'
+    }
 })
+export const payments=mongoose.model('payment',pay,'payment');
 
 const expertBookSchema = new mongoose.Schema({
     expertId: {
@@ -424,7 +465,6 @@ const expertBookSchema = new mongoose.Schema({
         default: false
     }
 });
-export const grainOrder=mongoose.model('grainOrder',orderG,'grainOrder');
 
 const expertBook = mongoose.model('expertBook', expertBookSchema, 'expertBook');
 const agriLand = mongoose.model('agriLand', agriLandModel, 'agriLand');

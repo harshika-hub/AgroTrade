@@ -16,7 +16,11 @@ export const aunthicateJWT = (request,response,next)=>{
     try{
         const SECRET_KEY = process.env.JWT_SECRET_KEY;
         if(request.method==='POST')
-         TOKEN = request.body.token;
+        {
+            // console.log("body inside jwt",request.body);
+            TOKEN = request.body.token;
+
+        }
         else{
             TOKEN=request.params.token;
         }
@@ -32,7 +36,7 @@ export const aunthicateJWT = (request,response,next)=>{
                 }
             });
         }else{
-            console.log('Token not avilable.');
+            console.log('Token not avilable.......');
             response.status(204).json({message:'error'})
         }
     }catch(error){

@@ -8,13 +8,18 @@ import Swal from 'sweetalert2';
 import EquipmentCart from './EquipmentCart';
 import { Link, useNavigate } from 'react-router-dom';
 
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 export default function Cart() {
   var token = jscookie.get('token');
   var email = jscookie.get('userEmail');
+  const [modalShow, setModalShow] = useState(false);
+  const [address, setAddress] = useState('');
+
   const [cartCount, setCartCount] = useState(0);
 
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [items, setItems] = useState([]);
   const [billGrain, setBillGrain] = useState({});
   const [billEquip, setBillEquip] = useState({});
@@ -95,17 +100,25 @@ export default function Cart() {
   const calculateProductsTotal = () => {
     let total = 0;
     items.forEach(item => {
-      total += item.price * item.quantity + (item.price * item.quantity * 0.25);
+      // total += item.price * item.quantity + (item.price * item.quantity * 0.25);
+      total += (item.price * item.quantity) * 1.25;
+
     });
     // setBill({...bill,['productTotal']:total})
-    return total.toFixed(2);
+    return Math.round(total);
   };
 
 
   const gstTotal = () => {
-    const productsTotal = parseFloat(calculateProductsTotal());
-    const total = (productsTotal * 0.05);
-    return total.toFixed(2);
+    let total = 0;
+    // const productsTotal = parseFloat(calculateProductsTotal());
+    // const total = (productsTotal * 0.05);
+    items.forEach(item => {
+      // total += item.price * item.quantity + (item.price * item.quantity * 0.25);
+      total += (item.price * item.quantity) * .05;
+
+    });
+    return Math.round(total);
   };
 
   const shipping = () => {
@@ -113,7 +126,7 @@ export default function Cart() {
     items.forEach(item => {
       totalQty += item.quantity;
     })
-    return totalQty * 100;
+    return Math.round((totalQty * 100) * 1.05);
   }
   const calculateTotal = () => {
     const productsTotal = parseFloat(calculateProductsTotal());
@@ -121,25 +134,39 @@ export default function Cart() {
     items.forEach(item => {
       totalQty += item.quantity;
     })
-    const shippingTotal = 100 * totalQty;
+    const shippingTotal = shipping();
     // setBill({...bill,['shipping']:shippingTotal});
     const total = productsTotal + shippingTotal + parseFloat(gstTotal());
     // setBill({...bill,['grand']:total});
-    return total.toFixed(2);
-  };
-  const order=()=>{
-    console.log("inside order function")
-    let total=parseFloat(calculateProductsTotal());
-    let totalGst=gstTotal();
-    let shippingCharge=shipping();
-    let grandTotal=calculateTotal();
-    let order={total,
-              totalGst,
-            shippingCharge,
-          grandTotal}
-          console.log("order in cart",order);
+    // return total.ceil();
+    return Math.ceil(total);
 
-          navigate('/market/grainInvoice',{state:{order,items}});
+  };
+  const order = () => {
+
+    setModalShow(true)
+
+  }
+
+  const orderConfirm = () => {
+
+    // setModalShow(true)
+
+    console.log("inside order function")
+    let total = parseFloat(calculateProductsTotal());
+    let totalGst = gstTotal();
+    let shippingCharge = shipping();
+    let grandTotal = calculateTotal();
+    let order = {
+      total,
+      totalGst,
+      shippingCharge,
+      grandTotal,
+       address
+    }
+    console.log("order in cart", order);
+    if(address)
+    navigate('/market/grainInvoice', { state: { order, items } });
 
     // to='/market/grainInvoice'
   }
@@ -233,9 +260,43 @@ export default function Cart() {
             </div>
           </div>
         </div>
+        <ShippingModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          order={orderConfirm}
+          shipping={(e) => {  setAddress(e.target.value) }}
+        />
       </section>
       <EquipmentCart />
 
     </>
   );
 }
+
+
+
+function ShippingModal(props) {
+  return (
+    <Modal
+      {...props}
+      size="md"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Shipping Address
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body className='d-flex justify-content-center'>
+        <input type="text" name="" id="" placeholder='Enter Shipping Addrees' onChange={props.shipping} className='px-5' />
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={props.onHide} className='bg-danger border-0'>Close</Button>
+        <Button onClick={props.order} className='bg-success'>Ok</Button>
+
+      </Modal.Footer>
+    </Modal>
+  );
+}
+

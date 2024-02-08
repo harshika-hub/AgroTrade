@@ -19,30 +19,70 @@ const dispatch=useDispatch();
     const [order,setOrder]=useState({});
     const [user,setUser]=useState({});
     const [invoice,setInvoice]=useState('');
-    const handleOrder=()=>{
-        Swal.fire({   
-         position: "middle",
-        icon: "success",
-        title: "confirm payment",
-        showConfirmButton: true,
-    })
+
+    const handleOrder=async()=>{
+        let confirmOrder=false;
+        console.log("handle order")
+        Swal.fire({
+            title: 'Confirm Payment?',
+            icon:'info',
+            showDenyButton: true,
+            confirmButtonText: 'Confirm',
+            denyButtonText: 'Cancel',
+            customClass: {
+              actions: 'my-actions',
+              cancelButton: 'order-1 right-gap',
+              confirmButton: 'order-2 bg-success',
+              denyButton: 'order-3',
+            },
+          }).then(async(result) => {
+            if (result.isConfirmed) {
+                confirmOrder=true;
+
+                let day=Math.ceil(Math.random()*10)
+                
+            
+                
+                let payData={
+                            order,
+                            token,
+                            carts:cart,
+                            invoice,
+                            day
+                        }
+                        console.log("payment data",payData);
+            
+                         let payResult=   await axios.post(USER_REQUESTED_URL+'/grainpayment',payData);
+                         await window.open(payResult.data,'_blank')
+                         
+                         console.log("payment result",payResult);
+
+
+            //   Swal.fire('Saved!', '', 'success');
+            } else if (result.isDenied) {
+                confirmOrder=false;
+              Swal.fire('Cancel Order', '', 'info');
+              
+            }
+          });
         
     }
     
 
     useEffect(()=>{
             (async()=>{
+                console.log("token ",token);
                 const udata= await dispatch(getDataonLoad({email,token}));
                 setUser({...udata}.payload);
                 console.log("user in invoice",udata.payload);
-                const totalOrder=await axios.get(USER_REQUESTED_URL+'/getTotalorder');
-                console.log("orders in invoice Component",totalOrder.status);
+                const totalOrder=await axios.get(USER_REQUESTED_URL+'/getTotalorder/'+token);
+                console.log("orders in invoice Component",totalOrder);
                 if(totalOrder.status===204)
                 {
-                    setInvoice('Agro/'+101);
+                    setInvoice('Agro-'+101);
                 }else if(totalOrder.status===200)
                 {
-                        setInvoice('Agro/'+100+totalOrder.data.order.length);
+                        setInvoice('Agro-'+100+totalOrder.data.order.length);
                 }
 
             })();
@@ -126,7 +166,7 @@ const dispatch=useDispatch();
             <hr/>
             <div className="d-flex justify-content-around ">
             <h5 className="text-muted">*Shipping charge of 100/Quintal will be applied on shipping.</h5>
-<button className="btn btn-warning px-3" onclick={handleOrder}>Pay Now</button>
+                <button className="btn btn-warning px-3" onClick={handleOrder}>Pay Now</button>
             </div>
           
 

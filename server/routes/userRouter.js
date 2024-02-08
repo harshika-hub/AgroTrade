@@ -9,6 +9,7 @@ import { statusVerifyupdateController, expertViewDataController, bookExpertContr
     getCartController,updateCartController, removeCartController,removeCartequipmentController,updateCartequipmentController,addcartEqpController,
     equipmentCartController,grainTotalorderController} 
      from '../controller/userController.js';
+     import { grainPayController, grainPaycancelController, grainPaysuccessController } from '../controller/paymentController.js';
 const userRouter = express.Router();
 userRouter.post("/newExpert",upload.single('certificate'),newExpertController)
 userRouter.post("/getUser",aunthicateJWT,getUserController)
@@ -42,7 +43,10 @@ userRouter.post("/addTocartGrain",aunthicateJWT,addcartEqpController);
 userRouter.post("/equipmentCartitems",aunthicateJWT,equipmentCartController); 
 userRouter.post("/updateCartQuantityequipment",aunthicateJWT,updateCartequipmentController); 
 userRouter.post("/removeCartequipment",aunthicateJWT,removeCartequipmentController); 
-userRouter.get("/getTotalorder",aunthicateJWT,grainTotalorderController);
+userRouter.get("/getTotalorder/:token",aunthicateJWT,grainTotalorderController);
+userRouter.post('/grainpayment',aunthicateJWT,grainPayController)
+userRouter.get('/paysuccess/:total/:invoice/:address/:id/:day/:shipping',grainPaysuccessController);
+userRouter.get('/paycancel',grainPaycancelController);
 
 userRouter.post("/expertViewData", expertViewDataController);
 userRouter.post("/statusVerifyupdate", statusVerifyupdateController);
