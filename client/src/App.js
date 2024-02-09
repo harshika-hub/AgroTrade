@@ -42,6 +42,7 @@ import OrgAgricultureLand from './Components/OrgnizationSection/Market/OrgAgricu
 import HomeServices from './Components/HomeServicesSection/Services.js';
 import OrgColdStorageLand from './Components/OrgnizationSection/Market/OrgColdStorageLand.js';
 import Paysuccess from './Components/Market/Cart/PaySuccess.js';
+import EquipmentInvoice from './Components/Market/Cart/Invoice/EquipmentInvoice.jsx';
 function App() {
   // const [socket,setSocket]=useState(null);
   // useEffect(()=>{
@@ -84,6 +85,8 @@ function App() {
           <Route path="cartMarket" element={<Cart />} ></Route>
           {/* <Route path="grainInvoice/:order" element={<Invoice />} ></Route> */}
           <Route path="grainInvoice" element={<Invoice />} ></Route>
+          <Route path="equipInvoice" element={<EquipmentInvoice />} ></Route>
+
           <Route path="successpay" element={<Paysuccess />} ></Route>
           <Route path="cancelpay" element={<Cart/>} ></Route>
 

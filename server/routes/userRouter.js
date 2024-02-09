@@ -9,7 +9,7 @@ import { statusVerifyupdateController, expertViewDataController, bookExpertContr
     getCartController,updateCartController, removeCartController,removeCartequipmentController,updateCartequipmentController,addcartEqpController,
     equipmentCartController,grainTotalorderController} 
      from '../controller/userController.js';
-     import { grainPayController, grainPaycancelController, grainPaysuccessController } from '../controller/paymentController.js';
+     import { grainPayController, grainPaycancelController, grainPaysuccessController,equipmentPayController,equipmentPaysuccessController,equipmentPaycancelController } from '../controller/paymentController.js';
 const userRouter = express.Router();
 userRouter.post("/newExpert",upload.single('certificate'),newExpertController)
 userRouter.post("/getUser",aunthicateJWT,getUserController)
@@ -45,8 +45,12 @@ userRouter.post("/updateCartQuantityequipment",aunthicateJWT,updateCartequipment
 userRouter.post("/removeCartequipment",aunthicateJWT,removeCartequipmentController); 
 userRouter.get("/getTotalorder/:token",aunthicateJWT,grainTotalorderController);
 userRouter.post('/grainpayment',aunthicateJWT,grainPayController)
+userRouter.post('/equipmentpayment',aunthicateJWT,equipmentPayController)
+
 userRouter.get('/paysuccess/:total/:invoice/:address/:id/:day/:shipping',grainPaysuccessController);
 userRouter.get('/paycancel',grainPaycancelController);
+userRouter.get('/paysuccessequip/:total/:invoice/:address/:id/:day/:shipping',equipmentPaysuccessController);
+userRouter.get('/paycancelequip',equipmentPaycancelController);
 
 userRouter.post("/expertViewData", expertViewDataController);
 userRouter.post("/statusVerifyupdate", statusVerifyupdateController);

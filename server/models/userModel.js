@@ -350,7 +350,7 @@ const cartEqpSchema = new mongoose.Schema({
 
 const cartEqp = mongoose.model('cartEqp', cartEqpSchema);
 
-const orderGrain=new mongoose.Schema({
+const orderEquip=new mongoose.Schema({
     cart_id:{
         type:Object,
         ref:"carts",
@@ -376,7 +376,9 @@ const orderGrain=new mongoose.Schema({
     payment_id:{
         type:String
     }
-})
+});
+
+export const equipmentOrder=mongoose.model('equipmentOrder',orderEquip,'equipmentOrder');
 
 const orderG=new mongoose.Schema({
     cart_id:{
@@ -433,6 +435,29 @@ const pay=new mongoose.Schema({
     }
 })
 export const payments=mongoose.model('payment',pay,'payment');
+
+const payEquipment=new mongoose.Schema({
+    payment_id:{
+        type:String,
+        required:true
+    },
+    payer_id:{
+        type:Object
+    },
+    date:{
+        type:Date,
+        default:Date.now()
+    },
+    amount:{
+        type:Number
+    },
+    payment_type:{
+        type:String,
+        default:'online'
+    }
+})
+export const equipPayment=mongoose.model('equipPayment',payEquipment,'equipPayment');
+
 
 const expertBookSchema = new mongoose.Schema({
     expertId: {

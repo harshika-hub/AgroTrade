@@ -5,11 +5,21 @@ import { useEffect, useState } from 'react';
 import { getCartequipment, updateProductQuantityInStore, updateCartqtyEquipment, removeCartequipment } from '../../../store/marketSlice';
 import jscookie from 'js-cookie';
 import Swal from 'sweetalert2';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { useNavigate } from 'react-router-dom';
 
 export default function EquipmentCart() {
   var token = jscookie.get('token');
   var email = jscookie.get('userEmail');
+  
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+    const [modalShow, setModalShow] = useState(false);
+  const [address, setAddress] = useState('');
+  // const [rentday,setRentday]=useState(0);
+
+
   const [items, setItems] = useState([]);
   const[eCartcount,setEcartCount]=useState(0);
   const [billGrain,setBillGrain]=useState({});
@@ -87,28 +97,45 @@ export default function EquipmentCart() {
     }
   };
 
+  const handleRent = async (e,index) => {
+    const updatedItems = [...items];
+
+    // let rentDay = document.getElementById('rent-day');
+    let rentDay=e.target.value
+    console.log("inside rent day", items, " ", rentDay);
+
+    setItems(prevItems => {
+        const newItems = [...prevItems];
+        newItems[index] = { ...newItems[index], rentDays: parseInt(rentDay) };
+        return newItems;
+    });
+};
+
   const calculateProductsTotal = () => {
     let total = 0;
     items.forEach(item => {
-      total += item.price*item.quantity + (item.price*item.quantity * 0.25);
+      let d=item.rentDays
+      if(!item.rentDays)
+      d=1;
+
+      total += (item.price*item.quantity + (item.price*item.quantity * 0.25))*d;
+
     });
-    // setBill({...bill,['productTotal']:total})
-    return total.toFixed(2);
+
+        return Math.round(total);
+
   };
 
  
-  // const gstTotal = () => {
-  //   const productsTotal = parseFloat(calculateProductsTotal());
-  //   const total = (productsTotal*0.05);
-  //   return total.toFixed(2);
-  // };
 
   const shipping=()=>{
  let totalQty=0;
         items.forEach(item=>{
           totalQty+=item.quantity;
         })
-        return totalQty*100;
+        // return totalQty*100;
+            return Math.round((totalQty * 100) * 1.05);
+
   }
   const calculateTotal = () => {
     const productsTotal = parseFloat(calculateProductsTotal());
@@ -116,12 +143,62 @@ export default function EquipmentCart() {
     items.forEach(item=>{
       totalQty+=item.quantity;
     })
-    const shippingTotal = 100*totalQty;
+    const shippingTotal = shipping();
     // setBill({...bill,['shipping']:shippingTotal});
     const total = productsTotal + shippingTotal;
-    // setBill({...bill,['grand']:total});
-    return total.toFixed(2);
+    // return total.toFixed(2);
+        return Math.ceil(total);
+
   };
+
+   const order = () => {
+    let checkRentday=false;
+    items.map((item)=>{
+      if(item.rentDays)
+      checkRentday=true
+    else
+    checkRentday=false
+    })
+    if(checkRentday)
+    setModalShow(true)
+  else{
+    Swal.fire({
+      position: "middle",
+      icon: "warning",
+      title: "please enter for how many days you want Equipment",
+      showConfirmButton: false,
+      timer: 1500
+    });
+  }
+
+  }
+
+
+
+  const orderConfirm = () => {
+
+    // setModalShow(true)
+
+    console.log("inside order function")
+    let total = parseFloat(calculateProductsTotal());
+    let shippingCharge = shipping();
+    let grandTotal = calculateTotal();
+    let order = {
+      total,
+      shippingCharge,
+      grandTotal,
+       address,
+      //  rentday
+       
+    }
+    console.log("order in cart", order);
+    
+    if(address)
+    navigate('/market/equipInvoice', { state: { order, items } });
+
+    // to='/market/grainInvoice'
+  }
+
   useEffect(() => {
     getCartitem({ token, email });
   }, [token]);
@@ -142,6 +219,7 @@ export default function EquipmentCart() {
                       <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
                         <img src={`http://localhost:3000/${cart.image}`} className="w-100" alt="Product" />
                       </div>
+
                       <div className="col-lg-5 col-md-6 mb-4 mb-lg-0">
                         <p><strong>{cart.productName}</strong></p>
                         <p>{cart.productDescription}</p>
@@ -150,7 +228,9 @@ export default function EquipmentCart() {
                         <button type="button" className="btn btn-warning btn-sm me-1 mb-2" onClick={() => handleRemove(cart._id, cart.productId)}>
                           <i className="fas fa-trash"></i> Remove
                         </button>
+
                       </div>
+
                       <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
                         <div className="d-flex mb-4" style={{ maxWidth: '300px' }}>
                           <button className="btn btn-warning  px-3 me-2" onClick={() => handleClick(cart._id, cart.productId, 'decrement', i)}>
@@ -167,11 +247,18 @@ export default function EquipmentCart() {
                         <p className="text-start text-md-center">
                           <strong>Total: Rs. {(cart.price + (cart.price) * (0.25)) * cart.quantity}</strong>
                         </p>
+
                       </div>
+
+                      <input id='rent-day' type="text" className='border-1 w-50 mx-auto' placeholder='for how many days you want Equipment'
+                      onChange={(e) => handleRent(e,i)} />
+
                       <hr className="my-4" />
                     </div>
                   ))}
+
                 </div>
+
               </div>
             </div>
 
@@ -204,7 +291,7 @@ export default function EquipmentCart() {
                       <span><strong>${calculateTotal()}</strong></span>
                     </li>
                   </ul>
-                  <button type="button" className="btn btn-warning  btn-lg btn-block">
+                  <button type="button" className="btn btn-warning  btn-lg btn-block"  onClick={order}>  
                     Go to checkout
                   </button>
                 </div>
@@ -212,7 +299,44 @@ export default function EquipmentCart() {
             </div>
           </div>
         </div>
+        <ShippingModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          order={orderConfirm}
+          shipping={(e) => {  setAddress(e.target.value) }}
+          // days={(e)=>{setRentday(e.target.value)}}
+        />
       </section>
     </>
+  );
+}
+
+
+function ShippingModal(props) {
+  return (
+    <Modal
+      {...props}
+      size="md"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Enter nedded details
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body className=' mx-auto '>
+        <h6 className='fw-bolder mt-1'> Enter Equipment shipping address</h6>
+        <input type="text" name="" id="" placeholder='Enter Shipping Addrees' onChange={props.shipping} className='px-5 text-center' />
+        {/* <h6 className='fw-bolder mt-2'>For How many days you want Eqiupment</h6>
+        <input type="number" name="" id="" placeholder='Enter Shipping Addrees' onChange={props.days} className='px-5 text-center' /> */}
+
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={props.onHide} className='bg-danger border-0'>Close</Button>
+        <Button onClick={props.order} className='bg-success'>Ok</Button>
+
+      </Modal.Footer>
+    </Modal>
   );
 }

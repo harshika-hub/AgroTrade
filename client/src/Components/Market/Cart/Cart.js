@@ -21,8 +21,8 @@ export default function Cart() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
-  const [billGrain, setBillGrain] = useState({});
-  const [billEquip, setBillEquip] = useState({});
+  // const [billGrain, setBillGrain] = useState({});
+  // const [billEquip, setBillEquip] = useState({});
 
   const cartItem = useSelector((state) => state.marketSlice.cartItem);
 

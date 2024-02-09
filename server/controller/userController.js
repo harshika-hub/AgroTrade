@@ -590,8 +590,9 @@ export const removeCartController = async(request, response) => {
             const userId = userIdObj[0]._id;
     
             const cartItems = await cartEqp.aggregate([
+
                 {
-                    $match: { userId: userId }
+                    $match: {$and:[ {userId: userId },{order_e:false}]}
                 },
                 {
                     $unwind: "$equips"
