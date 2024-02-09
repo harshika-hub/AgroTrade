@@ -217,10 +217,11 @@ export default function EquipmentCart() {
                   {items.map((cart, i) => (
                     <div className="row" key={i}>
                       <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                        <img src={`http://localhost:3000/${cart.image}`} className="w-100" alt="Product" />
+                        <img src={`http://localhost:3000/${cart.image}`} className="w-100" style={{height:"25vh"}} alt="Product" />
                       </div>
-
-                      <div className="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                      <div className='col-9'>
+                      <div className="row">
+                      <div className="col-lg-7 col-md-6 mb-4 mb-lg-0">
                         <p><strong>{cart.productName}</strong></p>
                         <p>{cart.productDescription}</p>
                         <p>Rs. {(cart.price) + (cart.price) * (0.25)}</p>
@@ -231,7 +232,7 @@ export default function EquipmentCart() {
 
                       </div>
 
-                      <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                      <div className="col-lg-5 col-md-6 mb-4 mb-lg-0">
                         <div className="d-flex mb-4" style={{ maxWidth: '300px' }}>
                           <button className="btn btn-warning  px-3 me-2" onClick={() => handleClick(cart._id, cart.productId, 'decrement', i)}>
                             <i className="fas fa-minus"></i>
@@ -247,11 +248,13 @@ export default function EquipmentCart() {
                         <p className="text-start text-md-center">
                           <strong>Total: Rs. {(cart.price + (cart.price) * (0.25)) * cart.quantity}</strong>
                         </p>
-
+                        </div>
+                        <input id='rent-day' type="text" className='border-1 w-50 mx-auto' placeholder='for how many days you want Equipment'
+                      onChange={(e) => handleRent(e,i)} />
+                      </div>
                       </div>
 
-                      <input id='rent-day' type="text" className='border-1 w-50 mx-auto' placeholder='for how many days you want Equipment'
-                      onChange={(e) => handleRent(e,i)} />
+                     
 
                       <hr className="my-4" />
                     </div>

@@ -379,7 +379,7 @@ export const addcartController = async (request, response) => {
                 );
             } else {
                 await cart.findOneAndUpdate(
-                    { userId: userId },
+                    { $and:[ {userId: userId},{order_g:false}]},
                     {
                         $push: {
                             products: {
@@ -530,7 +530,7 @@ export const removeCartController = async(request, response) => {
     
             if (existingCart) {
                 const existingProductIndex = existingCart.equips.findIndex(p => p.product.toString() === productId.toString());
-                console.log("existing cart");
+                console.log("existing cart",existingCart);
     
                 if (existingProductIndex !== -1) {
                     const existingProduct=existingCart.equips[existingProductIndex].quantity;
@@ -538,12 +538,12 @@ export const removeCartController = async(request, response) => {
     
                     // If the product is already in the cart, increase the quantity
                     await cartEqp.findOneAndUpdate(
-                        { userId: userId, "products.product": productId },
-                        { $inc: { "products.$.quantity": 1 } }
+                        { userId: userId, "equips.product": productId, order_e:false },
+                        { $inc: { "equips.$.quantity": 1 } }
                     );
                 } else {
                     await cartEqp.findOneAndUpdate(
-                        { userId: userId },
+                       { $and:[ {userId: userId},{order_e:false}]},
                         {
                             $push: {
                                 equips: {
