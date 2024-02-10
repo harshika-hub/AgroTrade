@@ -64,6 +64,31 @@ export const jwtVerification = async()=>{
     }
 }
 
+export const getAgriLandrequest = async()=>{
+    try{
+        console.log("insedddd slice");
+        var email = jscookie.get("userEmail");
+        var result = await axios.get(`${REQUESTED_URL}/getAgriLandrequest/${email}`);
+        console.log("This is the darta in slice ",result);
+        return result.data;
+    }catch(error){
+        console.log("error in jwtVerification commonSlice : ",error);
+    }
+}
+export const getColdStLandrequest = async()=>{
+    try{
+        console.log("insedddd getColdStLandrequest slice");
+        var email = jscookie.get("userEmail");
+        var result = await axios.get(`${REQUESTED_URL}/getColdStLandrequest/${email}`);
+        console.log("This is the darta in slice ",result);
+        return result.data;
+    }catch(error){
+        console.log("error in jwtVerification commonSlice : ",error);
+    }
+}
+
+
+
 export const {setRoleStatus,setRoleStatusOnReload} = commonSlice.actions;
 // export const {getOtp,jwtVerification} = commonSlice.actions;
 export default commonSlice.reducer;

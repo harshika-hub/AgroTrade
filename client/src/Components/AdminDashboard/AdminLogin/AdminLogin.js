@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import jscookie from 'js-cookie';
 import { setRoleStatus } from "../../../store/commonSlice.js";
-
 function AdminLogin() {
   const [adminData,setAdmin] = useState({})
   const dispatch = useDispatch();
@@ -110,6 +109,7 @@ function AdminLogin() {
             </div>
           </div>
         </div>
+        
       </div>
     </div>
   </div>  

@@ -3,7 +3,6 @@ import chatModel from "../models/chatsModal.js";
 import messagesModal from "../models/messageModal.js";
 
 export const createChatController =async (request,response)=>{
-
     try {
         const chats = await chatModel.find({
             members: {
@@ -12,10 +11,8 @@ export const createChatController =async (request,response)=>{
         });
         console.log(chats);
         if (chats.length==0) {
-            console.log("needs new chat");
          const newChat = new  chatModel({ members:[request.body.senderId,request.body.reciverId]});
          newChat.save()
-         console.log("this is the new char id"+newChat._id);  
         
          const newMessage={
             senderId:request.body.senderId,
@@ -27,7 +24,7 @@ export const createChatController =async (request,response)=>{
             const result=await message.save() 
 
         } catch (error) {
-            console.log("error 30",error);
+            console.error("Error in  createChatController",error);
             response.status(500).json(error)
         }
     }
@@ -62,40 +59,27 @@ response.status(200).json({message:"Message Sent Successfully"})
 console.log("success");
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 export const userChatsController = async (request,response)=>{
     try {
-            console.log(request.params);
-            console.log("hii");
         const chats = await chatModel.find({ 
             members:{$in:[request.params.userId]}
         })
         response.status(200).json(chats)
     } catch (error) {
+        console.error("Error in userChatsController",error);
         response.status(500).json(error)
     }
 }
 
 export const findChatController = async (request,response)=>{
     try {
-      
-        const chat=await chatModel.findOne({
+         const chat=await chatModel.findOne({
             members:{$all:[request.params.firstId,request.params.secondId]}
         })
         response.status(200).json(chat)
         
     } catch (error) {
+        console.error("Error in findChatController",error);
         response.status(500).json(error)
     }
 } 

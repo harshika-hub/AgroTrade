@@ -253,7 +253,7 @@ export default function Cart() {
                     </li>
                   </ul>
                   <button type="button" className="btn btn-warning  btn-lg btn-block" onClick={order}>
-                    <Link className='text-decoration-none' >Go to checkout </Link>
+                    Go to checkout
                   </button>
                 </div>
               </div>

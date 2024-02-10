@@ -34,7 +34,7 @@ function OrgNablinks(){
         className="bg-darkgreen d-felx aling-items-center"
       >
         <div className="row m-0">
-          <div className="col-md-8  offset-1">            
+          <div className="col-md-10  offset-1">            
                <ul id="navLinkul" className="nav d-felx justify-content-around  aling-items-center" >
                <li className="nav-item  m-1">
                   <Link to='/orgnization' className=" text-white nav-link">
@@ -71,14 +71,13 @@ function OrgNablinks(){
                   </Link>
                   <ul className="dropdown-menu">
                     <li className="dropdown-item">
-                      <Link className=" text-success nav-link" to="">
+                    <Link className=" text-success nav-link" to="/orgnization/AgriLandContaract">
                         <i className="bi bi-info-circle-fill"></i>&nbsp;Agricuture Land
                       </Link>
                     </li>
 
                     <li className="dropdown-item">
-                      <Link className=" text-success nav-link" to="">
-                        {" "}
+                      <Link className=" text-success nav-link" to="/orgnization/ColdStContaract">
                         <i className="bi bi-gear-wide-connected"></i>&nbsp;ColdStorage Land
                       </Link>
                     </li>

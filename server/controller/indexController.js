@@ -1,12 +1,10 @@
-import {users} from '../models/userModel.js';
-import organizations from "../models/organizationModel.js";
+import {users,agriLand,coldStLands} from '../models/userModel.js';
+import organizations,{contractLandModel,contractLandColdModel} from "../models/organizationModel.js";
 import { sendMail } from '../middleware/nodeMailer.js';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { LOG } from '../middleware/jwtVerification.js';
-import {request,response} from 'express';
-
 dotenv.config();
 
 /* Removable after solving session problem */
@@ -27,34 +25,23 @@ export const indexGetOtpController = async(request,response)=>{
     try{
         if(request.body.message=="user change password"){
             var checkUser = await users.findOne({ email: email });
-            console.log("checkUser",checkUser);
             if(!checkUser){
                 check=false;
             }
         }else if(request.body.message=="org change password"){
-            console.log("inside org");
             var checkOrg = await organizations.findOne({dealer_email:email});
             if(!checkOrg){
                 check = false;
             }
         }
         if(check){
-            console.log("inside org before");
             sendMail(email,subject,body,html);
-            console.log("inside org after");
             var hashed_password = await bcrypt.hash(password,10)  
-            // request.session.email = request.body.email;
-            // request.session.password = hashed_password;
-            // request.session.otp = otp;
-            // request.session.save();
-            
-            /* Removable after solving session problem */
-            
+       
             TEMP_SESSION.email = email;
             TEMP_SESSION.password = hashed_password;
             TEMP_SESSION.otp = otp;
-            /* Removable after solving session problem */
-            
+
             console.log("Email Sended Successfully. Otp : ",otp);
             response.status(200).json({message:"success"});
         }else{
@@ -66,12 +53,7 @@ export const indexGetOtpController = async(request,response)=>{
     }
 }
 
-export const indexUserRegistrationController = async(request,response)=>{
-    console.log(request.body);
-    // var email = request.session.email;
-    // var password = request.session.password;
-    // var real_otp = request.session.otp;
-    
+export const indexUserRegistrationController = async(request,response)=>{    
     /* Removable after solving session problem */
     var email = TEMP_SESSION.email;
     var password = TEMP_SESSION.password;
@@ -114,15 +96,14 @@ export const indexUserRegistrationController = async(request,response)=>{
                     {email:newUser.email},
                     {password:0, _id:0}
                 );
-                console.log("hi ",logData);
                 response.status(200).json({message:"success", token:token, log:logData, role: process.env.ORG_ROLE});
             }
         }catch(error){
-            console.log("Error while user Registration in indexUserRegistrationController : ",error);
+            console.error("Error while user Registration in indexUserRegistrationController : ",error);
             response.status(204).json({message:'error'})
         }
     }else{
-        console.log("Invalid Otp.");
+        console.error("Invalid Otp.");
         response.status(204).json({message:"invalid"});
     }
 }
@@ -156,26 +137,20 @@ export const indexUserLoginController = async (request, response) => {
                     {email:email},
                     {password:0, _id:0, __v:0}
                 );
-                console.log("LogData : ",logData);
                 response.status(200).json({ message:'success', token:token, log:logData, role: process.env.USER_ROLE});
             }
             else {
-                console.log("Password does'nt match");
+                console.error("Password does'nt match");
                 response.status(200).json({ message: 'wrong password' });
             }
         }
     } catch (error) {
-        console.log("Error while login in indexUserLoginController :", error);
+        console.error("Error in indexUserLoginController ", error);
         response.status(500).json({ message: 'error' });
     }
 }
 
-
-
 export const indexOrganizationRegistrantionController = async(request,response)=>{
-    // console.log(request);
-    console.log("hello",request.body);
-    // console.log(request.body.password);
     if(TEMP_SESSION.otp==request.body.otp){
         try{
             var existingOrg = await organizations.findOne({dealer_email:request.body.dealer_email}); 
@@ -206,28 +181,22 @@ export const indexOrganizationRegistrantionController = async(request,response)=
                 console.log(newOrg);
                 console.log("Organization Registered Successfully.");
 
-                // LOG.email = newOrg.dealer_email;
-                // LOG.role = process.env.ORG_ROLE;
-
                 var logData =await organizations.findOne(
                     {dealer_email:newOrg.dealer_email},
                     {password:0, _id:0, __v:0}
                 );
-                console.log("LogData : ",logData);
                 response.status(201).json({ message:'success', token:token, log:logData, role: process.env.ORG_ROLE});
             }
 
         }catch(error){
-            console.log("Error while organization registration in indexOrganizationRegistrationController : ",error);
+            console.error("Error in indexOrganizationRegistrantionController : ",error);
             response.status(500).json({message:"error"})
         }
     }else{
-        console.log("Otp does not match.");
+        console.log("OTP does not match.");
         response.status(200).json({message:"wrong otp"});
     }
 }
-
-
 
 export const indexOrganizationLoginController = async (request, response) => {
     try {
@@ -251,27 +220,22 @@ export const indexOrganizationLoginController = async (request, response) => {
                 var token = jwt.sign(payload, SECRET_KEY, EXPIRY_TIME);
                 console.log("Login Successfully");
 
-                // LOG.email = dealer_email;
-                // LOG.role = process.env.ORG_ROLE;
-
                 var logData = await organizations.findOne(
                     {dealer_email:request.body.dealer_email},
                     {password:0, _id:0, __v:0}
                 );
-                console.log("Logdata : ",logData);
                 response.status(200).json({message:"success",token: token, log: logData, role: process.env.ORG_ROLE}); 
             }
             else {
-                console.log("Password does'nt match");
+                console.error("Password does'nt match");
                 return response.status(200).json({ message: 'wrong password' });
             }
         }
     } catch (error) {
-        console.log("Error while login in indexOrgLoginController :", error);
+        console.error("Error in indexOrganizationLoginController:", error);
         return response.status(500).json({ message: 'error' });
     }
 }
-
 
 export const indexCheckOtpController = async (request, response) => {
     console.log("request.body",request.body);
@@ -297,13 +261,12 @@ export const indexChangePasswordController = async (request, response) => {
         response.status(200).json({ message: 'success' });
     } 
     catch(error){
-        console.log("Error while changing Password : ",error);
+        console.error("Error in indexChangePasswordController: ",error);
         response.status(204).json({ message: `error` });
     }
 }
 
 export const indexOrgChangePasswordController = async (request, response) => {
-    console.log(request.body.password+"    ",TEMP_SESSION.email);
     const  {password,cnfPassword}=request.body;
     const hashed_password = await bcrypt.hash(password,10) 
     try{
@@ -316,7 +279,59 @@ export const indexOrgChangePasswordController = async (request, response) => {
         response.status(200).json({ message: 'success' });
     } 
     catch(error){
-        console.log("Error while changing Password : ",error);
+        console.error("Error in indexOrgChangePasswordController ",error);
         response.status(204).json({ message: `error` });
     }
+}
+
+export const indexgetAgriLandrequestController = async (request, response) => {
+    try {
+        const lands = await agriLand.find({ ownerEmail: request.params.email })
+        const ids = lands.map(land => land._id)
+        const contracts = await contractLandModel.find({ landId: { $in: ids } });
+        const landsMap = new Map(lands.map(land => [land._id.toString(), land]));
+        const factoryOwnerIds = contracts.map(contract => contract.factoryOwnerId);
+        const org = await organizations.find({ _id: { $in: factoryOwnerIds } }).populate('_id');
+        const orgDataMap = new Map(org.map(org => [org._id.toString(), org]));
+        const mergedContracts = contracts.map(contract => {
+            const org = orgDataMap.get(contract.factoryOwnerId.toString());
+            const land = landsMap.get(contract.landId.toString());
+            return {
+                ...contract,
+                org,
+                land
+            };
+        });
+        response.status(200).json(mergedContracts)
+    } catch (err) {
+        console.error("Error in indexgetAgriLandrequestController", err);
+        response.status(500).json({message:"Internal server Error!!"})
+    }
+
+}
+
+export const indexgetColdStLandrequestController = async (request, response) => {
+    try {
+        const lands = await coldStLands.find({ userEmail: request.params.email })
+        const ids = lands.map(land => land._id)
+        const contracts = await contractLandColdModel.find({ landId: { $in: ids } });
+        const landsMap = new Map(lands.map(land => [land._id.toString(), land]));
+        const tenatIds = contracts.map(contract => contract.tenatId);
+        const org = await organizations.find({ _id: { $in: tenatIds } }).populate('_id');
+        const orgDataMap = new Map(org.map(org => [org._id.toString(), org]));
+        const mergedContracts = contracts.map(contract => {
+            const org = orgDataMap.get(contract.tenatId.toString());
+            const land = landsMap.get(contract.landId.toString());
+            return {
+                ...contract,
+                org,
+                land
+            };
+        });
+        response.status(200).json(mergedContracts)
+    } catch (err) {
+        console.error("Error in indexgetColdStLandrequestController", err);
+        response.status(500).json({ message: "Internal server Error!!" })
+    }
+
 }

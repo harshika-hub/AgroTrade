@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { ORGANIZATION_REQUESTED_URL } from '../../../urls';
-import Agri_land_card_book from './Agri-land-book-card/Agrilandcard';
+// import Agri_land_cardCold_book from './Agri-landCold-book-card/Agrilandcard';
+import Agri_landCold_card_book from './Agri-landCold-book-card/Agrilandcoldcard';
+
 import View from './View';
 import jscookie from 'js-cookie';
 import { useDispatch } from 'react-redux';
@@ -51,7 +53,7 @@ export default function OrgColdStorageLand() {
 
 // mapfunction lgana
   storages.map((ColdSt,index)=>{
-    return(<Agri_land_card_book ColdSt={ColdSt} key={index} />)
+    return(<Agri_landCold_card_book ColdSt={ColdSt} key={index} />)
   })
 
       }

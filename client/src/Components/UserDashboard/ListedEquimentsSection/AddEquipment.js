@@ -158,16 +158,23 @@ function AddEquipment(props) {
           quantityField.classList.add('is-valid');
           quantityField.classList.remove('is-invalid');
           checkFields = true;
+          if(e.target.name==="quantity"){
+            quantity=true;
+          }
         } else {
           quantityField.classList.remove('is-valid');
           quantityField.classList.add('is-invalid');
           checkFields = false;
+          if(e.target.name==="quantity"){
+            quantity=true;
+          }
         }
     
         if (value === "") {
           quantityField.classList.remove('is-valid');
           quantityField.classList.remove('is-invalid');
           checkFields = false;
+          
         }
       }
     function checkField(event){
@@ -244,6 +251,7 @@ function AddEquipment(props) {
 
     const handleSubmit=(event)=>{
         event.preventDefault();
+       
         const formData=new FormData();
         for(var key in addEquipmentObj){
             if(addEquipmentObj[key]){
@@ -283,9 +291,98 @@ function AddEquipment(props) {
             setLgShow(false)
           })
     }
+
+
+  
+
+
+
  
     
-    
+// const handleSubmit = (event) => {
+//     event.preventDefault();
+//     console.log('Form submitted');
+
+//     // Debug logs for validation status of each field
+//     console.log('Validation status of each field:');
+//     console.log('Equipment name:', equipmentname);
+//     console.log('Model number:', modelnumber);
+//     console.log('Price:', price);
+//     console.log('State:', state);
+//     console.log('City:', city);
+//     console.log('Address:', address);
+//     console.log('Image:', image);
+//     console.log('Description:', description);
+//     console.log('Equipment type:', equipmenttype);
+//     console.log('Quantity:', quantity);
+//     console.log('Condition:', condition);
+
+//     if (
+//         checkFields &&
+//         equipmentname &&
+//         modelnumber &&
+//         price &&
+//         state &&
+//         city &&
+//         address &&
+//         image &&
+//         description &&
+//         equipmenttype &&
+//         quantity &&
+//         condition
+//     ) {
+//         // Proceed with form submission
+//         console.log('All fields are valid. Proceeding with form submission...');
+//         const formData = new FormData();
+//         for (var key in addEquipmentObj) {
+//             if (addEquipmentObj[key]) {
+//                 formData.append(key, addEquipmentObj[key]);
+//             }
+//         }
+//         const userEmail = jscookie.get("userEmail");
+//         if (userEmail) {
+//             formData.append("userEmail", userEmail);
+//         }
+//         addEquipment(formData)
+//             .then((data) => {
+//                 if (data.message === "success") {
+//                     Swal.fire({
+//                         position: "middle",
+//                         icon: "success",
+//                         title: "Add Successfully",
+//                         showConfirmButton: false,
+//                         timer: 2000
+//                     });
+//                     getEquipments();
+//                 } else {
+//                     Swal.fire({
+//                         icon: "error",
+//                         title: "Oops...",
+//                         text: "Unable to Add Equipment. Please try Again..."
+//                     });
+//                 }
+//                 setLgShow(false);
+//             })
+//             .catch((err) => {
+//                 console.log("err", err);
+//                 Swal.fire({
+//                     icon: "error",
+//                     title: "Oops...",
+//                     text: "Unable to Add Equipment. Please try Again..."
+//                 });
+//                 setLgShow(false);
+//             });
+//     } else {
+//         // Validation failed
+//         console.log('Validation failed. Please check the form for errors.');
+//         Swal.fire({
+//             icon: "error",
+//             title: "Validation Error",
+//             text: "Please fill all required fields correctly."
+//         });
+//     }
+// };
+
 
     return (
         <>

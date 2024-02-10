@@ -99,10 +99,69 @@ const contractLand = new mongoose.Schema({
     },
     description: {
         type: String
+    },
+    userStatus:{
+        type:Boolean
+    },
+    price:{
+        type:Number
+    }, 
+    orgSign: {
+        type: String
+    }, 
+    farmerSign: {
+        type: String
+    },
+    agreementDate:{
+        type:Date
     }
+},{
+    timestamps:true
 })
 
+const contractLandColtSt = new mongoose.Schema({
+    landId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'agriLand',
+        required: true
+    },
+    tenatId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'organisations',
+        required: true
+    },
+    timeDuration: {
+        type: Number
+    },
+    itemType: {
+        type: String
+    },
+    description: {
+        type: String
+    },
+    userStatus: {
+        type: Boolean
+    },
+    price: {
+        type: Number
+    }, 
+    orgSign: {
+        type: String
+    }, 
+    farmerSign: {
+        type: String
+    },
+    agreementDate:{
+        type:Date
+    }
+
+},{
+    timestamps:true
+})
+
+
+const contractLandColdModel = mongoose.model('contractLandColtSt', contractLandColtSt, 'contractLandColtSt');
 const contractLandModel = mongoose.model('contractLand', contractLand, 'contractLand');
 const organisations = mongoose.model('organisations', orgModel, 'organisations');
 export default organisations;
-export {contractLandModel};
+export {contractLandModel,contractLandColdModel};

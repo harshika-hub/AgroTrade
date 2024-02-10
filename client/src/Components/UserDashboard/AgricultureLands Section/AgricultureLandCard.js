@@ -105,8 +105,13 @@ Swal.fire({
                   Address: {Land.address},{Land.zipCode}
                 </h5>
                 <h5 className="darkgreen">
-                  Suitable For: {Land.suitableFor}
+                  Suitable For:  {
+                    Land.suitableFor.map((Grain,index)=>{
+                    return ( <span key={index} class="badge bg-success m-1">{Grain}</span>                                                )
+                    })
+                    }
                 </h5>
+                   
                 <h5 className="card-text text-break darkgreen  landparag">
                   Description: {Land.description}
                 </h5>

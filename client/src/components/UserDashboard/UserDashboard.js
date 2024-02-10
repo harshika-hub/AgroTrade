@@ -122,12 +122,47 @@ function UserdashBoard() {
               <p onClick={() => checUser("/dashboard/listedEquipments")} className="nav-item nav-link ">
                 <i className="fa-solid fa-tractor text-success"></i>&nbsp;Listed Equipments
               </p>
-              <p onClick={() => checUser("/dashboard/agricultureLands")} className="nav-item nav-link">
+              {/* <p onClick={() => checUser("/dashboard/agricultureLands")} className="nav-item nav-link">
                 <i className="fa-solid fa-building-wheat text-success"></i>&nbsp;Agriculture Land
-              </p>
-              <p onClick={() => checUser("/dashboard/coldStorageLand")} className="nav-item nav-link ">
-                <i className="fa-solid fa-warehouse text-success"></i>&nbsp;Cold Storage Land
-              </p>
+              </p> */}
+
+              <div className="nav-item dropdown">
+                <p
+                  className="nav-link dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                >
+                <i className="fa-solid fa-building-wheat text-success"></i>&nbsp;Agriculture Land
+                </p>
+                <div className="dropdown-menu bg-transparent border-0">
+                  <p className="dropdown-item text-white" onClick={() => checUser("/dashboard/agricultureLands")}>
+                    Listed Agriculture Lands
+                  </p>
+                  <p className="dropdown-item text-white" onClick={() => checUser("/dashboard/requestAgricultureLands")}>
+                  Request for Agriculture Land
+                  </p>
+                
+                </div>
+              </div>
+
+
+
+              <div className="nav-item dropdown">
+                <p
+                  className="nav-link dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                >
+                <i className="fa-solid fa-building-wheat text-success"></i>&nbsp;Cold Storage Land
+                </p>
+                <div className="dropdown-menu bg-transparent border-0">
+                  <p className="dropdown-item text-white" onClick={() => checUser("/dashboard/coldStorageLand")}>
+                    Listed Coldstorage Lands
+                  </p>
+                  <p className="dropdown-item text-white" onClick={() => checUser("/dashboard/requestColdStLands")}>
+                  Request for Agriculture Land
+                  </p>
+                
+                </div>
+              </div>
               <p>{
                 !expertStatus && userStatus ? <Button onClick={() => setShow(true)} className="nav-item nav-link">
                   <i className="bi bi-layout-text-window-reverse text-success"></i>&nbsp;

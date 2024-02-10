@@ -8,7 +8,6 @@ import organisations from "../models/organizationModel.js"
 export const adminLoginController = async (request, response) => {
     try {
         const { email, password } = request.body;
-
         var existingAdmin = await admin.findOne({ email: email });
         if (existingAdmin == null) {
             response.status(202).json({ message: 'not exist' });
@@ -36,12 +35,13 @@ export const adminLoginController = async (request, response) => {
                 response.status(201).json({ message: 'success', token: token, log: logData, role: process.env.ADMIN_ROLE });
             }
             else {
-                console.log("Password does'nt match");
+                console.error("Password does'nt match");
                 response.status(200).json({ message: 'wrong password' });
             }
         }
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in adminLoginController", err);
+        response.status(500).json({ message: 'Internnal Server Error!!' });
     }
 } 
 
@@ -52,48 +52,52 @@ export const adminGetUserListController = async (request, response) => {
         console.log("result",result);
         response.status(200).json({ result })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in adminGetUserListController", err);
+        response.status(500).json({ message:"Internal servwer Error!! " })
     }
 }
+
 export const adminGetOrganizationListController = async (request, response) => {
     try {
         var result = await organisations.find();
         console.log("result", result);
         response.status(200).json({ result })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in adminGetOrganizationListController", err);
+        response.status(500).json({ message:"Internal server Error!!" })
     }
 }
+
 export const adminViewsGrainController = async (request, response) => {
     try {
         var result = await grains.find();
         console.log("result", result);
         response.status(200).json({ result })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in adminViewsGrainController", err);
+        response.status(500).json({ message:"Internal server Error!!" })
     }
 }
+
 export const statusUpdateController = async (request, response) => {
     try {
-        console.log("inside statusUpdateController");
         const { _id } = request.body
         var orgObj = await organisations.findOne({ _id: _id });
         var status = orgObj.status;
-        console.log("status",status);
         if (status == "active") {
             await organisations.updateOne({ _id: _id }, { $set: { status: "deactive" } });
-            console.log("inside if");
         }
         else {
             await organisations.updateOne({ _id: _id }, { $set: { status: "active" } });
-            console.log("inside else");
 
         }
         response.status(201).json({ message: "success" })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in statusUpdateController", err);
+        response.status(500).json({ message:"Internal server Error!!" })
     }
 }
+
 export const statusUserController = async (request, response) => {
     try {
         const { _id } = request.body
@@ -107,9 +111,11 @@ export const statusUserController = async (request, response) => {
         }
         response.status(201).json({ message: "success" })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in statusUserController", err);
+        response.status(500).json({ message:"Internal server Error!!" })
     }
 }
+
 export const statusExpertController = async (request, response) => {
     try {
         const { _id } = request.body
@@ -123,9 +129,11 @@ export const statusExpertController = async (request, response) => {
         }
         response.status(201).json({ message: "success" })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in statusExpertController", err);
+        response.status(500).json({ message:"Internal server Error!!" })
     }
 }
+
 export const statusVerifyController = async (request, response) => {
     try {
         const { _id } = request.body
@@ -139,9 +147,11 @@ export const statusVerifyController = async (request, response) => {
         }
         response.status(201).json({ message: "success" })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in statusVerifyController", err);
+        response.status(500).json({ message:"Internal server Error!!" })
     }
 }
+
 export const statusVerifyupdateController = async (request, response) => {
     try {
         const { _id } = request.body
@@ -155,9 +165,11 @@ export const statusVerifyupdateController = async (request, response) => {
         }
         response.status(201).json({ message: "success" })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in statusVerifyupdateController", err);
+        response.status(500).json({ message:"Internal server Error!!" });
     }
 }
+
 export const statusVerifyExpertController = async (request, response) => {
     try {
         const { _id } = request.body
@@ -171,9 +183,11 @@ export const statusVerifyExpertController = async (request, response) => {
         }
         response.status(201).json({ message: "success" })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in statusVerifyExpertController", err);
+        response.status(500).json({ message:"Internal server Error!!" })
     }
 }
+
 export const verifyAdminStatusController = async (request, response) => {
     try {
         const { _id } = request.body
@@ -187,9 +201,11 @@ export const verifyAdminStatusController = async (request, response) => {
         }
         response.status(201).json({ message: "success" })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in verifyAdminStatusController", err);
+        response.status(500).json({ message:"Internal server Error!!" })
     }
 }
+
 export const verifyStatusAdminController = async (request, response) => {
     try {
         const { _id } = request.body
@@ -203,9 +219,11 @@ export const verifyStatusAdminController = async (request, response) => {
         }
         response.status(201).json({ message: "success" })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in verifyStatusAdminController", err);
+        response.status(500).json({ message:"Internal server Error!!" })
     }
 }
+
 export const verifyAdminStatusAgController = async (request, response) => {
     try {
         const { _id } = request.body
@@ -219,9 +237,11 @@ export const verifyAdminStatusAgController = async (request, response) => {
         }
         response.status(201).json({ message: "success" })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in verifyAdminStatusAgController", err);
+        response.status(500).json({ message:"Internal server Error!!" })
     }
 }
+
 export const verifyAdminStatusColdController = async (request, response) => {
     try {
         const { _id } = request.body
@@ -235,7 +255,8 @@ export const verifyAdminStatusColdController = async (request, response) => {
         }
         response.status(201).json({ message: "success" })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in verifyAdminStatusColdController", err);
+        response.status(500).json({ message:"Internal server Error!!" })
     }
 }
 
@@ -244,30 +265,37 @@ export const adminGetExpertListController = async (request, response) => {
         var result = await users.find({ expert_status: true });
         response.status(200).json({ result })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in adminGetExpertListController", err);
+        response.status(500).json({ message:"Internal server Error!!" })
     }
 }
+
 export const adminVeiwEquipmentController = async (request, response) => {
     try {
         var result = await equipments.find();
         response.status(200).json({ result })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in adminVeiwEquipmentController", err);
+        response.status(500).json({ message:"Internal server Error!!" })
     }
 }
+
 export const adminViewsAgriLandController = async (request, response) => {
     try {
         var result = await agriLand.find();
         response.status(200).json({ result })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in adminViewsAgriLandController", err);
+        response.status(500).json({ message:"Internal server Error!!" })
     }
 }
+
 export const adminColdStLandController = async (request, response) => {
     try {
         var result = await coldStLands.find();
         response.status(200).json({ result })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in adminViewsAgriLandController", err);
+        response.status(500).json({ message:"Internal server Error!!" })
     }
 }

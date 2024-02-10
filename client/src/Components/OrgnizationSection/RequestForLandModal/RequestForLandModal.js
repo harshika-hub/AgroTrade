@@ -21,7 +21,9 @@ function RequestForLandModal(props) {
             dealer_email: dealer_email
         })
     }
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("request Going")
         requestForLand(bookRequest)
     }
 
@@ -38,9 +40,18 @@ function RequestForLandModal(props) {
                             <form id="orgExpert" encType="multipart/form-data" onSubmit={handleSubmit}>
                                 <div className="row m-0 w-100">
                                     <div className="col-12 col-md-12 p-2 " id="fee-video">
-                                        <label htmlFor="validationServer01" className="form-label midgreen">Grain Name</label>
-                                        <input name="grainName" type="text" className="form-control form-control-sm"
-                                            id="grainName" placeholder="Enter Grain Name" onChange={getData} required />
+                                        <label htmlFor="validationServer01" className="form-label midgreen">Grain Name</label>                                       
+                                       <select name="grainName"  className="form-control form-control-sm"      id="grainName" onChange={getData} required >
+                                           <option value={null}>Select Grain</option>
+                                       {
+                                         Land.suitableFor.map((Grain,index)=>{
+                                            return ( 
+                                                   <option key={index} value={Grain}>{Grain}</option>)
+                                         })
+                                         }
+                                       </select>
+                                       
+                                       
                                         <div className="valid-feedback">
                                             Correct Grain Name!!
                                         </div>

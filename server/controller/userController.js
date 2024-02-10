@@ -1,6 +1,8 @@
 import { users, grains, equipments, coldStLands, agriLand, cart,cartEqp ,expertBook, grainOrder} from "../models/userModel.js";
 import mongoose from "mongoose";
 import { ObjectId } from 'mongodb';
+import { contractLandModel,contractLandColdModel } from "../models/organizationModel.js";
+
 
 export const newExpertController = async (req, res) => {
     const { experience, education, consultancy_field, consultancy_type, consultancy_fee_video, consultancy_fee_chat, email,grainOrder } = req.body
@@ -12,7 +14,6 @@ export const newExpertController = async (req, res) => {
         certificate: req.file.filename,
         expert_status: true
     };
-
     // Check if consultancy_fee_video exists in req.body, then add it to updateUser
     if (consultancy_fee_video !== undefined) {
         updateUser.consultancy_fee_video = consultancy_fee_video;
@@ -23,44 +24,36 @@ export const newExpertController = async (req, res) => {
         updateUser.consultancy_fee_chat = consultancy_fee_chat;
     }
     try {
-        console.log("body data in expert Controller", req.body);
-        console.log("image", req.file)
         const user = await users.findOneAndUpdate({ email: email }, updateUser, { new: true });
-
-        console.log("updated expert ", user);
         res.status(201).json({ msg: "Expert Details updated" })
     } catch (err) {
-        console.log("error in expertController", err)
+        console.error("Error", err)
         res.status(500).json({ msg: "Error While updating User" })
     }
 
 }
+
 export const getUserController = async (req, res) => {
-    console.log("ooooooooooooooo", req.body)
     try {
-        const userData = await users.aggregate([{ $match: { email: req.body.email } }]);
-        console.log(userData);
+        const userData = await users.aggregate([{ $match:{ email: req.body.email }}]);
         res.status(200).json(userData);
-    } catch (err) {
-        console.log("error while getting user", err)
+    }
+     catch (err) {
+        console.error("Error in getUserController", err)
         res.status(500).json({ msg: "err while fetching user" })
     }
-
-
 }
+
+
 export const updateProfileController = async (req, res) => {
     req.body.image = req.file.filename;
     req.body.user_status = true;
-    console.log("user data in update user router", req.body);
     try {
         const resp = await users.findOneAndUpdate({ email: req.body.email }, { $set: req.body });
         const userData = await users.aggregate([{ $match: { email: req.body.email } }]);
-
-        // console.log("res in complete user", userData);
         res.status(201).json({ result: userData });
-
     } catch (err) {
-        console.log("err while completing profile", err);
+        console.error("Error inupdateProfileController", err);
         res.status(500).json({ msg: "error while updating" });
     }
 }
@@ -71,14 +64,14 @@ export const grainInsertController = async (request, response) => {
             ...request.body,
             image: request.file.filename
         };
-        console.log("grainData", grainData);
         var newGrain = await grains.create(grainData);
-        console.log("Insert Successfully");
         response.status(201).json({ message: "success" })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in grainInsertController", err);
     }
 }
+
+
 export const coldStLandsInsertController = async (request, response) => {
     try {
         const { image, image360 } = request.files;
@@ -88,10 +81,9 @@ export const coldStLandsInsertController = async (request, response) => {
             image360: image360 ? image360[0].filename : null,
         };
         var newGrain = await coldStLands.create(coldStLandsData);
-        console.log("Insert Successfully");
         response.status(201).json({ message: "success" })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in coldStLandsInsertController", err);
     }
 }
 
@@ -100,17 +92,17 @@ export const getGrainController = async (request, response) => {
         var result = await grains.find({ userEmail: request.body.userEmail });
         response.status(201).json({ result })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in getGrainController", err);
     }
 }
+
+
 export const getcoldStLandsController = async (request, response) => {
     try {
         var result = await coldStLands.find({ userEmail: request.body.userEmail });
-        console.log('cold',result);
-        
         response.status(201).json({ result })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in getcoldStLandsController", err);
     }
 }
 
@@ -119,7 +111,7 @@ export const deleteGrainController = async (request, response) => {
         var result = await grains.deleteOne({ _id: request.body.GrainId });
         response.status(201).json({ message: "success" })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in deleteGrainController", err);
     }
 }
 
@@ -128,7 +120,7 @@ export const deleteColdStLandController = async (request, response) => {
         var result = await coldStLands.deleteOne({ _id: request.body.coldStId });
         response.status(201).json({ message: "success" })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in deleteColdStLandController", err);
     }
 }
 
@@ -145,11 +137,12 @@ export const updateColdStLandController = async (request, response) => {
             request.body = { ...request.body, ["image360"]: image360 };
         }
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in updateColdStLandController ", err);
     }
     const result = await coldStLands.updateOne({ _id: _id }, { $set: request.body });
     response.status(201).json({ message: "success" })
 }
+
 export const updateAgriLandController = async (request, response) => {
     const { _id } = request.body;
     try {
@@ -163,7 +156,7 @@ export const updateAgriLandController = async (request, response) => {
             request.body = { ...request.body, ["image360"]: image360 };
         }
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in updateAgriLandController", err);
     }
     const result = await agriLand.updateOne({ _id: _id }, { $set: request.body });
     const Lands = await agriLand.find({ ownerEmail: request.body.ownerEmail });
@@ -179,7 +172,7 @@ export const updateGrainController = async (request, response) => {
             request.body = { ...request.body, ["image"]: image };
         }
     } catch (err) {
-        console.log("err");
+        console.error("Error in updateGrainController",err);
     }
     const result = await grains.updateOne({ _id: _id }, { $set: request.body });
     response.status(201).json({ message: "success" })
@@ -191,12 +184,10 @@ export const addEquipmentController = async (request, response) => {
             ...request.body,
             image: request.file.filename
         };
-        console.log('Equipment--->', equipmentData);
-
         var newEquipment = await equipments.create(equipmentData);
         response.status(201).json({ message: "success" });
     } catch (err) {
-        console.log("addEquipment controller error", err);
+        console.error("Error in addEquipmentController", err);
 
     }
 }
@@ -207,7 +198,7 @@ export const getEquipmentController = async (request, response) => {
         var result = await equipments.find({ userEmail: request.body.userEmail })
         response.status(201).json({ result });
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in getEquipmentController", err);
     }
 }
 
@@ -217,7 +208,7 @@ export const deleteEquipmentController = async (request, response) => {
         var result = await equipments.deleteOne({ _id: request.body.EquipmentId });
         response.status(201).json({ message: "success" })
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in deleteEquipmentController", err);
     }
 }
 
@@ -230,7 +221,7 @@ export const updateEquipmentController = async (request, response) => {
             request.body = { ...request.body, ["image"]: image };
         }
     } catch (err) {
-        console.log("err");
+        console.error("Error in updateEquipmentController");
     }
     const result = await equipments.updateOne({ _id: _id }, { $set: request.body });
     response.status(201).json({ message: "success" })
@@ -244,13 +235,13 @@ export const addAgriLandController = async (request, response) => {
             image: image ? image[0].filename : null,
             image360: image360 ? image360[0].filename : null,
         };
-        console.log(landData);
+        var suitableFor=landData.suitableFor.split(',')
+        landData.suitableFor=suitableFor;
         const newAgriLand = await agriLand.create(landData);
-        console.log("Agriculture Land Inserted Successfully");
         const Lands = await agriLand.find({ ownerEmail: request.body.ownerEmail });
         response.status(201).json({ message: "success", Lands: Lands });
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in addAgriLandController", err);
         response.status(500).json({ message: "Internal Server Error" });
     }
 };
@@ -260,25 +251,24 @@ export const getAgriLandController = async (request, response) => {
         const Lands = await agriLand.find({ ownerEmail: request.query.ownerEmail });
         response.status(201).json({ message: "success", Lands });
     } catch (err) {
-        console.log("err", err);
+        console.error("Error in getAgriLandController", err);
         response.status(500).json({ message: "Internal Server Error" });
     }
 }
+
 export const removeAgriLandController = async (request, response) => {
     try {
-        console.log("hello");
-
         console.log(request.query);
         await agriLand.deleteOne({ _id: request.query._id });
         const Lands = await agriLand.find({ ownerEmail: request.query.ownerEmail });
-        console.log("Land Deleted Sucessfully");
         response.status(201).json({ message: "success", Lands });
     } catch (err) {
-        console.log("error in deleing Land");
-        console.log("err", err);
+
+        console.error("Error in removeAgriLandController", err);
         response.status(500).json({ message: "Internal Server Error" });
     }
 }
+
 export const getExpertContrller = async (req, res) => {
     try {
         const expert = await users.aggregate([{ $match: { expert_status: true } }]);
@@ -289,43 +279,46 @@ export const getExpertContrller = async (req, res) => {
 
         }
     } catch (err) {
+        console.error("Error in getExpertContrller",err);
         res.status(500).json("error while fetching expert");
-
     }
 }
+
 export const getMarketGrainContrller = async (request, response) => {
     try {
         const grain = await grains.find({admin_verify:true});
         response.status(200).json({ grain: grain });
 
     } catch (err) {
-        console.log("error in getMarketGrain", err);
+        console.error("Error in getMarketGrainContrller", err);
         response.status(500).json({ msg: 'err while fetching grain for market' })
 
     }
 
 
 }
+
 export const getMarketEquipmentContrller = async (request, response) => {
     try {
         const equipment = await equipments.find({admin_verify:true});
         response.status(200).json({ equipment: equipment });
 
     } catch (err) {
-        console.log("error in equipment", err);
+        console.error("Error in getMarketEquipmentContrller", err);
         response.status(500).json({ msg: 'err while fetching equiment for market' })
 
     }
 
 
 }
+
 export const getMarketLandContrller = async (request, response) => {
     try {
         const agriland = await agriLand.find({admin_verify:true});
         response.status(200).json({ agriLand: agriland });
 
     } catch (err) {
-        console.log("error in getMarketAgriLand", err);
+        console.error("Error in getMarketLandContrller", err);
         response.status(500).json({ msg: 'err while fetching agriLand for market' })
 
     }
@@ -339,7 +332,7 @@ export const getMarketStorageContrller = async (request, response) => {
         response.status(200).json({ storage: storage });
 
     } catch (err) {
-        console.log("error in getMarketStorage", err);
+        console.error("Error in getMarketStorageContrller", err);
         response.status(500).json({ msg: 'err while fetching storage for market' })
 
     }
@@ -689,7 +682,6 @@ export const removeCartController = async(request, response) => {
             }
            
         }
-
 export const bookExpertController = async (request, response) => {
     try{
         var userObj = await users.findOne({email:request.body.userEmail});
@@ -702,10 +694,9 @@ export const bookExpertController = async (request, response) => {
             expertId:request.body.ExpertId
         }
         var result = await expertBook.create(obj);
-        console.log("result",result);
         response.status(201).json({ message: "success" })
     }catch(err){
-        console.log("err",err);
+        console.error("Error in bookExpertController",err);
     }
 }
 
@@ -758,7 +749,7 @@ export const expertViewDataController = async (request, response) => {
             response.status(500).json({ message: "Internal Server Error" });
         }
     } catch (error) {
-        console.error('Error fetching consulting details:', error);
+        console.error('Error in expertViewDataController', error);
         throw error;
     }
 }
@@ -776,6 +767,82 @@ export const statusVerifyupdateController = async(request, response) => {
         }
         response.status(201).json({message:"success"})
     }catch(err){
-        console.log("err",err);
+        console.error("Error in statusVerifyupdateController ",err);
+        response.status(500).json({message:"Internal server error"})
     }
 }
+
+export const declineColdStRequestController = async (request, response) => {
+    try {
+        const result = await contractLandColdModel.updateOne({ _id: request.body._id }, { $set: { userStatus: false, description: request.body.description } });
+        response.status(201).json({ message: "success" })
+    } catch (err) {
+        console.error("Error in declineColdStRequestController", err);
+        response.status(500).json({ message: "Server Error!!" })
+    }
+}
+
+export const declineRequestController = async(request, response) => {
+    try{
+        const result =await contractLandModel.updateOne({_id:request.body._id},{$set:{userStatus:false,description:request.body.description}});
+        response.status(201).json({message:"success"})
+    }catch(err){
+        console.error("Error in declineRequestController",err);
+        response.status(500).json({message:"Server Error!!"})
+    }
+}
+
+export const acceptColdStRequestController = async (request, response) => {
+    var price = ((25 / 100) * request.body.price) + request.body.price;
+    try {
+        const result = await contractLandColdModel.updateOne({ _id: request.body._id }, { $set: { userStatus: true, description: request.body.description, price: price } });
+        response.status(201).json({ message: "success" })
+    } catch (err) {
+        console.error("Error in acceptColdStRequestController", err);
+        response.status(500).json({ message: "Server Error!!" })
+    }
+}
+
+export const acceptRequestController = async(request, response) => {
+    try{
+        const result =await contractLandModel.updateOne({_id:request.body._id},{$set:{userStatus:true,description:request.body.description,price:request.body.price}});
+        response.status(201).json({message:"success"})
+    }catch(err){
+        console.error("Error in acceptRequestController",err);
+        response.status(500).json({message:"Server Error!!"})
+    }
+}
+
+export const addMessageController = async(request,response)=>{
+    try {
+        console.log(request.body);
+        var messageObj = request.body;
+        var result = await contact.create(messageObj);
+        response.status(201).json({ message: "success",});
+    } catch (error) {
+        console.error("Error in addMessageController"+error);
+        response.status(500).json("Erro in add message controller");
+    }
+}
+
+
+export const farmerSignAgreementController = async(request,response)=>{
+    try {
+        const result =await contractLandModel.updateOne({_id:request.body._id},{$set:{farmerSign:request.body.farmerSign}});
+        response.status(201).json({ message: "success",});
+    } catch (error) {
+        console.error("Error in farmerSignAgreementController"+error);
+        response.status(500).json("Erro in add message controller");
+    }
+}
+
+export const farmerSignedAgreementCdController = async(request,response)=>{
+    try {
+        const result =await contractLandColdModel.updateOne({_id:request.body._id},{$set:{farmerSign:request.body.farmerSign}});
+        response.status(201).json({ message: "success",});
+    } catch (error) {
+        console.error("Error in farmerSignedAgreementCdController "+error);
+        response.status(500).json("Erro in add message controller");
+    }
+}
+

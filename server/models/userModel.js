@@ -249,7 +249,7 @@ const agriLandModel = new mongoose.Schema({
         required: true
     },
     suitableFor: {
-        type: String
+        type: Array
     },
     rent: {
         type: Number,
@@ -491,10 +491,27 @@ const expertBookSchema = new mongoose.Schema({
     }
 });
 
+const userMessage = new mongoose.Schema({
+    userName:{
+        type:String,
+        required:true,
+    },
+    userEmail:{
+        type:String,
+        required:true,
+    },
+    message:{
+        type:String,
+        required:true,
+    }
+})
+
+// export const grainOrder=mongoose.model('grainOrder',orderG,'grainOrder');
+const contact = mongoose.model('userMessage',userMessage,"userMessage");
 const expertBook = mongoose.model('expertBook', expertBookSchema, 'expertBook');
 const agriLand = mongoose.model('agriLand', agriLandModel, 'agriLand');
 const equipments = mongoose.model('equipments', equipmentModel, 'equipments')
 const users = mongoose.model('users', userModel, 'users');
 const grains = mongoose.model('grains', grainModel, 'grains');
 const coldStLands = mongoose.model('coldStLands', coldStorageLandModel, 'coldStLands');
-export { users, grains, equipments, coldStLands, agriLand, cart,cartEqp, expertBook } 
+export { users, grains, equipments, coldStLands, agriLand, cart,cartEqp, expertBook,contact } 

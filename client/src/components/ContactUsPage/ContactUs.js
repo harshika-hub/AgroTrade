@@ -6,10 +6,11 @@ import Image from 'react-bootstrap/Image';
 import React, { useState } from 'react';
 import logo from "../../assets/imagecontactpage.jpg"
 import "./ContactUs.css";
-// import { useDispatch } from 'react-redux';
-// import { authorize } from '../../store/auth/auth.js';
+import {addMessage} from "../../store/userSlice.js"
 import Footer from '../Footer/Footer.js';
 import Header from '../Header/Header.js';
+import Swal from "sweetalert2";
+
 
 var orgObj = {}
 var  Conname = false, Conemail = false ,Conmessage = false;
@@ -42,7 +43,7 @@ function ContactUs() {
             if (event.target.name === 'Con_name') {
                 Conname = true;
             }
-            else if (event.target.email === "Con_email") {
+            else if (event.target.email === "userEmail") {
                 Conemail = true;
             }
             else if (event.target.message === "Con_message") {
@@ -54,7 +55,7 @@ function ContactUs() {
             if(event.target.name === "Con_name"){
                Conname = false; 
             }
-            else if(event.target.email === "Con_email"){
+            else if(event.target.email === "userEmail"){
                 Conemail = false;
             }
             else if(event.target.message === "Con_message"){
@@ -77,7 +78,7 @@ function ContactUs() {
           orgObj = { ...orgObj, [name]: value.trim() }
           EmailField.classList.add('is-valid');
           EmailField.classList.remove('is-invalid');
-          if (e.target.name === "Con_email") {
+          if (e.target.name === "userEmail") {
             Conemail = true;
           }
         }
@@ -124,6 +125,32 @@ function ContactUs() {
         if(Conname && Conemail && Conmessage){
 
         }
+        addMessage(contactData).then((data)=>{   
+            if(data.message=="success"){
+             Swal.fire({
+                 position: "middle",
+                 icon: "success",
+                 title: "Message Send Successfully",
+                 showConfirmButton: false,
+                 timer: 2000
+               });
+               event.target.reset();
+            }
+            else {
+             Swal.fire({
+               icon: "error",
+               title: "Oops...",
+               text: "Unavailable to Send Message. Please try Again...",
+             });
+         }
+         }).catch((err) => {
+             console.log("err", err);
+             Swal.fire({
+               icon: "error",
+               title: "Oops...",
+               text: "Unavailable to Send Message. Please try Again...",
+             });
+           })
     }
 
     return (
@@ -138,7 +165,7 @@ function ContactUs() {
             </div>
             <Container className="container-fluid p-0 mt-5">
                 <Row>
-                    <Col sm={6} id="col">
+                    <Col sm={6} id="col" className="col-sm-6 p-3">
                         <h2 className="textcolor">Have Any Question?</h2>
                         <p className="textcolor" style={{textAlign:"justify"}}>
                             AgroTrade is an innovative online platform revolutionizing
@@ -152,7 +179,7 @@ function ContactUs() {
                             <Form className="needs-validation" id="contactForm" onSubmit={handleSubmit} novalidate>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                     <Form.Label className="textcolor">Your Name</Form.Label>
-                                    <Form.Control type="text" name="Con_name" id="contact_name" onChange={(event) => {validataName(event); getData(event); }} placeholder="Enter Your Name" required />
+                                    <Form.Control type="text" name="userName" id="contact_name" onChange={(event) => {validataName(event); getData(event); }} placeholder="Enter Your Name" required />
                                     <div className="valid-feedback">
                                         Correct name!!
                                     </div>
@@ -162,7 +189,7 @@ function ContactUs() {
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                     <Form.Label className="textcolor">Your Email</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter Your Email" onChange={(event) => { validateEmail(event); getData(event); }} name="Con_email" id="contact_email" required />
+                                    <Form.Control type="email" placeholder="Enter Your Email" onChange={(event) => { validateEmail(event); getData(event); }} name="userEmail" id="contact_email" required />
                                     <div className="valid-feedback">
                                         Correct email!!
                                     </div>
@@ -172,7 +199,7 @@ function ContactUs() {
                                 </Form.Group>
                                 <Form.Group controlId="exampleForm.ControlTextarea1">
                                     <Form.Label className="textcolor">Enter Message</Form.Label>
-                                    <Form.Control as="textarea" rows={5} className='fs-6' size="lg" onChange={(event) => { validateMessage(event); getData(event); }} id="contact_message" name="Con_message" placeholder='Enter Message' required />
+                                    <Form.Control as="textarea" rows={5} className='fs-6' size="lg" onChange={(event) => { validateMessage(event); getData(event); }} id="contact_message" name="message" placeholder='Enter Message' required />
                                     <div className="valid-feedback">
                                         Correct message!!
                                     </div>
@@ -191,7 +218,7 @@ function ContactUs() {
                             </Form>
                         </div>
                     </Col>
-                    <Col sm={6} className="">
+                    <Col sm={6} className="col-sm-6 p-3">
                         <div className="google-map">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14719.188998439324!2d75.86501435!3d22.73577615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1702892842353!5m2!1sen!2sin " allowfullscreen="" title="dddd" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>

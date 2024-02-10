@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import * as PANOLENS from 'panolens';
-import { useEffect } from "react";
+import { useRef } from "react";
 import imgs from "../../../../assets/leaves_Image.jpeg"
 import jscookie from "js-cookie"
 import { addAgriLand } from "../../../../store/userSlice";
@@ -9,6 +9,7 @@ import "./AddLand.css";
 import Swal from "sweetalert2";
 import state_arr from "../../../../City.js";
 import s_a from "../../../../City.js";
+import ListGroup from 'react-bootstrap/ListGroup';
 
 
 
@@ -37,22 +38,17 @@ var checkFields = false,
 function AddAgricultureLand(props) {
     const { sendLands } = props;
     const [lgShow, setLgShow] = useState(false);
-    const [landData, setlandData] = useState(false)
-
-    // var landData={}
-
+    const [landData, setlandData] = useState({})
+    var newGrain=useRef();
     const print_state = () => {
         var option_str = document.getElementById("state");
 
-        console.log('option ', option_str);
-        console.log('state_array ', state_arr);
         // option_str.length = 0;
         option_str.options[0] = new Option('Select State', '');
         option_str.selectedIndex = 0;
         console.log('', state_arr.state_arr);
         for (var i = 0; i < state_arr.state_arr.length; i++) {
             option_str.options[option_str.length] = new Option(state_arr.state_arr[i], state_arr.state_arr[i]);
-            console.log('option_str in loop ', option_str);
         }
     }
     const print_city = (e, city_id) => {
@@ -70,13 +66,14 @@ function AddAgricultureLand(props) {
         checkField(e);
     }
 
-
+    
     function validateName(e) {
         const pattern = /^[a-zA-Z]+(?:\s[a-zA-Z]+)?$/;
         var LandTitle = document.getElementById(e.target.id);
         if (pattern.test(e.target.value)) {
             const { name, value } = e.target;
             setlandData({ ...landData, [name]: value.trim() })
+            console.log("this is land data in name ",landData);
             LandTitle.classList.add('is-valid');
             LandTitle.classList.remove('is-invalid');
             checkFields = true;
@@ -278,34 +275,23 @@ function AddAgricultureLand(props) {
         }
     }
 
-
-
-
-
-
-    // function getData(e){
-    //     const {name,value}=e.target;
-    //     if (e.target.type === "file") {
-    //         const landImg = e.target.files[0];
-    //         landData={...landData,[name]: landImg};
-    //     } 
-    //     else{
-    //         landData={...landData,[name]:value};
-    //         console.log(landData);
-    //     }
-    // }
     function handleSubmit(e) {
+        console.log("this is land data in habdel submit",landData);
         e.preventDefault();
         const formData = new FormData();
         for (var key in landData) {
+
             if (landData[key]) {
                 formData.append(key, landData[key]);
             }
         }
+
+        
         const userEmail = jscookie.get("userEmail");
         if (userEmail) {
             formData.append("ownerEmail", userEmail);
         }
+ 
         addAgriLand(formData).then((data) => {
             if (data.message == "success") {
                 Swal.fire({
@@ -317,6 +303,7 @@ function AddAgricultureLand(props) {
                 });
                 setLgShow(false)
                 sendLands(data.Lands)
+                Grains=[];
             }
             else {
                 Swal.fire({
@@ -335,6 +322,32 @@ function AddAgricultureLand(props) {
             setLgShow(false)
         })
 
+    }
+
+   
+
+
+   if (landData.suitableFor) {
+    var Grains=landData.suitableFor
+   }
+   else{
+    var Grains=[]
+   }
+    function addNewGrain() {
+        if (newGrain.current.value.trim()!="") {
+            Grains.push(newGrain.current.value)
+            setlandData({...landData,["suitableFor"]:[...Grains]});
+            newGrain.current.value="";
+        }
+        
+    }
+  
+
+    function removeGrain(index) {
+        alert("dcjbh")
+    //     console.log(Grains);
+    //   landData.= Grains.splice(index,1)  
+    //   console.log(Grains);      
     }
 
     return (
@@ -427,19 +440,6 @@ function AddAgricultureLand(props) {
                                         </div>
                                         <div className="invalid-feedback">
                                             Please provide a Soil Type.
-                                        </div>
-                                    </div>
-
-                                    <div className="col-12 col-md-6">
-                                        <label htmlFor="validationCustom03" className="form-label midgreen" >
-                                            Suitable for
-                                        </label>
-                                        <input placeholder="Enter Crop for farming" type="text" name="suitableFor" onChange={validateName} className="form-control  form-control-sm mb-1" id="suitableFor" required />
-                                        <div className="valid-feedback">
-                                            Looks Good
-                                        </div>
-                                        <div className="invalid-feedback">
-                                            Please provide  detail.
                                         </div>
                                     </div>
 
@@ -606,9 +606,6 @@ function AddAgricultureLand(props) {
                                             Please provide a Image.
                                         </div>
                                     </div>
-
-
-
                                     <div className="col-12">
                                         <label htmlFor="validationCustom03" className="form-label midgreen"  >
                                             Description
@@ -621,6 +618,29 @@ function AddAgricultureLand(props) {
                                             Please provide a  Description.
                                         </div>
                                     </div>
+
+                                    
+                                    <div className="col-12 col-md-8 mb-2">
+                                        <div class="btn-group w-100" role="group" aria-label="Basic outlined example">
+                                            <input ref={newGrain} className="form-control form-control-sm" type="text" name="" placeholder="Add Grains" />
+                                             <button onClick={addNewGrain} className="btn btn-sm btn-outline-success w-100" type="button">Add</button>
+                                        </div>
+                                   </div>
+
+                                    <div  className="col-12 col-md-4 mb-5 p-1" style={{ maxHeight:"50px",overflowY:"scroll"}}>
+                                    <ul class="list-group">
+                                      {
+                                        // useEffect(()=>{
+                                            Grains.map((Grain,index)=>{
+                                                return ( <li key={index} class="list-group-item d-flex justify-content-between  p-1 text-success list-group-item-success">{Grain}<button type=""  className="btn"><i class="bi bi-trash3 text-end text-danger"></i></button></li>)
+                                            })
+
+                                        // },[landData])
+                                     
+                                      }
+                                    </ul>
+                                   </div>
+
 
                                     <div className="col-12  columns signupbtn-col mt-2">
                                         <div className="d-grid gap-2">

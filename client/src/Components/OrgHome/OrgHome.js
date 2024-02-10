@@ -5,45 +5,15 @@ import { Outlet } from "react-router-dom";
 import { LandMarket, storageMarket } from "../../store/marketSlice.js";
 
 import jscookie from "js-cookie"
+import Footer from "../Footer/Footer.js";
+import AboutUs from "../AboutUsPage/AboutUs.js";
 function OrgHome(){
-
-  // const [agriLands, setAgriland] = useState([]);
-  // const [storages, setStorage] = useState([]);
-  // const dispatch=useDispatch();
-
-  // const getLand = async (token) => {
-  //   const agriLand = await dispatch(LandMarket(token));
-  //   console.log('agriLand in component', agriLand.payload);
-  //   setAgriland(agriLand.payload);
-  // }
-
-  // useEffect(()=>{
-  //   const token = jscookie.get('token')
-  //   getLand(token);
-  // },[])
-
-  
-
- 
-  // const getStorage = async (token) => {
-  //   const storage = await dispatch(storageMarket(token));
-  //   console.log('storage in component', storage.payload);
-  //   setStorage(storage.payload);
-
-  // }
-  // useEffect(()=>{
-  //   const token = jscookie.get('token')
-    
-
-  //   getStorage(token)
-  
-
-  // },[])
- return(<>
-   <Header/>
+  return(<>
+    <Header/>
+  {/* <AboutUs/> */}
    <div>
-   {/* <Outlet context={{agriLands,storages}} /> */}
    <Outlet context={"hello"} />
+   <Footer/>
    </div>
   
  </>)

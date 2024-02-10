@@ -301,6 +301,7 @@ function OrgProfileUpdate(props) {
 
 function handleSubmit(e){
   e.preventDefault();
+  
   console.log("OrgProfileObj",OrgProfileObj);
   const formData=new FormData();
   for(var key in OrgProfileObj){
@@ -353,7 +354,7 @@ function handleSubmit(e){
         setTimeout(print_state, 1000);
       }}
 
-      className="btn btn-outline-success btn-sm"> <i class="bi bi-arrow-up-circle"></i>&nbsp;Edit Here</button>
+      className="btn btn-outline-success btn-sm "> <i class="bi bi-arrow-up-circle"></i>&nbsp;Edit Here</button>
       <Modal size='xl' show={show} 
       onHide={() => setLgShow(false)}
       aria-labelledby="example-modal-sizes-title-lg"
@@ -362,7 +363,7 @@ function handleSubmit(e){
           <Modal.Title>Update Profile</Modal.Title>
         </Modal.Header>
         <Modal.Body className='p-0'>
-        <div className="container-fluid p-3  " >
+        <div className="container-fluid " >
         <div className="container  bg-white p-0" id="OrgFromBox" >
           <div className="row w-100 m-0 g-0 ">
             <div className="col-12 col-md-12 col-lg-7 m-0 pt-3" >
@@ -565,7 +566,7 @@ function handleSubmit(e){
                         id=""
                         className="btn btn-success"
                       >
-                        Get OTP
+                       Update
                       </button>
                     </div>
 

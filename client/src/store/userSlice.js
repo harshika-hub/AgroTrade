@@ -282,5 +282,85 @@ export const statusVerifyupdate = async (payload) => {
     }
 }
 
+export const declineRequest= async (payload) => {
+    console.log("This is status declineRequest", payload);
+    try {
+        var result = await axios.post(USER_REQUESTED_URL + "/declineRequest", payload);
+        console.log("result", result);
+        return result
+    } catch (error) {
+        console.log("error sendData",error);
+        return result
+    }
+}
+
+export const acceptRequest= async (payload) => {
+    console.log("This is status acceptRequest", payload);
+    try {
+        var result = await axios.post(USER_REQUESTED_URL + "/acceptRequest", payload);
+        console.log("result", result);
+        return result
+    } catch (error) {
+        console.log("error sendData",error);
+        return result
+    }
+}
+export const addMessage = async(payload)=>{
+    console.log("This is Contactpage data",payload);
+    try{
+         var result  = await axios.post(USER_REQUESTED_URL+"/addMessage",payload);
+        console.log("result",result);
+        return result.data
+    }catch(error){
+        console.log("error sendData");
+    }
+}
+
+
+export const farmerSignedAgreement=async(payload)=>{
+    console.log("This is Contactpage data",payload);
+    try{
+         var result  = await axios.post(USER_REQUESTED_URL+"/farmerSignAgreement",payload);
+        console.log("result",result);
+        return result.data
+    }catch(error){
+        console.log("error sendData");
+    }
+}
+export const farmerSignedAgreementCd=async(payload)=>{
+    console.log("This is Contactpage data",payload);
+    try{
+         var result  = await axios.post(USER_REQUESTED_URL+"/farmerSignedAgreementCd",payload);
+        console.log("result",result);
+        return result.data
+    }catch(error){
+        console.log("error sendData");
+    }
+}
+
+export const declineColdStRequest= async (payload) => {
+    console.log("This is status declineColdStRequest", payload);
+    try {
+        var result = await axios.post(USER_REQUESTED_URL + "/declineColdStRequest", payload);
+        console.log("result", result);
+        return result
+    } catch (error) {
+        console.log("error sendData",error);
+        return result
+    }
+}
+
+export const acceptColdStRequest= async (payload) => {
+    console.log("This is status acceptColdStRequest", payload);
+    try {
+        var result = await axios.post(USER_REQUESTED_URL + "/acceptColdStRequest", payload);
+        console.log("result", result);
+        return result
+    } catch (error) {
+        console.log("error sendData",error);
+        return result
+    }
+}
+
 export const {setUserData} = userSlice.actions;
 export default userSlice.reducer;

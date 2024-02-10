@@ -1,15 +1,16 @@
 import express from 'express';
 import { upload } from '../middleware/fileUpload.js';
 import { aunthicateJWT } from '../middleware/jwtVerification.js';
-import { statusVerifyupdateController, expertViewDataController, bookExpertController, updateAgriLandController, getExpertContrller, 
+import { farmerSignedAgreementCdController, declineColdStRequestController, acceptColdStRequestController, addMessageController, statusVerifyupdateController, expertViewDataController, bookExpertController, updateAgriLandController, getExpertContrller, 
     addAgriLandController, removeAgriLandController, getAgriLandController,coldStLandsInsertController, updateColdStLandController, 
     deleteColdStLandController,getcoldStLandsController, updateGrainController,deleteGrainController, getGrainController, grainInsertController, 
     getUserController, newExpertController, updateProfileController,addEquipmentController ,getEquipmentController,deleteEquipmentController,
     updateEquipmentController,getMarketGrainContrller,getMarketEquipmentContrller,getMarketLandContrller,getMarketStorageContrller,addcartController,
     getCartController,updateCartController, removeCartController,removeCartequipmentController,updateCartequipmentController,addcartEqpController,
-    equipmentCartController,grainTotalorderController} 
+    equipmentCartController,grainTotalorderController,declineRequestController,acceptRequestController,farmerSignAgreementController} 
      from '../controller/userController.js';
-     import { grainPayController, grainPaycancelController, grainPaysuccessController,equipmentPayController,equipmentPaysuccessController,equipmentPaycancelController } from '../controller/paymentController.js';
+          import { grainPayController, grainPaycancelController, grainPaysuccessController,equipmentPayController,equipmentPaysuccessController,equipmentPaycancelController } from '../controller/paymentController.js';
+
 const userRouter = express.Router();
 userRouter.post("/newExpert",upload.single('certificate'),newExpertController)
 userRouter.post("/getUser",aunthicateJWT,getUserController)
@@ -52,9 +53,16 @@ userRouter.get('/paycancel',grainPaycancelController);
 userRouter.get('/paysuccessequip/:total/:invoice/:address/:id/:day/:shipping',equipmentPaysuccessController);
 userRouter.get('/paycancelequip',equipmentPaycancelController);
 
+userRouter.post("/declineRequest",declineRequestController);
+userRouter.post("/declineColdStRequest",declineColdStRequestController);
+userRouter.post("/acceptColdStRequest",acceptColdStRequestController);
+userRouter.post("/acceptRequest",acceptRequestController);
 userRouter.post("/expertViewData", expertViewDataController);
 userRouter.post("/statusVerifyupdate", statusVerifyupdateController);
 userRouter.post('/bookExpert',bookExpertController);
+userRouter.post('/addMessage',addMessageController);
+userRouter.post('/farmerSignAgreement',farmerSignAgreementController);
+userRouter.post('/farmerSignedAgreementCd',farmerSignedAgreementCdController);
 
 
 export default userRouter;
