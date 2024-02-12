@@ -4,8 +4,8 @@ const chatRouter =express.Router();
 
 
 
-chatRouter.post("/",createChatController)
-chatRouter.get("/:userId",userChatsController)
-chatRouter.get("/find/:firstId/:secondId",findChatController)
+chatRouter.post("/",createChatController);
+chatRouter.get("/:userId",userChatsController);
+chatRouter.get("/find/:firstId/:secondId",findChatController);
 
 export default chatRouter;

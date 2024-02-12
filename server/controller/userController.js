@@ -2,6 +2,8 @@ import { users, grains, equipments, coldStLands, agriLand, cart,cartEqp ,expertB
 import mongoose from "mongoose";
 import { ObjectId } from 'mongodb';
 import { contractLandModel,contractLandColdModel } from "../models/organizationModel.js";
+import { request, response } from "express";
+// import { bookExpert } from "../../client/src/store/userSlice.js";
 
 
 export const newExpertController = async (req, res) => {
@@ -846,3 +848,85 @@ export const farmerSignedAgreementCdController = async(request,response)=>{
     }
 }
 
+export const videoExpertController=async (request,response)=>{
+    try
+    {
+    const {email}=request.params;
+    const user=await users.findOne({email:email})
+    console.log("clientID",user)
+    let result;
+    if(!user.expert_status){
+
+     result=await expertBook.aggregate(
+        [
+            {$match:{clientId:user._id,consultingType:'Video Call'}
+        },
+        {$lookup:{
+            from: 'users',
+            localField: 'expertId',
+            foreignField: '_id',
+            as: 'expert'
+        }
+    },
+    {
+        $unwind: '$expert'
+    },
+    {
+        $project: {
+            _id: 1,
+            expertId: 1,
+            clientId: 1,
+            consultingTopic: 1,
+            consultingType: 1,
+            consultingTime: 1,
+            consultingDate: 1,
+            confirm: 1,
+            'expert.name': 1,
+            'expert.image':1,
+            'expert.expert_status':1
+
+        }
+    }
+    ])
+}else{
+    result=await expertBook.aggregate(
+        [
+            {
+                $match:{expertId:user._id,
+                consultingType:'Video Call'}
+        },
+        {$lookup:{
+            from: 'users',
+            localField: 'clientId',
+            foreignField: '_id',
+            as: 'expert'
+        }
+    },
+    {
+        $unwind: '$expert'
+    },
+    {
+        $project: {
+            _id: 1,
+            expertId: 1,
+            clientId: 1,
+            consultingTopic: 1,
+            consultingType: 1,
+            consultingTime: 1,
+            consultingDate: 1,
+            confirm: 1,
+            'expert.name': 1,
+            'expert.image':1,
+            'expert.expert_status':1
+        }
+    }
+    ])
+}
+
+    console.log("clients expert",result)
+    response.status(200).json({expertList:result});
+    }catch(err){
+        console.log("error occured in clients expert controller",err);
+        response.status(500).json({msg:"error"})
+    }
+}

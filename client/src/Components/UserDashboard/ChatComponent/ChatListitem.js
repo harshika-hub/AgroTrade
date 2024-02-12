@@ -27,14 +27,9 @@ function ChatListitem(props) {
       setReciverObj(obj.data[0])
     }
 
-    getUserData()
-   
+    getUserData();
 
   },[])
-
-
-
-  
     return ( <>
     <div className="card p-0" onClick={()=>{openChat(chat,index,reciverObj)}}>
                 <div className="card-body bg-light m-0 pb-0 p-1 ps-2 pe-2 pt-2">

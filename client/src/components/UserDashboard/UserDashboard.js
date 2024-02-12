@@ -116,6 +116,9 @@ function UserdashBoard() {
               <p onClick={() => checUser("/dashboard/chat")} className="nav-item nav-link ">
                 <i className="fa fa-th me-2 text-success"></i>&nbsp;Chat
               </p>
+              <p onClick={() => checUser("/dashboard/video")} className="nav-item nav-link ">
+                <i className="fa fa-th me-2 text-success"></i>&nbsp;Video
+              </p>
               <p onClick={() => checUser("/dashboard/listedGrain")} className="nav-item nav-link ">
                 <i className="fa fa-th me-2 text-success"></i>&nbsp;Listed Grains
               </p>

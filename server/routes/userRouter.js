@@ -7,7 +7,7 @@ import { farmerSignedAgreementCdController, declineColdStRequestController, acce
     getUserController, newExpertController, updateProfileController,addEquipmentController ,getEquipmentController,deleteEquipmentController,
     updateEquipmentController,getMarketGrainContrller,getMarketEquipmentContrller,getMarketLandContrller,getMarketStorageContrller,addcartController,
     getCartController,updateCartController, removeCartController,removeCartequipmentController,updateCartequipmentController,addcartEqpController,
-    equipmentCartController,grainTotalorderController,declineRequestController,acceptRequestController,farmerSignAgreementController} 
+    equipmentCartController,grainTotalorderController,declineRequestController,acceptRequestController,farmerSignAgreementController,videoExpertController} 
      from '../controller/userController.js';
           import { grainPayController, grainPaycancelController, grainPaysuccessController,equipmentPayController,equipmentPaysuccessController,equipmentPaycancelController } from '../controller/paymentController.js';
 
@@ -63,6 +63,7 @@ userRouter.post('/bookExpert',bookExpertController);
 userRouter.post('/addMessage',addMessageController);
 userRouter.post('/farmerSignAgreement',farmerSignAgreementController);
 userRouter.post('/farmerSignedAgreementCd',farmerSignedAgreementCdController);
+userRouter.get('/videoexpert/:email/:token',videoExpertController);
 
 
 export default userRouter;

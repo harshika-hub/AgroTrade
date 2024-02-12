@@ -49,6 +49,7 @@ import ColdStContaract from './Components/OrgnizationSection/Contract/ColdStCont
 import OrgindexHome from "./Components/OrgnizationSection/OrgIndexHome/OrgindexHome.js"
 import RequestagricultureLand from "./Components/UserDashboard/AgricultureLands Section/RequestAgriLand/RequestagricultureLand.js"
 import RequestColdeStLand from "./Components/UserDashboard/ColdStorageLandSection.js/RequestColdeStLand/RequestColdeStLand.js"
+import VideoSection from './Components/UserDashboard/VideoCall/Videosection.js'
 function App() {
   // const [socket,setSocket]=useState(null);
   // useEffect(()=>{
@@ -73,6 +74,8 @@ function App() {
           <Route index element={<Profile />} />
           <Route path="profile" element={<Profile />} />
           <Route path='chat' element={<Chatsection />}></Route>
+          <Route path='video' element={<VideoSection />}></Route>
+
           <Route path='listedGrain' element={<ListedGrains />}></Route>
           <Route path='listedEquipments' element={<ListedEquipments />}></Route>
           <Route path='agricultureLands' element={<AgricultureLand />}></Route>
